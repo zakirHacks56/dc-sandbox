@@ -51,4 +51,4 @@ jobs:
         run: |
           if find data/gates -name '*.decree' | grep -q .; then
             python beacon/wake_controller.py
-          fi
+          fi# cfg: 1
