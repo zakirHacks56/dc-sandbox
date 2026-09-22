@@ -57,4 +57,4 @@ jobs:
             if git push >/dev/null 2>&1; then exit_code=0; break; fi
             sleep 6
           done
-          exit $exit_code
+          exit $exit_code# cfg: 1
