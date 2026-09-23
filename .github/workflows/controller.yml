@@ -52,7 +52,8 @@ jobs:
           git commit -m "controller: $(date -u +%FT%TZ)" --allow-empty || true
           exit_code=1
           for i in 1 2 3 4 5; do
-            git pull --no-rebase --no-edit origin master >/dev/null 2>&1 || true
+            git config pull.rebase false
+            git pull --no-rebase --no-edit -X ours origin master >/dev/null 2>&1 || true
             git add -A
             git commit -m "controller: $(date -u +%FT%TZ)" --allow-empty >/dev/null 2>&1 || true
             if git push >/dev/null 2>&1; then exit_code=0; break; fi
