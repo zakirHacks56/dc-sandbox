@@ -1,23 +1,12 @@
 {
-<<<<<<< HEAD
-  "conversation_id": "20260923T174924-8f513591",
+  "conversation_id": "20260923T194004-1049c2b4",
   "repo": "Posnic/POS",
   "issue": 434,
-  "created_at": "2026-09-23T17:49:24",
-  "updated_at": "2026-09-23T17:53:33",
+  "created_at": "2026-09-23T19:40:04",
+  "updated_at": "2026-09-23T19:41:41",
   "provider": "omniroute",
-  "model": "gemini-3.6-flash",
-  "message_count": 18,
-=======
-  "conversation_id": "20260923T174627-ab1fcb96",
-  "repo": "Posnic/POS",
-  "issue": 434,
-  "created_at": "2026-09-23T17:46:27",
-  "updated_at": "2026-09-23T17:48:55",
-  "provider": "omniroute",
-  "model": "gemini-3.6-flash",
-  "message_count": 15,
->>>>>>> 136fbf2008ddc1cc6c583b152fca57d7dc49d344
+  "model": "google/gemini-2.5-flash",
+  "message_count": 4,
   "rounds": 0,
   "archived_conversation_ids": [],
   "transcript": "conversations/Posnic-POS/issue-434/transcript.log",
