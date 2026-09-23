@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-23T20:48:14",
+  "updated_at": "2026-09-23T20:54:26",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -76,6 +76,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-23T20:48:14"
+    },
+    "Posnic/POS#424": {
+      "repo": "Posnic/POS",
+      "issue": 424,
+      "issue_title": "Ecwid connector: add order status mapping fixture",
+      "workflow_path": "workflows/Posnic-POS/issue-424.json",
+      "conversation_dir": "conversations/Posnic-POS/issue-424",
+      "workspace": "workspace/Posnic-POS/issue-424",
+      "conversation_id": "20260923T205337-8d90c99a",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-424",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-23T20:54:26"
     }
   }
 }
