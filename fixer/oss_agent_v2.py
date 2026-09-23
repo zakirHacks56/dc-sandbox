@@ -2873,9 +2873,51 @@ def _apply_diff_fuzzy(
     return touched
 
 
+def _normalize_hybrid_blocks(fix_text: str) -> str:
+    """The Gemini fallback models often MERGE the two output formats: they
+    write 'FILE: <path>' then a unified diff (or the raw file content) then
+    '<<<END>>>', skipping the '<<<CONTENT>>>' marker entirely. Neither the
+    fenced-diff regex nor the strict full-file regex matches that, so every
+    attempt dies with 'Could not parse'. Rewrite such blocks into the exact
+    shapes the existing parsers understand:
+      * FILE: <path> + unified-diff body  -> fenced ```diff block
+      * FILE: <path> + content + <<<END>>> -> full-file block with <<<CONTENT>>>
+    Blocks that already contain <<<CONTENT>>> are left untouched."""
+    def _rewrite(m):
+        path = m.group(1).strip()
+        body = m.group(2)
+        if "<<<CONTENT>>>" in body:
+            return m.group(0)
+        body = re.sub(r"[ \t]*<<<END>>>[ \t]*$", "", body).rstrip("\n")
+        inner = body.strip("\n")
+        if not inner:
+            return m.group(0)
+        looks_like_diff = (
+            "\n+++ " in ("\n" + inner)
+            or inner.startswith("--- ")
+            or inner.startswith("+++ ")
+        )
+        if looks_like_diff:
+            if not inner.startswith("--- ") and not inner.startswith("+++ "):
+                inner = f"--- a/{path}\n{inner}"
+            if "\n+++ b/" not in ("\n" + inner):
+                inner = f"{inner}\n+++ b/{path}"
+            if "@@" not in inner:
+                inner = f"@@ -1,1 +1,1 @@\n{inner}"
+            return f"```diff\n{inner}\n```"
+        return f"FILE: {path}\n<<<CONTENT>>>\n{inner}\n<<<END>>>"
+
+    pattern = re.compile(
+        r"(?m)^[ \t]*FILE:[ \t]*([^\s]+)[ \t]*\n(.*?)(?=^[ \t]*FILE:|\Z)",
+        re.DOTALL,
+    )
+    return pattern.sub(_rewrite, fix_text)
+
+
 def apply_fix(
     repo_dir: Path, fix_text: str, allowed_paths: set = None, relevant_files: list = None
 ):
+    fix_text = _normalize_hybrid_blocks(fix_text)
     # --- Preferred path: unified diff (git apply) ---
     # Diffs only touch the lines that actually changed, so a model that
     # only saw a truncated file can never accidentally wipe the rest of
