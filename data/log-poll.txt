@@ -1920,5 +1920,10 @@
 2026-09-23T04:14:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T04:15:28+00:00  gate poller start (offset=746150288)
 2026-09-23T04:15:36+00:00  gate poller done: 0 decree(s), new offset=746150288
+<<<<<<< HEAD
 2026-09-23T04:16:46+00:00  gate poller start (offset=746150288)
 2026-09-23T04:16:55+00:00  gate poller done: 0 decree(s), new offset=746150288
+=======
+2026-09-23T04:16:33+00:00  gate poller start (offset=746150288)
+2026-09-23T04:16:42+00:00  gate poller done: 0 decree(s), new offset=746150288
+>>>>>>> 40ff163e46c25eb504cdef8829e131c6b2df8923
