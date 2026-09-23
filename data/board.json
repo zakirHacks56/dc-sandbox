@@ -3,7 +3,8 @@
   "attempted": {
     "Posnic/POS": [
       446,
-      436
+      436,
+      434
     ]
   },
   "lanes": {
@@ -16,7 +17,12 @@
       "state": "PAUSED",
       "pr": null,
       "updated": "2026-09-23T20:07:31+00:00"
+    },
+    "Posnic/POS#434": {
+      "state": "PAUSED",
+      "pr": null,
+      "updated": "2026-09-23T20:23:57+00:00"
     }
   },
-  "last_tick": "2026-09-23T20:07:31+00:00"
+  "last_tick": "2026-09-23T20:23:57+00:00"
 }
