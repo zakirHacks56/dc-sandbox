@@ -53,3 +53,20 @@ jobs:
           if find data/gates -name '*.decree' | grep -q .; then
             python beacon/wake_controller.py
           fi
+      - name: notify on failure
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          python - <<'EOF'
+          import json, os, urllib.request
+          tok = os.getenv("TELEGRAM_BOT_TOKEN", ""); chat = os.getenv("TELEGRAM_CHAT_ID", "")
+          if not (tok and chat): raise SystemExit(0)
+          msg = "gate-poll FAILED -- decrees may be stuck"
+          try:
+              body = json.dumps({"chat_id": chat, "text": msg}).encode()
+              urllib.request.urlopen(urllib.request.Request(
+                  "https://api.telegram.org/bot{}/sendMessage".format(tok), data=body,
+                  headers={"Content-Type": "application/json"}), timeout=20)
+          except Exception:
+              pass
+          EOF

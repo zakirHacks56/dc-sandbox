@@ -60,3 +60,22 @@ jobs:
             sleep 6
           done
           exit $exit_code
+      - name: notify on failure
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          python - <<'EOF'
+          import json, os, urllib.request
+          tok = os.getenv("TELEGRAM_BOT_TOKEN", ""); chat = os.getenv("TELEGRAM_CHAT_ID", "")
+          if not (tok and chat): raise SystemExit(0)
+          msg = "controller tick FAILED -- machine may be stuck"
+          for host in ("api.telegram.org",):
+              try:
+                  body = json.dumps({"chat_id": chat, "text": msg}).encode()
+                  r = urllib.request.urlopen(urllib.request.Request(
+                      f"https://{host}/bot{tok}/sendMessage", data=body,
+                      headers={"Content-Type": "application/json"}), timeout=20)
+                  break
+              except Exception:
+                  continue
+          EOF

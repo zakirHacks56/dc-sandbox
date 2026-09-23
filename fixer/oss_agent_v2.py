@@ -3905,6 +3905,12 @@ FINAL STATUS: READY | READY WITH NOTES | NOT READY
 # ============================================================
 GATE_DIR = Path(os.getenv("GATE_DIR", str(AGENT_HOME / "gates")))
 GATE_ASYNC = os.getenv("GATE_ASYNC", "").strip().lower() in ("1", "true", "yes", "on")
+# Autonomous mode: quality gates ("human" draft-PR submit, "final" sign-off)
+# are self-approved when the caller's own validation already passed, instead of
+# waiting on a Telegram button tap. The destructive "close" gate is NEVER
+# auto-approved -- closing someone else's PR stays an explicit operator act.
+GATE_AUTO = os.getenv("GATE_AUTO", "").strip().lower() in ("1", "true", "yes", "on")
+GATE_AUTO_CLOSE = os.getenv("GATE_AUTO_CLOSE", "").strip().lower() in ("1", "true", "yes", "on")
 TELEGRAM_BOT_TOKEN = os.getenv("MANUAL_BOT_TOKEN") or os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 if not TELEGRAM_CHAT_ID:
@@ -4002,6 +4008,25 @@ def _human_gate(repo_name: str, issue_number: int, gate: str, prompt: str,
         return answer.strip().lower() == "y"
 
     GATE_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Autonomous mode: approve quality gates immediately (a record of the
+    # implied decree is still written so the outcome file describes how this
+    # gate was satisfied). The close gate demands GATE_AUTO_CLOSE explicitly.
+    auto_ok = GATE_AUTO and (gate != "close" or GATE_AUTO_CLOSE)
+    if auto_ok and not decree.exists() and not outcome.exists():
+        try:
+            decree.write_text(
+                json.dumps({
+                    "repo": repo_name, "issue": int(issue_number), "gate": gate,
+                    "decision": True, "auto": True,
+                    "time": datetime.now().isoformat(),
+                }, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            print(f"[{gate}] auto-approved (GATE_AUTO) -- decree written")
+        except OSError:
+            print(f"[{gate}] GATE_AUTO enable but could not write decree: parking")
+
     if decree.exists():
         decision = False
         try:

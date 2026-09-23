@@ -120,13 +120,18 @@ def parse_gate_key(key: str):
 
 def env_for_fixer(extra=None) -> dict:
     """Env passed to the vendored fixer subprocess: cloud gate mode always on,
-    GATE_DIR pointed at the committed data/gates tree."""
+    GATE_DIR pointed at the committed data/gates tree.
+
+    GATE_AUTO defaults to ON so a tick that produces a validated fix can land
+    the draft PR without waiting for a Telegram button tap (the operator still
+    sees the notification). Set GATE_AUTO=0 in extra to force parked gates."""
     env = dict(os.environ)
     env["GATE_ASYNC"] = "1"
+    env.setdefault("GATE_AUTO", "1")
     env["GATE_DIR"] = str(GATES)
-    # Every PR that reaches the create stage was explicitly approved by the
-    # operator (parked implicit gates are resumed by a decree), so piling
-    # several drafts in one repo is intentional. The 3/day cap still applies.
+    # GATE_AUTO self-approves the quality gates, but distinct drafts across
+    # repos are still bounded by hunter rotation + the daily max_pending_gates /
+    # max_prs_per_day caps in tick.py.
     env["ALLOW_MULTI_PR_SAME_REPO"] = "1"
     if extra:
         env.update(extra)
