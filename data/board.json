@@ -2,34 +2,15 @@
   "date": "2026-09-23",
   "attempted": {
     "Posnic/POS": [
-      446,
-      436,
-      434
+      446
     ]
   },
   "lanes": {
     "Posnic/POS#446": {
-      "state": "IMPLEMENTING",
-      "pr": null,
-      "updated": "2026-09-23T18:09:35+00:00"
-    },
-    "Posnic/POS#436": {
       "state": "PAUSED",
       "pr": null,
-      "updated": "2026-09-23T18:18:07+00:00"
-    },
-    "Posnic/POS#434": {
-      "state": "PAUSED",
-      "pr": null,
-<<<<<<< HEAD
-      "updated": "2026-09-23T19:41:41+00:00"
+      "updated": "2026-09-23T19:49:52+00:00"
     }
   },
-  "last_tick": "2026-09-23T19:41:41+00:00"
-=======
-      "updated": "2026-09-23T19:39:14+00:00"
-    }
-  },
-  "last_tick": "2026-09-23T19:39:14+00:00"
->>>>>>> 3f9d2435d1eaea0cd5a0be918b581a3129de3ad2
+  "last_tick": "2026-09-23T19:49:52+00:00"
 }
