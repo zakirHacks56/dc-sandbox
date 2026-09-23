@@ -1,0 +1,14 @@
+{
+  "conversation_id": "20260923T212010-54144700",
+  "repo": "taranis-ai/taranis-ai",
+  "issue": 283,
+  "created_at": "2026-09-23T21:20:10",
+  "updated_at": "2026-09-23T21:20:50",
+  "provider": "omniroute",
+  "model": "google/gemini-2.5-flash",
+  "message_count": 6,
+  "rounds": 0,
+  "archived_conversation_ids": [],
+  "transcript": "conversations/taranis-ai-taranis-ai/issue-283/transcript.log",
+  "messages": "conversations/taranis-ai-taranis-ai/issue-283/messages.jsonl"
+}
