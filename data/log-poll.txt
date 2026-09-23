@@ -89,25 +89,16 @@
 2026-09-22T16:58:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T16:59:21+00:00  gate poller start (offset=746150288)
 2026-09-22T16:59:30+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T17:01:19+00:00  gate poller start (offset=746150288)
 2026-09-22T17:01:27+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T17:01:08+00:00  gate poller start (offset=746150288)
 2026-09-22T17:01:17+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 9be646a5e629b0fad95b9d4988fee70ee7f3042d
-<<<<<<< HEAD
 2026-09-22T17:02:58+00:00  gate poller start (offset=746150288)
 2026-09-22T17:03:07+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T17:02:16+00:00  gate poller start (offset=746150288)
 2026-09-22T17:02:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T17:03:13+00:00  gate poller start (offset=746150288)
 2026-09-22T17:03:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> 37bbc7a083db7e5f50e267994b1ca4c1e6a1dc45
->>>>>>> b6a7a62a0d7261636495bab695fa74d1fee52dd0
 2026-09-22T17:04:17+00:00  gate poller start (offset=746150288)
 2026-09-22T17:04:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:05:21+00:00  gate poller start (offset=746150288)
@@ -116,13 +107,10 @@
 2026-09-22T17:06:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:07:14+00:00  gate poller start (offset=746150288)
 2026-09-22T17:07:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T17:08:16+00:00  gate poller start (offset=746150288)
 2026-09-22T17:08:41+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T17:08:20+00:00  gate poller start (offset=746150288)
 2026-09-22T17:08:28+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 445bf57a0826548c481ab89acd1e8d7ac2fe31c8
 2026-09-22T17:09:17+00:00  gate poller start (offset=746150288)
 2026-09-22T17:09:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:10:30+00:00  gate poller start (offset=746150288)
@@ -133,13 +121,10 @@
 2026-09-22T17:12:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:13:13+00:00  gate poller start (offset=746150288)
 2026-09-22T17:13:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T17:14:24+00:00  gate poller start (offset=746150288)
 2026-09-22T17:14:32+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T17:14:14+00:00  gate poller start (offset=746150288)
 2026-09-22T17:14:22+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 7afc22cb4aadbce9a3aa1b9616dcf18ce58d5cd2
 2026-09-22T17:15:33+00:00  gate poller start (offset=746150288)
 2026-09-22T17:15:41+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:16:14+00:00  gate poller start (offset=746150288)
@@ -160,13 +145,10 @@
 2026-09-22T17:23:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:24:16+00:00  gate poller start (offset=746150288)
 2026-09-22T17:24:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T17:25:20+00:00  gate poller start (offset=746150288)
 2026-09-22T17:25:29+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T17:25:16+00:00  gate poller start (offset=746150288)
 2026-09-22T17:25:22+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 5cd5e6f3a5148b2470879043d4a667beea337d64
 2026-09-22T17:25:52+00:00  gate poller start (offset=746150288)
 2026-09-22T17:26:01+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:26:17+00:00  gate poller start (offset=746150288)
@@ -177,13 +159,10 @@
 2026-09-22T17:28:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:29:15+00:00  gate poller start (offset=746150288)
 2026-09-22T17:29:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T17:31:32+00:00  gate poller start (offset=746150288)
 2026-09-22T17:31:41+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T17:31:15+00:00  gate poller start (offset=746150288)
 2026-09-22T17:31:24+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> c118b4b29af771b3a41494f3371c331fcff47c59
 2026-09-22T17:32:15+00:00  gate poller start (offset=746150288)
 2026-09-22T17:32:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:33:12+00:00  gate poller start (offset=746150288)
@@ -206,18 +185,12 @@
 2026-09-22T17:40:36+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:41:13+00:00  gate poller start (offset=746150288)
 2026-09-22T17:41:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T17:42:14+00:00  gate poller start (offset=746150288)
 2026-09-22T17:42:17+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T17:41:57+00:00  gate poller start (offset=746150288)
 2026-09-22T17:42:05+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T17:42:16+00:00  gate poller start (offset=746150288)
 2026-09-22T17:42:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> e11b892fe5607c6bcee762e08bc8f6b4a0492a90
->>>>>>> 9915af9607d78514382569e170f58bc4074708f1
 2026-09-22T17:43:13+00:00  gate poller start (offset=746150288)
 2026-09-22T17:43:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:44:15+00:00  gate poller start (offset=746150288)
@@ -228,13 +201,10 @@
 2026-09-22T17:46:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:47:18+00:00  gate poller start (offset=746150288)
 2026-09-22T17:47:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T17:48:16+00:00  gate poller start (offset=746150288)
 2026-09-22T17:48:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T17:48:14+00:00  gate poller start (offset=746150288)
 2026-09-22T17:48:17+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> cd021b7977a7d69e5fa96fee4b377af0314f75ef
 2026-09-22T17:49:12+00:00  gate poller start (offset=746150288)
 2026-09-22T17:49:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:50:28+00:00  gate poller start (offset=746150288)
@@ -245,23 +215,14 @@
 2026-09-22T17:52:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:53:16+00:00  gate poller start (offset=746150288)
 2026-09-22T17:53:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T17:54:56+00:00  gate poller start (offset=746150288)
 2026-09-22T17:55:02+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T17:54:17+00:00  gate poller start (offset=746150288)
 2026-09-22T17:54:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T17:55:07+00:00  gate poller start (offset=746150288)
 2026-09-22T17:55:15+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> 529666b80f517f7c959b1aefced58d8d0f665a29
-<<<<<<< HEAD
 2026-09-22T17:55:18+00:00  gate poller start (offset=746150288)
 2026-09-22T17:55:27+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> 3c656809e270f7c62a05dc48309372f8103d0168
->>>>>>> 65cd3e4c09450303fb7a21fcab1636d3d02bd744
 2026-09-22T17:56:16+00:00  gate poller start (offset=746150288)
 2026-09-22T17:56:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:57:14+00:00  gate poller start (offset=746150288)
@@ -272,13 +233,10 @@
 2026-09-22T17:59:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T17:59:38+00:00  gate poller start (offset=746150288)
 2026-09-22T17:59:46+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T18:01:15+00:00  gate poller start (offset=746150288)
 2026-09-22T18:01:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T18:01:02+00:00  gate poller start (offset=746150288)
 2026-09-22T18:01:10+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 3899e1eb62a2eb5f667cd5c149dc344c8ba3692e
 2026-09-22T18:02:24+00:00  gate poller start (offset=746150288)
 2026-09-22T18:02:33+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T18:03:12+00:00  gate poller start (offset=746150288)
@@ -295,13 +253,10 @@
 2026-09-22T18:08:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T18:09:13+00:00  gate poller start (offset=746150288)
 2026-09-22T18:09:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T18:11:16+00:00  gate poller start (offset=746150288)
 2026-09-22T18:11:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T18:11:09+00:00  gate poller start (offset=746150288)
 2026-09-22T18:11:17+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 3a186e39b514317d4cc5ec3df57bd4e9da6d4085
 2026-09-22T18:12:15+00:00  gate poller start (offset=746150288)
 2026-09-22T18:12:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T18:12:51+00:00  gate poller start (offset=746150288)
@@ -366,18 +321,12 @@
 2026-09-22T18:38:58+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T18:39:17+00:00  gate poller start (offset=746150288)
 2026-09-22T18:39:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T18:41:02+00:00  gate poller start (offset=746150288)
 2026-09-22T18:41:11+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T18:40:58+00:00  gate poller start (offset=746150288)
 2026-09-22T18:41:03+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T18:41:13+00:00  gate poller start (offset=746150288)
 2026-09-22T18:41:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> f32ebcd9a5bfa57003a3db7447569e90495cbd11
->>>>>>> c8a38e101156aadc2ee8fd94d57afec2ce434b8d
 2026-09-22T18:42:17+00:00  gate poller start (offset=746150288)
 2026-09-22T18:42:26+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T18:43:12+00:00  gate poller start (offset=746150288)
@@ -396,13 +345,10 @@
 2026-09-22T18:49:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T18:50:27+00:00  gate poller start (offset=746150288)
 2026-09-22T18:50:36+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T18:51:13+00:00  gate poller start (offset=746150288)
 2026-09-22T18:51:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T18:51:11+00:00  gate poller start (offset=746150288)
 2026-09-22T18:51:14+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 878e8f1e47164ef7a56f1838b4498b48969c9921
 2026-09-22T18:52:14+00:00  gate poller start (offset=746150288)
 2026-09-22T18:52:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T18:53:15+00:00  gate poller start (offset=746150288)
@@ -417,22 +363,16 @@
 2026-09-22T18:56:27+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T18:57:13+00:00  gate poller start (offset=746150288)
 2026-09-22T18:57:15+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T18:58:31+00:00  gate poller start (offset=746150288)
 2026-09-22T18:58:39+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T18:58:18+00:00  gate poller start (offset=746150288)
 2026-09-22T18:58:26+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 9eba144a1d1f23bd9867f45e1bc46b6df15798e4
 2026-09-22T18:59:14+00:00  gate poller start (offset=746150288)
 2026-09-22T18:59:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T19:01:13+00:00  gate poller start (offset=746150288)
 2026-09-22T19:01:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T19:01:04+00:00  gate poller start (offset=746150288)
 2026-09-22T19:01:12+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 3f0db1b88aab00b8b3437f3553398627a1414ee9
 2026-09-22T19:02:17+00:00  gate poller start (offset=746150288)
 2026-09-22T19:02:26+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:03:12+00:00  gate poller start (offset=746150288)
@@ -443,13 +383,10 @@
 2026-09-22T19:05:29+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:06:16+00:00  gate poller start (offset=746150288)
 2026-09-22T19:06:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T19:07:13+00:00  gate poller start (offset=746150288)
 2026-09-22T19:07:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T19:07:08+00:00  gate poller start (offset=746150288)
 2026-09-22T19:07:15+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> cdf72b39aa5aa01382e32c23a475ff0e39d49e80
 2026-09-22T19:08:15+00:00  gate poller start (offset=746150288)
 2026-09-22T19:08:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:09:16+00:00  gate poller start (offset=746150288)
@@ -460,13 +397,10 @@
 2026-09-22T19:11:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:12:14+00:00  gate poller start (offset=746150288)
 2026-09-22T19:12:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T19:13:18+00:00  gate poller start (offset=746150288)
 2026-09-22T19:13:27+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T19:13:01+00:00  gate poller start (offset=746150288)
 2026-09-22T19:13:09+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 33880fbeb4c78069b47aaa16991a73a2f0026214
 2026-09-22T19:14:15+00:00  gate poller start (offset=746150288)
 2026-09-22T19:14:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:15:30+00:00  gate poller start (offset=746150288)
@@ -515,13 +449,10 @@
 2026-09-22T19:33:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:34:15+00:00  gate poller start (offset=746150288)
 2026-09-22T19:34:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T19:35:26+00:00  gate poller start (offset=746150288)
 2026-09-22T19:35:35+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T19:35:19+00:00  gate poller start (offset=746150288)
 2026-09-22T19:35:28+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> d6a4dc391ca5b680e23d05d5f3516d58ce50631b
 2026-09-22T19:36:15+00:00  gate poller start (offset=746150288)
 2026-09-22T19:36:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:37:12+00:00  gate poller start (offset=746150288)
@@ -538,18 +469,12 @@
 2026-09-22T19:42:18+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:43:15+00:00  gate poller start (offset=746150288)
 2026-09-22T19:43:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T19:44:18+00:00  gate poller start (offset=746150288)
 2026-09-22T19:44:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T19:43:59+00:00  gate poller start (offset=746150288)
 2026-09-22T19:44:07+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T19:44:26+00:00  gate poller start (offset=746150288)
 2026-09-22T19:44:34+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> 4d2742cfba8cba95f592d50a2df990283b54f87f
->>>>>>> 47f640cf91ed662fa3d79a35cf6070e7e16ece61
 2026-09-22T19:45:32+00:00  gate poller start (offset=746150288)
 2026-09-22T19:45:40+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:46:14+00:00  gate poller start (offset=746150288)
@@ -562,13 +487,10 @@
 2026-09-22T19:49:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:50:28+00:00  gate poller start (offset=746150288)
 2026-09-22T19:50:37+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T19:51:15+00:00  gate poller start (offset=746150288)
 2026-09-22T19:51:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T19:51:07+00:00  gate poller start (offset=746150288)
 2026-09-22T19:51:15+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> c9fd8bb8d727b6982e83f51add5c1e541ec082a6
 2026-09-22T19:52:15+00:00  gate poller start (offset=746150288)
 2026-09-22T19:52:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:53:13+00:00  gate poller start (offset=746150288)
@@ -581,24 +503,18 @@
 2026-09-22T19:56:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:56:31+00:00  gate poller start (offset=746150288)
 2026-09-22T19:56:39+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T19:57:23+00:00  gate poller start (offset=746150288)
 2026-09-22T19:57:32+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T19:57:16+00:00  gate poller start (offset=746150288)
 2026-09-22T19:57:25+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 438fc4c74d633a7f89a94c7432ea15d790093d87
 2026-09-22T19:58:14+00:00  gate poller start (offset=746150288)
 2026-09-22T19:58:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T19:59:11+00:00  gate poller start (offset=746150288)
 2026-09-22T19:59:19+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T20:01:12+00:00  gate poller start (offset=746150288)
 2026-09-22T20:01:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T20:00:58+00:00  gate poller start (offset=746150288)
 2026-09-22T20:01:06+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> f66ff9b8682e2bd8ef5c909e266fec82a34c5933
 2026-09-22T20:02:14+00:00  gate poller start (offset=746150288)
 2026-09-22T20:02:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T20:03:13+00:00  gate poller start (offset=746150288)
@@ -631,18 +547,12 @@
 2026-09-22T20:15:51+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T20:16:14+00:00  gate poller start (offset=746150288)
 2026-09-22T20:16:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T20:17:13+00:00  gate poller start (offset=746150288)
 2026-09-22T20:17:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
-<<<<<<< HEAD
 2026-09-22T20:17:12+00:00  gate poller start (offset=746150288)
 2026-09-22T20:17:14+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T20:16:59+00:00  gate poller start (offset=746150288)
 2026-09-22T20:17:08+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> ae57a70aea6fc024abac881ca67175c6c91ac01a
->>>>>>> a900dff733f31adb1077e42a0ec9b5a2ce3e1f0a
 2026-09-22T20:18:14+00:00  gate poller start (offset=746150288)
 2026-09-22T20:18:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T20:19:13+00:00  gate poller start (offset=746150288)
@@ -685,13 +595,10 @@
 2026-09-22T20:35:31+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T20:36:14+00:00  gate poller start (offset=746150288)
 2026-09-22T20:36:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T20:37:40+00:00  gate poller start (offset=746150288)
 2026-09-22T20:37:49+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T20:37:17+00:00  gate poller start (offset=746150288)
 2026-09-22T20:37:26+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> ed47f951ec0d8cf2221fbed793d0c519e99ac23a
 2026-09-22T20:38:16+00:00  gate poller start (offset=746150288)
 2026-09-22T20:38:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T20:39:12+00:00  gate poller start (offset=746150288)
@@ -726,13 +633,10 @@
 2026-09-22T20:51:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T20:52:15+00:00  gate poller start (offset=746150288)
 2026-09-22T20:52:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T20:53:13+00:00  gate poller start (offset=746150288)
 2026-09-22T20:53:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T20:53:09+00:00  gate poller start (offset=746150288)
 2026-09-22T20:53:14+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 270153f97786cabc542d4a35732633a9e43e0db6
 2026-09-22T20:54:14+00:00  gate poller start (offset=746150288)
 2026-09-22T20:54:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T20:55:20+00:00  gate poller start (offset=746150288)
@@ -747,20 +651,14 @@
 2026-09-22T20:58:50+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T20:59:13+00:00  gate poller start (offset=746150288)
 2026-09-22T20:59:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T21:01:13+00:00  gate poller start (offset=746150288)
 2026-09-22T21:01:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T21:01:01+00:00  gate poller start (offset=746150288)
 2026-09-22T21:01:10+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 0f5fe1abe6b3b622dba981154237a5c104194b05
-<<<<<<< HEAD
 2026-09-22T21:02:28+00:00  gate poller start (offset=746150288)
 2026-09-22T21:02:36+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T21:02:16+00:00  gate poller start (offset=746150288)
 2026-09-22T21:02:24+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> d6a2deed5a8ece10648e8f967fe381720f699020
 2026-09-22T21:03:14+00:00  gate poller start (offset=746150288)
 2026-09-22T21:03:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T21:04:14+00:00  gate poller start (offset=746150288)
@@ -781,13 +679,10 @@
 2026-09-22T21:10:36+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T21:11:12+00:00  gate poller start (offset=746150288)
 2026-09-22T21:11:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T21:13:21+00:00  gate poller start (offset=746150288)
 2026-09-22T21:13:30+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T21:13:14+00:00  gate poller start (offset=746150288)
 2026-09-22T21:13:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 59614367908c15345008c6094466ade662894116
 2026-09-22T21:14:13+00:00  gate poller start (offset=746150288)
 2026-09-22T21:14:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T21:15:31+00:00  gate poller start (offset=746150288)
@@ -798,18 +693,12 @@
 2026-09-22T21:17:57+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T21:18:13+00:00  gate poller start (offset=746150288)
 2026-09-22T21:18:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T21:19:49+00:00  gate poller start (offset=746150288)
 2026-09-22T21:19:57+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T21:19:03+00:00  gate poller start (offset=746150288)
 2026-09-22T21:19:12+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T21:20:01+00:00  gate poller start (offset=746150288)
 2026-09-22T21:20:09+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> 74e7bb4321c638c4ac9135e698fe8630ffc7f334
->>>>>>> f81d9d2a75fbf05e74121bb87765902b54506e46
 2026-09-22T21:20:26+00:00  gate poller start (offset=746150288)
 2026-09-22T21:20:34+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T21:21:13+00:00  gate poller start (offset=746150288)
@@ -842,22 +731,16 @@
 2026-09-22T21:33:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T21:34:16+00:00  gate poller start (offset=746150288)
 2026-09-22T21:34:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T21:35:30+00:00  gate poller start (offset=746150288)
 2026-09-22T21:35:38+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T21:35:18+00:00  gate poller start (offset=746150288)
 2026-09-22T21:35:27+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 0a16e59e9a13f9fbe7f4ebaf286d14c08dd7f080
 2026-09-22T21:36:14+00:00  gate poller start (offset=746150288)
 2026-09-22T21:36:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T21:37:31+00:00  gate poller start (offset=746150288)
 2026-09-22T21:37:40+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T21:37:13+00:00  gate poller start (offset=746150288)
 2026-09-22T21:37:21+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 4c254b4fb6291f2367712c859d95a27840647d89
 2026-09-22T21:38:18+00:00  gate poller start (offset=746150288)
 2026-09-22T21:38:26+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T21:39:34+00:00  gate poller start (offset=746150288)
@@ -910,24 +793,18 @@
 2026-09-22T21:58:44+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T21:59:13+00:00  gate poller start (offset=746150288)
 2026-09-22T21:59:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T22:01:13+00:00  gate poller start (offset=746150288)
 2026-09-22T22:01:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T22:01:03+00:00  gate poller start (offset=746150288)
 2026-09-22T22:01:12+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 2749515dfbe66db698b030357276a65ad81ba0dd
 2026-09-22T22:02:16+00:00  gate poller start (offset=746150288)
 2026-09-22T22:02:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T22:03:15+00:00  gate poller start (offset=746150288)
 2026-09-22T22:03:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T22:04:22+00:00  gate poller start (offset=746150288)
 2026-09-22T22:04:31+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T22:04:15+00:00  gate poller start (offset=746150288)
 2026-09-22T22:04:24+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 985a631b45341d724ee8e11a5939227972243375
 2026-09-22T22:05:19+00:00  gate poller start (offset=746150288)
 2026-09-22T22:05:27+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T22:06:15+00:00  gate poller start (offset=746150288)
@@ -982,13 +859,10 @@
 2026-09-22T22:27:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T22:28:13+00:00  gate poller start (offset=746150288)
 2026-09-22T22:28:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T22:29:22+00:00  gate poller start (offset=746150288)
 2026-09-22T22:29:30+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T22:29:12+00:00  gate poller start (offset=746150288)
 2026-09-22T22:29:20+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> b1ce3732903eb61fcb9eb171c514e0e6c7e96b4e
 2026-09-22T22:30:43+00:00  gate poller start (offset=746150288)
 2026-09-22T22:30:52+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T22:31:11+00:00  gate poller start (offset=746150288)
@@ -1003,23 +877,14 @@
 2026-09-22T22:35:27+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T22:36:16+00:00  gate poller start (offset=746150288)
 2026-09-22T22:36:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T22:37:59+00:00  gate poller start (offset=746150288)
 2026-09-22T22:38:07+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T22:37:48+00:00  gate poller start (offset=746150288)
 2026-09-22T22:37:56+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T22:38:14+00:00  gate poller start (offset=746150288)
 2026-09-22T22:38:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> 0242733c47216d9f0024ed73b443548c23cdb9ed
-<<<<<<< HEAD
 2026-09-22T22:38:26+00:00  gate poller start (offset=746150288)
 2026-09-22T22:38:35+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> 4e0509a06f263325996aac998cee4984e614673f
->>>>>>> 5804ad4dc83e1df5eb86676b8bc6bb62a68d2221
 2026-09-22T22:39:13+00:00  gate poller start (offset=746150288)
 2026-09-22T22:39:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T22:40:26+00:00  gate poller start (offset=746150288)
@@ -1032,13 +897,10 @@
 2026-09-22T22:43:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T22:44:15+00:00  gate poller start (offset=746150288)
 2026-09-22T22:44:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T22:45:36+00:00  gate poller start (offset=746150288)
 2026-09-22T22:45:44+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T22:45:28+00:00  gate poller start (offset=746150288)
 2026-09-22T22:45:37+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 8cd18d30b3d051cea65f5ef61a16759bd481844e
 2026-09-22T22:46:13+00:00  gate poller start (offset=746150288)
 2026-09-22T22:46:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T22:47:14+00:00  gate poller start (offset=746150288)
@@ -1049,20 +911,14 @@
 2026-09-22T22:49:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T22:50:25+00:00  gate poller start (offset=746150288)
 2026-09-22T22:50:33+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T22:51:28+00:00  gate poller start (offset=746150288)
 2026-09-22T22:51:37+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T22:51:12+00:00  gate poller start (offset=746150288)
 2026-09-22T22:51:21+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 593402cef860d2a8345bdec70852d5a31ee8bb99
-<<<<<<< HEAD
 2026-09-22T22:52:14+00:00  gate poller start (offset=746150288)
 2026-09-22T22:52:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T22:52:01+00:00  gate poller start (offset=746150288)
 2026-09-22T22:52:09+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 837d4fb4216569c61acae80a7a583e8033c6af56
 2026-09-22T22:53:12+00:00  gate poller start (offset=746150288)
 2026-09-22T22:53:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T22:54:14+00:00  gate poller start (offset=746150288)
@@ -1079,13 +935,10 @@
 2026-09-22T22:58:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T22:59:13+00:00  gate poller start (offset=746150288)
 2026-09-22T22:59:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T23:01:11+00:00  gate poller start (offset=746150288)
 2026-09-22T23:01:19+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T23:00:58+00:00  gate poller start (offset=746150288)
 2026-09-22T23:01:06+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> f8d7a176d615c132adb4f717fbf863b2f2582df5
 2026-09-22T23:02:16+00:00  gate poller start (offset=746150288)
 2026-09-22T23:02:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:03:12+00:00  gate poller start (offset=746150288)
@@ -1098,13 +951,10 @@
 2026-09-22T23:06:05+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:06:13+00:00  gate poller start (offset=746150288)
 2026-09-22T23:06:15+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T23:07:11+00:00  gate poller start (offset=746150288)
 2026-09-22T23:07:19+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T23:07:07+00:00  gate poller start (offset=746150288)
 2026-09-22T23:07:12+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> c0c898efae4e597f532c784576902af620a98e5c
 2026-09-22T23:08:17+00:00  gate poller start (offset=746150288)
 2026-09-22T23:08:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:09:12+00:00  gate poller start (offset=746150288)
@@ -1123,13 +973,10 @@
 2026-09-22T23:15:37+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:16:14+00:00  gate poller start (offset=746150288)
 2026-09-22T23:16:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T23:17:24+00:00  gate poller start (offset=746150288)
 2026-09-22T23:17:32+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T23:17:15+00:00  gate poller start (offset=746150288)
 2026-09-22T23:17:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> d43b896ef9dc8acaaba2888ca97343d9c2f8875e
 2026-09-22T23:18:14+00:00  gate poller start (offset=746150288)
 2026-09-22T23:18:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:19:13+00:00  gate poller start (offset=746150288)
@@ -1140,24 +987,18 @@
 2026-09-22T23:21:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:22:15+00:00  gate poller start (offset=746150288)
 2026-09-22T23:22:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T23:23:14+00:00  gate poller start (offset=746150288)
 2026-09-22T23:23:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T23:23:13+00:00  gate poller start (offset=746150288)
 2026-09-22T23:23:15+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 7964dbd7cd4f6569664b56b3cf36037d162bbfc2
 2026-09-22T23:24:14+00:00  gate poller start (offset=746150288)
 2026-09-22T23:24:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:25:18+00:00  gate poller start (offset=746150288)
 2026-09-22T23:25:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T23:26:17+00:00  gate poller start (offset=746150288)
 2026-09-22T23:26:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T23:26:15+00:00  gate poller start (offset=746150288)
 2026-09-22T23:26:18+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> eb988cad1a4e70578d1837a0d78807b86fd6c691
 2026-09-22T23:27:16+00:00  gate poller start (offset=746150288)
 2026-09-22T23:27:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:28:15+00:00  gate poller start (offset=746150288)
@@ -1205,33 +1046,24 @@
 2026-09-22T23:46:13+00:00  gate poller start (offset=746150288)
 2026-09-22T23:46:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:47:13+00:00  gate poller start (offset=746150288)
-<<<<<<< HEAD
 2026-09-22T23:47:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T23:47:14+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> c58fa2b1655a8c872bad6b0b1ac671b4cac4ada0
 2026-09-22T23:48:15+00:00  gate poller start (offset=746150288)
 2026-09-22T23:48:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:49:15+00:00  gate poller start (offset=746150288)
 2026-09-22T23:49:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:50:24+00:00  gate poller start (offset=746150288)
 2026-09-22T23:50:33+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T23:51:17+00:00  gate poller start (offset=746150288)
 2026-09-22T23:51:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T23:51:12+00:00  gate poller start (offset=746150288)
 2026-09-22T23:51:18+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 0f74432e5654a0019956712eb691772d0dbdcc5f
 2026-09-22T23:52:13+00:00  gate poller start (offset=746150288)
 2026-09-22T23:52:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-22T23:53:12+00:00  gate poller start (offset=746150288)
 2026-09-22T23:53:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-22T23:53:08+00:00  gate poller start (offset=746150288)
 2026-09-22T23:53:13+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 7bd33d6f4a136e84e7e7546489904739161091cb
 2026-09-22T23:54:16+00:00  gate poller start (offset=746150288)
 2026-09-22T23:54:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:55:18+00:00  gate poller start (offset=746150288)
@@ -1246,13 +1078,10 @@
 2026-09-22T23:59:03+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-22T23:59:17+00:00  gate poller start (offset=746150288)
 2026-09-22T23:59:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T00:01:00+00:00  gate poller start (offset=746150288)
 2026-09-23T00:01:27+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T00:01:14+00:00  gate poller start (offset=746150288)
 2026-09-23T00:01:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 1de7a1f7cd52a943b82e6f097b41cef67d5dbbf5
 2026-09-23T00:02:15+00:00  gate poller start (offset=746150288)
 2026-09-23T00:02:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T00:03:13+00:00  gate poller start (offset=746150288)
@@ -1293,13 +1122,10 @@
 2026-09-23T00:18:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T00:19:13+00:00  gate poller start (offset=746150288)
 2026-09-23T00:19:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T00:21:13+00:00  gate poller start (offset=746150288)
 2026-09-23T00:21:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T00:21:02+00:00  gate poller start (offset=746150288)
 2026-09-23T00:21:11+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 1a80c7b37fcd7409db9839531eb402005f9fdf54
 2026-09-23T00:22:15+00:00  gate poller start (offset=746150288)
 2026-09-23T00:22:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T00:23:17+00:00  gate poller start (offset=746150288)
@@ -1312,13 +1138,10 @@
 2026-09-23T00:26:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T00:27:13+00:00  gate poller start (offset=746150288)
 2026-09-23T00:27:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T00:28:25+00:00  gate poller start (offset=746150288)
 2026-09-23T00:28:33+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T00:28:13+00:00  gate poller start (offset=746150288)
 2026-09-23T00:28:22+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> c6a3f9801e020ebc02cd081f1779fbd4b9811f20
 2026-09-23T00:29:12+00:00  gate poller start (offset=746150288)
 2026-09-23T00:29:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T00:30:42+00:00  gate poller start (offset=746150288)
@@ -1391,13 +1214,10 @@
 2026-09-23T00:59:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T00:59:56+00:00  gate poller start (offset=746150288)
 2026-09-23T01:00:04+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T01:01:12+00:00  gate poller start (offset=746150288)
 2026-09-23T01:01:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T01:00:57+00:00  gate poller start (offset=746150288)
 2026-09-23T01:01:05+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 4020f031b35ad2b5512b1b2623c0f992eaae64c2
 2026-09-23T01:02:14+00:00  gate poller start (offset=746150288)
 2026-09-23T01:02:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T01:03:15+00:00  gate poller start (offset=746150288)
@@ -1440,13 +1260,10 @@
 2026-09-23T01:19:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T01:20:26+00:00  gate poller start (offset=746150288)
 2026-09-23T01:20:34+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T01:21:25+00:00  gate poller start (offset=746150288)
 2026-09-23T01:21:33+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T01:21:12+00:00  gate poller start (offset=746150288)
 2026-09-23T01:21:20+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 75a770384c5f8ea6c606eb2e6a0bb9720e596933
 2026-09-23T01:22:14+00:00  gate poller start (offset=746150288)
 2026-09-23T01:22:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T01:23:13+00:00  gate poller start (offset=746150288)
@@ -1455,13 +1272,10 @@
 2026-09-23T01:24:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T01:25:18+00:00  gate poller start (offset=746150288)
 2026-09-23T01:25:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T01:26:23+00:00  gate poller start (offset=746150288)
 2026-09-23T01:26:31+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T01:26:13+00:00  gate poller start (offset=746150288)
 2026-09-23T01:26:22+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> cc125f33f82b40cb125fc150922004c5845a50ac
 2026-09-23T01:27:12+00:00  gate poller start (offset=746150288)
 2026-09-23T01:27:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T01:28:19+00:00  gate poller start (offset=746150288)
@@ -1496,13 +1310,10 @@
 2026-09-23T01:40:57+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T01:41:12+00:00  gate poller start (offset=746150288)
 2026-09-23T01:41:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T01:42:27+00:00  gate poller start (offset=746150288)
 2026-09-23T01:42:35+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T01:42:14+00:00  gate poller start (offset=746150288)
 2026-09-23T01:42:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 0f47823b5cc4211bcbddc2752107810545b9458e
 2026-09-23T01:43:13+00:00  gate poller start (offset=746150288)
 2026-09-23T01:43:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T01:44:14+00:00  gate poller start (offset=746150288)
@@ -1531,33 +1342,24 @@
 2026-09-23T01:53:56+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T01:54:17+00:00  gate poller start (offset=746150288)
 2026-09-23T01:54:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T01:55:16+00:00  gate poller start (offset=746150288)
 2026-09-23T01:55:38+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T01:55:17+00:00  gate poller start (offset=746150288)
 2026-09-23T01:55:25+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 3e7b9e20a1a2b68943fdc3dc23b9b41e33fe8e1d
 2026-09-23T01:56:14+00:00  gate poller start (offset=746150288)
 2026-09-23T01:56:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T01:57:13+00:00  gate poller start (offset=746150288)
 2026-09-23T01:57:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T01:58:14+00:00  gate poller start (offset=746150288)
 2026-09-23T01:58:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T01:59:23+00:00  gate poller start (offset=746150288)
 2026-09-23T01:59:31+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T01:59:12+00:00  gate poller start (offset=746150288)
 2026-09-23T01:59:21+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 141f345db62228e2d93b24eeef3bafac636edc85
-<<<<<<< HEAD
 2026-09-23T02:01:12+00:00  gate poller start (offset=746150288)
 2026-09-23T02:01:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T02:00:57+00:00  gate poller start (offset=746150288)
 2026-09-23T02:01:05+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 537abefe95065c3db99a53a1c43382d02c30927f
 2026-09-23T02:02:50+00:00  gate poller start (offset=746150288)
 2026-09-23T02:02:58+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T02:03:13+00:00  gate poller start (offset=746150288)
@@ -1574,13 +1376,10 @@
 2026-09-23T02:08:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T02:09:13+00:00  gate poller start (offset=746150288)
 2026-09-23T02:09:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T02:10:28+00:00  gate poller start (offset=746150288)
 2026-09-23T02:10:37+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T02:10:26+00:00  gate poller start (offset=746150288)
 2026-09-23T02:10:27+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 1d6a418d9e9829aa72fbcc07187ca38c48fd22df
 2026-09-23T02:11:14+00:00  gate poller start (offset=746150288)
 2026-09-23T02:11:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T02:12:13+00:00  gate poller start (offset=746150288)
@@ -1591,13 +1390,10 @@
 2026-09-23T02:14:27+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T02:15:29+00:00  gate poller start (offset=746150288)
 2026-09-23T02:15:38+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T02:16:14+00:00  gate poller start (offset=746150288)
 2026-09-23T02:16:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T02:16:01+00:00  gate poller start (offset=746150288)
 2026-09-23T02:16:09+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 80767184b323ed67aa89b5640b1d69397f1bd6f5
 2026-09-23T02:17:12+00:00  gate poller start (offset=746150288)
 2026-09-23T02:17:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T02:18:13+00:00  gate poller start (offset=746150288)
@@ -1610,13 +1406,10 @@
 2026-09-23T02:21:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T02:22:14+00:00  gate poller start (offset=746150288)
 2026-09-23T02:22:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T02:23:12+00:00  gate poller start (offset=746150288)
 2026-09-23T02:23:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T02:22:56+00:00  gate poller start (offset=746150288)
 2026-09-23T02:23:05+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> bf95c5bf9edc5ce3e9fad2ec6d7ba2fd3ecc7fcb
 2026-09-23T02:24:14+00:00  gate poller start (offset=746150288)
 2026-09-23T02:24:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T02:25:19+00:00  gate poller start (offset=746150288)
@@ -1635,18 +1428,12 @@
 2026-09-23T02:31:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T02:32:15+00:00  gate poller start (offset=746150288)
 2026-09-23T02:32:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T02:33:14+00:00  gate poller start (offset=746150288)
 2026-09-23T02:33:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
-<<<<<<< HEAD
 2026-09-23T02:33:13+00:00  gate poller start (offset=746150288)
 2026-09-23T02:33:19+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T02:33:09+00:00  gate poller start (offset=746150288)
 2026-09-23T02:33:14+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> b6157779c2a4be18a083bf2a58b2286268b21a5d
->>>>>>> 97f5b733ecadf3e97b29cecfd4e0d01a3b2a588e
 2026-09-23T02:34:14+00:00  gate poller start (offset=746150288)
 2026-09-23T02:34:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T02:35:21+00:00  gate poller start (offset=746150288)
@@ -1687,13 +1474,10 @@
 2026-09-23T02:50:33+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T02:51:14+00:00  gate poller start (offset=746150288)
 2026-09-23T02:51:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T02:52:14+00:00  gate poller start (offset=746150288)
 2026-09-23T02:52:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T02:52:12+00:00  gate poller start (offset=746150288)
 2026-09-23T02:52:16+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> f21854993f018952057e7e21e2cf50d775a4964d
 2026-09-23T02:53:13+00:00  gate poller start (offset=746150288)
 2026-09-23T02:53:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T02:54:14+00:00  gate poller start (offset=746150288)
@@ -1704,29 +1488,20 @@
 2026-09-23T02:56:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T02:57:13+00:00  gate poller start (offset=746150288)
 2026-09-23T02:57:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T02:58:13+00:00  gate poller start (offset=746150288)
 2026-09-23T02:58:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T02:58:07+00:00  gate poller start (offset=746150288)
 2026-09-23T02:58:14+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 0db16d65d18ae176c7b2e12363426009989f8ee6
 2026-09-23T02:59:12+00:00  gate poller start (offset=746150288)
 2026-09-23T02:59:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T03:01:14+00:00  gate poller start (offset=746150288)
 2026-09-23T03:01:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T03:00:57+00:00  gate poller start (offset=746150288)
 2026-09-23T03:01:06+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> b749a8d50358ab2daa039af36b3903f442c919dc
-<<<<<<< HEAD
 2026-09-23T03:02:15+00:00  gate poller start (offset=746150288)
 2026-09-23T03:02:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T03:02:12+00:00  gate poller start (offset=746150288)
 2026-09-23T03:02:16+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 435fcb1221334643349b50fe19f0821c0b4c7a3e
 2026-09-23T03:03:12+00:00  gate poller start (offset=746150288)
 2026-09-23T03:03:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T03:04:16+00:00  gate poller start (offset=746150288)
@@ -1735,13 +1510,10 @@
 2026-09-23T03:05:28+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T03:06:15+00:00  gate poller start (offset=746150288)
 2026-09-23T03:06:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T03:07:07+00:00  gate poller start (offset=746150288)
 2026-09-23T03:07:34+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T03:07:13+00:00  gate poller start (offset=746150288)
 2026-09-23T03:07:22+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 94d22e71afdac2b1d5a2a3db7d290b4d70aa37f8
 2026-09-23T03:08:17+00:00  gate poller start (offset=746150288)
 2026-09-23T03:08:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T03:09:15+00:00  gate poller start (offset=746150288)
@@ -1768,20 +1540,14 @@
 2026-09-23T03:19:56+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T03:20:27+00:00  gate poller start (offset=746150288)
 2026-09-23T03:20:35+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T03:21:13+00:00  gate poller start (offset=746150288)
 2026-09-23T03:21:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T03:21:09+00:00  gate poller start (offset=746150288)
 2026-09-23T03:21:14+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 708d4c4736b28bd50c4f42c0ab88e2a0a32aeb33
-<<<<<<< HEAD
 2026-09-23T03:22:14+00:00  gate poller start (offset=746150288)
 2026-09-23T03:22:36+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T03:22:15+00:00  gate poller start (offset=746150288)
 2026-09-23T03:22:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 5aea1e44746a5d163cb033735428bdc6f074e966
 2026-09-23T03:23:11+00:00  gate poller start (offset=746150288)
 2026-09-23T03:23:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T03:24:15+00:00  gate poller start (offset=746150288)
@@ -1818,26 +1584,20 @@
 2026-09-23T03:38:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T03:39:12+00:00  gate poller start (offset=746150288)
 2026-09-23T03:39:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T03:40:31+00:00  gate poller start (offset=746150288)
 2026-09-23T03:40:39+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T03:40:26+00:00  gate poller start (offset=746150288)
 2026-09-23T03:40:32+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> a9e679cded1fd598d3344e5d00675d86331229dc
 2026-09-23T03:41:48+00:00  gate poller start (offset=746150288)
 2026-09-23T03:41:56+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T03:42:50+00:00  gate poller start (offset=746150288)
 2026-09-23T03:42:58+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T03:43:13+00:00  gate poller start (offset=746150288)
 2026-09-23T03:43:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T03:44:14+00:00  gate poller start (offset=746150288)
 2026-09-23T03:44:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T03:44:04+00:00  gate poller start (offset=746150288)
 2026-09-23T03:44:13+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 2c6bd2ffb1b5c8574d67399e8b74f98f8623c989
 2026-09-23T03:45:28+00:00  gate poller start (offset=746150288)
 2026-09-23T03:45:36+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T03:46:14+00:00  gate poller start (offset=746150288)
@@ -1852,44 +1612,32 @@
 2026-09-23T03:50:31+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T03:51:12+00:00  gate poller start (offset=746150288)
 2026-09-23T03:51:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T03:52:22+00:00  gate poller start (offset=746150288)
 2026-09-23T03:52:30+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T03:52:15+00:00  gate poller start (offset=746150288)
 2026-09-23T03:52:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 7ea92eb97d748756aaba6e7a445e77aa512f76bb
 2026-09-23T03:53:12+00:00  gate poller start (offset=746150288)
 2026-09-23T03:53:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T03:54:15+00:00  gate poller start (offset=746150288)
 2026-09-23T03:54:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T03:55:18+00:00  gate poller start (offset=746150288)
 2026-09-23T03:55:27+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T03:55:17+00:00  gate poller start (offset=746150288)
 2026-09-23T03:55:20+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 1d64784c22588743a5b11ad0bbb4a28b4693f596
 2026-09-23T03:56:13+00:00  gate poller start (offset=746150288)
 2026-09-23T03:56:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T03:57:11+00:00  gate poller start (offset=746150288)
 2026-09-23T03:57:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T03:58:18+00:00  gate poller start (offset=746150288)
 2026-09-23T03:58:27+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T03:58:10+00:00  gate poller start (offset=746150288)
 2026-09-23T03:58:19+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> a42c2097aaf72e7895d2044a6adb60d2066f3f0b
 2026-09-23T03:59:12+00:00  gate poller start (offset=746150288)
 2026-09-23T03:59:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T04:01:12+00:00  gate poller start (offset=746150288)
 2026-09-23T04:01:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T04:00:56+00:00  gate poller start (offset=746150288)
 2026-09-23T04:01:05+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 982e787df553ea632719a10e8c1311ab309ae067
 2026-09-23T04:02:15+00:00  gate poller start (offset=746150288)
 2026-09-23T04:02:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T04:03:15+00:00  gate poller start (offset=746150288)
@@ -1920,13 +1668,10 @@
 2026-09-23T04:14:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T04:15:28+00:00  gate poller start (offset=746150288)
 2026-09-23T04:15:36+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T04:16:46+00:00  gate poller start (offset=746150288)
 2026-09-23T04:16:55+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T04:16:33+00:00  gate poller start (offset=746150288)
 2026-09-23T04:16:42+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 40ff163e46c25eb504cdef8829e131c6b2df8923
 2026-09-23T04:17:11+00:00  gate poller start (offset=746150288)
 2026-09-23T04:17:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T04:18:14+00:00  gate poller start (offset=746150288)
@@ -1962,11 +1707,8 @@
 2026-09-23T04:32:15+00:00  gate poller start (offset=746150288)
 2026-09-23T04:32:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T04:33:12+00:00  gate poller start (offset=746150288)
-<<<<<<< HEAD
 2026-09-23T04:33:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T04:33:14+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> c0a961ce7822b18eebbd3899d190b7546c157caa
 2026-09-23T04:34:13+00:00  gate poller start (offset=746150288)
 2026-09-23T04:34:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T04:34:33+00:00  gate poller start (offset=746150288)
@@ -1989,13 +1731,10 @@
 2026-09-23T04:42:27+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T04:43:13+00:00  gate poller start (offset=746150288)
 2026-09-23T04:43:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T04:44:25+00:00  gate poller start (offset=746150288)
 2026-09-23T04:44:33+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T04:44:13+00:00  gate poller start (offset=746150288)
 2026-09-23T04:44:22+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 772ad70688b3783a442477a7168cad0ee958884d
 2026-09-23T04:45:30+00:00  gate poller start (offset=746150288)
 2026-09-23T04:45:39+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T04:46:12+00:00  gate poller start (offset=746150288)
@@ -2006,13 +1745,10 @@
 2026-09-23T04:48:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T04:49:13+00:00  gate poller start (offset=746150288)
 2026-09-23T04:49:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T04:50:24+00:00  gate poller start (offset=746150288)
 2026-09-23T04:50:32+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T04:50:16+00:00  gate poller start (offset=746150288)
 2026-09-23T04:50:24+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 2acb9dc2bf6d81cf873f91957bcbe35c4a1e7223
 2026-09-23T04:51:14+00:00  gate poller start (offset=746150288)
 2026-09-23T04:51:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T04:52:15+00:00  gate poller start (offset=746150288)
@@ -2031,20 +1767,14 @@
 2026-09-23T04:57:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T04:58:13+00:00  gate poller start (offset=746150288)
 2026-09-23T04:58:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T04:59:11+00:00  gate poller start (offset=746150288)
 2026-09-23T04:59:19+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T04:59:00+00:00  gate poller start (offset=746150288)
 2026-09-23T04:59:09+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 2a1493e3989b3c1fd3ec4177f1d8ddb44f9d71b1
-<<<<<<< HEAD
 2026-09-23T05:01:12+00:00  gate poller start (offset=746150288)
 2026-09-23T05:01:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T05:00:57+00:00  gate poller start (offset=746150288)
 2026-09-23T05:01:06+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> f308f3748e677ec42af00d12df70d80127ea99b9
 2026-09-23T05:02:15+00:00  gate poller start (offset=746150288)
 2026-09-23T05:02:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T05:03:12+00:00  gate poller start (offset=746150288)
@@ -2093,20 +1823,14 @@
 2026-09-23T05:21:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T05:22:17+00:00  gate poller start (offset=746150288)
 2026-09-23T05:22:42+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T05:23:13+00:00  gate poller start (offset=746150288)
 2026-09-23T05:23:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T05:23:12+00:00  gate poller start (offset=746150288)
 2026-09-23T05:23:14+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 993ec69822a7dda9140b8dda6a3f558b2c534ad1
-<<<<<<< HEAD
 2026-09-23T05:25:22+00:00  gate poller start (offset=746150288)
 2026-09-23T05:25:31+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T05:25:19+00:00  gate poller start (offset=746150288)
 2026-09-23T05:25:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 7f1955ed03780d0055ff899f762dc27007aaf185
 2026-09-23T05:26:48+00:00  gate poller start (offset=746150288)
 2026-09-23T05:26:57+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T05:27:14+00:00  gate poller start (offset=746150288)
@@ -2118,11 +1842,8 @@
 2026-09-23T05:30:45+00:00  gate poller start (offset=746150288)
 2026-09-23T05:30:53+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T05:31:16+00:00  gate poller start (offset=746150288)
-<<<<<<< HEAD
 2026-09-23T05:31:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T05:31:18+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 78c54796444c7b44c32dfb60ac1c2da82be0c3d9
 2026-09-23T05:32:15+00:00  gate poller start (offset=746150288)
 2026-09-23T05:32:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T05:33:13+00:00  gate poller start (offset=746150288)
@@ -2143,13 +1864,10 @@
 2026-09-23T05:40:14+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T05:40:24+00:00  gate poller start (offset=746150288)
 2026-09-23T05:40:32+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T05:41:19+00:00  gate poller start (offset=746150288)
 2026-09-23T05:41:27+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T05:41:12+00:00  gate poller start (offset=746150288)
 2026-09-23T05:41:20+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 2ec6c0591b15454575f7397b9da19b23577e854a
 2026-09-23T05:42:15+00:00  gate poller start (offset=746150288)
 2026-09-23T05:42:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T05:43:14+00:00  gate poller start (offset=746150288)
@@ -2164,13 +1882,10 @@
 2026-09-23T05:47:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T05:48:15+00:00  gate poller start (offset=746150288)
 2026-09-23T05:48:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T05:49:28+00:00  gate poller start (offset=746150288)
 2026-09-23T05:49:36+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T05:49:14+00:00  gate poller start (offset=746150288)
 2026-09-23T05:49:22+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 7d2bcd78b50afa89550141a09478e204c204009e
 2026-09-23T05:50:24+00:00  gate poller start (offset=746150288)
 2026-09-23T05:50:32+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T05:51:11+00:00  gate poller start (offset=746150288)
@@ -2179,35 +1894,26 @@
 2026-09-23T05:52:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T05:53:13+00:00  gate poller start (offset=746150288)
 2026-09-23T05:53:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T05:54:16+00:00  gate poller start (offset=746150288)
 2026-09-23T05:54:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T05:54:06+00:00  gate poller start (offset=746150288)
 2026-09-23T05:54:15+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> c35be160a09b5c91878df10f8b2904ba13181704
 2026-09-23T05:55:21+00:00  gate poller start (offset=746150288)
 2026-09-23T05:55:29+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T05:56:13+00:00  gate poller start (offset=746150288)
 2026-09-23T05:56:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T05:55:58+00:00  gate poller start (offset=746150288)
 2026-09-23T05:56:06+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> f384a56b332d062100c1ba3a4c3602658daaa8f4
 2026-09-23T05:57:13+00:00  gate poller start (offset=746150288)
 2026-09-23T05:57:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T05:58:14+00:00  gate poller start (offset=746150288)
 2026-09-23T05:58:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T05:59:14+00:00  gate poller start (offset=746150288)
 2026-09-23T05:59:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T06:01:11+00:00  gate poller start (offset=746150288)
 2026-09-23T06:01:19+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T06:00:59+00:00  gate poller start (offset=746150288)
 2026-09-23T06:01:07+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> a5503efe1893527734080ff7560e9da26b2ea37b
 2026-09-23T06:02:16+00:00  gate poller start (offset=746150288)
 2026-09-23T06:02:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T06:03:13+00:00  gate poller start (offset=746150288)
@@ -2288,20 +1994,14 @@
 2026-09-23T06:37:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T06:38:15+00:00  gate poller start (offset=746150288)
 2026-09-23T06:38:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T06:39:13+00:00  gate poller start (offset=746150288)
 2026-09-23T06:39:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T06:38:58+00:00  gate poller start (offset=746150288)
 2026-09-23T06:39:06+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 12003d2251f10028c315a61e9518d7fe82eab615
-<<<<<<< HEAD
 2026-09-23T06:40:26+00:00  gate poller start (offset=746150288)
 2026-09-23T06:40:34+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T06:40:14+00:00  gate poller start (offset=746150288)
 2026-09-23T06:40:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 0c2132a78cdd47d6b04facab666f7c2d0e09b2b4
 2026-09-23T06:41:12+00:00  gate poller start (offset=746150288)
 2026-09-23T06:41:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T06:42:15+00:00  gate poller start (offset=746150288)
@@ -2322,13 +2022,10 @@
 2026-09-23T06:49:18+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T06:50:25+00:00  gate poller start (offset=746150288)
 2026-09-23T06:50:33+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T06:51:20+00:00  gate poller start (offset=746150288)
 2026-09-23T06:51:28+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T06:51:12+00:00  gate poller start (offset=746150288)
 2026-09-23T06:51:21+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> f225afba2c14f4a450ae8909a2a4d6b3bdff2172
 2026-09-23T06:52:12+00:00  gate poller start (offset=746150288)
 2026-09-23T06:52:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T06:53:13+00:00  gate poller start (offset=746150288)
@@ -2339,26 +2036,20 @@
 2026-09-23T06:56:03+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T06:56:16+00:00  gate poller start (offset=746150288)
 2026-09-23T06:56:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T06:57:26+00:00  gate poller start (offset=746150288)
 2026-09-23T06:57:35+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T06:57:12+00:00  gate poller start (offset=746150288)
 2026-09-23T06:57:20+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 23c255ff75faccc2a36099b1c02920bb69c8b32a
 2026-09-23T06:58:15+00:00  gate poller start (offset=746150288)
 2026-09-23T06:58:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T06:59:14+00:00  gate poller start (offset=746150288)
 2026-09-23T06:59:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T07:00:30+00:00  gate poller start (offset=746150288)
 2026-09-23T07:00:38+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T07:01:13+00:00  gate poller start (offset=746150288)
 2026-09-23T07:01:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T07:00:58+00:00  gate poller start (offset=746150288)
 2026-09-23T07:01:06+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> f34fc565fb9287f956af005ec0c62dc499cbacfb
 2026-09-23T07:02:15+00:00  gate poller start (offset=746150288)
 2026-09-23T07:02:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T07:03:14+00:00  gate poller start (offset=746150288)
@@ -2407,13 +2098,10 @@
 2026-09-23T07:22:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T07:23:12+00:00  gate poller start (offset=746150288)
 2026-09-23T07:23:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T07:24:25+00:00  gate poller start (offset=746150288)
 2026-09-23T07:24:33+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T07:24:16+00:00  gate poller start (offset=746150288)
 2026-09-23T07:24:25+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 6676b268a30e7b1ed62bea4a6a95c9b35843293e
 2026-09-23T07:25:20+00:00  gate poller start (offset=746150288)
 2026-09-23T07:25:28+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T07:26:13+00:00  gate poller start (offset=746150288)
@@ -2440,13 +2128,10 @@
 2026-09-23T07:35:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T07:36:15+00:00  gate poller start (offset=746150288)
 2026-09-23T07:36:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T07:37:19+00:00  gate poller start (offset=746150288)
 2026-09-23T07:37:28+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T07:37:13+00:00  gate poller start (offset=746150288)
 2026-09-23T07:37:21+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 08ad5885e4c0d1cbfb9219f64234b0c3c7bb8d2d
 2026-09-23T07:38:15+00:00  gate poller start (offset=746150288)
 2026-09-23T07:38:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T07:39:12+00:00  gate poller start (offset=746150288)
@@ -2483,13 +2168,10 @@
 2026-09-23T07:52:46+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T07:53:13+00:00  gate poller start (offset=746150288)
 2026-09-23T07:53:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T07:54:16+00:00  gate poller start (offset=746150288)
 2026-09-23T07:54:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T07:53:59+00:00  gate poller start (offset=746150288)
 2026-09-23T07:54:07+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> e7e65f6b3d43c52aead7b5e7189aacbf8b59bcc3
 2026-09-23T07:55:18+00:00  gate poller start (offset=746150288)
 2026-09-23T07:55:26+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T07:57:14+00:00  gate poller start (offset=746150288)
@@ -2500,13 +2182,10 @@
 2026-09-23T07:59:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T07:59:38+00:00  gate poller start (offset=746150288)
 2026-09-23T07:59:46+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T08:01:13+00:00  gate poller start (offset=746150288)
 2026-09-23T08:01:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T08:00:58+00:00  gate poller start (offset=746150288)
 2026-09-23T08:01:06+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> cc7976e7980d38b59260a9009b435e5b9164683c
 2026-09-23T08:02:19+00:00  gate poller start (offset=746150288)
 2026-09-23T08:02:27+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:03:13+00:00  gate poller start (offset=746150288)
@@ -2525,18 +2204,12 @@
 2026-09-23T08:09:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:10:27+00:00  gate poller start (offset=746150288)
 2026-09-23T08:10:36+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T08:10:58+00:00  gate poller start (offset=746150288)
 2026-09-23T08:11:07+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T08:10:54+00:00  gate poller start (offset=746150288)
 2026-09-23T08:11:00+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T08:11:12+00:00  gate poller start (offset=746150288)
 2026-09-23T08:11:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> 9ae3ddb40cc66147218ca7e63d0fc95ce01fff9a
->>>>>>> 5e3e16f6329144b0be1dcc2760c871a632398580
 2026-09-23T08:12:16+00:00  gate poller start (offset=746150288)
 2026-09-23T08:12:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:13:18+00:00  gate poller start (offset=746150288)
@@ -2561,13 +2234,10 @@
 2026-09-23T08:22:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:23:14+00:00  gate poller start (offset=746150288)
 2026-09-23T08:23:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T08:24:27+00:00  gate poller start (offset=746150288)
 2026-09-23T08:24:35+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T08:24:16+00:00  gate poller start (offset=746150288)
 2026-09-23T08:24:24+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 5e338eee2cb968e4ddfd49b2f1e3abf12afa5544
 2026-09-23T08:25:20+00:00  gate poller start (offset=746150288)
 2026-09-23T08:25:28+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:26:13+00:00  gate poller start (offset=746150288)
@@ -2578,13 +2248,10 @@
 2026-09-23T08:28:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:29:16+00:00  gate poller start (offset=746150288)
 2026-09-23T08:29:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T08:30:46+00:00  gate poller start (offset=746150288)
 2026-09-23T08:30:54+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T08:30:44+00:00  gate poller start (offset=746150288)
 2026-09-23T08:30:47+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 737cca9d0980b9000d7f74b026a1b6b6f48955a2
 2026-09-23T08:31:13+00:00  gate poller start (offset=746150288)
 2026-09-23T08:31:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:32:15+00:00  gate poller start (offset=746150288)
@@ -2593,13 +2260,10 @@
 2026-09-23T08:33:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:34:17+00:00  gate poller start (offset=746150288)
 2026-09-23T08:34:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T08:35:20+00:00  gate poller start (offset=746150288)
 2026-09-23T08:35:29+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T08:35:14+00:00  gate poller start (offset=746150288)
 2026-09-23T08:35:21+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> fab2ae12422b0000aeeb8c48dc86f3b899f182b2
 2026-09-23T08:36:15+00:00  gate poller start (offset=746150288)
 2026-09-23T08:36:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:37:48+00:00  gate poller start (offset=746150288)
@@ -2620,22 +2284,16 @@
 2026-09-23T08:44:35+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:45:31+00:00  gate poller start (offset=746150288)
 2026-09-23T08:45:39+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T08:46:25+00:00  gate poller start (offset=746150288)
 2026-09-23T08:46:33+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T08:46:15+00:00  gate poller start (offset=746150288)
 2026-09-23T08:46:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 5211456c8e51f3999654f58d37bc499f92bc430a
 2026-09-23T08:47:12+00:00  gate poller start (offset=746150288)
 2026-09-23T08:47:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T08:48:19+00:00  gate poller start (offset=746150288)
 2026-09-23T08:48:28+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T08:48:15+00:00  gate poller start (offset=746150288)
 2026-09-23T08:48:20+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 60b7c2bd213b70c1fa7e0c826509c8094be8bdf8
 2026-09-23T08:49:12+00:00  gate poller start (offset=746150288)
 2026-09-23T08:49:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:50:30+00:00  gate poller start (offset=746150288)
@@ -2648,13 +2306,10 @@
 2026-09-23T08:53:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:54:18+00:00  gate poller start (offset=746150288)
 2026-09-23T08:54:27+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T08:55:18+00:00  gate poller start (offset=746150288)
 2026-09-23T08:55:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T08:55:06+00:00  gate poller start (offset=746150288)
 2026-09-23T08:55:14+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 602a5218d75a5886a9ff7756eb1b614144a0daeb
 2026-09-23T08:56:17+00:00  gate poller start (offset=746150288)
 2026-09-23T08:56:26+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:57:14+00:00  gate poller start (offset=746150288)
@@ -2663,23 +2318,14 @@
 2026-09-23T08:58:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T08:59:12+00:00  gate poller start (offset=746150288)
 2026-09-23T08:59:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T09:01:34+00:00  gate poller start (offset=746150288)
 2026-09-23T09:01:42+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
-<<<<<<< HEAD
 2026-09-23T09:01:02+00:00  gate poller start (offset=746150288)
 2026-09-23T09:01:11+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T09:00:58+00:00  gate poller start (offset=746150288)
 2026-09-23T09:01:03+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T09:01:14+00:00  gate poller start (offset=746150288)
 2026-09-23T09:01:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> db04ec43e2691c9ff180784691dbb73881e7039b
->>>>>>> 6cf357f9a59491651485e7e4af4c0205b2f42cb3
->>>>>>> 93b2ba33c679a7ec74ede2ccd88216930473d84b
 2026-09-23T09:02:15+00:00  gate poller start (offset=746150288)
 2026-09-23T09:02:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T09:03:13+00:00  gate poller start (offset=746150288)
@@ -2702,13 +2348,10 @@
 2026-09-23T09:11:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T09:12:15+00:00  gate poller start (offset=746150288)
 2026-09-23T09:12:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T09:13:29+00:00  gate poller start (offset=746150288)
 2026-09-23T09:13:38+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T09:13:15+00:00  gate poller start (offset=746150288)
 2026-09-23T09:13:24+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 03e5474916f4c2d28c2f13099fab41f0cf097e04
 2026-09-23T09:14:14+00:00  gate poller start (offset=746150288)
 2026-09-23T09:14:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T09:15:31+00:00  gate poller start (offset=746150288)
@@ -2757,13 +2400,10 @@
 2026-09-23T09:34:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T09:35:19+00:00  gate poller start (offset=746150288)
 2026-09-23T09:35:28+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T09:36:15+00:00  gate poller start (offset=746150288)
 2026-09-23T09:36:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T09:35:58+00:00  gate poller start (offset=746150288)
 2026-09-23T09:36:07+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> cc8f91bec3a2ff336df42616e2b05102ce9bbfd0
 2026-09-23T09:37:17+00:00  gate poller start (offset=746150288)
 2026-09-23T09:37:19+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T09:38:16+00:00  gate poller start (offset=746150288)
@@ -2784,13 +2424,10 @@
 2026-09-23T09:44:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T09:45:31+00:00  gate poller start (offset=746150288)
 2026-09-23T09:45:39+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T09:46:20+00:00  gate poller start (offset=746150288)
 2026-09-23T09:46:28+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T09:46:16+00:00  gate poller start (offset=746150288)
 2026-09-23T09:46:21+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 409e200f00437c6346a4d47afe4e199bf48fa605
 2026-09-23T09:47:12+00:00  gate poller start (offset=746150288)
 2026-09-23T09:47:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T09:48:15+00:00  gate poller start (offset=746150288)
@@ -2809,13 +2446,10 @@
 2026-09-23T09:54:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T09:54:53+00:00  gate poller start (offset=746150288)
 2026-09-23T09:55:01+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T09:55:21+00:00  gate poller start (offset=746150288)
 2026-09-23T09:55:30+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T09:55:19+00:00  gate poller start (offset=746150288)
 2026-09-23T09:55:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 4887be5d1f7888266ac3430d2ab7e2c5fb87d242
 2026-09-23T09:56:14+00:00  gate poller start (offset=746150288)
 2026-09-23T09:56:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T09:57:13+00:00  gate poller start (offset=746150288)
@@ -2826,13 +2460,10 @@
 2026-09-23T09:59:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T10:00:21+00:00  gate poller start (offset=746150288)
 2026-09-23T10:00:29+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T10:01:19+00:00  gate poller start (offset=746150288)
 2026-09-23T10:01:28+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T10:00:59+00:00  gate poller start (offset=746150288)
 2026-09-23T10:01:07+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> f4227fbde95068d517bbe3a6b739ef96f6748a02
 2026-09-23T10:02:15+00:00  gate poller start (offset=746150288)
 2026-09-23T10:02:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T10:03:14+00:00  gate poller start (offset=746150288)
@@ -2863,13 +2494,10 @@
 2026-09-23T10:14:38+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T10:15:28+00:00  gate poller start (offset=746150288)
 2026-09-23T10:15:37+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T10:16:13+00:00  gate poller start (offset=746150288)
 2026-09-23T10:16:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T10:16:09+00:00  gate poller start (offset=746150288)
 2026-09-23T10:16:14+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> add59be794425030669ca452d7fc52d0e0b42665
 2026-09-23T10:17:14+00:00  gate poller start (offset=746150288)
 2026-09-23T10:17:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T10:18:16+00:00  gate poller start (offset=746150288)
@@ -2884,13 +2512,10 @@
 2026-09-23T10:22:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T10:23:13+00:00  gate poller start (offset=746150288)
 2026-09-23T10:23:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T10:24:15+00:00  gate poller start (offset=746150288)
 2026-09-23T10:24:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T10:24:01+00:00  gate poller start (offset=746150288)
 2026-09-23T10:24:09+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> e59a320eaeb5b0ce85d91853bb23b73d65a06ec0
 2026-09-23T10:25:21+00:00  gate poller start (offset=746150288)
 2026-09-23T10:25:29+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T10:26:15+00:00  gate poller start (offset=746150288)
@@ -2909,18 +2534,12 @@
 2026-09-23T10:32:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T10:33:12+00:00  gate poller start (offset=746150288)
 2026-09-23T10:33:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T10:34:16+00:00  gate poller start (offset=746150288)
 2026-09-23T10:34:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T10:34:00+00:00  gate poller start (offset=746150288)
 2026-09-23T10:34:08+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T10:34:24+00:00  gate poller start (offset=746150288)
 2026-09-23T10:34:32+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> 39c565bd9632c6ca4a6c2e6bd7c644f78a0b9c47
->>>>>>> 1fd64cc1e2eae41f66b5359d2ea7249b17706c1f
 2026-09-23T10:35:20+00:00  gate poller start (offset=746150288)
 2026-09-23T10:35:29+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T10:36:14+00:00  gate poller start (offset=746150288)
@@ -2941,13 +2560,10 @@
 2026-09-23T10:43:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T10:44:20+00:00  gate poller start (offset=746150288)
 2026-09-23T10:44:28+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T10:45:29+00:00  gate poller start (offset=746150288)
 2026-09-23T10:45:37+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T10:45:12+00:00  gate poller start (offset=746150288)
 2026-09-23T10:45:20+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 9cedced60c25e6a80ae04d826a2457b44475d206
 2026-09-23T10:46:14+00:00  gate poller start (offset=746150288)
 2026-09-23T10:46:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T10:47:14+00:00  gate poller start (offset=746150288)
@@ -2978,20 +2594,14 @@
 2026-09-23T10:57:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T10:58:15+00:00  gate poller start (offset=746150288)
 2026-09-23T10:58:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T10:59:12+00:00  gate poller start (offset=746150288)
 2026-09-23T10:59:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T10:59:10+00:00  gate poller start (offset=746150288)
 2026-09-23T10:59:13+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 2aeaa61fa128a75ee074bf6cfa417f6f985fc16c
-<<<<<<< HEAD
 2026-09-23T11:01:48+00:00  gate poller start (offset=746150288)
 2026-09-23T11:01:56+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T11:00:58+00:00  gate poller start (offset=746150288)
 2026-09-23T11:01:06+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 939358cf6feb2f619a1f758f067ccfb8ba0997f6
 2026-09-23T11:02:15+00:00  gate poller start (offset=746150288)
 2026-09-23T11:02:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:03:12+00:00  gate poller start (offset=746150288)
@@ -3008,13 +2618,10 @@
 2026-09-23T11:07:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:08:16+00:00  gate poller start (offset=746150288)
 2026-09-23T11:08:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T11:09:25+00:00  gate poller start (offset=746150288)
 2026-09-23T11:09:50+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T11:09:14+00:00  gate poller start (offset=746150288)
 2026-09-23T11:09:22+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> d07fce8cb0dafe721b0ff49ea2ca7fe8ee94b96f
 2026-09-23T11:10:24+00:00  gate poller start (offset=746150288)
 2026-09-23T11:10:33+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:11:14+00:00  gate poller start (offset=746150288)
@@ -3039,22 +2646,16 @@
 2026-09-23T11:20:37+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:21:13+00:00  gate poller start (offset=746150288)
 2026-09-23T11:21:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T11:22:15+00:00  gate poller start (offset=746150288)
 2026-09-23T11:22:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T11:22:02+00:00  gate poller start (offset=746150288)
 2026-09-23T11:22:11+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 15d31711b24a5f91fa7a12fbd90360144141eebf
 2026-09-23T11:23:16+00:00  gate poller start (offset=746150288)
 2026-09-23T11:23:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T11:24:16+00:00  gate poller start (offset=746150288)
 2026-09-23T11:24:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T11:24:08+00:00  gate poller start (offset=746150288)
 2026-09-23T11:24:17+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 87e7a21cfaa17e78a146d0f48e54f229aed8a6ec
 2026-09-23T11:25:20+00:00  gate poller start (offset=746150288)
 2026-09-23T11:25:29+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:26:14+00:00  gate poller start (offset=746150288)
@@ -3069,13 +2670,10 @@
 2026-09-23T11:30:53+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:31:15+00:00  gate poller start (offset=746150288)
 2026-09-23T11:31:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T11:32:31+00:00  gate poller start (offset=746150288)
 2026-09-23T11:32:39+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T11:32:17+00:00  gate poller start (offset=746150288)
 2026-09-23T11:32:26+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> a63e3c61893d8dba942b189760fc2724f030e0b4
 2026-09-23T11:33:13+00:00  gate poller start (offset=746150288)
 2026-09-23T11:33:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:34:14+00:00  gate poller start (offset=746150288)
@@ -3090,24 +2688,18 @@
 2026-09-23T11:38:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:39:11+00:00  gate poller start (offset=746150288)
 2026-09-23T11:39:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T11:41:12+00:00  gate poller start (offset=746150288)
 2026-09-23T11:41:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T11:41:03+00:00  gate poller start (offset=746150288)
 2026-09-23T11:41:11+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 2840a2ab5717d7ebb5fa0d8abf356d5d06fbc6d9
 2026-09-23T11:41:35+00:00  gate poller start (offset=746150288)
 2026-09-23T11:41:44+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:42:17+00:00  gate poller start (offset=746150288)
 2026-09-23T11:42:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T11:43:24+00:00  gate poller start (offset=746150288)
 2026-09-23T11:43:32+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T11:43:12+00:00  gate poller start (offset=746150288)
 2026-09-23T11:43:20+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 420e05c5bf45b210a80ce5fce3b10f5064567f60
 2026-09-23T11:44:14+00:00  gate poller start (offset=746150288)
 2026-09-23T11:44:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:45:30+00:00  gate poller start (offset=746150288)
@@ -3124,44 +2716,32 @@
 2026-09-23T11:50:36+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:51:14+00:00  gate poller start (offset=746150288)
 2026-09-23T11:51:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T11:52:50+00:00  gate poller start (offset=746150288)
 2026-09-23T11:52:58+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T11:52:14+00:00  gate poller start (offset=746150288)
 2026-09-23T11:52:22+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> f9f82cb5cef92d7f614411369059b2e6ad993463
 2026-09-23T11:53:12+00:00  gate poller start (offset=746150288)
 2026-09-23T11:53:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:54:17+00:00  gate poller start (offset=746150288)
 2026-09-23T11:54:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T11:55:24+00:00  gate poller start (offset=746150288)
 2026-09-23T11:55:32+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T11:55:19+00:00  gate poller start (offset=746150288)
 2026-09-23T11:55:25+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> a55f80899976536b8b8cd33d09f4f0141cb4fea5
 2026-09-23T11:56:52+00:00  gate poller start (offset=746150288)
 2026-09-23T11:57:00+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T11:57:13+00:00  gate poller start (offset=746150288)
 2026-09-23T11:57:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T11:58:16+00:00  gate poller start (offset=746150288)
 2026-09-23T11:58:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T11:57:58+00:00  gate poller start (offset=746150288)
 2026-09-23T11:58:06+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> f5fb2bfbc8207c46c192aaf2c5a65ff7d7b521a8
 2026-09-23T11:59:14+00:00  gate poller start (offset=746150288)
 2026-09-23T11:59:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T12:01:14+00:00  gate poller start (offset=746150288)
 2026-09-23T12:01:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T12:01:03+00:00  gate poller start (offset=746150288)
 2026-09-23T12:01:12+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 04f123ffcd39738e68b843fef3ca7481425f0d86
 2026-09-23T12:02:14+00:00  gate poller start (offset=746150288)
 2026-09-23T12:02:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T12:03:14+00:00  gate poller start (offset=746150288)
@@ -3176,13 +2756,10 @@
 2026-09-23T12:07:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T12:08:16+00:00  gate poller start (offset=746150288)
 2026-09-23T12:08:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T12:09:14+00:00  gate poller start (offset=746150288)
 2026-09-23T12:09:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T12:09:02+00:00  gate poller start (offset=746150288)
 2026-09-23T12:09:10+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 9ca469b915aa3cc6dee0f83d97fc0dbe3faefb2b
 2026-09-23T12:10:28+00:00  gate poller start (offset=746150288)
 2026-09-23T12:10:36+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T12:11:13+00:00  gate poller start (offset=746150288)
@@ -3203,13 +2780,10 @@
 2026-09-23T12:18:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T12:19:12+00:00  gate poller start (offset=746150288)
 2026-09-23T12:19:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T12:20:37+00:00  gate poller start (offset=746150288)
 2026-09-23T12:20:46+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T12:20:32+00:00  gate poller start (offset=746150288)
 2026-09-23T12:20:38+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> d4b39bd01e23e9f9a2fd208449caa274910f3648
 2026-09-23T12:21:12+00:00  gate poller start (offset=746150288)
 2026-09-23T12:21:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T12:22:16+00:00  gate poller start (offset=746150288)
@@ -3252,20 +2826,14 @@
 2026-09-23T12:39:26+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T12:40:29+00:00  gate poller start (offset=746150288)
 2026-09-23T12:40:38+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T12:41:14+00:00  gate poller start (offset=746150288)
 2026-09-23T12:41:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T12:41:06+00:00  gate poller start (offset=746150288)
 2026-09-23T12:41:14+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 7e514b70ef1dd5f2be11238f18b6af0136a359be
-<<<<<<< HEAD
 2026-09-23T12:42:50+00:00  gate poller start (offset=746150288)
 2026-09-23T12:42:58+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T12:41:57+00:00  gate poller start (offset=746150288)
 2026-09-23T12:42:06+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 96dfba7150318986304d76c1b383e625d207df57
 2026-09-23T12:43:13+00:00  gate poller start (offset=746150288)
 2026-09-23T12:43:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T12:44:14+00:00  gate poller start (offset=746150288)
@@ -3286,13 +2854,10 @@
 2026-09-23T12:51:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T12:52:21+00:00  gate poller start (offset=746150288)
 2026-09-23T12:52:30+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T12:53:50+00:00  gate poller start (offset=746150288)
 2026-09-23T12:53:58+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T12:53:13+00:00  gate poller start (offset=746150288)
 2026-09-23T12:53:22+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 8c6045afaeb9dd82da00fe65108cef1d2662adeb
 2026-09-23T12:54:17+00:00  gate poller start (offset=746150288)
 2026-09-23T12:54:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T12:55:20+00:00  gate poller start (offset=746150288)
@@ -3303,25 +2868,16 @@
 2026-09-23T12:57:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T12:58:16+00:00  gate poller start (offset=746150288)
 2026-09-23T12:58:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T12:59:13+00:00  gate poller start (offset=746150288)
 2026-09-23T12:59:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T12:58:57+00:00  gate poller start (offset=746150288)
 2026-09-23T12:59:05+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 38759a5a6e5f8353a9996e96ded9aeff54c63511
-<<<<<<< HEAD
 2026-09-23T13:01:15+00:00  gate poller start (offset=746150288)
 2026-09-23T13:01:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
-<<<<<<< HEAD
 2026-09-23T13:01:15+00:00  gate poller start (offset=746150288)
 2026-09-23T13:01:16+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T13:01:04+00:00  gate poller start (offset=746150288)
 2026-09-23T13:01:12+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 7072047c202f0e4bba34e62a7b58732770a4ccfa
->>>>>>> 9c7dd2550cb50cc595da1c2ba7dc9fca084294b2
 2026-09-23T13:02:16+00:00  gate poller start (offset=746150288)
 2026-09-23T13:02:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T13:03:16+00:00  gate poller start (offset=746150288)
@@ -3348,13 +2904,10 @@
 2026-09-23T13:13:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T13:14:15+00:00  gate poller start (offset=746150288)
 2026-09-23T13:14:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T13:15:34+00:00  gate poller start (offset=746150288)
 2026-09-23T13:15:42+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T13:15:27+00:00  gate poller start (offset=746150288)
 2026-09-23T13:15:35+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 00d038958bb858f383e622b7fa4fa8658019c356
 2026-09-23T13:16:14+00:00  gate poller start (offset=746150288)
 2026-09-23T13:16:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T13:17:15+00:00  gate poller start (offset=746150288)
@@ -3407,18 +2960,12 @@
 2026-09-23T13:38:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T13:39:15+00:00  gate poller start (offset=746150288)
 2026-09-23T13:39:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T13:40:01+00:00  gate poller start (offset=746150288)
 2026-09-23T13:40:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T13:40:03+00:00  gate poller start (offset=746150288)
 2026-09-23T13:40:11+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T13:40:28+00:00  gate poller start (offset=746150288)
 2026-09-23T13:40:36+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> e65bb38f6c8baddd968e4428d77d2daaa09709ca
->>>>>>> ba67aa86a1a7697e87fd4bc0bbd4a946bfc39f11
 2026-09-23T13:41:13+00:00  gate poller start (offset=746150288)
 2026-09-23T13:41:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T13:42:15+00:00  gate poller start (offset=746150288)
@@ -3447,44 +2994,32 @@
 2026-09-23T13:52:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T13:53:18+00:00  gate poller start (offset=746150288)
 2026-09-23T13:53:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T13:54:23+00:00  gate poller start (offset=746150288)
 2026-09-23T13:54:31+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T13:54:14+00:00  gate poller start (offset=746150288)
 2026-09-23T13:54:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 80e216c24e43e65986a6ba8f2fee8e3d0926c498
 2026-09-23T13:55:28+00:00  gate poller start (offset=746150288)
 2026-09-23T13:55:36+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T13:56:16+00:00  gate poller start (offset=746150288)
 2026-09-23T13:56:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T13:56:08+00:00  gate poller start (offset=746150288)
 2026-09-23T13:56:16+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 9bdb434a4f8330921460843e7d1535e1f350263c
 2026-09-23T13:57:13+00:00  gate poller start (offset=746150288)
 2026-09-23T13:57:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T13:58:15+00:00  gate poller start (offset=746150288)
 2026-09-23T13:58:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T13:59:13+00:00  gate poller start (offset=746150288)
 2026-09-23T13:59:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T14:01:14+00:00  gate poller start (offset=746150288)
 2026-09-23T14:01:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T14:01:05+00:00  gate poller start (offset=746150288)
 2026-09-23T14:01:13+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> aeb0f0fbe648cb5d8647fbd69780d5e03808962a
 2026-09-23T14:02:17+00:00  gate poller start (offset=746150288)
 2026-09-23T14:02:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T14:03:43+00:00  gate poller start (offset=746150288)
 2026-09-23T14:03:51+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T14:03:14+00:00  gate poller start (offset=746150288)
 2026-09-23T14:03:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 8831e2e7a5bc4bf6c82067f6a3582c857cefdad0
 2026-09-23T14:04:56+00:00  gate poller start (offset=746150288)
 2026-09-23T14:05:04+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T14:05:21+00:00  gate poller start (offset=746150288)
@@ -3577,13 +3112,10 @@
 2026-09-23T14:44:05+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T14:44:19+00:00  gate poller start (offset=746150288)
 2026-09-23T14:44:27+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T14:46:15+00:00  gate poller start (offset=746150288)
 2026-09-23T14:46:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T14:46:07+00:00  gate poller start (offset=746150288)
 2026-09-23T14:46:16+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> ebb531079488c7ab1360eb534c7b8de0733fa6da
 2026-09-23T14:47:13+00:00  gate poller start (offset=746150288)
 2026-09-23T14:47:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T14:48:16+00:00  gate poller start (offset=746150288)
@@ -3614,18 +3146,12 @@
 2026-09-23T14:58:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T14:59:12+00:00  gate poller start (offset=746150288)
 2026-09-23T14:59:20+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T15:01:06+00:00  gate poller start (offset=746150288)
 2026-09-23T15:01:15+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T15:00:48+00:00  gate poller start (offset=746150288)
 2026-09-23T15:00:56+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T15:01:15+00:00  gate poller start (offset=746150288)
 2026-09-23T15:01:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
->>>>>>> 81b2eb3adc3bc4f5af78c09448f0cec911615ab5
->>>>>>> 3c52dd20228bdfbcb8e2aeb7cd79ff373dbd6eb1
 2026-09-23T15:02:17+00:00  gate poller start (offset=746150288)
 2026-09-23T15:02:26+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T15:03:14+00:00  gate poller start (offset=746150288)
@@ -3638,26 +3164,20 @@
 2026-09-23T15:06:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T15:07:14+00:00  gate poller start (offset=746150288)
 2026-09-23T15:07:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T15:08:20+00:00  gate poller start (offset=746150288)
 2026-09-23T15:08:29+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T15:08:17+00:00  gate poller start (offset=746150288)
 2026-09-23T15:08:21+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 6cf7fb59334cd97d69dc777788dfe7602d45ddce
 2026-09-23T15:09:14+00:00  gate poller start (offset=746150288)
 2026-09-23T15:09:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T15:10:29+00:00  gate poller start (offset=746150288)
 2026-09-23T15:10:37+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T15:11:14+00:00  gate poller start (offset=746150288)
 2026-09-23T15:11:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T15:12:21+00:00  gate poller start (offset=746150288)
 2026-09-23T15:12:30+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T15:12:20+00:00  gate poller start (offset=746150288)
 2026-09-23T15:12:22+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> ac063a91519579678e3c55f01142780876e3003b
 2026-09-23T15:13:13+00:00  gate poller start (offset=746150288)
 2026-09-23T15:13:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T15:14:16+00:00  gate poller start (offset=746150288)
@@ -3682,23 +3202,17 @@
 2026-09-23T15:23:28+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T15:24:15+00:00  gate poller start (offset=746150288)
 2026-09-23T15:24:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T15:25:21+00:00  gate poller start (offset=746150288)
 2026-09-23T15:25:29+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T15:25:14+00:00  gate poller start (offset=746150288)
 2026-09-23T15:25:22+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 848dc5fd02589629b9e19564051a39ed2871a7b1
 2026-09-23T15:26:15+00:00  gate poller start (offset=746150288)
 2026-09-23T15:26:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T15:27:16+00:00  gate poller start (offset=746150288)
 2026-09-23T15:27:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T15:28:15+00:00  gate poller start (offset=746150288)
-<<<<<<< HEAD
 2026-09-23T15:28:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T15:28:16+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 7ebe40b394cdd39a2579218aba6ff1d0fb4fcf92
 2026-09-23T15:29:14+00:00  gate poller start (offset=746150288)
 2026-09-23T15:29:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T15:30:48+00:00  gate poller start (offset=746150288)
@@ -3735,13 +3249,10 @@
 2026-09-23T15:44:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T15:45:31+00:00  gate poller start (offset=746150288)
 2026-09-23T15:45:39+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T15:46:20+00:00  gate poller start (offset=746150288)
 2026-09-23T15:46:28+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T15:46:18+00:00  gate poller start (offset=746150288)
 2026-09-23T15:46:21+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> bbfa60daba8061be2ea6c1992787617b59c2c7a7
 2026-09-23T15:46:48+00:00  gate poller start (offset=746150288)
 2026-09-23T15:46:56+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T15:47:15+00:00  gate poller start (offset=746150288)
@@ -3770,22 +3281,16 @@
 2026-09-23T15:57:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T15:58:17+00:00  gate poller start (offset=746150288)
 2026-09-23T15:58:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T15:59:14+00:00  gate poller start (offset=746150288)
 2026-09-23T15:59:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T15:59:12+00:00  gate poller start (offset=746150288)
 2026-09-23T15:59:16+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> a0d5732c9ef73ea421234301672a3ca0582fff80
 2026-09-23T16:00:31+00:00  gate poller start (offset=746150288)
 2026-09-23T16:00:39+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T16:01:16+00:00  gate poller start (offset=746150288)
 2026-09-23T16:01:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T16:01:04+00:00  gate poller start (offset=746150288)
 2026-09-23T16:01:13+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 251a0cb0b43504d6cf99ab29980e873fad739b1f
 2026-09-23T16:02:17+00:00  gate poller start (offset=746150288)
 2026-09-23T16:02:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T16:03:14+00:00  gate poller start (offset=746150288)
@@ -3808,13 +3313,10 @@
 2026-09-23T16:11:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T16:12:14+00:00  gate poller start (offset=746150288)
 2026-09-23T16:12:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T16:13:14+00:00  gate poller start (offset=746150288)
 2026-09-23T16:13:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T16:13:07+00:00  gate poller start (offset=746150288)
 2026-09-23T16:13:15+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> f4061ccfa86be7c92994aaa76d540b17cbdf29bf
 2026-09-23T16:14:16+00:00  gate poller start (offset=746150288)
 2026-09-23T16:14:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T16:15:35+00:00  gate poller start (offset=746150288)
@@ -3843,13 +3345,10 @@
 2026-09-23T16:25:29+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T16:26:17+00:00  gate poller start (offset=746150288)
 2026-09-23T16:26:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T16:27:09+00:00  gate poller start (offset=746150288)
 2026-09-23T16:27:37+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T16:27:15+00:00  gate poller start (offset=746150288)
 2026-09-23T16:27:24+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 19178268857d5933d08e43543fb64a9e62a36253
 2026-09-23T16:28:16+00:00  gate poller start (offset=746150288)
 2026-09-23T16:28:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T16:29:13+00:00  gate poller start (offset=746150288)
@@ -3872,20 +3371,14 @@
 2026-09-23T16:37:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T16:38:15+00:00  gate poller start (offset=746150288)
 2026-09-23T16:38:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T16:39:15+00:00  gate poller start (offset=746150288)
 2026-09-23T16:39:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T16:38:59+00:00  gate poller start (offset=746150288)
 2026-09-23T16:39:07+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 1feedf7db7344da270e483668560d457aa063adb
-<<<<<<< HEAD
 2026-09-23T16:40:45+00:00  gate poller start (offset=746150288)
 2026-09-23T16:40:54+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T16:40:31+00:00  gate poller start (offset=746150288)
 2026-09-23T16:40:39+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> ca50208e57fe12a4e29fc4e28ba9d69f0e3f0270
 2026-09-23T16:41:14+00:00  gate poller start (offset=746150288)
 2026-09-23T16:41:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T16:42:14+00:00  gate poller start (offset=746150288)
@@ -3916,13 +3409,10 @@
 2026-09-23T16:53:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T16:54:15+00:00  gate poller start (offset=746150288)
 2026-09-23T16:54:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T16:55:30+00:00  gate poller start (offset=746150288)
 2026-09-23T16:55:39+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T16:55:21+00:00  gate poller start (offset=746150288)
 2026-09-23T16:55:31+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> b41ecf5d3e6d66e305a1c39839959007f42efc62
 2026-09-23T16:55:51+00:00  gate poller start (offset=746150288)
 2026-09-23T16:55:59+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T16:56:15+00:00  gate poller start (offset=746150288)
@@ -3933,20 +3423,14 @@
 2026-09-23T16:58:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T16:59:14+00:00  gate poller start (offset=746150288)
 2026-09-23T16:59:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T17:01:16+00:00  gate poller start (offset=746150288)
 2026-09-23T17:01:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T17:01:00+00:00  gate poller start (offset=746150288)
 2026-09-23T17:01:08+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> b6414f8beba580aef6b48262e63910997c08dbe8
-<<<<<<< HEAD
 2026-09-23T17:02:15+00:00  gate poller start (offset=746150288)
 2026-09-23T17:02:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T17:02:10+00:00  gate poller start (offset=746150288)
 2026-09-23T17:02:16+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> d5f914ecdb139895b12246e75281dc2ccd77a349
 2026-09-23T17:03:14+00:00  gate poller start (offset=746150288)
 2026-09-23T17:03:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:04:18+00:00  gate poller start (offset=746150288)
@@ -3971,20 +3455,14 @@
 2026-09-23T17:13:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:14:16+00:00  gate poller start (offset=746150288)
 2026-09-23T17:14:25+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T17:15:35+00:00  gate poller start (offset=746150288)
 2026-09-23T17:15:43+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T17:15:31+00:00  gate poller start (offset=746150288)
 2026-09-23T17:15:36+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 07fb17b2cf665d219446cc45444107eba264d328
-<<<<<<< HEAD
 2026-09-23T17:16:18+00:00  gate poller start (offset=746150288)
 2026-09-23T17:16:27+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T17:16:15+00:00  gate poller start (offset=746150288)
 2026-09-23T17:16:19+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 0843d1d357e351b11d513811ed6446d9036d8748
 2026-09-23T17:17:13+00:00  gate poller start (offset=746150288)
 2026-09-23T17:17:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:18:16+00:00  gate poller start (offset=746150288)
@@ -4005,13 +3483,10 @@
 2026-09-23T17:25:30+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:26:15+00:00  gate poller start (offset=746150288)
 2026-09-23T17:26:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T17:27:09+00:00  gate poller start (offset=746150288)
 2026-09-23T17:27:34+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T17:27:12+00:00  gate poller start (offset=746150288)
 2026-09-23T17:27:21+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 195d88a2173b44d2e13a4daf8ed8d87de09bf995
 2026-09-23T17:28:14+00:00  gate poller start (offset=746150288)
 2026-09-23T17:28:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:29:14+00:00  gate poller start (offset=746150288)
@@ -4030,13 +3505,10 @@
 2026-09-23T17:34:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:35:39+00:00  gate poller start (offset=746150288)
 2026-09-23T17:35:47+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T17:36:17+00:00  gate poller start (offset=746150288)
 2026-09-23T17:36:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T17:36:14+00:00  gate poller start (offset=746150288)
 2026-09-23T17:36:18+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 07942990e4f1ad37a22e6a4567e8260203493ad3
 2026-09-23T17:37:14+00:00  gate poller start (offset=746150288)
 2026-09-23T17:37:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:38:16+00:00  gate poller start (offset=746150288)
@@ -4059,26 +3531,20 @@
 2026-09-23T17:45:39+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:46:14+00:00  gate poller start (offset=746150288)
 2026-09-23T17:46:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T17:47:13+00:00  gate poller start (offset=746150288)
 2026-09-23T17:47:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T17:47:05+00:00  gate poller start (offset=746150288)
 2026-09-23T17:47:13+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 66ba2a8046216c454a115565cbecf1f7584f1d11
 2026-09-23T17:48:20+00:00  gate poller start (offset=746150288)
 2026-09-23T17:48:29+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:49:12+00:00  gate poller start (offset=746150288)
 2026-09-23T17:49:20+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:50:29+00:00  gate poller start (offset=746150288)
 2026-09-23T17:50:37+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T17:51:31+00:00  gate poller start (offset=746150288)
 2026-09-23T17:51:39+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T17:51:16+00:00  gate poller start (offset=746150288)
 2026-09-23T17:51:24+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> ccf49657e374ab2c7dc2138f1226f6cfcfe945c0
 2026-09-23T17:52:16+00:00  gate poller start (offset=746150288)
 2026-09-23T17:52:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:53:13+00:00  gate poller start (offset=746150288)
@@ -4089,26 +3555,20 @@
 2026-09-23T17:55:27+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:56:14+00:00  gate poller start (offset=746150288)
 2026-09-23T17:56:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T17:57:15+00:00  gate poller start (offset=746150288)
 2026-09-23T17:57:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T17:57:13+00:00  gate poller start (offset=746150288)
 2026-09-23T17:57:16+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> b9d91f7c40b31da44ba81ff589054c03c214f693
 2026-09-23T17:58:17+00:00  gate poller start (offset=746150288)
 2026-09-23T17:58:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:59:14+00:00  gate poller start (offset=746150288)
 2026-09-23T17:59:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:59:35+00:00  gate poller start (offset=746150288)
 2026-09-23T17:59:43+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T18:01:13+00:00  gate poller start (offset=746150288)
 2026-09-23T18:01:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T18:01:00+00:00  gate poller start (offset=746150288)
 2026-09-23T18:01:09+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> aeec646faa517e21332f258357f5bf1727070bb7
 2026-09-23T18:02:19+00:00  gate poller start (offset=746150288)
 2026-09-23T18:02:27+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T18:03:22+00:00  gate poller start (offset=746150288)
@@ -4119,13 +3579,10 @@
 2026-09-23T18:05:30+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T18:06:17+00:00  gate poller start (offset=746150288)
 2026-09-23T18:06:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T18:07:15+00:00  gate poller start (offset=746150288)
 2026-09-23T18:07:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T18:07:06+00:00  gate poller start (offset=746150288)
 2026-09-23T18:07:15+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> f969bf1d9e33a7f3531676caaf46f7dca5cb28da
 2026-09-23T18:08:17+00:00  gate poller start (offset=746150288)
 2026-09-23T18:08:26+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T18:09:19+00:00  gate poller start (offset=746150288)
@@ -4158,18 +3615,12 @@
 2026-09-23T18:22:26+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T18:23:15+00:00  gate poller start (offset=746150288)
 2026-09-23T18:23:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T18:24:16+00:00  gate poller start (offset=746150288)
 2026-09-23T18:24:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
-<<<<<<< HEAD
 2026-09-23T18:24:10+00:00  gate poller start (offset=746150288)
 2026-09-23T18:24:17+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T18:23:59+00:00  gate poller start (offset=746150288)
 2026-09-23T18:24:08+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 96e883fe7d78213a91a1963ddecd6585ec4e8ed6
->>>>>>> 9773d484f2ad5bbed3ed6b77cc102f1c22f20911
 2026-09-23T18:25:55+00:00  gate poller start (offset=746150288)
 2026-09-23T18:26:03+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T18:26:18+00:00  gate poller start (offset=746150288)
@@ -4210,13 +3661,10 @@
 2026-09-23T18:41:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T18:42:18+00:00  gate poller start (offset=746150288)
 2026-09-23T18:42:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T18:43:20+00:00  gate poller start (offset=746150288)
 2026-09-23T18:43:28+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T18:43:13+00:00  gate poller start (offset=746150288)
 2026-09-23T18:43:21+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> c8e64ab37cc72d16aff134bcf5ec45087be8e7ab
 2026-09-23T18:44:13+00:00  gate poller start (offset=746150288)
 2026-09-23T18:44:22+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T18:45:30+00:00  gate poller start (offset=746150288)
@@ -4255,20 +3703,14 @@
 2026-09-23T18:58:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T18:59:14+00:00  gate poller start (offset=746150288)
 2026-09-23T18:59:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T19:01:13+00:00  gate poller start (offset=746150288)
 2026-09-23T19:01:22+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T19:01:03+00:00  gate poller start (offset=746150288)
 2026-09-23T19:01:11+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 7529529c744f16c3e9f188a24c56e2b221ff0324
-<<<<<<< HEAD
 2026-09-23T19:02:19+00:00  gate poller start (offset=746150288)
 2026-09-23T19:02:28+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T19:02:18+00:00  gate poller start (offset=746150288)
 2026-09-23T19:02:21+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 49e8b064833bfb4bc2646c1797c440e9076c3428
 2026-09-23T19:03:15+00:00  gate poller start (offset=746150288)
 2026-09-23T19:03:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:04:16+00:00  gate poller start (offset=746150288)
@@ -4291,24 +3733,18 @@
 2026-09-23T19:12:26+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:13:15+00:00  gate poller start (offset=746150288)
 2026-09-23T19:13:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T19:14:15+00:00  gate poller start (offset=746150288)
 2026-09-23T19:14:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T19:13:58+00:00  gate poller start (offset=746150288)
 2026-09-23T19:14:07+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> cf4aa5c63f2870aff71d19edf2de024944557484
 2026-09-23T19:15:34+00:00  gate poller start (offset=746150288)
 2026-09-23T19:15:43+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:16:51+00:00  gate poller start (offset=746150288)
 2026-09-23T19:16:59+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T19:17:18+00:00  gate poller start (offset=746150288)
 2026-09-23T19:17:26+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T19:17:13+00:00  gate poller start (offset=746150288)
 2026-09-23T19:17:19+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 11ae851e10079d1e3d592ae24cdc0b0ef2032d19
 2026-09-23T19:18:16+00:00  gate poller start (offset=746150288)
 2026-09-23T19:18:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:19:15+00:00  gate poller start (offset=746150288)
@@ -4341,18 +3777,12 @@
 2026-09-23T19:31:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:32:18+00:00  gate poller start (offset=746150288)
 2026-09-23T19:32:27+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T19:33:31+00:00  gate poller start (offset=746150288)
 2026-09-23T19:33:40+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
-<<<<<<< HEAD
 2026-09-23T19:33:20+00:00  gate poller start (offset=746150288)
 2026-09-23T19:33:29+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T19:33:15+00:00  gate poller start (offset=746150288)
 2026-09-23T19:33:23+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> ce9234c11ee4f24555b7e519fad7864df40157ab
->>>>>>> 42b832806cf884b2492744d2eb43db8de93d0953
 2026-09-23T19:34:15+00:00  gate poller start (offset=746150288)
 2026-09-23T19:34:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:35:21+00:00  gate poller start (offset=746150288)
@@ -4371,13 +3801,10 @@
 2026-09-23T19:41:23+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:42:15+00:00  gate poller start (offset=746150288)
 2026-09-23T19:42:24+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T19:43:30+00:00  gate poller start (offset=746150288)
 2026-09-23T19:43:38+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T19:43:15+00:00  gate poller start (offset=746150288)
 2026-09-23T19:43:24+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 618629312cecc8b399dddbb7ff314772f1c47777
 2026-09-23T19:44:16+00:00  gate poller start (offset=746150288)
 2026-09-23T19:44:24+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:45:29+00:00  gate poller start (offset=746150288)
@@ -4394,13 +3821,10 @@
 2026-09-23T19:49:21+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:50:27+00:00  gate poller start (offset=746150288)
 2026-09-23T19:50:35+00:00  gate poller done: 0 decree(s), new offset=746150288
-<<<<<<< HEAD
 2026-09-23T19:51:13+00:00  gate poller start (offset=746150288)
 2026-09-23T19:51:21+00:00  gate poller done: 0 decree(s), new offset=746150288
-=======
 2026-09-23T19:50:57+00:00  gate poller start (offset=746150288)
 2026-09-23T19:51:06+00:00  gate poller done: 0 decree(s), new offset=746150288
->>>>>>> 7f876a29e94c01666fa90247d3e3c8b5a1aca1ca
 2026-09-23T19:52:16+00:00  gate poller start (offset=746150288)
 2026-09-23T19:52:25+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:53:13+00:00  gate poller start (offset=746150288)

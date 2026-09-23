@@ -1,19 +1,19 @@
-﻿2026-09-21T18:27:50+00:00  HUNTING: trying yunaremaia/sandbox-ffi-layers#30
+2026-09-21T18:27:50+00:00  HUNTING: trying yunaremaia/sandbox-ffi-layers#30
 2026-09-21T18:27:50+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/oss-pilot/oss-pilot/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 30 --gate-sync  (cwd=/home/runner/work/oss-pilot/oss-pilot/fixer)
 2026-09-21T18:28:49+00:00  fixer exit=1
 --tail--
 {'error': {'code': 404, 'message': 'models/auto is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}]). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?), using keyword matching only.
-âœ… Found 6 relevant files (0 via AI selection, 6 via keyword match)
+??? Found 6 relevant files (0 via AI selection, 6 via keyword match)
 Step 8a: running baseline tests (before any changes)...
-âœ… Tests passed
+??? Tests passed
 
 --- Attempt 1/5 ---
-âš ï¸ Combo 'gemini-2.0-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and imp
+?????? Combo 'gemini-2.0-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and imp
    Trying fallback combo 'gemini-1.5-flash' in 5s...
-âš ï¸ Combo 'gemini-1.5-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the lis
+?????? Combo 'gemini-1.5-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the lis
    Trying fallback combo 'gemini-2.0-flash-lite' in 10s...
 
-ðŸ’¾ Saved state for yunaremaia/sandbox-ffi-layers#30 before exit (status: paused). Nothing on GitHub changed.
+???? Saved state for yunaremaia/sandbox-ffi-layers#30 before exit (status: paused). Nothing on GitHub changed.
    Resume with:
       python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --resume 30
       python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --conversation 30
@@ -27,16 +27,16 @@ RuntimeError: OmniRoute call failed (Error code: 404 - [{'error': {'code': 404, 
 --tail--
 ode: 404 - [{'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and imp
    Trying fallback combo 'gemini-1.5-flash' in 5s...
-âš ï¸ Combo 'gemini-1.5-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the lis
+?????? Combo 'gemini-1.5-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the lis
    Trying fallback combo 'gemini-2.0-flash-lite' in 10s...
 
 --- Attempt 1/8 ---
-âš ï¸ Combo 'gemini-2.0-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and imp
+?????? Combo 'gemini-2.0-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and imp
    Trying fallback combo 'gemini-1.5-flash' in 5s...
-âš ï¸ Combo 'gemini-1.5-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the lis
+?????? Combo 'gemini-1.5-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the lis
    Trying fallback combo 'gemini-2.0-flash-lite' in 10s...
 
-ðŸ’¾ Saved state for yunaremaia/sandbox-ffi-layers#28 before exit (status: paused). Nothing on GitHub changed.
+???? Saved state for yunaremaia/sandbox-ffi-layers#28 before exit (status: paused). Nothing on GitHub changed.
    Resume with:
       python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --resume 28
       python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --conversation 28
@@ -50,17 +50,17 @@ RuntimeError: OmniRoute call failed (Error code: 404 - [{'error': {'code': 404, 
 2026-09-22T00:46:12+00:00  fixer exit=1
 --tail--
 {'error': {'code': 404, 'message': 'models/auto is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}]). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?), using keyword matching only.
-âœ… Found 4 relevant files (0 via AI selection, 4 via keyword match)
+??? Found 4 relevant files (0 via AI selection, 4 via keyword match)
 Step 8a: running baseline tests (before any changes)...
-âœ… Tests passed
+??? Tests passed
 
 --- Attempt 1/5 ---
-âš ï¸ Combo 'gemini-2.0-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and imp
+?????? Combo 'gemini-2.0-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and imp
    Trying fallback combo 'gemini-1.5-flash' in 5s...
-âš ï¸ Combo 'gemini-1.5-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the lis
+?????? Combo 'gemini-1.5-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the lis
    Trying fallback combo 'gemini-2.0-flash-lite' in 10s...
 
-ðŸ’¾ Saved state for yunaremaia/sandbox-ffi-layers#25 before exit (status: paused). Nothing on GitHub changed.
+???? Saved state for yunaremaia/sandbox-ffi-layers#25 before exit (status: paused). Nothing on GitHub changed.
    Resume with:
       python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --resume 25
       python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --conversation 25
@@ -74,16 +74,16 @@ RuntimeError: OmniRoute call failed (Error code: 404 - [{'error': {'code': 404, 
 --tail--
 ode: 404 - [{'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and imp
    Trying fallback combo 'gemini-1.5-flash' in 5s...
-âš ï¸ Combo 'gemini-1.5-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the lis
+?????? Combo 'gemini-1.5-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the lis
    Trying fallback combo 'gemini-2.0-flash-lite' in 10s...
 
 --- Attempt 1/8 ---
-âš ï¸ Combo 'gemini-2.0-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and imp
+?????? Combo 'gemini-2.0-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'This model models/gemini-2.0-flash is no longer available. Please update your code to use models/gemini-3.6-flash for the latest features and imp
    Trying fallback combo 'gemini-1.5-flash' in 5s...
-âš ï¸ Combo 'gemini-1.5-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the lis
+?????? Combo 'gemini-1.5-flash' failed hard (NotFoundError): Error code: 404 - [{'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the lis
    Trying fallback combo 'gemini-2.0-flash-lite' in 10s...
 
-ðŸ’¾ Saved state for yunaremaia/sandbox-ffi-layers#23 before exit (status: paused). Nothing on GitHub changed.
+???? Saved state for yunaremaia/sandbox-ffi-layers#23 before exit (status: paused). Nothing on GitHub changed.
    Resume with:
       python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --resume 23
       python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --conversation 23
@@ -95,7 +95,7 @@ RuntimeError: OmniRoute call failed (Error code: 404 - [{'error': {'code': 404, 
 2026-09-22T09:58:59+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/oss-pilot/oss-pilot/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 22 --gate-sync  (cwd=/home/runner/work/oss-pilot/oss-pilot/fixer)
 2026-09-22T10:09:36+00:00  fixer exit=0
 --tail--
-back!("âš ï¸ Warning: Unknown Cargo.lock version: {v}");
+back!("?????? Warning: Unknown Cargo.lock version: {v}");
 +                    }
 +                }
 +            }
@@ -128,7 +128,6 @@ back!("âš ï¸ Warning: Unknown Cargo.lock version: {v}");
  }
  
  /// Analyze packages and return tho
-============================================================
 Test result summary: go_lock::tests::parse_cargo_lock_v4_format
 
 test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
@@ -139,7 +138,7 @@ test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; 
 error: test failed, to rerun pass `--bin sandbox-ffi`
 
 
-ðŸ›‘ Human gate parked in cloud mode -- waiting for a decree.
+???? Human gate parked in cloud mode -- waiting for a decree.
 
 Switched to a new branch 'fix-issue-22'
 2026-09-22T10:09:36+00:00  tick done
@@ -160,13 +159,13 @@ Switched to a new branch 'fix-issue-22'
 +
  ## Status
  
- **v0.1.0-alpha** â€” Cargo.lock parser + proc-macro detection + known-malicious blocklist.
+ **v0.1.0-alpha** ??? Cargo.lock parser + proc-macro detection + known-malicious blocklist.
 @@ -55,4 +85,4 @@ See [PROPOSAL.md](PROPOSAL.md) for full roadmap.
  
  ## License
  
--AGPL-3.0 â€” see [LICENSE](LICENSE).
-+AGPL-3.0 â€” see [LICENSE](LICENSE).
+-AGPL-3.0 ??? see [LICENSE](LICENSE).
++AGPL-3.0 ??? see [LICENSE](LICENSE).
 \ No newline at end of file
 diff --git a/src/cargo_lock.rs b/src/cargo_lock.rs
 index 44d74a5..10e0a51 100644
@@ -178,7 +177,6 @@ index 44d74a5..10e0a51 100644
  /// Heuristic: detect if a crate name looks like a proc-macro crate.
 -fn looks_like_proc_macro(name: &str) -> bool {
 +pub fn looks_like_pro
-============================================================
 Test result summary: ests::parse_cargo_lock_single_line_deps ... ok
 test tests::test_json_output_format_and_schema ... ok
 
@@ -189,7 +187,7 @@ test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
      Running unittests src/main.rs (target/debug/deps/sandbox_ffi-c74b4b023f72ead8)
 
 
-ðŸ›‘ Human gate parked in cloud mode -- waiting for a decree.
+???? Human gate parked in cloud mode -- waiting for a decree.
 
 Switched to a new branch 'fix-issue-21'
 2026-09-22T10:16:54+00:00  tick done
@@ -214,7 +212,6 @@ usize,
 +}
 +
 +fn main() -
-============================================================
 Test result summary: ::parse_cargo_lock_single_line_deps ... ok
 test json_tests::test_json_output_schema_structure ... ok
 
@@ -226,14 +223,14 @@ test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; fini
 
 [human] decree consumed: APPROVE (outcome written)
 branch 'fix-issue-21' set up to track 'origin/fix-issue-21'.
-âœ… Draft PR created (https://github.com/yunaremaia/sandbox-ffi-layers/pull/33).
+??? Draft PR created (https://github.com/yunaremaia/sandbox-ffi-layers/pull/33).
 
-ðŸ”„ Draft PR #33 is parked in the review loop (state: WAITING_FOR_FEEDBACK). It will NOT auto-close.
+???? Draft PR #33 is parked in the review loop (state: WAITING_FOR_FEEDBACK). It will NOT auto-close.
    Talk to the maintainer / process feedback with:
       python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 21 -conversation
    That loop finalizes only after an explicit 'done'/'approved' signal AND a human approval gate.
 
-ðŸ›‘ Draft PR is up -- shutting down here by design (nothing runs unattended).
+???? Draft PR is up -- shutting down here by design (nothing runs unattended).
 
 Switched to a new branch 'fix-issue-21'
 remote: 
@@ -292,7 +289,6 @@ Parser may not handle all fields correctly.");
          if trimmed == "[[package]]" {
              // Save previous if exists
 @@ -253,6 +265,44 @@ checksum = "f75b0e4b64c0b4e4e5b8f5a5a5c5d5e5f5a5b5c5d5e5f5a
-============================================================
 Test result summary: go_lock::tests::parse_cargo_lock_v4_format
 
 test result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
@@ -304,14 +300,14 @@ error: test failed, to rerun pass `--bin sandbox-ffi`
 
 [human] decree consumed: APPROVE (outcome written)
 branch 'fix-issue-22' set up to track 'origin/fix-issue-22'.
-âœ… Draft PR created (https://github.com/yunaremaia/sandbox-ffi-layers/pull/34).
+??? Draft PR created (https://github.com/yunaremaia/sandbox-ffi-layers/pull/34).
 
-ðŸ”„ Draft PR #34 is parked in the review loop (state: WAITING_FOR_FEEDBACK). It will NOT auto-close.
+???? Draft PR #34 is parked in the review loop (state: WAITING_FOR_FEEDBACK). It will NOT auto-close.
    Talk to the maintainer / process feedback with:
       python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 22 -conversation
    That loop finalizes only after an explicit 'done'/'approved' signal AND a human approval gate.
 
-ðŸ›‘ Draft PR is up -- shutting down here by design (nothing runs unattended).
+???? Draft PR is up -- shutting down here by design (nothing runs unattended).
 
 Switched to a new branch 'fix-issue-22'
 remote: 
@@ -1331,9 +1327,9 @@ bel>
                         </label>
                         <textarea name="address" id="customer_address"
                            
-âš ï¸  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+??????  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
 
-âŒ Failed after 5 attempts. Check .agent_data/workspace/Posnic-POS/issue-446 manually.
+??? Failed after 5 attempts. Check .agent_data/workspace/Posnic-POS/issue-446 manually.
 
 Switched to a new branch 'fix-issue-446'
 2026-09-23T17:37:03+00:00  tick done
@@ -1353,9 +1349,9 @@ gh School Librarian","started":1360754556666,"dob":-101355021375,"status":"Disab
   {"id":21,"firstName":"Alice","lastName":"Goodlow","something":1268720188765,"jobTitle":"State Archivist","started":1381306773987,"dob":455731231484,"status":"Disabled"},
   {"id":22,"firstName":"Carie","lastName":"Dragoo","something":1384770174557,"jobTitle":"Financial Accountant","started":1277771127047,"dob":-219020252497,"status":"Active"},
   {"id":23,"firstName":"Gran","la
-âš ï¸  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+??????  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
 
-âŒ Failed after 5 attempts. Check .agent_data/workspace/Posnic-POS/issue-436 manually.
+??? Failed after 5 attempts. Check .agent_data/workspace/Posnic-POS/issue-436 manually.
 
 Switched to a new branch 'fix-issue-436'
 2026-09-23T17:43:36+00:00  tick done
@@ -1369,17 +1365,17 @@ Switched to a new branch 'fix-issue-436'
 --tail--
 o 'gemini-3.6-flash' failed hard (RateLimitError): Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/g
    Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
-ðŸš© Supervisor flagged this fix: The added test in `ci-database.test.js` only asserts a hardcoded local object literal within the test itself rather than testing any actual code, implementation, or documentation artifact, making it a vacuous test that would have passed on the unfixed code.
-   â†³ Retrying with that feedback instead of proceeding blindly.
+???? Supervisor flagged this fix: The added test in `ci-database.test.js` only asserts a hardcoded local object literal within the test itself rather than testing any actual code, implementation, or documentation artifact, making it a vacuous test that would have passed on the unfixed code.
+   ??? Retrying with that feedback instead of proceeding blindly.
 
 --- Attempt 5/5 ---
-âš ï¸ Combo 'gemini-3.6-flash' failed hard (RateLimitError): Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/g
+?????? Combo 'gemini-3.6-flash' failed hard (RateLimitError): Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/g
    Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
-âš ï¸  One diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:36
+??????  One diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:36
 ), skipping just that block.
-   â†³ git apply rejected all blocks; retrying with content-based matcher...
-âœ… Applied diff via content-based matcher (line-number independent): ['api/tests/unit/ci-database.test.js']
-ðŸ§ª Rejecting this patch before testing it: the patch only touches tests -- a fix has to change the code that is broken
+   ??? git apply rejected all blocks; retrying with content-based matcher...
+??? Applied diff via content-based matcher (line-number independent): ['api/tests/unit/ci-database.test.js']
+???? Rejecting this patch before testing it: the patch only touches tests -- a fix has to change the code that is broken
 2026-09-23T17:46:06+00:00  gate poller start (offset=746150288)
 2026-09-23T17:46:15+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:46:16+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
@@ -1412,9 +1408,9 @@ o 'gemini-3.6-flash' failed hard (RateLimitError): Error code: 429 - [{'error': 
 +  });
  });
 ```
-âš ï¸  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+??????  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
 
-âŒ Failed after 5 attempts. Check .agent_data/workspace/Posnic-POS/issue-434 manually.
+??? Failed after 5 attempts. Check .agent_data/workspace/Posnic-POS/issue-434 manually.
 
 Switched to a new branch 'fix-issue-434'
 2026-09-23T17:53:34+00:00  tick done
@@ -1442,15 +1438,15 @@ lhi",
 });
 });
 
-âš ï¸  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+??????  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
 
 --- Attempt 3/8 ---
-âš ï¸ Combo 'gemini-3.6-flash' failed hard (RateLimitError): Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/g
+?????? Combo 'gemini-3.6-flash' failed hard (RateLimitError): Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/g
    Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
-âš ï¸ Combo 'gemini-3.5-flash-lite' failed hard (RateLimitError): Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/g
+?????? Combo 'gemini-3.5-flash-lite' failed hard (RateLimitError): Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/g
    Trying fallback combo 'gemini-3.5-flash' in 10s...
 
-ðŸ’¾ Saved state for Posnic/POS#433 before exit (status: paused). Nothing on GitHub changed.
+???? Saved state for Posnic/POS#433 before exit (status: paused). Nothing on GitHub changed.
    Resume with:
       python oss_agent_v2.py --repo Posnic/POS --resume 433
       python oss_agent_v2.py --repo Posnic/POS --conversation 433
@@ -1478,14 +1474,14 @@ RuntimeError: OmniRoute call failed (Error code: 503 - [{'error': {'code': 503, 
   }
 });
 <<<END>>>
-âš ï¸  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+??????  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
 
 --- Attempt 5/5 ---
-âš ï¸ Combo 'gemini-3.6-flash' failed hard (RateLimitError): Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/g
+?????? Combo 'gemini-3.6-flash' failed hard (RateLimitError): Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/g
    Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
-âš ï¸  Refusing to apply fix to 'frontend/modals/customer.html': original file is 61911 bytes but the model's replacement is only 11837 bytes -- likely because the file exceeds the context truncation limit and the model only saw a partial copy. This file is too large for the current full-file-replace approach; skip it or handle it manually.
+??????  Refusing to apply fix to 'frontend/modals/customer.html': original file is 61911 bytes but the model's replacement is only 11837 bytes -- likely because the file exceeds the context truncation limit and the model only saw a partial copy. This file is too large for the current full-file-replace approach; skip it or handle it manually.
 
-âŒ Failed after 5 attempts. Check .agent_data/workspace/Posnic-POS/issue-446 manually.
+??? Failed after 5 attempts. Check .agent_data/workspace/Posnic-POS/issue-446 manually.
 
 Switched to a new branch 'fix-issue-446'
 2026-09-23T17:59:16+00:00  tick done
@@ -1504,9 +1500,9 @@ diff --git a/languages/ta.json b/languages/ta.json
 +++ b/languages/ta.json
 @@ -1,3 +1,3 @@
  {
--  "lang_Addexpensing": "à®ªà¯à®¤à®¿à®¯",
-+  "lang_Addexpensing": "à®šà¯‡à®°à¯à®•à¯à®•",
-   "lang_Addvariants": "à®ªà¯à®¤à®¿à®¯",
+-  "lang_Addexpensing": "???????????????",
++  "lang_Addexpensing": "?????????????????????",
+   "lang_Addvariants": "???????????????",
 diff --git a/tests/i18n.test.js b/tests/i18n.test.js
 --- a/tests/i18n.test.js
 +++ b/tests/i18n.test.js
@@ -1522,9 +1518,9 @@ diff --git a/tests/i18n.test.js b/tests/i18n.test.js
 +
  /* ------------------------------------------------------ the packs ship --- */
 ```
-âš ï¸  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+??????  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
 
-âŒ Failed after 5 attempts. Check .agent_data/workspace/Posnic-POS/issue-446 manually.
+??? Failed after 5 attempts. Check .agent_data/workspace/Posnic-POS/issue-446 manually.
 
 Switched to a new branch 'fix-issue-446'
 2026-09-23T18:09:35+00:00  tick done
@@ -1538,16 +1534,16 @@ Switched to a new branch 'fix-issue-446'
 --tail--
 p to 12000 tokens, but can only afford 6776. To increase, visit https://openrouter.ai/s
    Trying fallback combo 'openrouter/auto' in 10s...
-âš ï¸  One diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:56
+??????  One diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:56
 ), skipping just that block.
-   â†³ git apply rejected all blocks; retrying with content-based matcher...
-âœ… Applied diff via content-based matcher (line-number independent): ['frontend/static/style/css/style.css']
-ðŸ§ª Rejecting this patch before testing it: no regression test: the patch changes only frontend/static/style/css/style.css and adds no test that would fail without it
+   ??? git apply rejected all blocks; retrying with content-based matcher...
+??? Applied diff via content-based matcher (line-number independent): ['frontend/static/style/css/style.css']
+???? Rejecting this patch before testing it: no regression test: the patch changes only frontend/static/style/css/style.css and adds no test that would fail without it
 
 --- Attempt 4/5 ---
-âš ï¸ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 8156. To increase, visit https://openrouter.ai/s
+?????? Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 8156. To increase, visit https://openrouter.ai/s
    Trying fallback combo 'google/gemini-3.6-flash' in 5s...
-âš ï¸ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 5437. To increase, visit https://openrouter.ai/s
+?????? Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 5437. To increase, visit https://openrouter.ai/s
 2026-09-23T18:12:11+00:00  gate poller start (offset=746150288)
 2026-09-23T18:12:18+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T18:12:19+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
@@ -1572,15 +1568,15 @@ dateHealthStatus({
  *
 
 --- Attempt 3/5 ---
-âš ï¸  Refusing to apply fix to 'src/main.js': original file is 196303 bytes but the model's replacement is only 18058 bytes -- likely because the file exceeds the context truncation limit and the model only saw a partial copy. This file is too large for the current full-file-replace approach; skip it or handle it manually.
+??????  Refusing to apply fix to 'src/main.js': original file is 196303 bytes but the model's replacement is only 18058 bytes -- likely because the file exceeds the context truncation limit and the model only saw a partial copy. This file is too large for the current full-file-replace approach; skip it or handle it manually.
 
 --- Attempt 4/5 ---
-âš ï¸ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.', 'code': 402, '
+?????? Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.', 'code': 402, '
    Trying fallback combo 'google/gemini-3.6-flash' in 5s...
-âš ï¸ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 8979. To increase, visit https://openrouter.ai/s
+?????? Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 8979. To increase, visit https://openrouter.ai/s
    Trying fallback combo 'openrouter/auto' in 10s...
 
-ðŸ’¾ Saved state for Posnic/POS#436 before exit (status: paused). Nothing on GitHub changed.
+???? Saved state for Posnic/POS#436 before exit (status: paused). Nothing on GitHub changed.
    Resume with:
       python oss_agent_v2.py --repo Posnic/POS --resume 436
       python oss_agent_v2.py --repo Posnic/POS --conversation 436
@@ -1588,7 +1584,6 @@ dateHealthStatus({
 it_source': 'openrouter_in_flight_budget', 'remedy_hint': 'Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.', 'headers': {'Retry-After': '120'}, 'provider_name': None}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
 2026-09-23T18:18:07+00:00  tick done
 2026-09-23T18:14:30+00:00  tick done
-<<<<<<< HEAD
 2026-09-23T19:39:32+00:00  gate poller start (offset=746150288)
 2026-09-23T19:39:40+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:39:41+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
@@ -1598,21 +1593,20 @@ it_source': 'openrouter_in_flight_budget', 'remedy_hint': 'Retry after your in-f
 2026-09-23T19:41:41+00:00  fixer exit=1
 --tail--
 gent_v2.py --list-workflows
-⚠️  Corrupt workflow index at .agent_data/state/index.json (backed up to .agent_data/state/index.corrupt): Expecting property name enclosed in double quotes: line 3 column 1 (char 17)
+??  Corrupt workflow index at .agent_data/state/index.json (backed up to .agent_data/state/index.corrupt): Expecting property name enclosed in double quotes: line 3 column 1 (char 17)
     Recover with: python oss_agent_v2.py --list-workflows
-✅ Forked, cloned, branched: fix-issue-434
-   ↳ Detected language/build system: javascript
-   ↳ Detected javascript: npm install
-   ↳ Overriding default test command with detected one: npm test
-✅ Found 6 relevant files (0 via AI selection, 6 via keyword match)
+? Forked, cloned, branched: fix-issue-434
+   ? Detected language/build system: javascript
+   ? Detected javascript: npm install
+   ? Overriding default test command with detected one: npm test
+? Found 6 relevant files (0 via AI selection, 6 via keyword match)
 Step 8a: running baseline tests (before any changes)...
-❌ Tests failed
+? Tests failed
 
 --- Attempt 1/5 ---
-⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'Prompt tokens limit exceeded: 31398 > 30747. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account', 'code': 402, 'metadata':
+?? Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'Prompt tokens limit exceeded: 31398 > 30747. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account', 'code': 402, 'metadata':
    Trying fallback combo 'google/gemini-3.6-flash' in 5s...
-⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 2432. To increase, visit https://openrouter.ai/se
-=======
+?? Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 2432. To increase, visit https://openrouter.ai/se
 2026-09-23T19:36:48+00:00  gate poller start (offset=746150288)
 2026-09-23T19:36:57+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:36:57+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
@@ -1626,17 +1620,16 @@ e.preventDefault();
             Posnic
 
 --- Attempt 2/5 ---
-   ↳ Response had no complete <<<END>>> markers (likely truncated) -- applying with truncation-tolerant parser.
-⚠️  Refusing to apply fix to 'frontend/static/script/js/modules/js/sales.js': original file is 686057 bytes but the model's replacement is only 10718 bytes -- likely because the file exceeds the context truncation limit and the model only saw a partial copy. This file is too large for the current full-file-replace approach; skip it or handle it manually.
+   ? Response had no complete <<<END>>> markers (likely truncated) -- applying with truncation-tolerant parser.
+??  Refusing to apply fix to 'frontend/static/script/js/modules/js/sales.js': original file is 686057 bytes but the model's replacement is only 10718 bytes -- likely because the file exceeds the context truncation limit and the model only saw a partial copy. This file is too large for the current full-file-replace approach; skip it or handle it manually.
 
 --- Attempt 3/5 ---
-⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.', 'code': 402, '
+?? Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.', 'code': 402, '
    Trying fallback combo 'google/gemini-3.6-flash' in 5s...
-⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'Prompt tokens limit exceeded: 31503 > 18684. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account', 'code': 402, 'metadata':
->>>>>>> 3f9d2435d1eaea0cd5a0be918b581a3129de3ad2
+?? Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'Prompt tokens limit exceeded: 31503 > 18684. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account', 'code': 402, 'metadata':
    Trying fallback combo 'openrouter/auto' in 10s...
 
-💾 Saved state for Posnic/POS#434 before exit (status: paused). Nothing on GitHub changed.
+?? Saved state for Posnic/POS#434 before exit (status: paused). Nothing on GitHub changed.
    Resume with:
       python oss_agent_v2.py --repo Posnic/POS --resume 434
       python oss_agent_v2.py --repo Posnic/POS --conversation 434
@@ -1649,12 +1642,8 @@ e.preventDefault();
     return pattern.sub(_rewrite, fix_text)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: expected string or bytes-like object, got 'NoneType'
-<<<<<<< HEAD
 2026-09-23T19:41:41+00:00  tick done
-=======
 2026-09-23T19:39:14+00:00  tick done
->>>>>>> 3f9d2435d1eaea0cd5a0be918b581a3129de3ad2
-<<<<<<< HEAD
 2026-09-23T19:47:58+00:00  gate poller start (offset=746150288)
 2026-09-23T19:48:06+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:48:07+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
@@ -1662,7 +1651,6 @@ TypeError: expected string or bytes-like object, got 'NoneType'
 2026-09-23T19:48:09+00:00  HUNTING: trying Posnic/POS#446
 2026-09-23T19:48:09+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Posnic/POS --issue 446 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
 2026-09-23T19:49:52+00:00  fixer exit=1
-=======
 2026-09-23T19:45:51+00:00  gate poller start (offset=746150288)
 2026-09-23T19:45:59+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:46:00+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
@@ -1670,32 +1658,28 @@ TypeError: expected string or bytes-like object, got 'NoneType'
 2026-09-23T19:46:03+00:00  HUNTING: trying Posnic/POS#446
 2026-09-23T19:46:03+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Posnic/POS --issue 446 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
 2026-09-23T19:47:40+00:00  fixer exit=1
->>>>>>> 94a12fe288e769995006ae2e8780cde6517c8443
 --tail--
 '); assuming GENERIC/medium
-⚠️  Corrupt workflow index at .agent_data/state/index.json (backed up to .agent_data/state/index.corrupt): Expecting property name enclosed in double quotes: line 3 column 1 (char 17)
+??  Corrupt workflow index at .agent_data/state/index.json (backed up to .agent_data/state/index.corrupt): Expecting property name enclosed in double quotes: line 3 column 1 (char 17)
     Recover with: python oss_agent_v2.py --list-workflows
-✅ Forked, cloned, branched: fix-issue-446
-   ↳ Detected language/build system: javascript
-   ↳ Detected javascript: npm install
-   ↳ Overriding default test command with detected one: npm test
-✅ Found 6 relevant files (0 via AI selection, 6 via keyword match)
+? Forked, cloned, branched: fix-issue-446
+   ? Detected language/build system: javascript
+   ? Detected javascript: npm install
+   ? Overriding default test command with detected one: npm test
+? Found 6 relevant files (0 via AI selection, 6 via keyword match)
 Step 8a: running baseline tests (before any changes)...
-❌ Tests failed
+? Tests failed
 
 --- Attempt 1/5 ---
-<<<<<<< HEAD
-⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 2657. To increase, visit https://openrouter.ai/se
+?? Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 2657. To increase, visit https://openrouter.ai/se
    Trying fallback combo 'google/gemini-3.6-flash' in 5s...
-⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 1763. To increase, visit https://openrouter.ai/se
-=======
-⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'Prompt tokens limit exceeded: 31933 > 26678. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account', 'code': 402, 'metadata':
+?? Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 1763. To increase, visit https://openrouter.ai/se
+?? Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'Prompt tokens limit exceeded: 31933 > 26678. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account', 'code': 402, 'metadata':
    Trying fallback combo 'google/gemini-3.6-flash' in 5s...
-⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 2121. To increase, visit https://openrouter.ai/se
->>>>>>> 94a12fe288e769995006ae2e8780cde6517c8443
+?? Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 2121. To increase, visit https://openrouter.ai/se
    Trying fallback combo 'openrouter/auto' in 10s...
 
-💾 Saved state for Posnic/POS#446 before exit (status: paused). Nothing on GitHub changed.
+?? Saved state for Posnic/POS#446 before exit (status: paused). Nothing on GitHub changed.
    Resume with:
       python oss_agent_v2.py --repo Posnic/POS --resume 446
       python oss_agent_v2.py --repo Posnic/POS --conversation 446
@@ -1708,11 +1692,8 @@ Step 8a: running baseline tests (before any changes)...
     return pattern.sub(_rewrite, fix_text)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: expected string or bytes-like object, got 'NoneType'
-<<<<<<< HEAD
 2026-09-23T19:49:52+00:00  tick done
-=======
 2026-09-23T19:47:40+00:00  tick done
->>>>>>> 94a12fe288e769995006ae2e8780cde6517c8443
 2026-09-23T19:54:03+00:00  gate poller start (offset=746150288)
 2026-09-23T19:54:12+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:54:13+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
@@ -1722,23 +1703,23 @@ TypeError: expected string or bytes-like object, got 'NoneType'
 2026-09-23T19:55:47+00:00  fixer exit=1
 --tail--
 gent_v2.py --list-workflows
-⚠️  Corrupt workflow index at .agent_data/state/index.json (backed up to .agent_data/state/index.corrupt): Expecting property name enclosed in double quotes: line 3 column 1 (char 17)
+??  Corrupt workflow index at .agent_data/state/index.json (backed up to .agent_data/state/index.corrupt): Expecting property name enclosed in double quotes: line 3 column 1 (char 17)
     Recover with: python oss_agent_v2.py --list-workflows
-✅ Forked, cloned, branched: fix-issue-446
-   ↳ Detected language/build system: javascript
-   ↳ Detected javascript: npm install
-   ↳ Overriding default test command with detected one: npm test
-✅ Found 6 relevant files (0 via AI selection, 6 via keyword match)
+? Forked, cloned, branched: fix-issue-446
+   ? Detected language/build system: javascript
+   ? Detected javascript: npm install
+   ? Overriding default test command with detected one: npm test
+? Found 6 relevant files (0 via AI selection, 6 via keyword match)
 Step 8a: running baseline tests (before any changes)...
-❌ Tests failed
+? Tests failed
 
 --- Attempt 1/5 ---
-⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 2102. To increase, visit https://openrouter.ai/se
+?? Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 2102. To increase, visit https://openrouter.ai/se
    Trying fallback combo 'google/gemini-3.6-flash' in 5s...
-⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 1377. To increase, visit https://openrouter.ai/se
+?? Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 1377. To increase, visit https://openrouter.ai/se
    Trying fallback combo 'openrouter/auto' in 10s...
 
-💾 Saved state for Posnic/POS#446 before exit (status: paused). Nothing on GitHub changed.
+?? Saved state for Posnic/POS#446 before exit (status: paused). Nothing on GitHub changed.
    Resume with:
       python oss_agent_v2.py --repo Posnic/POS --resume 446
       python oss_agent_v2.py --repo Posnic/POS --conversation 446
