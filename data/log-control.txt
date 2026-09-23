@@ -1439,7 +1439,54 @@ Switched to a new branch 'fix-issue-434'
 2026-09-23T17:53:34+00:00  tick done
 =======
 2026-09-23T17:48:55+00:00  tick done
+<<<<<<< HEAD
+2026-09-23T17:53:50+00:00  gate poller start (offset=746150288)
+2026-09-23T17:53:59+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-23T17:53:59+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-23T17:54:00+00:00  jaegertracing/jaeger: skipping (stars > 3000)
+2026-09-23T17:54:01+00:00  HUNTING: trying Posnic/POS#433
+2026-09-23T17:54:01+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Posnic/POS --issue 433 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-23T17:56:21+00:00  fixer exit=1
+--tail--
+lhi",
+            "state": "DL",
+            "country": "India"
+          }
+        }
+      }
+    };
+    expect(syntheticDelhiveryFixture.shipment_data.shipment.waybill).toBe("SYNTHETIC_DELHIVERY_WB_123456");
+    expect(syntheticDelhiveryFixture.shipment_data.shipment.status.status).toBe("InTransit");
+  });
+
+  it('should return health check', async () => {
+>>>>>>>SS
+<<<<<<< SEARCH
+});
+=======
+});
+>>>>>>>End
+
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 3/8 ---
+⚠️ Combo 'gemini-3.6-flash' failed hard (RateLimitError): Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/g
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (RateLimitError): Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/g
+   Trying fallback combo 'gemini-3.5-flash' in 10s...
+
+💾 Saved state for Posnic/POS#433 before exit (status: paused). Nothing on GitHub changed.
+   Resume with:
+      python oss_agent_v2.py --repo Posnic/POS --resume 433
+      python oss_agent_v2.py --repo Posnic/POS --conversation 433
+
+le "/home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py", line 2443, in call_model
+    raise RuntimeError(
+RuntimeError: OmniRoute call failed (Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}]). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
+2026-09-23T17:56:21+00:00  tick done
+=======
 >>>>>>> 136fbf2008ddc1cc6c583b152fca57d7dc49d344
+<<<<<<< HEAD
 2026-09-23T17:56:42+00:00  gate poller start (offset=746150288)
 2026-09-23T17:56:50+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T17:56:51+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
@@ -1471,3 +1518,6 @@ Switched to a new branch 'fix-issue-434'
 
 Switched to a new branch 'fix-issue-446'
 2026-09-23T17:59:16+00:00  tick done
+=======
+>>>>>>> 7be3323e78db3e49f088c46dc4d880d04109b870
+>>>>>>> a079b549bbad9dadbf4f75e6d114cc03d5169a7a
