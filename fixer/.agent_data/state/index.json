@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-22T13:07:25",
+  "updated_at": "2026-09-23T17:32:51",
   "workflows": {
     "yunaremaia/sandbox-ffi-layers#30": {
       "repo": "yunaremaia/sandbox-ffi-layers",
@@ -91,6 +91,21 @@
       "pr_number": 33,
       "pr_url": "https://github.com/yunaremaia/sandbox-ffi-layers/pull/33",
       "updated_at": "2026-09-22T12:13:54"
+    },
+    "Posnic/POS#446": {
+      "repo": "Posnic/POS",
+      "issue": 446,
+      "issue_title": "One translation key labels both a Customer heading and an Add button",
+      "workflow_path": "workflows/Posnic-POS/issue-446.json",
+      "conversation_dir": "conversations/Posnic-POS/issue-446",
+      "workspace": "workspace/Posnic-POS/issue-446",
+      "conversation_id": "20260923T173223-7e1efd99",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-446",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-23T17:32:51"
     }
   }
 }
