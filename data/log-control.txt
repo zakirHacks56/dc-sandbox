@@ -1654,6 +1654,7 @@ TypeError: expected string or bytes-like object, got 'NoneType'
 =======
 2026-09-23T19:39:14+00:00  tick done
 >>>>>>> 3f9d2435d1eaea0cd5a0be918b581a3129de3ad2
+<<<<<<< HEAD
 2026-09-23T19:47:58+00:00  gate poller start (offset=746150288)
 2026-09-23T19:48:06+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:48:07+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
@@ -1661,6 +1662,15 @@ TypeError: expected string or bytes-like object, got 'NoneType'
 2026-09-23T19:48:09+00:00  HUNTING: trying Posnic/POS#446
 2026-09-23T19:48:09+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Posnic/POS --issue 446 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
 2026-09-23T19:49:52+00:00  fixer exit=1
+=======
+2026-09-23T19:45:51+00:00  gate poller start (offset=746150288)
+2026-09-23T19:45:59+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-23T19:46:00+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-23T19:46:00+00:00  jaegertracing/jaeger: skipping (stars > 3000)
+2026-09-23T19:46:03+00:00  HUNTING: trying Posnic/POS#446
+2026-09-23T19:46:03+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Posnic/POS --issue 446 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-23T19:47:40+00:00  fixer exit=1
+>>>>>>> 94a12fe288e769995006ae2e8780cde6517c8443
 --tail--
 '); assuming GENERIC/medium
 ⚠️  Corrupt workflow index at .agent_data/state/index.json (backed up to .agent_data/state/index.corrupt): Expecting property name enclosed in double quotes: line 3 column 1 (char 17)
@@ -1674,9 +1684,15 @@ Step 8a: running baseline tests (before any changes)...
 ❌ Tests failed
 
 --- Attempt 1/5 ---
+<<<<<<< HEAD
 ⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 2657. To increase, visit https://openrouter.ai/se
    Trying fallback combo 'google/gemini-3.6-flash' in 5s...
 ⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 1763. To increase, visit https://openrouter.ai/se
+=======
+⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'Prompt tokens limit exceeded: 31933 > 26678. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account', 'code': 402, 'metadata':
+   Trying fallback combo 'google/gemini-3.6-flash' in 5s...
+⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 2121. To increase, visit https://openrouter.ai/se
+>>>>>>> 94a12fe288e769995006ae2e8780cde6517c8443
    Trying fallback combo 'openrouter/auto' in 10s...
 
 💾 Saved state for Posnic/POS#446 before exit (status: paused). Nothing on GitHub changed.
@@ -1692,4 +1708,8 @@ Step 8a: running baseline tests (before any changes)...
     return pattern.sub(_rewrite, fix_text)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: expected string or bytes-like object, got 'NoneType'
+<<<<<<< HEAD
 2026-09-23T19:49:52+00:00  tick done
+=======
+2026-09-23T19:47:40+00:00  tick done
+>>>>>>> 94a12fe288e769995006ae2e8780cde6517c8443
