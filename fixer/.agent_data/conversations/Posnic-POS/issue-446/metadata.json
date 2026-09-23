@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "conversation_id": "20260923T195626-16f48444",
   "repo": "Posnic/POS",
   "issue": 446,
@@ -7,6 +8,16 @@
   "provider": "omniroute",
   "model": "google/gemini-2.5-flash",
   "message_count": 3,
+=======
+  "conversation_id": "20260923T195427-5f792dd0",
+  "repo": "Posnic/POS",
+  "issue": 446,
+  "created_at": "2026-09-23T19:54:27",
+  "updated_at": "2026-09-23T19:55:46",
+  "provider": "omniroute",
+  "model": "google/gemini-2.5-flash",
+  "message_count": 4,
+>>>>>>> 16f1e6f7b574bcb7e26c1e16d8a439ad0e2a8577
   "rounds": 0,
   "archived_conversation_ids": [],
   "transcript": "conversations/Posnic-POS/issue-446/transcript.log",
