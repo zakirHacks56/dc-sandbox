@@ -1,33 +1,21 @@
 {
   "schema": 2,
-<<<<<<< HEAD
-  "updated_at": "2026-09-23T19:41:41",
-=======
-  "updated_at": "2026-09-23T19:39:13",
->>>>>>> 3f9d2435d1eaea0cd5a0be918b581a3129de3ad2
+  "updated_at": "2026-09-23T19:47:40",
   "workflows": {
-    "Posnic/POS#434": {
+    "Posnic/POS#446": {
       "repo": "Posnic/POS",
-      "issue": 434,
-      "issue_title": "SMS connector: document provider abstraction boundary",
-      "workflow_path": "workflows/Posnic-POS/issue-434.json",
-      "conversation_dir": "conversations/Posnic-POS/issue-434",
-      "workspace": "workspace/Posnic-POS/issue-434",
-<<<<<<< HEAD
-      "conversation_id": "20260923T194004-1049c2b4",
-=======
-      "conversation_id": "20260923T193711-1cb10a36",
->>>>>>> 3f9d2435d1eaea0cd5a0be918b581a3129de3ad2
+      "issue": 446,
+      "issue_title": "One translation key labels both a Customer heading and an Add button",
+      "workflow_path": "workflows/Posnic-POS/issue-446.json",
+      "conversation_dir": "conversations/Posnic-POS/issue-446",
+      "workspace": "workspace/Posnic-POS/issue-446",
+      "conversation_id": "20260923T173223-7e1efd99",
       "state": "PAUSED",
       "status": "paused",
-      "branch": "fix-issue-434",
+      "branch": "fix-issue-446",
       "pr_number": null,
       "pr_url": null,
-<<<<<<< HEAD
-      "updated_at": "2026-09-23T19:41:41"
-=======
-      "updated_at": "2026-09-23T19:39:13"
->>>>>>> 3f9d2435d1eaea0cd5a0be918b581a3129de3ad2
+      "updated_at": "2026-09-23T19:47:40"
     }
   }
 }
