@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-23T17:39:26",
+  "updated_at": "2026-09-23T17:52:25",
   "workflows": {
     "yunaremaia/sandbox-ffi-layers#30": {
       "repo": "yunaremaia/sandbox-ffi-layers",
@@ -121,6 +121,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-23T17:39:26"
+    },
+    "Posnic/POS#434": {
+      "repo": "Posnic/POS",
+      "issue": 434,
+      "issue_title": "SMS connector: document provider abstraction boundary",
+      "workflow_path": "workflows/Posnic-POS/issue-434.json",
+      "conversation_dir": "conversations/Posnic-POS/issue-434",
+      "workspace": "workspace/Posnic-POS/issue-434",
+      "conversation_id": "20260923T174924-8f513591",
+      "state": "TESTING",
+      "status": "testing",
+      "branch": "fix-issue-434",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-23T17:52:25"
     }
   }
 }
