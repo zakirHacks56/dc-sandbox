@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-23T17:46:56",
+  "updated_at": "2026-09-23T17:56:21",
   "workflows": {
     "yunaremaia/sandbox-ffi-layers#30": {
       "repo": "yunaremaia/sandbox-ffi-layers",
@@ -136,6 +136,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-23T17:46:56"
+    },
+    "Posnic/POS#433": {
+      "repo": "Posnic/POS",
+      "issue": 433,
+      "issue_title": "Delhivery connector: research shipment tracking boundary",
+      "workflow_path": "workflows/Posnic-POS/issue-433.json",
+      "conversation_dir": "conversations/Posnic-POS/issue-433",
+      "workspace": "workspace/Posnic-POS/issue-433",
+      "conversation_id": "20260923T175409-9166e28d",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-433",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-23T17:56:21"
     }
   }
 }
