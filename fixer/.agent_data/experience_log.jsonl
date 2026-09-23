@@ -7,3 +7,4 @@
 =======
 {"repo": "Posnic/POS", "issue_title": "SMS connector: document provider abstraction boundary", "language": "javascript", "outcome": "failed", "error_category": "E", "notes": "Exhausted 5 attempts, last error: Your previous response could not be applied: Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block ", "timestamp": "2026-09-23"}
 >>>>>>> 136fbf2008ddc1cc6c583b152fca57d7dc49d344
+{"repo": "Posnic/POS", "issue_title": "One translation key labels both a Customer heading and an Add button", "language": "javascript", "outcome": "failed", "error_category": "E", "notes": "Exhausted 5 attempts, last error: Your previous response could not be applied: Refusing to apply fix to 'frontend/modals/customer.html': original file is 61911 bytes but the model's replacement is only 11837 bytes -- likely because th", "timestamp": "2026-09-23"}

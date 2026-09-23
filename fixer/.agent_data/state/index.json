@@ -1,101 +1,7 @@
 {
   "schema": 2,
-<<<<<<< HEAD
-  "updated_at": "2026-09-23T17:52:25",
-=======
-  "updated_at": "2026-09-23T17:46:56",
->>>>>>> 136fbf2008ddc1cc6c583b152fca57d7dc49d344
+  "updated_at": "2026-09-23T17:57:08",
   "workflows": {
-    "yunaremaia/sandbox-ffi-layers#30": {
-      "repo": "yunaremaia/sandbox-ffi-layers",
-      "issue": 30,
-      "issue_title": "feat: add specific error messages for lockfile read failures",
-      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-30.json",
-      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-30",
-      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-30",
-      "conversation_id": "20260921T182758-5d0afc2d",
-      "state": "PAUSED",
-      "status": "paused",
-      "branch": "fix-issue-30",
-      "pr_number": null,
-      "pr_url": null,
-      "updated_at": "2026-09-21T18:28:49"
-    },
-    "yunaremaia/sandbox-ffi-layers#28": {
-      "repo": "yunaremaia/sandbox-ffi-layers",
-      "issue": 28,
-      "issue_title": "feat: multi-ecosystem lockfile support \u2014 add npm package-lock.json and Python requirements.txt parsers",
-      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-28.json",
-      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-28",
-      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-28",
-      "conversation_id": "20260921T220341-8105c280",
-      "state": "PAUSED",
-      "status": "paused",
-      "branch": "fix-issue-28",
-      "pr_number": null,
-      "pr_url": null,
-      "updated_at": "2026-09-21T22:04:45"
-    },
-    "yunaremaia/sandbox-ffi-layers#25": {
-      "repo": "yunaremaia/sandbox-ffi-layers",
-      "issue": 25,
-      "issue_title": "security: Cargo.lock format version detection \u2014 validate version field before parsing",
-      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-25.json",
-      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-25",
-      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-25",
-      "conversation_id": "20260922T004520-b02af82d",
-      "state": "PAUSED",
-      "status": "paused",
-      "branch": "fix-issue-25",
-      "pr_number": null,
-      "pr_url": null,
-      "updated_at": "2026-09-22T00:46:12"
-    },
-    "yunaremaia/sandbox-ffi-layers#23": {
-      "repo": "yunaremaia/sandbox-ffi-layers",
-      "issue": 23,
-      "issue_title": "security: extensible malicious package detection with similarity scoring and config-driven blocklist",
-      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-23.json",
-      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-23",
-      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-23",
-      "conversation_id": "20260922T052620-d1a15d0a",
-      "state": "PAUSED",
-      "status": "paused",
-      "branch": "fix-issue-23",
-      "pr_number": null,
-      "pr_url": null,
-      "updated_at": "2026-09-22T05:27:20"
-    },
-    "yunaremaia/sandbox-ffi-layers#22": {
-      "repo": "yunaremaia/sandbox-ffi-layers",
-      "issue": 22,
-      "issue_title": "security: Cargo.lock v4 format silently ignored by parser",
-      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-22.json",
-      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-22",
-      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-22",
-      "conversation_id": "20260922T095907-55626542",
-      "state": "WAITING_FOR_FEEDBACK",
-      "status": "waiting_for_review",
-      "branch": "fix-issue-22",
-      "pr_number": 34,
-      "pr_url": "https://github.com/yunaremaia/sandbox-ffi-layers/pull/34",
-      "updated_at": "2026-09-22T13:07:25"
-    },
-    "yunaremaia/sandbox-ffi-layers#21": {
-      "repo": "yunaremaia/sandbox-ffi-layers",
-      "issue": 21,
-      "issue_title": "[sandbox-ffi-layers] Add JSON output format for programmatic consumption",
-      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-21.json",
-      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-21",
-      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-21",
-      "conversation_id": "20260922T101033-10a39f46",
-      "state": "WAITING_FOR_FEEDBACK",
-      "status": "waiting_for_review",
-      "branch": "fix-issue-21",
-      "pr_number": 33,
-      "pr_url": "https://github.com/yunaremaia/sandbox-ffi-layers/pull/33",
-      "updated_at": "2026-09-22T12:13:54"
-    },
     "Posnic/POS#446": {
       "repo": "Posnic/POS",
       "issue": 446,
@@ -109,47 +15,7 @@
       "branch": "fix-issue-446",
       "pr_number": null,
       "pr_url": null,
-      "updated_at": "2026-09-23T17:32:51"
-    },
-    "Posnic/POS#436": {
-      "repo": "Posnic/POS",
-      "issue": 436,
-      "issue_title": "Mailchimp connector: research customer sync boundary",
-      "workflow_path": "workflows/Posnic-POS/issue-436.json",
-      "conversation_dir": "conversations/Posnic-POS/issue-436",
-      "workspace": "workspace/Posnic-POS/issue-436",
-      "conversation_id": "20260923T173855-4b96c9c3",
-      "state": "IMPLEMENTING",
-      "status": "implementing",
-      "branch": "fix-issue-436",
-      "pr_number": null,
-      "pr_url": null,
-      "updated_at": "2026-09-23T17:39:26"
-    },
-    "Posnic/POS#434": {
-      "repo": "Posnic/POS",
-      "issue": 434,
-      "issue_title": "SMS connector: document provider abstraction boundary",
-      "workflow_path": "workflows/Posnic-POS/issue-434.json",
-      "conversation_dir": "conversations/Posnic-POS/issue-434",
-      "workspace": "workspace/Posnic-POS/issue-434",
-<<<<<<< HEAD
-      "conversation_id": "20260923T174924-8f513591",
-      "state": "TESTING",
-      "status": "testing",
-      "branch": "fix-issue-434",
-      "pr_number": null,
-      "pr_url": null,
-      "updated_at": "2026-09-23T17:52:25"
-=======
-      "conversation_id": "20260923T174627-ab1fcb96",
-      "state": "IMPLEMENTING",
-      "status": "implementing",
-      "branch": "fix-issue-434",
-      "pr_number": null,
-      "pr_url": null,
-      "updated_at": "2026-09-23T17:46:56"
->>>>>>> 136fbf2008ddc1cc6c583b152fca57d7dc49d344
+      "updated_at": "2026-09-23T17:57:08"
     }
   }
 }
