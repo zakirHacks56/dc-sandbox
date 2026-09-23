@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-23T21:05:18",
+  "updated_at": "2026-09-23T21:06:48",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -106,6 +106,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-23T21:05:18"
+    },
+    "Posnic/POS#422": {
+      "repo": "Posnic/POS",
+      "issue": 422,
+      "issue_title": "CS-Cart connector: research order and inventory boundary",
+      "workflow_path": "workflows/Posnic-POS/issue-422.json",
+      "conversation_dir": "conversations/Posnic-POS/issue-422",
+      "workspace": "workspace/Posnic-POS/issue-422",
+      "conversation_id": "20260923T210600-58121902",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-422",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-23T21:06:48"
     }
   }
 }
