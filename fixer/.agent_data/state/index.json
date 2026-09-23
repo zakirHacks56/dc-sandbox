@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-23T20:33:41",
+  "updated_at": "2026-09-23T20:36:47",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -46,6 +46,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-23T20:33:41"
+    },
+    "Posnic/POS#432": {
+      "repo": "Posnic/POS",
+      "issue": 432,
+      "issue_title": "Shiprocket connector: research shipping label and status boundary",
+      "workflow_path": "workflows/Posnic-POS/issue-432.json",
+      "conversation_dir": "conversations/Posnic-POS/issue-432",
+      "workspace": "workspace/Posnic-POS/issue-432",
+      "conversation_id": "20260923T203601-241f028a",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-432",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-23T20:36:47"
     }
   }
 }
