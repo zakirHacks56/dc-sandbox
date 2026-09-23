@@ -5,14 +5,14 @@
   "issue_title": "Mailchimp connector: research customer sync boundary",
   "issue_url": "https://github.com/Posnic/POS/issues/436",
   "issue_state": "open",
-  "state": "IMPLEMENTING",
-  "status": "implementing",
+  "state": "PAUSED",
+  "status": "paused",
   "branch": "fix-issue-436",
   "base_branch": "develop",
   "pr_number": null,
   "pr_url": null,
   "created_at": "2026-09-23T17:38:55",
-  "updated_at": "2026-09-23T17:39:26",
+  "updated_at": "2026-09-23T18:18:07",
   "processed_comment_ids": [],
   "iterations": [],
   "unresolved_feedback": [],
@@ -28,15 +28,21 @@
       "to": "IMPLEMENTING",
       "at": "2026-09-23T17:39:26",
       "note": "generating fix"
+    },
+    {
+      "from": "IMPLEMENTING",
+      "to": "PAUSED",
+      "at": "2026-09-23T18:18:07",
+      "note": "crashed: RuntimeError: OmniRoute call failed (Error code: 402 - {'error': {'message': 'This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.', 'code': 402, 'metadata': {'reason': 'in_flight_budget_exhausted', 'limit_source': 'openrouter_in_flight_budget', 'remedy_hint': 'Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.', 'headers': {'Retry-After': '120'}, 'provider_name': None}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?"
     }
   ],
   "conversation_id": "20260923T173855-4b96c9c3",
   "conversation_dir": "conversations/Posnic-POS/issue-436",
   "workspace": "workspace/Posnic-POS/issue-436",
   "provider": "omniroute",
-  "model": "gemini-3.6-flash",
+  "model": "google/gemini-2.5-flash",
   "last_test_status": "",
-  "pause_count": 0,
+  "pause_count": 1,
   "resume_count": 0,
   "pause_history": [],
   "labels": [
@@ -59,5 +65,20 @@
     "task_type": "BUG_FIX",
     "reason": "(model unavailable during classification)"
   },
-  "bot_login": "IbrahimCodes347"
+  "bot_login": "IbrahimCodes347",
+  "paused_from": "IMPLEMENTING",
+  "paused_at": "2026-09-23T18:18:07",
+  "paused_reason": "crashed: RuntimeError: OmniRoute call failed (Error code: 402 - {'error': {'message': 'This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.', 'code': 402, 'metadata': {'reason': 'in_flight_budget_exhausted', 'limit_source': 'openrouter_in_flight_budget', 'remedy_hint': 'Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.', 'headers': {'Retry-After': '120'}, 'provider_name': None}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?",
+  "paused_by": "crash",
+  "last_stage": "IMPLEMENTING",
+  "last_transition_marker": "LEAVING",
+  "transcript": "conversations/Posnic-POS/issue-436/transcript.log",
+  "messages": "conversations/Posnic-POS/issue-436/messages.jsonl",
+  "workspace_abs": ".agent_data/workspace/Posnic-POS/issue-436",
+  "workspace_dirty": false,
+  "workspace_dirty_files": [],
+  "resume_instructions": [
+    "python oss_agent_v2.py --repo Posnic/POS --resume 436",
+    "python oss_agent_v2.py --repo Posnic/POS --conversation 436"
+  ]
 }
