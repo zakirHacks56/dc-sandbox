@@ -1,0 +1,554 @@
+Full transcript being saved to: .agent_data/logs/Posnic-POS_issue436_20260923_181222.log
+Step 1-2: checking #436 - Mailchimp connector: research customer sync boundary
+⚠️ Combo 'auto/fast' failed hard (BadRequestError): Error code: 400 - {'error': {'message': 'auto/fast is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}
+   Trying fallback combo 'auto' in 5s...
+   ↳ classification unavailable ('NoneType' object has no attribute 'strip'); assuming GENERIC/medium
+✅ Forked, cloned, branched: fix-issue-436
+   ↳ Detected language/build system: javascript
+   ↳ Detected javascript: npm install
+   ↳ Overriding default test command with detected one: npm test
+✅ Found 6 relevant files (0 via AI selection, 6 via keyword match)
+Step 8a: running baseline tests (before any changes)...
+❌ Tests failed
+
+--- Attempt 1/5 ---
+⚠️  One diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:53
+), skipping just that block.
+⚠️  One diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:57
+), skipping just that block.
+⚠️  One diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:17
+), skipping just that block.
+   ↳ git apply rejected all blocks; retrying with content-based matcher...
+✅ Applied diff via content-based matcher (line-number independent): ['api/tests/unit/controllers/customers.controller.test.js']
+✅ Applied diff via content-based matcher (line-number independent): ['api/tests/unit/services/customer.service.test.js']
+✅ Applied diff via content-based matcher (line-number independent): ['src/main.js']
+⛔ Syntax check failed in the patch (1):
+   - api/tests/unit/services/customer.service.test.js: /home/runner/work/dc-sandbox/dc-sandbox/fixer/.agent_data/workspace/Posnic-POS/issue-436/api/tests/unit/services/customer.service.test.js:1552
+});
+^
+
+SyntaxError: Unexpected token '}'
+    at wrapSafe (node:internal/modules/cjs/loader:1713:18)
+    at checkSyntax (node:internal/main/check_syntax:78:3)
+
+--- Attempt 2/5 ---
+⚠️  One diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:9
+), skipping just that block.
+⚠️  One diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:33
+), skipping just that block.
+⚠️  One diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:41
+), skipping just that block.
+   ↳ git apply rejected all blocks; retrying with content-based matcher...
+⚠️  A hunk for 'src/main.js' could not be located -- its context lines don't match the real file, so the change was based on a guessed version. Here is the ACTUAL current content of 'src/main.js' -- redo the fix using this exact content:
+
+const electron = require('electron');
+
+// Safety: if main.js is loaded as plain Node (not via Electron binary),
+// `require('electron')` returns a string path. Detect and bail out clearly.
+if (typeof electron === 'string') {
+  console.error('❌ main.js was loaded as plain Node, not Electron.');
+  console.error('   Please run via: npm run start  OR  electron .');
+  process.exit(1);
+}
+
+const {
+  app, BrowserWindow, ipcMain: rawIpcMain, Menu, Notification, session, dialog, shell, Tray,
+  /* The OS keystore, used to unwrap the key that decrypts the database
+     password. Available here because this is the main process of a real
+     Electron application - a script run under ELECTRON_RUN_AS_NODE cannot even
+     require('electron'), which is why scheduled work runs as the app. */
+  safeStorage
+} = electron;
+
+/*
+ * Every ipcMain handler in this file goes through the guard, which refuses a
+ * message from any frame that is not one of this application's own pages.
+ * rawIpcMain is kept for the places that need to pass the real object on -
+ * pin-lock-ipc.js wraps it again itself.
+ *
+ * There were 78 handlers across this file and three others, and not one looked
+ * at event.senderFrame. backup:restore and backup:delete were among them.
+ */
+const ipcMain = require('./ipc-guard').guard(rawIpcMain);
+const {
+  showSplash,
+  closeSplash,
+  splashIsOpen,
+  showShutdown,
+  setShutdownProgress,
+  showWaitingForPrevious,
+} = require('./splash');
+const shutdownState = require('./shutdown-state');
+const path = require('path');
+const http = require('http');
+const fs = require('fs');
+const {
+  hasUnexpiredAuthCookie,
+  validateSavedLogin,
+  clearStaleLogin
+} = require('./startup-auth');
+
+// === SINGLE INSTANCE PROTECTION ===
+// Acquire this before loading hardware/database modules so a second launch
+// exits before it can start another MongoDB or API server.
+const hasSingleInstanceLock = app.requestSingleInstanceLock({
+  startedAt: new Date().toISOString(),
+  pid: process.pid
+});
+
+/*
+ * Failing to get the lock means one of two very different things.
+ *
+ * Either another till is genuinely open - in which case the running instance
+ * gets a 'second-instance' event, focuses itself, and this process should go
+ * away - or the previous instance is still closing and has not let go yet.
+ *
+ * The second case used to be handled as if it were the first: exit(0), no
+ * window, no message. Closing Posnic and immediately reopening it is an
+ * ordinary thing to do, and for the ten seconds mongod takes to close its
+ * files the icon simply did nothing. Clicking again did nothing again.
+ *
+ * So this asks which it is. The answer decides whether to leave, or to wait
+ * and start - and waiting is handled after `ready`, because saying so needs a
+ * window and there is no window before then.
+ */
+let waitingForPreviousShutdown = null;
+if (!hasSingleInstanceLock) {
+  try {
+    waitingForPreviousShutdown = shutdownState.findInProgress(app.getPath('userData'));
+  } catch (e) {
+    waitingForPreviousShutdown = null;
+  }
+
+  if (!waitingForPreviousShutdown) {
+    console.log('[Main] Another Posnic instance is already running');
+    app.exit(0);
+  } else {
+    console.log(
+      `[Main] The previous instance (pid ${waitingForPreviousShutdown.pid}) is still ` +
+      'closing; waiting for it rather than exiting',
+    );
+  }
+}
+
+/*
+ * posnic:// deep links ("Open my POS" on the website).
+ *
+ * Only from a packaged build. A development run registers process.execPath,
+ * which is electron.exe - so the browser then asks "Open Electron?" and names
+ * a program the shop has never heard of, for a link on their own account page.
+ * Worse, it persists: the registry entry outlives the dev run, and the machine
+ * keeps offering Electron until something overwrites it.
+ *
+ * The installer registers the scheme properly through build.protocols in
+ * package.json, which is where a shop's machine gets it. This line is for the
+ * case where the app has been moved or the registration lost, and it can only
+ * ever point at a real installed Posnic.
+ *
+ * A second launch via the protocol lands in the existing second-instance
+ * handler, which focuses the window; a cold start just opens the app normally.
+ */
+try {
+  if (app.isPackaged) {
+    app.setAsDefaultProtocolClient('posnic');
+  }
+} catch (err) {
+  console.log('[Main] protocol registration skipped:', err.message);
+}
+
+// === CRYPTO POLYFILL (for MongoDB driver 7.x in Electron) ===
+// Some Electron versions don't expose globalThis.crypto which mongodb 7.x needs
+try {
+  const nodeCrypto = require('crypto');
+  if (!globalThis.crypto && nodeCrypto.webcrypto) {
+    globalThis.crypto = nodeCrypto.webcrypto;
+  }
+} catch (e) {
+  console.error('Failed to polyfill crypto:', e.message);
+}
+
+const { HardwareManager } = require('./hardware-manager');
+const { setupHardwareIPC } = require('./hardware-ipc');
+const MongoDBManager = require('./mongodb-manager');
+const KOTManager = require('./kot-manager');
+const SyncAgentManager = require('./sync-agent-manager');
+const { AssetUpdater } = require('./asset-updater');
+
+// === FILE-BASED LOGGING (for packaged exe debugging) ===
+// Title bar height in pixels. Windows draws its own at roughly 32 and
+// shrinks it when maximised; 44 keeps the title readable either way.
+const TITLEBAR_HEIGHT = Number(process.env.POSNIC_TITLEBAR_HEIGHT) || 44;
+const LOG_FILE = path.join(app.getPath('userData'), 'app.log');
+const OLD_LOG_FILE = path.join(app.getPath('userData'), 'app-old.log');
+const LOG_DATE_FILE = path.join(app.getPath('userData'), '.app-log-date');
+const HEALTH_FILE = path.join(app.getPath('userData'), 'health-status.json');
+const crypto = require('crypto');
+const HEALTH_DISMISS_FILE = path.join(app.getPath('userData'), 'health-dismissed.json');
+const MAX_LOG_SIZE_BYTES = 10 * 1024 * 1024;
+
+// Findings the shop chose not to be reminded about, keyed by a hash of the
+// finding list, so anything new still surfaces. Errors are never suppressed.
+function readHealthDismissals() {
+  try { return JSON.parse(fs.readFileSync(HEALTH_DISMISS_FILE, 'utf8')); } catch { return []; }
+}
+function writeHealthDismissals(list) {
+  try { fs.writeFileSync(HEALTH_DISMISS_FILE, JSON.stringify(list.slice(-20), null, 2)); }
+  catch (e) { console.warn('[Health] could not save dismissal:', e.message); }
+}
+const WARNING_SUMMARY_INTERVAL_MS = 60 * 1000;
+const WARNING_SUMMARY_COUNT = 25;
+const repeatedWarnings = new Map();
+const LOG_LEVELS = Object.freeze({
+  DEBUG: 10,
+  INFO: 20,
+  WARN: 30,
+  ERROR: 40,
+  FATAL: 50
+});
+const DEFAULT_LOG_LEVEL = app.isPackaged ? 'INFO' : 'DEBUG';
+const REQUESTED_LOG_LEVEL = String(
+  process.argv.includes('--debug-logs')
+    ? 'DEBUG'
+    : (process.env.POSNIC_LOG_LEVEL || DEFAULT_LOG_LEVEL)
+).toUpperCase();
+const ACTIVE_LOG_LEVEL = LOG_LEVELS[REQUESTED_LOG_LEVEL]
+  ? REQUESTED_LOG_LEVEL
+  : DEFAULT_LOG_LEVEL;
+const ACTIVE_LOG_LEVEL_VALUE =
+  LOG_LEVELS[ACTIVE_LOG_LEVEL];
+
+function getLocalDateKey(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function redactSecrets(value) {
+  return String(value)
+    .replace(/(mongodb(?:\+srv)?:\/\/[^:\s/]+:)[^@\s/]+@/gi, '$1[REDACTED]@')
+    .replace(/(authorization["']?\s*[:=]\s*["']?bearer\s+)[^\s"',}]+/gi, '$1[REDACTED]')
+    .replace(/((?:gh_token|jwt_secret|session_secret)["']?\s*[:=]\s*["']?)[^\s"',}]+/gi, '$1[REDACTED]');
+}
+
+function formatLogValue(value, seen = new WeakSet()) {
+  if (value instanceof Error) {
+    const details = {
+      name: value.name,
+      message: value.message,
+      code: value.code,
+      errno: value.errno,
+      syscall: value.syscall,
+      path: value.path,
+      url: value.url,
+      stack: value.stack,
+      cause: value.cause
+    };
+    return redactSecrets(JSON.stringify(details, null, 2));
+  }
+
+  if (typeof value === 'object' && value !== null) {
+    try {
+      return redactSecrets(JSON.stringify(value, (_key, nestedValue) => {
+        if (typeof nestedValue === 'object' && nestedValue !== null) {
+          if (seen.has(nestedValue)) return '[Circular]';
+          seen.add(nestedValue);
+        }
+        return nestedValue;
+      }, 2));
+    } catch (error) {
+      return `[Unserializable ${value.constructor?.name || 'Object'}: ${error.message}]`;
+    }
+  }
+
+  return redactSecrets(value);
+}
+
+function ensureDailyLog() {
+  const today = getLocalDateKey();
+  let activeDate = '';
+  try {
+    activeDate = fs.existsSync(LOG_DATE_FILE)
+      ? fs.readFileSync(LOG_DATE_FILE, 'utf8').trim()
+      : '';
+  } catch (_) { }
+
+  if (activeDate !== today || !fs.existsSync(LOG_FILE)) {
+    fs.writeFileSync(
+      LOG_FILE,
+      `=== Posnic Daily Log: ${today} ===\n`,
+      'utf8'
+    );
+    fs.writeFileSync(LOG_DATE_FILE, today, 'utf8');
+  }
+}
+
+function rotateLogIfNeeded(incomingBytes = 0) {
+  try {
+    if (!fs.existsSync(LOG_FILE)) return;
+
+    const currentSize = fs.statSync(LOG_FILE).size;
+    if (currentSize + incomingBytes <= MAX_LOG_SIZE_BYTES) return;
+
+    if (fs.existsSync(OLD_LOG_FILE)) {
+      fs.unlinkSync(OLD_LOG_FILE);
+    }
+    fs.renameSync(LOG_FILE, OLD_LOG_FILE);
+
+    fs.writeFileSync(
+      LOG_FILE,
+      `=== Posnic Daily Log: ${getLocalDateKey()} ===\n` +
+      `=== Log rotated at ${new Date().toISOString()} | previous=${path.basename(OLD_LOG_FILE)} | maxSizeMB=10 ===\n`,
+      'utf8'
+    );
+  } catch (error) {
+    try {
+      // If Windows temporarily blocks rename, preserve logging by truncating
+      // the active file and recording the rotation problem.
+      fs.writeFileSync(
+        LOG_FILE,
+        `=== Posnic Daily Log: ${getLocalDateKey()} ===\n` +
+        `=== Log rotation fallback at ${new Date().toISOString()} | error=${redactSecrets(error.message)} ===\n`,
+        'utf8'
+      );
+    } catch (_) { }
+  }
+}
+
+function shouldWriteLog(level) {
+  return (LOG_LEVELS[level] || LOG_LEVELS.INFO) >= ACTIVE_LOG_LEVEL_VALUE;
+}
+
+function safeStringifyLogArg(value) {
+  if (value instanceof Error) return value.message;
+  if (typeof value === 'object' && value !== null) {
+    // Null-prototype objects (e.g. req.query parsed by qs) have no
+    // toString/valueOf, so String() throws "Cannot convert object to
+    // primitive value". JSON.stringify works regardless of prototype.
+    try {
+      return JSON.stringify(value);
+    } catch (_) {
+      return Object.prototype.toString.call(value);
+    }
+  }
+  try {
+    return String(value);
+  } catch (_) {
+    return Object.prototype.toString.call(value);
+  }
+}
+
+function inferInfoLevel(args) {
+  const text = args
+    .map(safeStringifyLogArg)
+    .join(' ')
+    .trim();
+
+  const isVerboseDiagnostic =
+    /(^|\s|\[)(debug|trace)(\]|\s|:|-)/i.test(text) ||
+    /\[(dashboard context|pending activities)\]/i.test(text) ||
+    /session filter|permission check result|session_applied/i.test(text);
+
+  return isVerboseDiagnostic
+    ? 'DEBUG'
+    : 'INFO';
+}
+
+function getWarningKey(args) {
+  const text = args.map(arg => {
+    if (arg instanceof Error) {
+      return `${arg.name}:${arg.message}`;
+    }
+    if (typeof arg === 'object' && arg !== null) {
+      try {
+        return JSON.stringify(arg);
+      } catch (_) {
+        return String(arg);
+      }
+    }
+    return String(arg);
+  }).join(' ');
+
+  return text
+    .replace(/\bhttps?:\/\/[^\s"']+/gi, match => {
+      try {
+        const url = new URL(match.replace(/[),.;]+$/, ''));
+        return `${url.origin}${url.pathname}`;
+      } catch (_) {
+        return match;
+      }
+    })
+    .replace(/\b\d{4}-\d{2}-\d{2}T[\d:.]+Z\b/g, '<timestamp>')
+    .replace(/\b\d{6,}\b/g, '<number>')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 1000);
+}
+
+function writeRepeatedWarningSummary(key, state) {
+  if (!state || state.duplicateCount === 0) return;
+
+  writeLog(
+    'WARN',
+    `${state.label} repeated ${state.duplicateCount} times`,
+    {
+      firstSeen: state.firstSeen,
+      lastSeen: state.lastSeen,
+      warningKey: key.slice(0, 300)
+    }
+  );
+  state.duplicateCount = 0;
+  state.lastSummaryAt = Date.now();
+}
+
+function flushRepeatedWarningSummaries() {
+  for (const [key, state] of repeatedWarnings) {
+    writeRepeatedWarningSummary(key, state);
+  }
+}
+
+function writeWarningWithSuppression(args) {
+  const key = getWarningKey(args);
+  const now = Date.now();
+  const existing = repeatedWarnings.get(key);
+
+  if (!existing) {
+    repeatedWarnings.set(key, {
+      duplicateCount: 0,
+      firstSeen: new Date(now).toISOString(),
+      lastSeen: new Date(now).toISOString(),
+      lastSummaryAt: now,
+      label: String(args[0] || 'Warning').slice(0, 160)
+    });
+    writeLog('WARN', ...args);
+    return;
+  }
+
+  existing.duplicateCount += 1;
+  existing.lastSeen = new Date(now).toISOString();
+
+  if (
+    existing.duplicateCount >= WARNING_SUMMARY_COUNT ||
+    now - existing.lastSummaryAt >= WARNING_SUMMARY_INTERVAL_MS
+  ) {
+    writeRepeatedWarningSummary(key, existing);
+  }
+}
+
+try {
+  if (!fs.existsSync(app.getPath('userData'))) {
+    fs.mkdirSync(app.getPath('userData'), { recursive: true });
+  }
+  ensureDailyLog();
+  const sessionHeader =
+    `\n=== Application session started at ${new Date().toISOString()} | version=${app.getVersion()} | packaged=${app.isPackaged} | pid=${process.pid} | logLevel=${ACTIVE_LOG_LEVEL} ===\n`;
+  rotateLogIfNeeded(Buffer.byteLength(sessionHeader, 'utf8'));
+  fs.appendFileSync(LOG_FILE, sessionHeader);
+} catch (e) {
+  // Ignore
+}
+
+function writeLog(level, ...args) {
+  try {
+    if (!shouldWriteLog(level)) return;
+    ensureDailyLog();
+    const msg = args.map(arg => formatLogValue(arg)).join(' ');
+    const entry = `[${new Date().toISOString()}] [${level}] ${msg}\n`;
+    rotateLogIfNeeded(Buffer.byteLength(entry, 'utf8'));
+    fs.appendFileSync(LOG_FILE, entry);
+  } catch (e) {
+    // Ignore
+  }
+}
+
+function updateHealthStatus(patch) {
+  try {
+    let current = {};
+    if (fs.existsSync(HEALTH_FILE)) {
+      try {
+        current = JSON.parse(fs.readFileSync(HEALTH_FILE, 'utf8'));
+      } catch (_) { }
+    }
+
+    const next = {
+      ...current,
+      version: app.getVersion(),
+      packaged: app.isPackaged,
+      pid: process.pid,
+      ...patch,
+      updatedAt: new Date().toISOString()
+    };
+    const tempFile = `${HEALTH_FILE}.tmp`;
+    fs.writeFileSync(tempFile, JSON.stringify(next, null, 2), 'utf8');
+    if (fs.existsSync(HEALTH_FILE)) {
+      fs.unlinkSync(HEALTH_FILE);
+    }
+    fs.renameSync(tempFile, HEALTH_FILE);
+  } catch (error) {
+    console.warn('[Health] Could not update health status file:', error.message);
+  }
+}
+
+// Override console methods to also write to log file
+const origLog = console.log;
+const origError = console.error;
+const origWarn = console.warn;
+const origDebug = console.debug;
+console.log = (...args) => {
+  origLog(...args);
+  writeLog(inferInfoLevel(args), ...args);
+};
+console.info = (...args) => {
+  origLog(...args);
+  writeLog('INFO', ...args);
+};
+console.debug = (...args) => {
+  origDebug(...args);
+  writeLog('DEBUG', ...args);
+};
+console.error = (...args) => { origError(...args); writeLog('ERROR', ...args); };
+console.warn = (...args) => {
+  origWarn(...args);
+  writeWarningWithSuppression(args);
+};
+
+// Catch uncaught errors
+process.on('uncaughtException', (err) => {
+  writeLog('FATAL', 'Uncaught Exception:', err);
+  console.error('FATAL Uncaught Exception:', err);
+});
+process.on('unhandledRejection', (reason, promise) => {
+  writeLog('FATAL', 'Unhandled Rejection:', reason, { promise: String(promise) });
+  console.error('FATAL Unhandled Rejection:', reason);
+});
+process.on('warning', warning => {
+  console.warn('PROCESS WARNING:', warning);
+});
+
+console.log(`📝 Log file: ${LOG_FILE}`);
+
+console.log(`[Health] Status file: ${HEALTH_FILE}`);
+
+updateHealthStatus({
+  lastStartup: new Date().toISOString(),
+  status: 'starting',
+  mongodb: 'starting',
+  api: 'pending',
+  interface: 'pending',
+  dashboard: 'pending',
+  login: 'pending',
+  lastError: null
+});
+
+// === SINGLE PORT CONFIGURATION ===
+/*
+ *
+
+--- Attempt 3/5 ---
+⚠️  Refusing to apply fix to 'src/main.js': original file is 196303 bytes but the model's replacement is only 18058 bytes -- likely because the file exceeds the context truncation limit and the model only saw a partial copy. This file is too large for the current full-file-replace approach; skip it or handle it manually.
+
+--- Attempt 4/5 ---
+⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.', 'code': 402, '
+   Trying fallback combo 'google/gemini-3.6-flash' in 5s...
+⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 8979. To increase, visit https://openrouter.ai/s
+   Trying fallback combo 'openrouter/auto' in 10s...

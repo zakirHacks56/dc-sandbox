@@ -1560,6 +1560,7 @@ diff --git a/tests/i18n.test.js b/tests/i18n.test.js
 
 Switched to a new branch 'fix-issue-446'
 2026-09-23T18:09:35+00:00  tick done
+<<<<<<< HEAD
 2026-09-23T18:14:49+00:00  gate poller start (offset=746150288)
 2026-09-23T18:14:58+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T18:14:59+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
@@ -1580,6 +1581,38 @@ p to 12000 tokens, but can only afford 6776. To increase, visit https://openrout
 ⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 8156. To increase, visit https://openrouter.ai/s
    Trying fallback combo 'google/gemini-3.6-flash' in 5s...
 ⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 5437. To increase, visit https://openrouter.ai/s
+=======
+2026-09-23T18:12:11+00:00  gate poller start (offset=746150288)
+2026-09-23T18:12:18+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-23T18:12:19+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-23T18:12:19+00:00  jaegertracing/jaeger: skipping (stars > 3000)
+2026-09-23T18:12:21+00:00  HUNTING: trying Posnic/POS#436
+2026-09-23T18:12:21+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Posnic/POS --issue 436 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-23T18:14:30+00:00  fixer exit=1
+--tail--
+dateHealthStatus({
+  lastStartup: new Date().toISOString(),
+  status: 'starting',
+  mongodb: 'starting',
+  api: 'pending',
+  interface: 'pending',
+  dashboard: 'pending',
+  login: 'pending',
+  lastError: null
+});
+
+// === SINGLE PORT CONFIGURATION ===
+/*
+ *
+
+--- Attempt 3/5 ---
+⚠️  Refusing to apply fix to 'src/main.js': original file is 196303 bytes but the model's replacement is only 18058 bytes -- likely because the file exceeds the context truncation limit and the model only saw a partial copy. This file is too large for the current full-file-replace approach; skip it or handle it manually.
+
+--- Attempt 4/5 ---
+⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.', 'code': 402, '
+   Trying fallback combo 'google/gemini-3.6-flash' in 5s...
+⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 8979. To increase, visit https://openrouter.ai/s
+>>>>>>> 92745703fb253521b4d52292179b095d024944b0
    Trying fallback combo 'openrouter/auto' in 10s...
 
 💾 Saved state for Posnic/POS#436 before exit (status: paused). Nothing on GitHub changed.
@@ -1588,4 +1621,8 @@ p to 12000 tokens, but can only afford 6776. To increase, visit https://openrout
       python oss_agent_v2.py --repo Posnic/POS --conversation 436
 
 it_source': 'openrouter_in_flight_budget', 'remedy_hint': 'Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.', 'headers': {'Retry-After': '120'}, 'provider_name': None}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
+<<<<<<< HEAD
 2026-09-23T18:18:07+00:00  tick done
+=======
+2026-09-23T18:14:30+00:00  tick done
+>>>>>>> 92745703fb253521b4d52292179b095d024944b0

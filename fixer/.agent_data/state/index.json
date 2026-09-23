@@ -1,6 +1,10 @@
 {
   "schema": 2,
+<<<<<<< HEAD
   "updated_at": "2026-09-23T18:18:07",
+=======
+  "updated_at": "2026-09-23T18:14:30",
+>>>>>>> 92745703fb253521b4d52292179b095d024944b0
   "workflows": {
     "Posnic/POS#446": {
       "repo": "Posnic/POS",
@@ -30,7 +34,11 @@
       "branch": "fix-issue-436",
       "pr_number": null,
       "pr_url": null,
+<<<<<<< HEAD
       "updated_at": "2026-09-23T18:18:07"
+=======
+      "updated_at": "2026-09-23T18:14:30"
+>>>>>>> 92745703fb253521b4d52292179b095d024944b0
     }
   }
 }
