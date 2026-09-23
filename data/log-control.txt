@@ -1588,3 +1588,39 @@ dateHealthStatus({
 it_source': 'openrouter_in_flight_budget', 'remedy_hint': 'Retry after your in-flight requests settle (see the Retry-After header). Adding credits at https://openrouter.ai/settings/credits raises your in-flight budget, up to a capped ceiling.', 'headers': {'Retry-After': '120'}, 'provider_name': None}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
 2026-09-23T18:18:07+00:00  tick done
 2026-09-23T18:14:30+00:00  tick done
+2026-09-23T19:36:48+00:00  gate poller start (offset=746150288)
+2026-09-23T19:36:57+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-23T19:36:57+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-23T19:36:58+00:00  jaegertracing/jaeger: skipping (stars > 3000)
+2026-09-23T19:37:00+00:00  HUNTING: trying Posnic/POS#434
+2026-09-23T19:37:00+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Posnic/POS --issue 434 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-23T19:39:14+00:00  fixer exit=1
+--tail--
+e.preventDefault();
+            console.log('Form submitted, calling sendWhatsAppReceipt');
+            Posnic
+
+--- Attempt 2/5 ---
+   ↳ Response had no complete <<<END>>> markers (likely truncated) -- applying with truncation-tolerant parser.
+⚠️  Refusing to apply fix to 'frontend/static/script/js/modules/js/sales.js': original file is 686057 bytes but the model's replacement is only 10718 bytes -- likely because the file exceeds the context truncation limit and the model only saw a partial copy. This file is too large for the current full-file-replace approach; skip it or handle it manually.
+
+--- Attempt 3/5 ---
+⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request would exceed your available credits given your current in-flight requests. Retry after in-flight requests settle, or add credits.', 'code': 402, '
+   Trying fallback combo 'google/gemini-3.6-flash' in 5s...
+⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'Prompt tokens limit exceeded: 31503 > 18684. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account', 'code': 402, 'metadata':
+   Trying fallback combo 'openrouter/auto' in 10s...
+
+💾 Saved state for Posnic/POS#434 before exit (status: paused). Nothing on GitHub changed.
+   Resume with:
+      python oss_agent_v2.py --repo Posnic/POS --resume 434
+      python oss_agent_v2.py --repo Posnic/POS --conversation 434
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py", line 2920, in apply_fix
+    fix_text = _normalize_hybrid_blocks(fix_text)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py", line 2914, in _normalize_hybrid_blocks
+    return pattern.sub(_rewrite, fix_text)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'NoneType'
+2026-09-23T19:39:14+00:00  tick done
