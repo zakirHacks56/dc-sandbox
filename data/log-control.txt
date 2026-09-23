@@ -1713,6 +1713,15 @@ TypeError: expected string or bytes-like object, got 'NoneType'
 =======
 2026-09-23T19:47:40+00:00  tick done
 >>>>>>> 94a12fe288e769995006ae2e8780cde6517c8443
+<<<<<<< HEAD
+2026-09-23T19:56:05+00:00  gate poller start (offset=746150288)
+2026-09-23T19:56:13+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-23T19:56:14+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-23T19:56:14+00:00  jaegertracing/jaeger: skipping (stars > 3000)
+2026-09-23T19:56:17+00:00  HUNTING: trying Posnic/POS#446
+2026-09-23T19:56:17+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Posnic/POS --issue 446 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-23T19:57:06+00:00  fixer exit=1
+=======
 2026-09-23T19:54:03+00:00  gate poller start (offset=746150288)
 2026-09-23T19:54:12+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-23T19:54:13+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
@@ -1720,6 +1729,7 @@ TypeError: expected string or bytes-like object, got 'NoneType'
 2026-09-23T19:54:17+00:00  HUNTING: trying Posnic/POS#446
 2026-09-23T19:54:17+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Posnic/POS --issue 446 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
 2026-09-23T19:55:47+00:00  fixer exit=1
+>>>>>>> 16f1e6f7b574bcb7e26c1e16d8a439ad0e2a8577
 --tail--
 gent_v2.py --list-workflows
 ⚠️  Corrupt workflow index at .agent_data/state/index.json (backed up to .agent_data/state/index.corrupt): Expecting property name enclosed in double quotes: line 3 column 1 (char 17)
@@ -1733,9 +1743,15 @@ Step 8a: running baseline tests (before any changes)...
 ❌ Tests failed
 
 --- Attempt 1/5 ---
+<<<<<<< HEAD
+⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 1609. To increase, visit https://openrouter.ai/se
+   Trying fallback combo 'google/gemini-3.6-flash' in 5s...
+⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 1049. To increase, visit https://openrouter.ai/se
+=======
 ⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 2102. To increase, visit https://openrouter.ai/se
    Trying fallback combo 'google/gemini-3.6-flash' in 5s...
 ⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 1377. To increase, visit https://openrouter.ai/se
+>>>>>>> 16f1e6f7b574bcb7e26c1e16d8a439ad0e2a8577
    Trying fallback combo 'openrouter/auto' in 10s...
 
 💾 Saved state for Posnic/POS#446 before exit (status: paused). Nothing on GitHub changed.
@@ -1743,6 +1759,10 @@ Step 8a: running baseline tests (before any changes)...
       python oss_agent_v2.py --repo Posnic/POS --resume 446
       python oss_agent_v2.py --repo Posnic/POS --conversation 446
 
+<<<<<<< HEAD
+ps://openrouter.ai/settings/credits and upgrade to a paid account'}, {'code': 402, 'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 2623. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account'}]}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
+2026-09-23T19:57:06+00:00  tick done
+=======
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py", line 2920, in apply_fix
     fix_text = _normalize_hybrid_blocks(fix_text)
@@ -1752,3 +1772,4 @@ Step 8a: running baseline tests (before any changes)...
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: expected string or bytes-like object, got 'NoneType'
 2026-09-23T19:55:47+00:00  tick done
+>>>>>>> 16f1e6f7b574bcb7e26c1e16d8a439ad0e2a8577
