@@ -2471,6 +2471,12 @@ FILE: <one of the exact paths from ALLOWED FILE PATHS below>
 ...complete new content of the file...
 <<<END>>>
 
+ALWAYS terminate every FILE block with <<<END>>> on its own line, then
+start the next FILE block (or nothing) immediately after it. If the full
+new content would be very large, PREFER a diff limited to the changed
+regions instead of the full-file format, so your answer is never cut off
+mid-block -- a truncated response cannot be applied and wastes attempts.
+
 Do NOT write the literal text "relative/path/to/file.py" or any other
 placeholder -- always substitute a real, exact path copied character-
 for-character from the ALLOWED FILE PATHS list below.
@@ -2514,6 +2520,12 @@ FILE: <one of the exact paths from ALLOWED FILE PATHS below>
 <<<CONTENT>>>
 ...complete new content of the file...
 <<<END>>>
+
+ALWAYS terminate every FILE block with <<<END>>> on its own line, then
+start the next FILE block (or nothing) immediately after it. If the full
+new content would be very large, PREFER a diff limited to the changed
+regions instead of the full-file format, so your answer is never cut off
+mid-block -- a truncated response cannot be applied and wastes attempts.
 
 Do NOT write the literal text "relative/path/to/file.py" or any other
 placeholder -- always substitute a real, exact path copied character-
@@ -2726,7 +2738,8 @@ directory even if similar files exist there):
             f"{guidance[:MAX_ERROR_CHARS]}"
         )
 
-    token_budget = HARD_MAX_TOKENS if difficulty == "hard" else 4000
+    flat_budget = int(os.getenv("SOLVE_MAX_OUTPUT_TOKENS", "12000"))
+    token_budget = HARD_MAX_TOKENS if difficulty == "hard" else flat_budget
     return call_model(prompt, max_tokens=token_budget, retry_variant=retry_variant)
 
 
@@ -3006,8 +3019,22 @@ def apply_fix(
         )
 
     # --- Fallback: full-file overwrite, with the data-loss safety check ---
-    pattern = re.compile(r"FILE:\s*(.+?)\n<<<CONTENT>>>\n(.*?)\n<<<END>>>", re.DOTALL)
-    matches = pattern.findall(fix_text)
+    strict = re.compile(r"FILE:\s*(.+?)\n<<<CONTENT>>>\n(.*?)\n<<<END>>>", re.DOTALL)
+    matches = strict.findall(fix_text)
+    if not matches:
+        # Models occasionally hit their output limit mid-block and the final
+        # FILE block never gets its closing <<<END>>>. Match those too (the
+        # block runs to end-of-text or the next FILE marker), so a truncated
+        # response is either applied or rejected by the data-loss check that
+        # follows rather than simply unparseable.
+        permissive = re.compile(r"FILE:\s*(.+?)\n<<<CONTENT>>>\n(.*?)(?=\nFILE:|\Z)", re.DOTALL)
+        matches = permissive.findall(fix_text)
+        if matches:
+            print(
+                "   ↳ Response had no complete <<<END>>> markers "
+                "(likely truncated) -- applying with truncation-tolerant "
+                "parser."
+            )
     if not matches:
         # Last-resort safety net: some model responses ignore our wrapper
         # syntax entirely and just dump raw code. If there's exactly one
