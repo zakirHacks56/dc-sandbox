@@ -1,0 +1,14 @@
+{
+  "conversation_id": "20260923T205512-35ab24bb",
+  "repo": "Posnic/POS",
+  "issue": 424,
+  "created_at": "2026-09-23T20:55:12",
+  "updated_at": "2026-09-23T20:55:55",
+  "provider": "omniroute",
+  "model": "google/gemini-2.5-flash",
+  "message_count": 3,
+  "rounds": 0,
+  "archived_conversation_ids": [],
+  "transcript": "conversations/Posnic-POS/issue-424/transcript.log",
+  "messages": "conversations/Posnic-POS/issue-424/messages.jsonl"
+}
