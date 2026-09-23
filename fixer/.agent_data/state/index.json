@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-23T17:32:51",
+  "updated_at": "2026-09-23T17:39:26",
   "workflows": {
     "yunaremaia/sandbox-ffi-layers#30": {
       "repo": "yunaremaia/sandbox-ffi-layers",
@@ -106,6 +106,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-23T17:32:51"
+    },
+    "Posnic/POS#436": {
+      "repo": "Posnic/POS",
+      "issue": 436,
+      "issue_title": "Mailchimp connector: research customer sync boundary",
+      "workflow_path": "workflows/Posnic-POS/issue-436.json",
+      "conversation_dir": "conversations/Posnic-POS/issue-436",
+      "workspace": "workspace/Posnic-POS/issue-436",
+      "conversation_id": "20260923T173855-4b96c9c3",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-436",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-23T17:39:26"
     }
   }
 }

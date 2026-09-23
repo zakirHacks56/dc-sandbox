@@ -1,0 +1,63 @@
+{
+  "schema": 2,
+  "repo": "Posnic/POS",
+  "issue": 436,
+  "issue_title": "Mailchimp connector: research customer sync boundary",
+  "issue_url": "https://github.com/Posnic/POS/issues/436",
+  "issue_state": "open",
+  "state": "IMPLEMENTING",
+  "status": "implementing",
+  "branch": "fix-issue-436",
+  "base_branch": "develop",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-23T17:38:55",
+  "updated_at": "2026-09-23T17:39:26",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-23T17:38:55",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-23T17:39:26",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260923T173855-4b96c9c3",
+  "conversation_dir": "conversations/Posnic-POS/issue-436",
+  "workspace": "workspace/Posnic-POS/issue-436",
+  "provider": "omniroute",
+  "model": "gemini-3.6-flash",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "documentation",
+    "good first issue",
+    "help wanted",
+    "area: integrations",
+    "needs evidence",
+    "size: small",
+    "security"
+  ],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "docs",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "docs",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "IbrahimCodes347"
+}
