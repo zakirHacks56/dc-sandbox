@@ -1942,3 +1942,35 @@ Step 8a: running baseline tests (before any changes)...
 
 tps://openrouter.ai/settings/credits and upgrade to a paid account'}, {'code': 402, 'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 679. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account'}]}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
 2026-09-23T20:55:55+00:00  tick done
+2026-09-23T21:04:00+00:00  gate poller start (offset=746150288)
+2026-09-23T21:04:09+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-23T21:04:10+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-23T21:04:10+00:00  jaegertracing/jaeger: skipping (stars > 3000)
+2026-09-23T21:04:14+00:00  HUNTING: trying Posnic/POS#423
+2026-09-23T21:04:14+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Posnic/POS --issue 423 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-23T21:05:19+00:00  fixer exit=1
+--tail--
+iled hard (BadRequestError): Error code: 400 - {'error': {'message': 'auto/fast is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}
+   Trying fallback combo 'auto' in 5s...
+   ↳ verification verdict: ENHANCEMENT/SCOPED difficulty=easy
+✅ Forked, cloned, branched: fix-issue-423
+   ↳ Detected language/build system: javascript
+   ↳ Detected javascript: npm install
+   ↳ Overriding default test command with detected one: npm test
+✅ Found 6 relevant files (0 via AI selection, 6 via keyword match)
+Step 8a: running baseline tests (before any changes)...
+❌ Tests failed
+
+--- Attempt 1/5 ---
+⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 118. To increase, visit https://openrouter.ai/set
+   Trying fallback combo 'google/gemini-3.6-flash' in 5s...
+⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 4. To increase, visit https://openrouter.ai/setti
+   Trying fallback combo 'openrouter/auto' in 10s...
+
+💾 Saved state for Posnic/POS#423 before exit (status: paused). Nothing on GitHub changed.
+   Resume with:
+      python oss_agent_v2.py --repo Posnic/POS --resume 423
+      python oss_agent_v2.py --repo Posnic/POS --conversation 423
+
+ttps://openrouter.ai/settings/credits and upgrade to a paid account'}, {'code': 402, 'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 33. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account'}]}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
+2026-09-23T21:05:19+00:00  tick done
