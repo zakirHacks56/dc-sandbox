@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-23T20:46:28",
+  "updated_at": "2026-09-23T20:48:14",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -69,13 +69,13 @@
       "workflow_path": "workflows/Posnic-POS/issue-425.json",
       "conversation_dir": "conversations/Posnic-POS/issue-425",
       "workspace": "workspace/Posnic-POS/issue-425",
-      "conversation_id": "20260923T204536-5f84e68d",
+      "conversation_id": "20260923T204714-cae6aed1",
       "state": "PAUSED",
       "status": "paused",
       "branch": "fix-issue-425",
       "pr_number": null,
       "pr_url": null,
-      "updated_at": "2026-09-23T20:46:28"
+      "updated_at": "2026-09-23T20:48:14"
     }
   }
 }

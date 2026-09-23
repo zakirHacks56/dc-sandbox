@@ -11,8 +11,8 @@
   "base_branch": "develop",
   "pr_number": null,
   "pr_url": null,
-  "created_at": "2026-09-23T20:45:36",
-  "updated_at": "2026-09-23T20:46:28",
+  "created_at": "2026-09-23T20:47:14",
+  "updated_at": "2026-09-23T20:48:14",
   "processed_comment_ids": [],
   "iterations": [],
   "unresolved_feedback": [],
@@ -20,17 +20,17 @@
     {
       "from": "TASK_RECEIVED",
       "to": "ANALYZING",
-      "at": "2026-09-23T20:45:37",
+      "at": "2026-09-23T20:47:14",
       "note": "issue verified + unclaimed"
     },
     {
       "from": "ANALYZING",
       "to": "PAUSED",
-      "at": "2026-09-23T20:46:28",
+      "at": "2026-09-23T20:48:14",
       "note": "crashed: AttributeError: 'NoneType' object has no attribute 'strip'"
     }
   ],
-  "conversation_id": "20260923T204536-5f84e68d",
+  "conversation_id": "20260923T204714-cae6aed1",
   "conversation_dir": "conversations/Posnic-POS/issue-425",
   "workspace": "workspace/Posnic-POS/issue-425",
   "provider": "omniroute",
@@ -62,7 +62,7 @@
   },
   "bot_login": "IbrahimCodes347",
   "paused_from": "ANALYZING",
-  "paused_at": "2026-09-23T20:46:28",
+  "paused_at": "2026-09-23T20:48:14",
   "paused_reason": "crashed: AttributeError: 'NoneType' object has no attribute 'strip'",
   "paused_by": "crash",
   "last_stage": "ANALYZING",
