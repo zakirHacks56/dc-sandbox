@@ -5,6 +5,11 @@
   "difficulty_cap": 2,
   "max_stars": 3000,
   "targets": [
-    { "repo": "yunaremaia/sandbox-ffi-layers", "labels": ["good first issue"], "enabled": true }
+    { "repo": "yunaremaia/sandbox-ffi-layers", "labels": ["good first issue"], "enabled": true },
+    { "repo": "jaegertracing/jaeger", "labels": ["good first issue"], "enabled": true },
+    { "repo": "Posnic/POS", "labels": ["good first issue"], "enabled": true },
+    { "repo": "Rekin226/aquascope", "labels": ["good first issue"], "enabled": true },
+    { "repo": "taranis-ai/taranis-ai", "labels": ["good first issue"], "enabled": true },
+    { "repo": "izzywdev/FuzeFront", "labels": ["good first issue"], "enabled": true }
   ]
 }
