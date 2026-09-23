@@ -1,6 +1,14 @@
 {
   "schema": 2,
+<<<<<<< HEAD
   "updated_at": "2026-09-23T17:56:21",
+=======
+<<<<<<< HEAD
+  "updated_at": "2026-09-23T17:52:25",
+=======
+  "updated_at": "2026-09-23T17:46:56",
+>>>>>>> 136fbf2008ddc1cc6c583b152fca57d7dc49d344
+>>>>>>> 7be3323e78db3e49f088c46dc4d880d04109b870
   "workflows": {
     "yunaremaia/sandbox-ffi-layers#30": {
       "repo": "yunaremaia/sandbox-ffi-layers",
@@ -129,6 +137,15 @@
       "workflow_path": "workflows/Posnic-POS/issue-434.json",
       "conversation_dir": "conversations/Posnic-POS/issue-434",
       "workspace": "workspace/Posnic-POS/issue-434",
+<<<<<<< HEAD
+      "conversation_id": "20260923T174924-8f513591",
+      "state": "TESTING",
+      "status": "testing",
+      "branch": "fix-issue-434",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-23T17:52:25"
+=======
       "conversation_id": "20260923T174627-ab1fcb96",
       "state": "IMPLEMENTING",
       "status": "implementing",
@@ -136,6 +153,7 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-23T17:46:56"
+<<<<<<< HEAD
     },
     "Posnic/POS#433": {
       "repo": "Posnic/POS",
@@ -151,6 +169,9 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-23T17:56:21"
+=======
+>>>>>>> 136fbf2008ddc1cc6c583b152fca57d7dc49d344
+>>>>>>> 7be3323e78db3e49f088c46dc4d880d04109b870
     }
   }
 }
