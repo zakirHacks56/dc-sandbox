@@ -11,8 +11,12 @@
   "base_branch": "develop",
   "pr_number": null,
   "pr_url": null,
-  "created_at": "2026-09-23T19:54:26",
-  "updated_at": "2026-09-23T19:55:46",
+  "created_at": "2026-09-23T17:32:22",
+<<<<<<< HEAD
+  "updated_at": "2026-09-23T19:49:52",
+=======
+  "updated_at": "2026-09-23T19:47:40",
+>>>>>>> 94a12fe288e769995006ae2e8780cde6517c8443
   "processed_comment_ids": [],
   "iterations": [],
   "unresolved_feedback": [],
@@ -20,23 +24,27 @@
     {
       "from": "TASK_RECEIVED",
       "to": "ANALYZING",
-      "at": "2026-09-23T19:54:27",
+      "at": "2026-09-23T17:32:23",
       "note": "issue verified + unclaimed"
     },
     {
       "from": "ANALYZING",
       "to": "IMPLEMENTING",
-      "at": "2026-09-23T19:54:57",
+      "at": "2026-09-23T17:32:51",
       "note": "generating fix"
     },
     {
       "from": "IMPLEMENTING",
       "to": "PAUSED",
-      "at": "2026-09-23T19:55:46",
+<<<<<<< HEAD
+      "at": "2026-09-23T19:49:52",
+=======
+      "at": "2026-09-23T19:47:40",
+>>>>>>> 94a12fe288e769995006ae2e8780cde6517c8443
       "note": "crashed: TypeError: expected string or bytes-like object, got 'NoneType'"
     }
   ],
-  "conversation_id": "20260923T195427-5f792dd0",
+  "conversation_id": "20260923T173223-7e1efd99",
   "conversation_dir": "conversations/Posnic-POS/issue-446",
   "workspace": "workspace/Posnic-POS/issue-446",
   "provider": "omniroute",
@@ -65,7 +73,11 @@
   },
   "bot_login": "IbrahimCodes347",
   "paused_from": "IMPLEMENTING",
-  "paused_at": "2026-09-23T19:55:46",
+<<<<<<< HEAD
+  "paused_at": "2026-09-23T19:49:52",
+=======
+  "paused_at": "2026-09-23T19:47:40",
+>>>>>>> 94a12fe288e769995006ae2e8780cde6517c8443
   "paused_reason": "crashed: TypeError: expected string or bytes-like object, got 'NoneType'",
   "paused_by": "crash",
   "last_stage": "IMPLEMENTING",
