@@ -1,0 +1,172 @@
+Full transcript being saved to: .agent_data/logs/Posnic-POS_issue436_20260923_181503.log
+Step 1-2: checking #436 - Mailchimp connector: research customer sync boundary
+⚠️ Combo 'auto/fast' failed hard (BadRequestError): Error code: 400 - {'error': {'message': 'auto/fast is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}
+   Trying fallback combo 'auto' in 5s...
+   ↳ classification unavailable ('NoneType' object has no attribute 'strip'); assuming GENERIC/medium
+✅ Forked, cloned, branched: fix-issue-436
+   ↳ Detected language/build system: javascript
+   ↳ Detected javascript: npm install
+   ↳ Overriding default test command with detected one: npm test
+✅ Found 6 relevant files (0 via AI selection, 6 via keyword match)
+Step 8a: running baseline tests (before any changes)...
+❌ Tests failed
+
+--- Attempt 1/5 ---
+⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 10187. To increase, visit https://openrouter.ai/
+   Trying fallback combo 'google/gemini-3.6-flash' in 5s...
+⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 6776. To increase, visit https://openrouter.ai/s
+   Trying fallback combo 'openrouter/auto' in 10s...
+   ↳ Raw model response (for debugging):
+```diff
+--- /dev/null
++++ b/docs/integrations/mailchimp-customer-sync.md
+@@ -0,0 +1,97 @@
++# Mailchimp customer sync boundary
++
++Research note for the customer sync boundary required before any Mailchimp
++connector is built. Live integration and bulk export of real customer lists
++are out of scope.
++
++## 1. Marketing sync is opt-in and disabled by default
++
++Marketing sync is opt-in per store and disabled by default. No customer is
++pushed to Mailchimp until:
++
++1. the store enables the Mailchimp integration, and
++2. the customer has given explicit, recorded consent for marketing email.
++
++Absence of consent is treated as "do not export", not as an error.
++
++## 2. Official Mailchimp API documentation
++
++| Concern | Endpoint | Docs |
++| --- | --- | --- |
++| Audiences | `/3.0/lists` | https://mailchimp.com/developer/marketing/api/audiences/ |
++| Contacts (audience members) | `/3.0/lists/{list_id}/members` | https://mailchimp.com/developer/marketing/api/list-members/ |
++| Consent fields | `marketing_permissions` on member create/update | https://mailchimp.com/developer/marketing/api/list-members/ |
++| Tags | `/3.0/lists/{list_id}/members/{subscriber_hash}/tags` | https://mailchimp.com/developer/marketing/api/list-member-tags/ |
++| Unsubscribe handling | member `status` transitions (`subscribed` -> `unsubscribed`) | https://mailchimp.com/developer/marketing/api/list-members/update-list-member/ |
++
++Audience members are identified by `email_address`; Posnic's own
++`external_id` is carried as a merge field so the mapping survives an email
++change on Posnic's side.
++
++## 3. Field export matrix
++
++### Required consent: overall opt-in
++
++- `email_address`
++- `status` (`subscribed` only, never `transactional`)
++
++### Exportable with the store-level opt-in
++
++- `external_id` (Posnic customer id, as a merge field)
++- `merge_fields.FNAME`, `merge_fields.LNAME`
++- `merge_fields.LOCALE`
++
++### Requires explicit per-customer marketing consent
++
++Marketing consent is stored per channel and must be present before these are
++sent:
++
++- `marketing_permissions` (`marketing_permissions[].marketing_permission_id`
++  + `enabled`)
++- `tags`
++- `merge_fields.BIRTHDAY`
++- `merge_fields.PHONE` (SMS channel only)
++- purchase/engagement history
++
++### Never exported
++
++- payment card data, bank details
++- passwords, API keys, auth tokens
++- free-text order or support notes
++- government identifiers
++
++## 4. Synthetic sync fixture
++
++Synthetic only; no real customer data.
++
++```json
++{
++  "store_id": "store_synthetic_001",
++  "audience_id": "aud_synthetic_0001",
++  "customer": {
++    "external_id": "posnic_cust_0001",
++    "email_address": "ada.lovelace@example.test",
++    "merge_fields": {
++      "FNAME": "Ada",
++      "LNAME": "Lovelace",
++      "LOCALE": "en"
++    },
++    "marketing_consent": {
++      "email": true,
++      "sms": false,
++      "marketing_permission_id": "perm_synthetic_01",
++      "consented_at": "2026-01-05T10:00:00Z",
++      "source": "in_store_signup"
++    }
++  },
++  "tags": ["loyalty"],
++  "status": "subscribed"
++}
++```
++
++## 5. Unsubscribe handling
++
++Unsubscribes originate in Mailchimp. Posnic must consume the `unsubscribed`
++webhook ([list member events](https://mailchimp.com/developer/marketing/api/list-member-events/))
++and record the change locally; Posnic must never re-subscribe a contact whose
++`status` is `unsubscribed` or `cleaned` without a fresh consent event.
+```
+
+```diff
+--- /dev/null
++++ b/api/tests/unit/mailchimp-customer-sync.test.js
+@@ -0,0 +1,43 @@
++'use strict';
++
++const test = require('node:test');
++const assert = require('node:assert');
++const fs = require('node:fs');
++const path = require('node:path');
++
++const DOC_PATH = path.resolve(
++  __dirname,
++  '..', '..', '..',
++  'docs', 'integrations', 'mailchimp-customer-sync.md'
++);
++
++function readDoc() {
++  return fs.readFileSync(DOC_PATH, 'utf8');
++}
++
++test('mailchimp customer sync doc exists', () => {
++  assert.ok(fs.existsSync(DOC_PATH), `missing ${DOC_PATH}`
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 2/5 ---
+⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 10164. To increase, visit https://openrouter.ai/
+   Trying fallback combo 'google/gemini-3.6-flash' in 5s...
+⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 6776. To increase, visit https://openrouter.ai/s
+   Trying fallback combo 'openrouter/auto' in 10s...
+⚠️  Rejected out-of-scope file writes (not in allowed paths): ['docs/integrations/mailchimp-customer-sync.md']
+✅ Applied changes to: ['api/tests/unit/docs-mailchimp-sync-boundary.test.js']
+🧪 Rejecting this patch before testing it: the patch only touches tests -- a fix has to change the code that is broken
+
+--- Attempt 3/5 ---
+⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 10164. To increase, visit https://openrouter.ai/
+   Trying fallback combo 'google/gemini-3.6-flash' in 5s...
+⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 6776. To increase, visit https://openrouter.ai/s
+   Trying fallback combo 'openrouter/auto' in 10s...
+⚠️  One diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:56
+), skipping just that block.
+   ↳ git apply rejected all blocks; retrying with content-based matcher...
+✅ Applied diff via content-based matcher (line-number independent): ['frontend/static/style/css/style.css']
+🧪 Rejecting this patch before testing it: no regression test: the patch changes only frontend/static/style/css/style.css and adds no test that would fail without it
+
+--- Attempt 4/5 ---
+⚠️ Combo 'google/gemini-2.5-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 8156. To increase, visit https://openrouter.ai/s
+   Trying fallback combo 'google/gemini-3.6-flash' in 5s...
+⚠️ Combo 'google/gemini-3.6-flash' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 12000 tokens, but can only afford 5437. To increase, visit https://openrouter.ai/s
+   Trying fallback combo 'openrouter/auto' in 10s...
