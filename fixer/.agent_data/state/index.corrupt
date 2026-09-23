@@ -1,10 +1,10 @@
 {
   "schema": 2,
 <<<<<<< HEAD
-  "updated_at": "2026-09-23T19:49:52",
+  "updated_at": "2026-09-23T19:57:06",
 =======
-  "updated_at": "2026-09-23T19:47:40",
->>>>>>> 94a12fe288e769995006ae2e8780cde6517c8443
+  "updated_at": "2026-09-23T19:55:46",
+>>>>>>> 16f1e6f7b574bcb7e26c1e16d8a439ad0e2a8577
   "workflows": {
     "Posnic/POS#446": {
       "repo": "Posnic/POS",
@@ -13,17 +13,21 @@
       "workflow_path": "workflows/Posnic-POS/issue-446.json",
       "conversation_dir": "conversations/Posnic-POS/issue-446",
       "workspace": "workspace/Posnic-POS/issue-446",
-      "conversation_id": "20260923T173223-7e1efd99",
+<<<<<<< HEAD
+      "conversation_id": "20260923T195626-16f48444",
+=======
+      "conversation_id": "20260923T195427-5f792dd0",
+>>>>>>> 16f1e6f7b574bcb7e26c1e16d8a439ad0e2a8577
       "state": "PAUSED",
       "status": "paused",
       "branch": "fix-issue-446",
       "pr_number": null,
       "pr_url": null,
 <<<<<<< HEAD
-      "updated_at": "2026-09-23T19:49:52"
+      "updated_at": "2026-09-23T19:57:06"
 =======
-      "updated_at": "2026-09-23T19:47:40"
->>>>>>> 94a12fe288e769995006ae2e8780cde6517c8443
+      "updated_at": "2026-09-23T19:55:46"
+>>>>>>> 16f1e6f7b574bcb7e26c1e16d8a439ad0e2a8577
     }
   }
 }
