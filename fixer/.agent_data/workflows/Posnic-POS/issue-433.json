@@ -12,7 +12,7 @@
   "pr_number": null,
   "pr_url": null,
   "created_at": "2026-09-23T17:54:09",
-  "updated_at": "2026-09-23T17:56:21",
+  "updated_at": "2026-09-23T20:33:41",
   "processed_comment_ids": [],
   "iterations": [],
   "unresolved_feedback": [],
@@ -34,17 +34,37 @@
       "to": "PAUSED",
       "at": "2026-09-23T17:56:21",
       "note": "crashed: RuntimeError: OmniRoute call failed (Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}]). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?"
+    },
+    {
+      "from": "PAUSED",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-23T20:32:42",
+      "note": "resumed by the one-shot command"
+    },
+    {
+      "from": "IMPLEMENTING",
+      "to": "PAUSED",
+      "at": "2026-09-23T20:33:41",
+      "note": "crashed: AttributeError: 'NoneType' object has no attribute 'strip'"
     }
   ],
   "conversation_id": "20260923T175409-9166e28d",
   "conversation_dir": "conversations/Posnic-POS/issue-433",
   "workspace": "workspace/Posnic-POS/issue-433",
   "provider": "omniroute",
-  "model": "gemini-3.6-flash",
+  "model": "google/gemini-2.5-flash",
   "last_test_status": "",
-  "pause_count": 1,
-  "resume_count": 0,
-  "pause_history": [],
+  "pause_count": 2,
+  "resume_count": 1,
+  "pause_history": [
+    {
+      "paused_at": "2026-09-23T17:56:20",
+      "paused_from": "IMPLEMENTING",
+      "reason": "crashed: RuntimeError: OmniRoute call failed (Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}]). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?",
+      "by": "crash",
+      "resumed_at": "2026-09-23T20:32:42"
+    }
+  ],
   "labels": [
     "documentation",
     "good first issue",
@@ -67,8 +87,8 @@
   },
   "bot_login": "IbrahimCodes347",
   "paused_from": "IMPLEMENTING",
-  "paused_at": "2026-09-23T17:56:20",
-  "paused_reason": "crashed: RuntimeError: OmniRoute call failed (Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}]). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?",
+  "paused_at": "2026-09-23T20:33:41",
+  "paused_reason": "crashed: AttributeError: 'NoneType' object has no attribute 'strip'",
   "paused_by": "crash",
   "last_stage": "IMPLEMENTING",
   "last_transition_marker": "LEAVING",
@@ -80,5 +100,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo Posnic/POS --resume 433",
     "python oss_agent_v2.py --repo Posnic/POS --conversation 433"
-  ]
+  ],
+  "resumed_at": "2026-09-23T20:32:42"
 }
