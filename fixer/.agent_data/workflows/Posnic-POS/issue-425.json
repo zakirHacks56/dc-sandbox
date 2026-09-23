@@ -1,0 +1,79 @@
+{
+  "schema": 2,
+  "repo": "Posnic/POS",
+  "issue": 425,
+  "issue_title": "Squarespace Commerce connector: add CSV import fallback fixture",
+  "issue_url": "https://github.com/Posnic/POS/issues/425",
+  "issue_state": "open",
+  "state": "PAUSED",
+  "status": "paused",
+  "branch": "fix-issue-425",
+  "base_branch": "develop",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-23T20:47:14",
+  "updated_at": "2026-09-23T20:48:14",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-23T20:47:14",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "PAUSED",
+      "at": "2026-09-23T20:48:14",
+      "note": "crashed: AttributeError: 'NoneType' object has no attribute 'strip'"
+    }
+  ],
+  "conversation_id": "20260923T204714-cae6aed1",
+  "conversation_dir": "conversations/Posnic-POS/issue-425",
+  "workspace": "workspace/Posnic-POS/issue-425",
+  "provider": "omniroute",
+  "model": "google/gemini-2.5-flash",
+  "last_test_status": "",
+  "pause_count": 1,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "enhancement",
+    "good first issue",
+    "help wanted",
+    "area: integrations",
+    "needs evidence",
+    "size: small",
+    "community edition",
+    "area: ecommerce"
+  ],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "IbrahimCodes347",
+  "paused_from": "ANALYZING",
+  "paused_at": "2026-09-23T20:48:14",
+  "paused_reason": "crashed: AttributeError: 'NoneType' object has no attribute 'strip'",
+  "paused_by": "crash",
+  "last_stage": "ANALYZING",
+  "last_transition_marker": "LEAVING",
+  "transcript": "conversations/Posnic-POS/issue-425/transcript.log",
+  "messages": "conversations/Posnic-POS/issue-425/messages.jsonl",
+  "workspace_abs": ".agent_data/workspace/Posnic-POS/issue-425",
+  "workspace_dirty": false,
+  "workspace_dirty_files": [],
+  "resume_instructions": [
+    "python oss_agent_v2.py --repo Posnic/POS --resume 425",
+    "python oss_agent_v2.py --repo Posnic/POS --conversation 425"
+  ]
+}
