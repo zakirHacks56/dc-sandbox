@@ -1521,3 +1521,42 @@ Switched to a new branch 'fix-issue-446'
 =======
 >>>>>>> 7be3323e78db3e49f088c46dc4d880d04109b870
 >>>>>>> a079b549bbad9dadbf4f75e6d114cc03d5169a7a
+2026-09-23T18:04:06+00:00  gate poller start (offset=746150288)
+2026-09-23T18:04:14+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-23T18:04:15+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-23T18:04:15+00:00  jaegertracing/jaeger: skipping (stars > 3000)
+2026-09-23T18:04:17+00:00  HUNTING: trying Posnic/POS#446
+2026-09-23T18:04:17+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Posnic/POS --issue 446 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-23T18:09:35+00:00  fixer exit=0
+--tail--
+d="exampleModalCenterTitle"><span id="customer_title">Add</span>&nbsp;<lang class="lang_customer_title">
+                 Customer</lang>
+diff --git a/languages/ta.json b/languages/ta.json
+--- a/languages/ta.json
++++ b/languages/ta.json
+@@ -1,3 +1,3 @@
+ {
+-  "lang_Addexpensing": "புதிய",
++  "lang_Addexpensing": "சேர்க்க",
+   "lang_Addvariants": "புதிய",
+diff --git a/tests/i18n.test.js b/tests/i18n.test.js
+--- a/tests/i18n.test.js
++++ b/tests/i18n.test.js
+@@ -194,2 +194,11 @@
+ 
++test('lang_Addexpensing and lang_customer_title are distinct translation keys', () => {
++  const customerHtml = fs.readFileSync(path.join(FRONTEND, 'modals', 'customer.html'), 'utf8');
++  const expenseHtml = fs.readFileSync(path.join(FRONTEND, 'modals', 'expense.html'), 'utf8');
++  assert.ok(customerHtml.includes('lang_customer_title'), 'customer.html should use lang_customer_title');
++  assert.ok(!customerHtml.includes('lang_Addexpensing">Customer</lang>'), 'customer.html should not reuse lang_Addexpensing for Customer heading');
++  assert.ok(expenseHtml.includes('lang_Addexpensing'), 'expense.html should use lang_Addexpensing');
++});
++
+ /* ------------------------------------------------------ the packs ship --- */
+```
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+❌ Failed after 5 attempts. Check .agent_data/workspace/Posnic-POS/issue-446 manually.
+
+Switched to a new branch 'fix-issue-446'
+2026-09-23T18:09:35+00:00  tick done

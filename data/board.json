@@ -1,62 +1,16 @@
 {
   "date": "2026-09-23",
-<<<<<<< HEAD
   "attempted": {
     "Posnic/POS": [
       446
-=======
-<<<<<<< HEAD
-  "last_tick": "2026-09-23T17:56:21+00:00",
-=======
-<<<<<<< HEAD
-  "last_tick": "2026-09-23T17:53:34+00:00",
-=======
-  "last_tick": "2026-09-23T17:48:55+00:00",
->>>>>>> 136fbf2008ddc1cc6c583b152fca57d7dc49d344
->>>>>>> 7be3323e78db3e49f088c46dc4d880d04109b870
-  "attempted": {
-    "Posnic/POS": [
-      446,
-      436,
-      434,
-      433
->>>>>>> a079b549bbad9dadbf4f75e6d114cc03d5169a7a
     ]
   },
   "lanes": {
     "Posnic/POS#446": {
       "state": "IMPLEMENTING",
       "pr": null,
-<<<<<<< HEAD
-      "updated": "2026-09-23T17:59:16+00:00"
-=======
-      "updated": "2026-09-23T17:37:03+00:00"
-    },
-    "Posnic/POS#436": {
-      "state": "IMPLEMENTING",
-      "pr": null,
-      "updated": "2026-09-23T17:43:36+00:00"
-    },
-    "Posnic/POS#434": {
-<<<<<<< HEAD
-      "state": "TESTING",
-      "pr": null,
-      "updated": "2026-09-23T17:53:34+00:00"
-=======
-      "state": "IMPLEMENTING",
-      "pr": null,
-      "updated": "2026-09-23T17:48:55+00:00"
-<<<<<<< HEAD
-    },
-    "Posnic/POS#433": {
-      "state": "PAUSED",
-      "pr": null,
-      "updated": "2026-09-23T17:56:21+00:00"
-=======
->>>>>>> 136fbf2008ddc1cc6c583b152fca57d7dc49d344
->>>>>>> 7be3323e78db3e49f088c46dc4d880d04109b870
->>>>>>> a079b549bbad9dadbf4f75e6d114cc03d5169a7a
+      "updated": "2026-09-23T18:09:35+00:00"
     }
   },
-  "last_tick": "2026-09-23T17:59:16+00:00"
+  "last_tick": "2026-09-23T18:09:35+00:00"
 }
