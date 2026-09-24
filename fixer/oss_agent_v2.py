@@ -71,20 +71,23 @@ def _git_auth_args() -> list:
 OMNIROUTE_BASE_URL = os.getenv("OMNIROUTE_BASE_URL", "http://localhost:20128/v1")
 # The auto-combo call_model() uses, named once so the workflow record and the
 # conversation metadata can report which model produced a transcript.
-OMNIROUTE_MODEL = os.getenv("OMNIROUTE_MODEL", "nvidia/nemotron-3-super-120b-a12b:free")
+#
+# HARD-CODED, deliberately: they are NOT read from the environment (and by
+# extension not from load_dotenv() above or from any repo secret), because a
+# stale OMNIROUTE_MODEL env value was the exact bug in 7f02810e -- the old
+# value (e.g. an OpenRouter slug like `nvidia/nemotron-3-super-120b-a12b:free`)
+# silently won over this file's defaults, routed to a provider name
+# (`kilo-gateway`) that had no credentials, and every lane crashed with
+# "No active credentials for provider". Env can still point OMNIROUTE_BASE_URL
+# at the gateway, but the model chain itself is fixed here so nothing in the
+# environment can resurrect the failure. These are OmniRoute virtual combos
+# that resolve against whatever providers are connected in the dashboard.
+OMNIROUTE_MODEL = "auto/best-coding"
 # Fallback combos tried (in order) when a combo fails hard INSTEAD of timing
 # out. OmniRoute returns "Maximum combo retry limit reached" (503) when every
 # model inside a combo has failed; its own recovery hint is to switch combos,
-# so we walk this list rather than dying. Use commas to override via env.
-OMNIROUTE_MODEL_FALLBACKS = [
-    m.strip() for m in os.getenv(
-        "OMNIROUTE_MODEL_FALLBACKS",
-        "qwen/qwen3.8-27b:free,nvidia/nemotron-3.5-lightning:free,"
-        "cohere/north-mini-code:free,dots-studio/dots-3-note-preview:free,"
-        "nvidia/nemotron-3-ultra-550b-a55b:free,google/gemma-4-31b-it:free",
-    ).split(",")
-    if m.strip()
-]
+# so we walk this list rather than dying. Fixed for the same reason as above.
+OMNIROUTE_MODEL_FALLBACKS = ["auto/best-chat", "auto/best-reasoning", "auto/best-fast"]
 # Seconds before an OmniRoute call times out instead of hanging forever.
 # A silent, provider-less gateway (TCP open, never responding) used to make
 # every run freeze at its first verify/generate step with no visible error.
@@ -96,14 +99,9 @@ OMNIROUTE_TIMEOUT = float(os.getenv("OMNIROUTE_TIMEOUT", "600"))
 # Cheap steps (issue classification, AI file pre-selection) do not need the
 # reasoning-tier combo -- they are short, structured, tolerance-heavy decisions.
 # Routing them through a fast auto-combo makes the front of every run cheaper.
-OMNIROUTE_FAST_MODEL = os.getenv("OMNIROUTE_FAST_MODEL", "qwen/qwen3.8-27b:free")
-OMNIROUTE_FAST_MODEL_FALLBACKS = [
-    m.strip() for m in os.getenv(
-        "OMNIROUTE_FAST_MODEL_FALLBACKS",
-        "cohere/north-mini-code:free,dots-studio/dots-3-note-preview:free",
-    ).split(",")
-    if m.strip()
-]
+# Fixed (not env-driven) for the same reason as OMNIROUTE_MODEL above.
+OMNIROUTE_FAST_MODEL = "auto/best-chat"
+OMNIROUTE_FAST_MODEL_FALLBACKS = ["auto/best-coding", "auto/best-fast"]
 # Stall guard for the reasoning combo: cap the FIRST attempt of each combo at
 # this many seconds. A dead/silent provider is abandoned after ~this instead
 # of burning the full budget, and the next fallback combo gets the same quick

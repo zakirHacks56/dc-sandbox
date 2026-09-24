@@ -27,16 +27,21 @@ import hunter_stage  # noqa: E402
 
 RUN_TIMEOUT_SECONDS = 55 * 60  # Actions default job timeout is generous
 PENDING_MAX_AGE_DAYS = 14
+# A draft PR we opened and that has sat unmerged, with its workflow stuck in
+# a pre-merge state for this many days, is a stale own-draft. It blocks the
+# hunter (open-PR guard) and burns the repo's daily lane budget, so the sweep
+# closes it via the fixer's --force -close (auto-approving the close gate).
+STALE_PR_AGE_DAYS = 3
 
 
-def _run_fixer(args: list) -> str:
+def _run_fixer(args: list, extra_env: dict | None = None) -> str:
     cmd = [sys.executable, str(util.FIXER_SCRIPT), *args]
     util.log(f"fixer: {' '.join(cmd)}  (cwd={util.FIXER})")
     try:
         proc = subprocess.run(
             cmd,
             cwd=str(util.FIXER),
-            env=util.env_for_fixer(),
+            env=util.env_for_fixer(extra_env),
             capture_output=True,
             text=True,
             encoding="utf-8",
@@ -135,6 +140,100 @@ def _housekeeping(board) -> None:
     board["last_tick"] = util.now_utc()
 
 
+# Workflow states that are "in flight": a PR exists or is being built but nothing
+# has landed. A lane stuck in any of these for STALE_PR_AGE_DAYS is sweepable.
+_INFLIGHT_STATES = ("ANALYZING", "IMPLEMENTING", "WAITING_FOR_FEEDBACK",
+                    "REVIEWING", "GATED", "PAUSED")
+
+
+def _stale_days(updated: str | None) -> float | None:
+    """Whole days a timestamp is past (None when it can't be read or is missing)."""
+    import datetime as _dt
+    if not updated:
+        return None
+    try:
+        parsed = _dt.datetime.fromisoformat(str(updated))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=_dt.timezone.utc)
+        return (_dt.datetime.now(_dt.timezone.utc) - parsed).total_seconds() / 86400
+    except Exception:
+        return None
+
+
+def _sweep_stale(board, enabled_repos: set) -> int:
+    """Close own draft PRs that have been stuck in-flight longer than
+    STALE_PR_AGE_DAYS.
+
+    Scans the fixer's workflow records (the authoritative store for the PRs we
+    opened -- the board lanes only track hunter attempts and carry no pr). The
+    open-PR guard sees these as "we already have an open PR there"
+    (sandbox#33/#34), so until they are closed the repo is permanently frozen.
+    GATE_AUTO_CLOSE=1 makes the fixer's close gate auto-approve -- safe because:
+      * the sweep only targets OUR OWN in-flight records past the age gate
+      * the PR is a draft we opened and never got merged, not someone else's
+    The fixer's -close releases the issue claim and logs the lane ABANDONED.
+
+    The same pass also abandons stale in-flight lanes that never opened a PR
+    (crashed attempts), so their board slots no longer count against the repo's
+    daily lane budget. Returns the number of lanes resolved.
+    Sweep is scoped to repos currently enabled as targets: a repo somebody
+    retired from the rotation must keep whatever PR it already has, since a
+    maintainer may still be reviewing it and we no longer own the slot."""
+    closed = 0
+    lanes = board.setdefault("lanes", {})
+    wf_root = util.FIXER / ".agent_data" / "workflows"
+    if wf_root.exists():
+        for rec_path in sorted(wf_root.glob("*/issue-*.json")):
+            rec = util.load_json(rec_path, None)
+            if not rec:
+                continue
+            state = str(rec.get("state", ""))
+            if state not in _INFLIGHT_STATES:
+                continue
+            updated = rec.get("updated_at") or rec.get("updated")
+            days = _stale_days(updated)
+            if days is None or days <= STALE_PR_AGE_DAYS:
+                continue
+            repo_name = str(rec.get("repo", ""))
+            try:
+                issue_num = int(rec["issue"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            if not repo_name or "/" not in repo_name:
+                continue
+            if repo_name not in enabled_repos:
+                continue
+            lane_key = f"{repo_name}#{issue_num}"
+            if rec.get("pr_number"):
+                util.log(f"sweep: closing stale own PR #{rec['pr_number']} for "
+                         f"{lane_key} (state={state}, age={days:.1f}d)")
+                try:
+                    result = _run_fixer(
+                        ["--repo", repo_name, "--issue", str(issue_num),
+                         "--force", "-close"],
+                        extra_env={"GATE_AUTO_CLOSE": "1"},
+                    )
+                except subprocess.TimeoutExpired:
+                    util.log(f"sweep: close of {lane_key} TIMED OUT -- leaving lane")
+                    continue
+                util.log(f"sweep: fixer close of {lane_key} -> {result}")
+                closed += 1
+            else:
+                util.log(f"sweep: abandoning in-flight lane {lane_key} "
+                         f"(state={state}, age={days:.1f}d, no PR ever opened)")
+                closed += 1
+            # Keep the ABANDONED lane's ORIGINAL updated timestamp: the daily
+            # lane budget counts lanes touched today, and preserving the old
+            # timestamp makes a swept lane fall out of today's count instead
+            # of burning brand-new budget (the "frees their daily budget" bit).
+            lanes[lane_key] = {
+                "state": "ABANDONED",
+                "decision": False,
+                "updated": rec.get("updated_at") or rec.get("updated") or util.now_utc(),
+            }
+    return closed
+
+
 def main() -> int:
     util.DATA.mkdir(parents=True, exist_ok=True)
     conf = util.load_json(util.CONFIG, {})
@@ -157,11 +256,19 @@ def main() -> int:
         acted = True
 
     if not acted:
+        enabled_repos = {
+            t["repo"] for t in conf.get("targets", []) if t.get("enabled", True)
+        }
+        stale_resolved = _sweep_stale(board, enabled_repos)
+        if stale_resolved:
+            util.log(f"sweep: resolved {stale_resolved} stale in-flight lane(s)")
+            acted = True  # a close/abandon is this tick's single unit of work
+
         pending = _pending_keys()
         prs_today = int(board.get("prs_today", 0))
         max_pending = int(conf.get("max_pending_gates", 3))
         max_prs = int(conf.get("max_prs_per_day", 2))
-        if len(pending) < max_pending and prs_today < max_prs:
+        if not acted and len(pending) < max_pending and prs_today < max_prs:
             candidate = hunter_stage.find_candidate(conf, board)
             if candidate:
                 repo_name, issue_number = candidate
