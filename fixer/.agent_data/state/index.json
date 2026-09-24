@@ -159,7 +159,7 @@
       "workflow_path": "workflows/Rekin226-aquascope/issue-446.json",
       "conversation_dir": "conversations/Rekin226-aquascope/issue-446",
       "workspace": "workspace/Rekin226-aquascope/issue-446",
-      "conversation_id": "20260924T103719-6e6ab646",
+      "conversation_id": "20260924T105103-c2def436",
       "state": "PAUSED",
       "status": "paused",
       "branch": "fix-issue-446",
