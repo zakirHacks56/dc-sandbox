@@ -3333,3 +3333,11 @@ te limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model
 2026-09-24T12:42:14+00:00  izzywdev/FuzeFront: skipping (hit 2-lane/day budget)
 2026-09-24T12:42:14+00:00  no candidate found this tick
 2026-09-24T12:42:14+00:00  tick done
+2026-09-24T12:42:45+00:00  gate poller start (offset=746150288)
+2026-09-24T12:42:54+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-24T12:42:55+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-24T12:42:56+00:00  Rekin226/aquascope: skipping (hit 2-lane/day budget)
+2026-09-24T12:42:57+00:00  taranis-ai/taranis-ai: skipping (hit 2-lane/day budget)
+2026-09-24T12:42:58+00:00  izzywdev/FuzeFront: skipping (hit 2-lane/day budget)
+2026-09-24T12:42:58+00:00  no candidate found this tick
+2026-09-24T12:42:58+00:00  tick done
