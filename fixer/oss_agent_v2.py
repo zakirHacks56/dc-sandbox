@@ -79,9 +79,9 @@ OMNIROUTE_MODEL = os.getenv("OMNIROUTE_MODEL", "nvidia/nemotron-3-super-120b-a12
 OMNIROUTE_MODEL_FALLBACKS = [
     m.strip() for m in os.getenv(
         "OMNIROUTE_MODEL_FALLBACKS",
-        "qwen/qwen3.8-27b:free,cohere/north-mini-code:free,z-ai/glm-5.2:free,"
-        "nvidia/nemotron-3-ultra-550b-a55b:free,thinkingmachines/inkling:free,"
-        "google/gemma-4-31b-it:free",
+        "qwen/qwen3.8-27b:free,nvidia/nemotron-3.5-lightning:free,"
+        "cohere/north-mini-code:free,dots-studio/dots-3-note-preview:free,"
+        "nvidia/nemotron-3-ultra-550b-a55b:free,google/gemma-4-31b-it:free",
     ).split(",")
     if m.strip()
 ]
@@ -98,7 +98,10 @@ OMNIROUTE_TIMEOUT = float(os.getenv("OMNIROUTE_TIMEOUT", "600"))
 # Routing them through a fast auto-combo makes the front of every run cheaper.
 OMNIROUTE_FAST_MODEL = os.getenv("OMNIROUTE_FAST_MODEL", "qwen/qwen3.8-27b:free")
 OMNIROUTE_FAST_MODEL_FALLBACKS = [
-    m.strip() for m in os.getenv("OMNIROUTE_FAST_MODEL_FALLBACKS", "cohere/north-mini-code:free,z-ai/glm-5.2:free").split(",")
+    m.strip() for m in os.getenv(
+        "OMNIROUTE_FAST_MODEL_FALLBACKS",
+        "cohere/north-mini-code:free,dots-studio/dots-3-note-preview:free",
+    ).split(",")
     if m.strip()
 ]
 # Stall guard for the reasoning combo: cap the FIRST attempt of each combo at
@@ -2384,7 +2387,7 @@ def call_model(prompt: str, max_tokens: int = 4000, retry_variant: bool = False,
     #      auth, etc.) means retrying the same combo is futile; move to the
     #      next combo in the chain.
     chain = _model_chain(fast=fast)
-    attempts = 3
+    attempts = 2
     last_error = None
     for combo_index, model in enumerate(chain):
         for attempt in range(attempts):
@@ -3618,6 +3621,23 @@ def looks_like_test_path(path: str) -> bool:
     return any(r.match(segments[-1]) for r in _TEST_BASENAME_RES)
 
 
+def _is_docs_only_path(path: str) -> bool:
+    """True for documentation/content files: docs prose, markdown, restructured
+    text, plain-text guides, and non-executable docs assets. A patch confined
+    to such files can't break a code path, so it is exempt from the regression
+    test gate."""
+    p = _norm_rel_path(path).lower()
+    if not p:
+        return False
+    if p.endswith((".md", ".markdown", ".rst", ".txt", ".adoc",
+                   ".asciidoc", ".tex", ".pdf", ".svg", ".drawio")):
+        return True
+    segments = p.split("/")
+    if any(s in ("docs", "doc", "documentation") for s in segments[:-1]):
+        return True
+    return p.endswith(("readme", "license", "changelog"))
+
+
 def added_test_evidence(added_lines: str) -> bool:
     """True if the added lines define a new test case in any supported language."""
     return bool(added_lines) and any(r.search(added_lines) for r in _ADDED_TEST_RES)
@@ -3706,6 +3726,14 @@ def regression_test_gate(
 
     if not code_paths:
         return False, "the patch only touches tests -- a fix has to change the code that is broken"
+
+    # Docs-only patch exemption: a change confined to documentation
+    # (markdown/rst/docs assets) cannot break code, so demanding a regression
+    # test for it is wrong and only burns free-tier retries. Such patches go
+    # straight to the (typically empty/no-op) test run below instead. This is
+    # the difference between landing a real docs PR and never landing one.
+    if all(_is_docs_only_path(p) for p in code_paths):
+        return True, "docs-only patch -- no regression test required"
 
     if repo_has_no_test_infra(baseline_output):
         return True, "repo has no runnable test suite -- regression test not required here"
