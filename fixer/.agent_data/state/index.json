@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-24T11:05:04",
+  "updated_at": "2026-09-24T11:10:03",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -166,6 +166,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-24T11:05:04"
+    },
+    "Rekin226/aquascope#443": {
+      "repo": "Rekin226/aquascope",
+      "issue": 443,
+      "issue_title": "Say what the Archive is: 45,919 catalogued and ~1,000 mirrored, stated the same way everywhere",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-443.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-443",
+      "workspace": "workspace/Rekin226-aquascope/issue-443",
+      "conversation_id": "20260924T110834-82357335",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-443",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-24T11:10:03"
     }
   }
 }
