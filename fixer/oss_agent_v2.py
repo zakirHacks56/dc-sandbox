@@ -71,13 +71,18 @@ def _git_auth_args() -> list:
 OMNIROUTE_BASE_URL = os.getenv("OMNIROUTE_BASE_URL", "http://localhost:20128/v1")
 # The auto-combo call_model() uses, named once so the workflow record and the
 # conversation metadata can report which model produced a transcript.
-OMNIROUTE_MODEL = os.getenv("OMNIROUTE_MODEL", "auto/coding")
+OMNIROUTE_MODEL = os.getenv("OMNIROUTE_MODEL", "nvidia/nemotron-3-super-120b-a12b:free")
 # Fallback combos tried (in order) when a combo fails hard INSTEAD of timing
 # out. OmniRoute returns "Maximum combo retry limit reached" (503) when every
 # model inside a combo has failed; its own recovery hint is to switch combos,
 # so we walk this list rather than dying. Use commas to override via env.
 OMNIROUTE_MODEL_FALLBACKS = [
-    m.strip() for m in os.getenv("OMNIROUTE_MODEL_FALLBACKS", "auto,auto/fast").split(",")
+    m.strip() for m in os.getenv(
+        "OMNIROUTE_MODEL_FALLBACKS",
+        "qwen/qwen3.8-27b:free,cohere/north-mini-code:free,z-ai/glm-5.2:free,"
+        "nvidia/nemotron-3-ultra-550b-a55b:free,thinkingmachines/inkling:free,"
+        "google/gemma-4-31b-it:free",
+    ).split(",")
     if m.strip()
 ]
 # Seconds before an OmniRoute call times out instead of hanging forever.
@@ -91,9 +96,9 @@ OMNIROUTE_TIMEOUT = float(os.getenv("OMNIROUTE_TIMEOUT", "600"))
 # Cheap steps (issue classification, AI file pre-selection) do not need the
 # reasoning-tier combo -- they are short, structured, tolerance-heavy decisions.
 # Routing them through a fast auto-combo makes the front of every run cheaper.
-OMNIROUTE_FAST_MODEL = os.getenv("OMNIROUTE_FAST_MODEL", "auto/fast")
+OMNIROUTE_FAST_MODEL = os.getenv("OMNIROUTE_FAST_MODEL", "qwen/qwen3.8-27b:free")
 OMNIROUTE_FAST_MODEL_FALLBACKS = [
-    m.strip() for m in os.getenv("OMNIROUTE_FAST_MODEL_FALLBACKS", "auto").split(",")
+    m.strip() for m in os.getenv("OMNIROUTE_FAST_MODEL_FALLBACKS", "cohere/north-mini-code:free,z-ai/glm-5.2:free").split(",")
     if m.strip()
 ]
 # Stall guard for the reasoning combo: cap the FIRST attempt of each combo at
