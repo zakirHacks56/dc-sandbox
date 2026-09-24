@@ -1,0 +1,57 @@
+{
+  "schema": 2,
+  "repo": "taranis-ai/taranis-ai",
+  "issue": 1089,
+  "issue_title": "Intermittent E2E failure: Share opens a page instead of a dialog",
+  "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/1089",
+  "issue_state": "open",
+  "state": "IMPLEMENTING",
+  "status": "implementing",
+  "branch": "fix-issue-1089",
+  "base_branch": "master",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-24T11:32:29",
+  "updated_at": "2026-09-24T11:32:33",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-24T11:32:30",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-24T11:32:33",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260924T113230-56cfec6c",
+  "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-1089",
+  "workspace": "workspace/taranis-ai-taranis-ai/issue-1089",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "bug"
+  ],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "IbrahimCodes347"
+}

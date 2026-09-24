@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-24T11:26:04",
+  "updated_at": "2026-09-24T11:32:33",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -196,6 +196,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-24T11:26:04"
+    },
+    "taranis-ai/taranis-ai#1089": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 1089,
+      "issue_title": "Intermittent E2E failure: Share opens a page instead of a dialog",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-1089.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-1089",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-1089",
+      "conversation_id": "20260924T113230-56cfec6c",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-1089",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-24T11:32:33"
     }
   }
 }
