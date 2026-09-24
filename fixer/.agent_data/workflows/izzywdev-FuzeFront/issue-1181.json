@@ -11,8 +11,8 @@
   "base_branch": "master",
   "pr_number": null,
   "pr_url": null,
-  "created_at": "2026-09-24T11:43:07",
-  "updated_at": "2026-09-24T11:51:59",
+  "created_at": "2026-09-24T11:52:51",
+  "updated_at": "2026-09-24T11:58:49",
   "processed_comment_ids": [],
   "iterations": [],
   "unresolved_feedback": [],
@@ -20,23 +20,23 @@
     {
       "from": "TASK_RECEIVED",
       "to": "ANALYZING",
-      "at": "2026-09-24T11:43:07",
+      "at": "2026-09-24T11:52:51",
       "note": "issue verified + unclaimed"
     },
     {
       "from": "ANALYZING",
       "to": "IMPLEMENTING",
-      "at": "2026-09-24T11:45:30",
+      "at": "2026-09-24T11:56:55",
       "note": "generating fix"
     },
     {
       "from": "IMPLEMENTING",
       "to": "PAUSED",
-      "at": "2026-09-24T11:51:59",
-      "note": "crashed: TypeError: expected string or bytes-like object, got 'NoneType'"
+      "at": "2026-09-24T11:58:49",
+      "note": "crashed: RuntimeError: OmniRoute call failed (Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790294400000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?"
     }
   ],
-  "conversation_id": "20260924T114307-84751424",
+  "conversation_id": "20260924T115251-a63b15b8",
   "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1181",
   "workspace": "workspace/izzywdev-FuzeFront/issue-1181",
   "provider": "omniroute",
@@ -59,8 +59,8 @@
   },
   "bot_login": "IbrahimCodes347",
   "paused_from": "IMPLEMENTING",
-  "paused_at": "2026-09-24T11:51:59",
-  "paused_reason": "crashed: TypeError: expected string or bytes-like object, got 'NoneType'",
+  "paused_at": "2026-09-24T11:58:49",
+  "paused_reason": "crashed: RuntimeError: OmniRoute call failed (Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790294400000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?",
   "paused_by": "crash",
   "last_stage": "IMPLEMENTING",
   "last_transition_marker": "LEAVING",
