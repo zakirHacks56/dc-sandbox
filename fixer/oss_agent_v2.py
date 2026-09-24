@@ -2406,6 +2406,19 @@ def call_model(prompt: str, max_tokens: int = 4000, retry_variant: bool = False,
                     timeout=timeout,
                 )
                 reply = response.choices[0].message.content
+                if not reply:
+                    reply = getattr(response.choices[0].message, "reasoning", None) or ""
+                    if not reply:
+                        _log_turn(
+                            "system",
+                            f"model '{model}' returned empty content "
+                            f"(choices={len(response.choices)})",
+                            kind="error", model=model,
+                        )
+                        raise RuntimeError(
+                            f"model '{model}' returned an empty completion "
+                            f"(no content, no reasoning) -- nothing to apply"
+                        )
                 _log_turn("user", prompt, kind="prompt", model=model)
                 _log_turn("assistant", reply or "", kind="completion", model=model)
                 return reply
@@ -2887,7 +2900,11 @@ def _normalize_hybrid_blocks(fix_text: str) -> str:
     shapes the existing parsers understand:
       * FILE: <path> + unified-diff body  -> fenced ```diff block
       * FILE: <path> + content + <<<END>>> -> full-file block with <<<CONTENT>>>
-    Blocks that already contain <<<CONTENT>>> are left untouched."""
+    Blocks that already contain <<<CONTENT>>> are left untouched.
+    An empty/None response is left empty so the retry loop can re-prompt
+    instead of tracebacking on pattern.sub(None, ...)."""
+    if not fix_text or not str(fix_text).strip():
+        return ""
     def _rewrite(m):
         path = m.group(1).strip()
         body = m.group(2)
