@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-24T11:51:59",
+  "updated_at": "2026-09-24T11:58:49",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -219,13 +219,13 @@
       "workflow_path": "workflows/izzywdev-FuzeFront/issue-1181.json",
       "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1181",
       "workspace": "workspace/izzywdev-FuzeFront/issue-1181",
-      "conversation_id": "20260924T114307-84751424",
+      "conversation_id": "20260924T115251-a63b15b8",
       "state": "PAUSED",
       "status": "paused",
       "branch": "fix-issue-1181",
       "pr_number": null,
       "pr_url": null,
-      "updated_at": "2026-09-24T11:51:59"
+      "updated_at": "2026-09-24T11:58:49"
     }
   }
 }
