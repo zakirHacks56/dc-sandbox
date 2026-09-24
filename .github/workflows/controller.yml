@@ -22,8 +22,13 @@ jobs:
       BEACON_LOG: data/log-control.txt
       LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
       OMNIROUTE_BASE_URL: ${{ secrets.OMNIROUTE_BASE_URL }}
-      OMNIROUTE_MODEL: ${{ secrets.OMNIROUTE_MODEL }}
-      OMNIROUTE_MODEL_FALLBACKS: ${{ secrets.OMNIROUTE_MODEL_FALLBACKS }}
+      # The model chain is HARD-CODED in oss_agent_v2.py (auto/best-coding +
+      # auto/best-chat,auto/best-reasoning,auto/best-fast; fast auto/best-chat).
+      # Do NOT add OMNIROUTE_MODEL/OMNIROUTE_MODEL_FALLBACKS env vars here --
+      # the fixer ignores them by design: the 7f02810e outage was a stale
+      # OMNIROUTE_MODEL value silently overriding the fixed defaults and
+      # routing to a provider with no credentials. OMNIROUTE_BASE_URL stays a
+      # secret because it points at the gateway, not at any model.
       SOLVE_MAX_OUTPUT_TOKENS: "3000"
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
