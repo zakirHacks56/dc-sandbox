@@ -1,0 +1,14 @@
+{
+  "conversation_id": "20260924T112320-1f39ad8d",
+  "repo": "taranis-ai/taranis-ai",
+  "issue": 227,
+  "created_at": "2026-09-24T11:23:20",
+  "updated_at": "2026-09-24T11:26:04",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "message_count": 10,
+  "rounds": 0,
+  "archived_conversation_ids": [],
+  "transcript": "conversations/taranis-ai-taranis-ai/issue-227/transcript.log",
+  "messages": "conversations/taranis-ai-taranis-ai/issue-227/messages.jsonl"
+}

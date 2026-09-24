@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-24T11:10:03",
+  "updated_at": "2026-09-24T11:26:04",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -181,6 +181,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-24T11:10:03"
+    },
+    "taranis-ai/taranis-ai#227": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 227,
+      "issue_title": "E2E tests add paging and hotkeys",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-227.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-227",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-227",
+      "conversation_id": "20260924T112320-1f39ad8d",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-227",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-24T11:26:04"
     }
   }
 }

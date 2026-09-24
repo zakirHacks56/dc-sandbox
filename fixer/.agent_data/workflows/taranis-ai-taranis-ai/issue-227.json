@@ -1,0 +1,79 @@
+{
+  "schema": 2,
+  "repo": "taranis-ai/taranis-ai",
+  "issue": 227,
+  "issue_title": "E2E tests add paging and hotkeys",
+  "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/227",
+  "issue_state": "open",
+  "state": "PAUSED",
+  "status": "paused",
+  "branch": "fix-issue-227",
+  "base_branch": "master",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-24T11:23:19",
+  "updated_at": "2026-09-24T11:26:04",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-24T11:23:20",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-24T11:23:23",
+      "note": "generating fix"
+    },
+    {
+      "from": "IMPLEMENTING",
+      "to": "PAUSED",
+      "at": "2026-09-24T11:26:04",
+      "note": "crashed: TypeError: expected string or bytes-like object, got 'NoneType'"
+    }
+  ],
+  "conversation_id": "20260924T112320-1f39ad8d",
+  "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-227",
+  "workspace": "workspace/taranis-ai-taranis-ai/issue-227",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 1,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "good first issue",
+    "tests"
+  ],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "IbrahimCodes347",
+  "paused_from": "IMPLEMENTING",
+  "paused_at": "2026-09-24T11:26:04",
+  "paused_reason": "crashed: TypeError: expected string or bytes-like object, got 'NoneType'",
+  "paused_by": "crash",
+  "last_stage": "IMPLEMENTING",
+  "last_transition_marker": "LEAVING",
+  "transcript": "conversations/taranis-ai-taranis-ai/issue-227/transcript.log",
+  "messages": "conversations/taranis-ai-taranis-ai/issue-227/messages.jsonl",
+  "workspace_abs": ".agent_data/workspace/taranis-ai-taranis-ai/issue-227",
+  "workspace_dirty": false,
+  "workspace_dirty_files": [],
+  "resume_instructions": [
+    "python oss_agent_v2.py --repo taranis-ai/taranis-ai --resume 227",
+    "python oss_agent_v2.py --repo taranis-ai/taranis-ai --conversation 227"
+  ]
+}

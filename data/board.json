@@ -16,7 +16,8 @@
     ],
     "taranis-ai/taranis-ai": [
       283,
-      237
+      237,
+      227
     ],
     "Rekin226/aquascope": [
       446,
@@ -88,7 +89,12 @@
       "state": "PAUSED",
       "pr": null,
       "updated": "2026-09-24T11:10:03+00:00"
+    },
+    "taranis-ai/taranis-ai#227": {
+      "state": "PAUSED",
+      "pr": null,
+      "updated": "2026-09-24T11:26:04+00:00"
     }
   },
-  "last_tick": "2026-09-24T11:10:03+00:00"
+  "last_tick": "2026-09-24T11:26:04+00:00"
 }
