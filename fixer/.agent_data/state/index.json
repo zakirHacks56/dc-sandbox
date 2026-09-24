@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-24T11:32:33",
+  "updated_at": "2026-09-24T11:37:12",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -204,13 +204,13 @@
       "workflow_path": "workflows/taranis-ai-taranis-ai/issue-1089.json",
       "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-1089",
       "workspace": "workspace/taranis-ai-taranis-ai/issue-1089",
-      "conversation_id": "20260924T113230-56cfec6c",
+      "conversation_id": "20260924T113709-a0c27b1b",
       "state": "IMPLEMENTING",
       "status": "implementing",
       "branch": "fix-issue-1089",
       "pr_number": null,
       "pr_url": null,
-      "updated_at": "2026-09-24T11:32:33"
+      "updated_at": "2026-09-24T11:37:12"
     }
   }
 }
