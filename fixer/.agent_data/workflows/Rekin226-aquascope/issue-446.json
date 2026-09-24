@@ -1,0 +1,81 @@
+{
+  "schema": 2,
+  "repo": "Rekin226/aquascope",
+  "issue": 446,
+  "issue_title": "Survey: which African and Southeast Asian agencies publish river gauge data we can actually call?",
+  "issue_url": "https://github.com/Rekin226/aquascope/issues/446",
+  "issue_state": "open",
+  "state": "PAUSED",
+  "status": "paused",
+  "branch": "fix-issue-446",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-24T10:51:03",
+  "updated_at": "2026-09-24T11:05:04",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-24T10:51:03",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-24T10:51:43",
+      "note": "generating fix"
+    },
+    {
+      "from": "IMPLEMENTING",
+      "to": "PAUSED",
+      "at": "2026-09-24T11:05:04",
+      "note": "crashed: TypeError: expected string or bytes-like object, got 'NoneType'"
+    }
+  ],
+  "conversation_id": "20260924T105103-c2def436",
+  "conversation_dir": "conversations/Rekin226-aquascope/issue-446",
+  "workspace": "workspace/Rekin226-aquascope/issue-446",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 1,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "documentation",
+    "help wanted",
+    "good first issue",
+    "new-collector"
+  ],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "docs",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "docs",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "IbrahimCodes347",
+  "paused_from": "IMPLEMENTING",
+  "paused_at": "2026-09-24T11:05:04",
+  "paused_reason": "crashed: TypeError: expected string or bytes-like object, got 'NoneType'",
+  "paused_by": "crash",
+  "last_stage": "IMPLEMENTING",
+  "last_transition_marker": "LEAVING",
+  "transcript": "conversations/Rekin226-aquascope/issue-446/transcript.log",
+  "messages": "conversations/Rekin226-aquascope/issue-446/messages.jsonl",
+  "workspace_abs": ".agent_data/workspace/Rekin226-aquascope/issue-446",
+  "workspace_dirty": false,
+  "workspace_dirty_files": [],
+  "resume_instructions": [
+    "python oss_agent_v2.py --repo Rekin226/aquascope --resume 446",
+    "python oss_agent_v2.py --repo Rekin226/aquascope --conversation 446"
+  ]
+}
