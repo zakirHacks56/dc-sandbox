@@ -3159,3 +3159,44 @@ rganisation
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: expected string or bytes-like object, got 'NoneType'
 2026-09-24T10:50:22+00:00  tick done
+2026-09-24T11:05:23+00:00  gate poller start (offset=746150288)
+2026-09-24T11:05:32+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-24T11:05:33+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-24T11:05:34+00:00  HUNTING: trying Rekin226/aquascope#443
+2026-09-24T11:05:34+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 443 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-24T11:07:52+00:00  fixer exit=1
+--tail--
+repo, we see:
+  "[AquaScope Explorer](https://rekin226-aquascope-explorer.static.hf.space/): every public gauge we can reach on one map (45,919 stations from USGS, UK EA, Hub'Eau, PEGELONLINE, Ireland OPW and Taiwan CWA)."
+
+We are to update the numbers in the places that mention the Archive.
+
+Given the constraints, we are only allowed to change the files in the ALLOWED FILE PATHS. Therefore, we must update:
+  - ROADMAP.md
+  - docs/archive.md
+  - docs/index.md
+  - README.md
+
+But note: the issue also mentions the Hug
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 2/5 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (TypeError): 'NoneType' object is not subscriptable
+   Trying fallback combo 'qwen/qwen3.8-27b:free' in 5s...
+⚠️ Combo 'qwen/qwen3.8-27b:free' failed hard (RateLimitError): Error code: 429 - {'error': {'message': 'Provider returned error', 'code': 429, 'metadata': {'raw': 'qwen/qwen3.8-27b:free is temporarily rate-limited upstream. Please retry shortly, or add your own k
+   Trying fallback combo 'cohere/north-mini-code:free' in 10s...
+
+💾 Saved state for Rekin226/aquascope#443 before exit (status: paused). Nothing on GitHub changed.
+   Resume with:
+      python oss_agent_v2.py --repo Rekin226/aquascope --resume 443
+      python oss_agent_v2.py --repo Rekin226/aquascope --conversation 443
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py", line 2925, in apply_fix
+    fix_text = _normalize_hybrid_blocks(fix_text)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py", line 2919, in _normalize_hybrid_blocks
+    return pattern.sub(_rewrite, fix_text)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'NoneType'
+2026-09-24T11:07:52+00:00  tick done

@@ -1,0 +1,80 @@
+{
+  "schema": 2,
+  "repo": "Rekin226/aquascope",
+  "issue": 443,
+  "issue_title": "Say what the Archive is: 45,919 catalogued and ~1,000 mirrored, stated the same way everywhere",
+  "issue_url": "https://github.com/Rekin226/aquascope/issues/443",
+  "issue_state": "open",
+  "state": "PAUSED",
+  "status": "paused",
+  "branch": "fix-issue-443",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-24T11:05:46",
+  "updated_at": "2026-09-24T11:07:52",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-24T11:05:46",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-24T11:06:18",
+      "note": "generating fix"
+    },
+    {
+      "from": "IMPLEMENTING",
+      "to": "PAUSED",
+      "at": "2026-09-24T11:07:52",
+      "note": "crashed: TypeError: expected string or bytes-like object, got 'NoneType'"
+    }
+  ],
+  "conversation_id": "20260924T110546-0687aeb6",
+  "conversation_dir": "conversations/Rekin226-aquascope/issue-443",
+  "workspace": "workspace/Rekin226-aquascope/issue-443",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 1,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "documentation",
+    "help wanted",
+    "good first issue"
+  ],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "docs",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "docs",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "IbrahimCodes347",
+  "paused_from": "IMPLEMENTING",
+  "paused_at": "2026-09-24T11:07:52",
+  "paused_reason": "crashed: TypeError: expected string or bytes-like object, got 'NoneType'",
+  "paused_by": "crash",
+  "last_stage": "IMPLEMENTING",
+  "last_transition_marker": "LEAVING",
+  "transcript": "conversations/Rekin226-aquascope/issue-443/transcript.log",
+  "messages": "conversations/Rekin226-aquascope/issue-443/messages.jsonl",
+  "workspace_abs": ".agent_data/workspace/Rekin226-aquascope/issue-443",
+  "workspace_dirty": false,
+  "workspace_dirty_files": [],
+  "resume_instructions": [
+    "python oss_agent_v2.py --repo Rekin226/aquascope --resume 443",
+    "python oss_agent_v2.py --repo Rekin226/aquascope --conversation 443"
+  ]
+}
