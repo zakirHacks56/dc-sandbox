@@ -3278,3 +3278,28 @@ The corresponding code changes to make this test pass (and address the other 37 
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: expected string or bytes-like object, got 'NoneType'
 2026-09-24T11:51:59+00:00  tick done
+2026-09-24T11:59:07+00:00  gate poller start (offset=746150288)
+2026-09-24T11:59:15+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-24T11:59:16+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-24T11:59:17+00:00  Rekin226/aquascope: skipping (hit 2-lane/day budget)
+2026-09-24T11:59:18+00:00  taranis-ai/taranis-ai: skipping (hit 2-lane/day budget)
+2026-09-24T11:59:20+00:00  HUNTING: trying izzywdev/FuzeFront#1165
+2026-09-24T11:59:20+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1165 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-24T12:03:37+00:00  fixer exit=1
+--tail--
+te limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit'
+   Trying fallback combo 'z-ai/glm-5.2:free' in 15s...
+⚠️ Combo 'z-ai/glm-5.2:free' failed hard (RateLimitError): Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit'
+   Trying fallback combo 'nvidia/nemotron-3-ultra-550b-a55b:free' in 20s...
+⚠️ Combo 'nvidia/nemotron-3-ultra-550b-a55b:free' failed hard (RateLimitError): Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit'
+   Trying fallback combo 'thinkingmachines/inkling:free' in 25s...
+⚠️ Combo 'thinkingmachines/inkling:free' failed hard (PermissionDeniedError): Error code: 403 - {'error': {'message': 'thinkingmachines/inkling:free is only available on agentic harnesses. Try plugging it into a coding agent or productivity app listed on https://openrouter.ai/a
+   Trying fallback combo 'google/gemma-4-31b-it:free' in 30s...
+
+💾 Saved state for izzywdev/FuzeFront#1165 before exit (status: paused). Nothing on GitHub changed.
+   Resume with:
+      python oss_agent_v2.py --repo izzywdev/FuzeFront --resume 1165
+      python oss_agent_v2.py --repo izzywdev/FuzeFront --conversation 1165
+
+'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790294400000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
+2026-09-24T12:03:37+00:00  tick done

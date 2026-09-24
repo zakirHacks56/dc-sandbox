@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-24T11:51:59",
+  "updated_at": "2026-09-24T12:03:37",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -226,6 +226,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-24T11:51:59"
+    },
+    "izzywdev/FuzeFront#1165": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1165,
+      "issue_title": "ArgoCD unhealthy: fuzefront (Degraded/Synced)",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1165.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1165",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1165",
+      "conversation_id": "20260924T115942-de4bdaa1",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-1165",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-24T12:03:37"
     }
   }
 }
