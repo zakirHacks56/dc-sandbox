@@ -23,6 +23,9 @@
     "Rekin226/aquascope": [
       446,
       443
+    ],
+    "izzywdev/FuzeFront": [
+      1181
     ]
   },
   "lanes": {
@@ -100,7 +103,12 @@
       "state": "IMPLEMENTING",
       "pr": null,
       "updated": "2026-09-24T11:40:34+00:00"
+    },
+    "izzywdev/FuzeFront#1181": {
+      "state": "PAUSED",
+      "pr": null,
+      "updated": "2026-09-24T11:58:50+00:00"
     }
   },
-  "last_tick": "2026-09-24T11:40:34+00:00"
+  "last_tick": "2026-09-24T11:58:50+00:00"
 }
