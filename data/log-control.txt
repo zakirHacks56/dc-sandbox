@@ -3112,3 +3112,50 @@ ttps://openrouter.ai/settings/credits and upgrade to a paid account'}, {'code': 
 2026-09-24T10:33:17+00:00  izzywdev/FuzeFront: skipping (file frontend/playwright-report/index.html is 533522B > 400000B)
 2026-09-24T10:33:17+00:00  no candidate found this tick
 2026-09-24T10:33:17+00:00  tick done
+2026-09-24T10:36:57+00:00  gate poller start (offset=746150288)
+2026-09-24T10:37:05+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-24T10:37:06+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-24T10:37:08+00:00  HUNTING: trying Rekin226/aquascope#446
+2026-09-24T10:37:08+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 446 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-24T10:50:22+00:00  fixer exit=1
+--tail--
+rganisation
+   - what the data are (discharge, level, rainfall, groundwater)
+   - whether there is an API or only a download or only a PDF
+   - whether it needs registration or a key
+   - what the terms say about redistribution
+
+ We can also include an example call and notes.
+
+ However, to keep the table readable, we might break some of these into multiple columns.
+
+ Alternatively, we can follow the style of the existing table in the file? The existing table has:
+   Source | Region | Data Types | API | Status
+
+ But our survey is not about existing sources in AquaScope, but about potential ones.
+
+ We are to add a survey table
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 5/8 ---
+✅ Applied changes to: ['docs/data_sources.md']
+🧪 Rejecting this patch before testing it: no regression test: the patch changes only docs/data_sources.md and adds no test that would fail without it
+
+--- Attempt 6/8 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (TypeError): 'NoneType' object is not subscriptable
+   Trying fallback combo 'qwen/qwen3.8-27b:free' in 5s...
+
+💾 Saved state for Rekin226/aquascope#446 before exit (status: paused). Nothing on GitHub changed.
+   Resume with:
+      python oss_agent_v2.py --repo Rekin226/aquascope --resume 446
+      python oss_agent_v2.py --repo Rekin226/aquascope --conversation 446
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py", line 2925, in apply_fix
+    fix_text = _normalize_hybrid_blocks(fix_text)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py", line 2919, in _normalize_hybrid_blocks
+    return pattern.sub(_rewrite, fix_text)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: expected string or bytes-like object, got 'NoneType'
+2026-09-24T10:50:22+00:00  tick done
