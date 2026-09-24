@@ -1,16 +1,15 @@
 {
   "max_prs_per_day": 2,
   "max_pending_gates": 3,
-  "default_labels": ["good first issue"],
+  "default_labels": ["good first issue", "help wanted", "bug"],
   "difficulty_cap": 2,
-  "max_stars": 3000,
+  "max_stars": 10000,
   "max_file_bytes": 400000,
   "max_attempts_per_repo_day": 2,
   "targets": [
-    { "repo": "yunaremaia/sandbox-ffi-layers", "labels": ["good first issue"], "enabled": true },
-    { "repo": "jaegertracing/jaeger", "labels": ["good first issue"], "enabled": true },
-    { "repo": "Rekin226/aquascope", "labels": ["good first issue"], "enabled": true },
-    { "repo": "taranis-ai/taranis-ai", "labels": ["good first issue"], "enabled": true },
-    { "repo": "izzywdev/FuzeFront", "labels": ["good first issue"], "enabled": true }
+    { "repo": "yunaremaia/sandbox-ffi-layers", "labels": ["good first issue", "enhancement", "bug"], "enabled": true },
+    { "repo": "Rekin226/aquascope", "labels": ["good first issue", "help wanted", "bug", "testing", "enhancement"], "enabled": true },
+    { "repo": "taranis-ai/taranis-ai", "labels": ["good first issue", "help wanted", "bug", "enhancement"], "enabled": true },
+    { "repo": "izzywdev/FuzeFront", "labels": null, "enabled": true }
   ]
 }

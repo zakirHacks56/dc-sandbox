@@ -50,12 +50,24 @@ def _stars_ok(repo_full: str, max_stars: int) -> bool:
 
 
 def _tree_too_big(repo_full: str, max_file_bytes: int) -> bool:
-    """Reject repos whose working tree contains a file far bigger than a bug
-    fix should touch. LLM editors routinely fail or produce hollow diffs on
+    """Reject repos whose working tree contains a source file far bigger than a
+    bug fix should touch. LLM editors routinely fail or produce hollow diffs on
     >600KB blobs (Posnic/POS src/main.js ~196KB, sales.js ~686KB), so this
-    pre-filter exists precisely to avoid re-burning ticks there."""
+    pre-filter exists precisely to avoid re-burning ticks there.
+
+    Only SOURCE-looking blobs count: build artifacts, vendored/third-party
+    trees, test fixtures and report/result dumps are skipped, otherwise a
+    single fat `results/tasks.jsonl` would freeze an otherwise perfect repo."""
     if max_file_bytes <= 0:
         return False
+    _SKIP_DIRS = (
+        "node_modules", "vendor", "dist", "build", "target", ".git",
+        "coverage", "test-results", "playwright-report", "results", "reports",
+        "assets", "static", "docs", "examples", "fixtures", "third_party",
+        "third-party", "dataset", "data/",
+    )
+    _SKIP_EXT = (".jsonl", ".lock", ".html", ".zip", ".json", ".csv", ".gz",
+                 ".png", ".jpg", ".jpeg", ".svg", ".woff", ".woff2", ".min.js")
     meta = util.gh_api("GET", f"/repos/{repo_full}")
     if not meta:
         return False
@@ -66,8 +78,14 @@ def _tree_too_big(repo_full: str, max_file_bytes: int) -> bool:
     for item in tree.get("tree", []):
         if item.get("type") != "blob":
             continue
+        path = str(item.get("path", ""))
+        low = path.lower()
+        if any(seg in low.split("/") for seg in _SKIP_DIRS):
+            continue
+        if low.endswith(_SKIP_EXT):
+            continue
         if int(item.get("size", 0)) > max_file_bytes:
-            util.log(f"{repo_full}: skipping (file {item.get('path')} is "
+            util.log(f"{repo_full}: skipping (source file {path} is "
                      f"{item.get('size')}B > {max_file_bytes}B)")
             return True
     return False
@@ -75,11 +93,20 @@ def _tree_too_big(repo_full: str, max_file_bytes: int) -> bool:
 
 def _day_attempt_budget_ok(repo_full: str, board: dict, max_per_day: int) -> bool:
     """Cap how many distinct issues one repo can burn per day across the board
-    so a single unlucky target can't starve the rest of the machine."""
+    so a single unlucky target can't starve the rest of the machine.
+
+    Only lanes touched TODAY count. The board keeps old lanes around as a
+    recoverable record, and stale PAUSED lanes (e.g. after a provider outage
+    left pr=null) must not permanently freeze a repo out of the daily cap."""
     if max_per_day <= 0:
         return True
+    today = util.today_utc()
     lanes = board.get("lanes", {})
-    count = sum(1 for lane_key in lanes if lane_key.startswith(f"{repo_full}#"))
+    count = sum(
+        1 for lane_key, lane in lanes.items()
+        if lane_key.startswith(f"{repo_full}#")
+        and str(lane.get("updated", "")).startswith(today)
+    )
     return count < max_per_day
 
 
@@ -115,7 +142,18 @@ def find_candidate(conf: dict, board: dict) -> tuple | None:
             util.log(f"{repo_full}: skipping (we already have an open PR there)")
             continue
 
-        repo_labels = target.get("labels") or labels
+        repo_labels = target.get("labels")
+        if repo_labels is None:
+            path = f"/repos/{repo_full}/issues?state=open"
+            issues = util.gh_paged(path)
+            for issue in issues:
+                num = issue.get("number")
+                if num is None:
+                    continue
+                if _eligible(issue, attempts):
+                    return repo_full, num
+            util.log(f"{repo_full}: no eligible open issue (unlabeled hunt)")
+            continue
         for label in repo_labels:
             path = f"/repos/{repo_full}/issues?state=open&labels={quote(label)}"
             issues = util.gh_paged(path)
