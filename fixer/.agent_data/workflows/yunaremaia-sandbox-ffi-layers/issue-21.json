@@ -5,7 +5,7 @@
   "issue_title": "[sandbox-ffi-layers] Add JSON output format for programmatic consumption",
   "issue_url": "https://github.com/yunaremaia/sandbox-ffi-layers/issues/21",
   "issue_state": "open",
-  "state": "WAITING_FOR_FEEDBACK",
+  "state": "ABANDONED",
   "status": "waiting_for_review",
   "branch": "fix-issue-21",
   "base_branch": "main",
@@ -99,5 +99,6 @@
     "task_type": "BUG_FIX",
     "reason": "(model unavailable during classification)"
   },
-  "bot_login": "IbrahimCodes347"
+  "bot_login": "IbrahimCodes347",
+  "swept_at": "2026-09-25T12:26:30+00:00"
 }
