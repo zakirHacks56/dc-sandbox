@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-25T13:14:09",
+  "updated_at": "2026-09-25T13:27:35",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -376,6 +376,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-25T13:14:09"
+    },
+    "taranis-ai/taranis-ai#28": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 28,
+      "issue_title": "Various bugs",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-28.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-28",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-28",
+      "conversation_id": "20260925T132656-da98178a",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-28",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-25T13:27:35"
     }
   }
 }
