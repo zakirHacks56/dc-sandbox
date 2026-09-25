@@ -1,0 +1,14 @@
+{
+  "conversation_id": "20260925T130048-ff0af73e",
+  "repo": "Rekin226/aquascope",
+  "issue": 438,
+  "created_at": "2026-09-25T13:00:48",
+  "updated_at": "2026-09-25T13:01:16",
+  "provider": "omniroute",
+  "model": "gemini-3.6-flash",
+  "message_count": 4,
+  "rounds": 0,
+  "archived_conversation_ids": [],
+  "transcript": "conversations/Rekin226-aquascope/issue-438/transcript.log",
+  "messages": "conversations/Rekin226-aquascope/issue-438/messages.jsonl"
+}

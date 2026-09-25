@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-25T11:18:57",
+  "updated_at": "2026-09-25T13:01:16",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -331,6 +331,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-25T11:18:57"
+    },
+    "Rekin226/aquascope#438": {
+      "repo": "Rekin226/aquascope",
+      "issue": 438,
+      "issue_title": "Survey: which of our 38 sources publish a quality flag, and what do the values mean?",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-438.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-438",
+      "workspace": "workspace/Rekin226-aquascope/issue-438",
+      "conversation_id": "20260925T130048-ff0af73e",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-438",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-25T13:01:16"
     }
   }
 }
