@@ -20,7 +20,8 @@
       227,
       1089,
       1065,
-      624
+      624,
+      605
     ],
     "Rekin226/aquascope": [
       446,
@@ -192,7 +193,12 @@
       "state": "ABANDONED",
       "decision": false,
       "updated": "2026-09-22T13:07:25"
+    },
+    "taranis-ai/taranis-ai#605": {
+      "state": "PAUSED",
+      "pr": null,
+      "updated": "2026-09-25T13:14:09+00:00"
     }
   },
-  "last_tick": "2026-09-25T13:11:14+00:00"
+  "last_tick": "2026-09-25T13:14:09+00:00"
 }
