@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-25T13:01:16",
+  "updated_at": "2026-09-25T13:10:35",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -346,6 +346,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-25T13:01:16"
+    },
+    "Rekin226/aquascope#427": {
+      "repo": "Rekin226/aquascope",
+      "issue": 427,
+      "issue_title": "Add a windows-latest leg to CI so the next encoding bug does not reach a contributor first",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-427.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-427",
+      "workspace": "workspace/Rekin226-aquascope/issue-427",
+      "conversation_id": "20260925T130817-faaa9bbc",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-427",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-25T13:10:35"
     }
   }
 }
