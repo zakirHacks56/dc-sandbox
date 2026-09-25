@@ -1,0 +1,80 @@
+{
+  "schema": 2,
+  "repo": "taranis-ai/taranis-ai",
+  "issue": 1065,
+  "issue_title": "Story Edit View - AI Assisted actions defaults",
+  "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/1065",
+  "issue_state": "open",
+  "state": "PAUSED",
+  "status": "paused",
+  "branch": "fix-issue-1065",
+  "base_branch": "master",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-25T09:42:40",
+  "updated_at": "2026-09-25T09:43:14",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-25T09:42:41",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-25T09:42:44",
+      "note": "generating fix"
+    },
+    {
+      "from": "IMPLEMENTING",
+      "to": "PAUSED",
+      "at": "2026-09-25T09:43:14",
+      "note": "crashed: RuntimeError: OmniRoute call failed (Error code: 400 - {'error': {'message': 'auto/best-fast is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?"
+    }
+  ],
+  "conversation_id": "20260925T094241-c453f35f",
+  "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-1065",
+  "workspace": "workspace/taranis-ai-taranis-ai/issue-1065",
+  "provider": "omniroute",
+  "model": "auto/best-coding",
+  "last_test_status": "",
+  "pause_count": 1,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "bug",
+    "enhancement",
+    "core"
+  ],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "IbrahimCodes347",
+  "paused_from": "IMPLEMENTING",
+  "paused_at": "2026-09-25T09:43:14",
+  "paused_reason": "crashed: RuntimeError: OmniRoute call failed (Error code: 400 - {'error': {'message': 'auto/best-fast is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?",
+  "paused_by": "crash",
+  "last_stage": "IMPLEMENTING",
+  "last_transition_marker": "LEAVING",
+  "transcript": "conversations/taranis-ai-taranis-ai/issue-1065/transcript.log",
+  "messages": "conversations/taranis-ai-taranis-ai/issue-1065/messages.jsonl",
+  "workspace_abs": ".agent_data/workspace/taranis-ai-taranis-ai/issue-1065",
+  "workspace_dirty": false,
+  "workspace_dirty_files": [],
+  "resume_instructions": [
+    "python oss_agent_v2.py --repo taranis-ai/taranis-ai --resume 1065",
+    "python oss_agent_v2.py --repo taranis-ai/taranis-ai --conversation 1065"
+  ]
+}

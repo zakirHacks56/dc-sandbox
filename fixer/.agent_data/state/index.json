@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-25T09:40:25",
+  "updated_at": "2026-09-25T09:43:14",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -271,6 +271,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-25T09:40:25"
+    },
+    "taranis-ai/taranis-ai#1065": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 1065,
+      "issue_title": "Story Edit View - AI Assisted actions defaults",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-1065.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-1065",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-1065",
+      "conversation_id": "20260925T094241-c453f35f",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-1065",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-25T09:43:14"
     }
   }
 }
