@@ -5,7 +5,7 @@
   "issue_title": "security: Cargo.lock v4 format silently ignored by parser",
   "issue_url": "https://github.com/yunaremaia/sandbox-ffi-layers/issues/22",
   "issue_state": "open",
-  "state": "WAITING_FOR_FEEDBACK",
+  "state": "ABANDONED",
   "status": "waiting_for_review",
   "branch": "fix-issue-22",
   "base_branch": "main",
@@ -99,5 +99,6 @@
     "task_type": "BUG_FIX",
     "reason": "(model unavailable during classification)"
   },
-  "bot_login": "IbrahimCodes347"
+  "bot_login": "IbrahimCodes347",
+  "swept_at": "2026-09-25T13:11:14+00:00"
 }
