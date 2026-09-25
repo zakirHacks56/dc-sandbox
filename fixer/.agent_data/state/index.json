@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-25T09:43:14",
+  "updated_at": "2026-09-25T10:22:28",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -286,6 +286,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-25T09:43:14"
+    },
+    "taranis-ai/taranis-ai#624": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 624,
+      "issue_title": "Max size of attribute text content",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-624.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-624",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-624",
+      "conversation_id": "20260925T101053-9f76f49e",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-624",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-25T10:22:28"
     }
   }
 }

@@ -1,0 +1,287 @@
+Full transcript being saved to: .agent_data/logs/taranis-ai-taranis-ai_issue624_20260925_101036.log
+Step 1-2: checking #624 - Max size of attribute text content
+⚠️ Combo 'auto/best-chat' failed hard (BadRequestError): Error code: 400 - {'error': {'message': 'auto/best-chat is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}
+   Trying fallback combo 'auto/best-coding' in 5s...
+⚠️ Combo 'auto/best-coding' failed hard (BadRequestError): Error code: 400 - {'error': {'message': 'auto/best-coding is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}
+   Trying fallback combo 'auto/best-fast' in 10s...
+   ↳ classification unavailable (OmniRoute call failed (Error code: 400 - {'error': {'message': 'auto/best-fast is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?); assuming GENERIC/medium
+   ↳ ⚠️  Issue looks vague/underspecified -- treating as HARD: plan-first + wider context so it is grounded in real code, not guessed.
+✅ Forked, cloned, branched: fix-issue-624
+   ↳ Detected language/build system: python
+   ↳ Detected python -- running multi-strategy dependency install.
+   ↳ 🚀 Difficulty escalation: hard task -> 8 attempts, 10 context files.
+✅ Found 10 relevant files (0 via AI selection, 10 via keyword match)
+Step 8a: running baseline tests (before any changes)...
+❌ Tests failed
+🗺️  Hard task -- drafting an implementation plan before writing code.
+
+--- Attempt 1/8 ---
+   ↳ Raw model response (for debugging):
+```diff
+--- src/worker/worker/connectors/misp_connector.py
++++ src/worker/worker/connectors/misp_connector.py
+@@
+     def _parse_distribution(self, raw_distribution: str | None) -> int:
+         if not raw_distribution:
+             raw_distribution = "4" if self.sharing_group_id else "0"
+         try:
+             return int(raw_distribution)
+         except ValueError:
+             logger.warning(f"Invalid DISTRIBUTION value: {raw_distribution}. Falling back to 0.")
+             return 0
+ 
++    def _truncate_if_needed(self, value: str) -> str:
++        """Truncate a string if it exceeds the MISP text attribute limit (65535 characters).
++        Appends a truncation notice if truncation occurs.
++        """
++        max_length = 65535
++        suffix = "The rest of the content was truncated..."
++        if len(value) > max_length:
++            # Truncate to make room for the suffix
++            truncated = value[:max_length - len(suffix)]
++            return truncated + suffix
++        return value
++
+     def execute(self, connector_data: dict, auto_update: bool = False) -> dict[str, Any]:
+         connector_config = connector_data.get("connector_config")
+         stories = connector_data.get("story", [])
+         if connector_config is None:
+@@
+                 object_data = base_misp_builder.get_news_item_object_dict_empty()
+                 # sourcery skip: dict-assign-update-to-union
+                 object_data.update({k: news_item[k] for k in object_data if k in news_item})  # only keep keys that are in the object_data dict
++
++                # Truncate long string values in the news item for keys that will be used in the MISP object
++                for k in list(news_item.keys()):
++                    if k in object_data and isinstance(news_item[k], str):
++                        news_item[k] = self._truncate_if_needed(news_item[k])
++
+             news_item_object = BaseMispObject(
+                 parameters=object_data, template="taranis-news-item", misp_objects_path_custom="worker/connectors/definitions/objects"
+@@
+                 if isinstance(value_dict, dict) and key == "misp_event_uuid"
+             ),
+             None,
+         )
+ 
++        # Truncate long string values in story attributes
++        if "attributes" in story and isinstance(story["attributes"], dict):
++            for key, value_dict in story["attributes"].items():
++                if isinstance(value_dict, dict) and "value" in value_dict and isinstance(value_dict["value"], str):
++                    story["attributes"][key]["value"] = self._truncate_if_needed(value_dict["value"])
++
+         return story
+ 
+     def drop_existing_news_items(self, story: dict, ids_in_misp: set) -> dict | None:
+@@
+                 proposal.comment = (
+                     "This news‐item is not considered a good fit for the story. Please consider deletion and update of this event."
+                 )
++
++                # Truncate the comment if needed
++                proposal.comment = self._truncate_if_needed(proposal.comment)
++
+             try:
+                 shadow_attr = misp.update_attribute_proposal(found_attr.id, proposal, pythonify=True)
+                 if isinstance(shadow_attr, dict) and shadow_attr.get("errors"):
+                     logger.error(f"Failed to propose update on attribute (hash={h}, attr_id={found_attr.id}): {shadow_attr['errors']}")
+@@
+             if not (existing_attr := existing_attributes.get(new_attr.object_relation)):
+                 logger.error(f"No existing attribute found for {new_attr.object_relation}; cannot add proposal.")
+                 continue
+ 
+             if existing_attr.value == new_attr.value:
+                 logger.info(f"No changes detected for {new_attr.object_relation}. Skipping proposal.")
+                 continue
+ 
++            # Truncate the new attribute value if it's a text or comment type and too long
++            if existing_attr.type in ["text", "comment"] and isinstance(new_attr.value, str):
++ 
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 2/8 ---
+⚠️  Refusing to apply fix to 'src/worker/tests/connectors/test_misp_connector.py': original file is 22270 bytes but the model's replacement is only 64 bytes -- likely because the file exceeds the context truncation limit and the model only saw a partial copy. This file is too large for the current full-file-replace approach; skip it or handle it manually.
+
+--- Attempt 3/8 ---
+   ↳ Response had no complete <<<END>>> markers (likely truncated) -- applying with truncation-tolerant parser.
+⚠️  Refusing to apply fix to 'src/worker/worker/connectors/misp_connector.py': original file is 32389 bytes but the model's replacement is only 71 bytes -- likely because the file exceeds the context truncation limit and the model only saw a partial copy. This file is too large for the current full-file-replace approach; skip it or handle it manually.
+
+--- Attempt 4/8 ---
+   ↳ Raw model response (for debugging):
+--- src/worker/worker/connectors/misp_connector.py
++++ src/worker/worker/connectors/misp_connector.py
+@@
+     def __init__(self):
+         self.type = "MISP_CONNECTOR"
+         self.name = "MISP Connector"
+         self.description = "Connector for MISP"
+ 
+         self.proxies = None
+         self.headers = {}
+         self.connector_id: str = ""
+ 
+         self.url: str = ""
+         self.api_key: str = ""
+         self.org_id: str = ""
+         self.ssl: bool = False
+         self.request_timeout: int = 5
+         self.sharing_group_id: int | None = None
+         self.distribution: int | None = None
++
++    def _truncate_text(self, text: str) -> str:
++        """Truncate a string if it exceeds the maximum text length for MISP attributes."""
++        MAX_TEXT_LENGTH = 65535
++        TRUNCATION_MESSAGE = "The rest of the content was truncated..."
++        if not isinstance(text, str):
++            return text
++        if len(text) <= MAX_TEXT_LENGTH:
++            return text
++        # Truncate to leave room for the message
++        max_len = MAX_TEXT_LENGTH - len(TRUNCATION_MESSAGE)
++        if max_len < 0:
++            # If the message itself is too long, just return the message (but it's 40 chars, so unlikely)
++            return TRUNCATION_MESSAGE[:MAX_TEXT_LENGTH]
++        return text[:max_len] + TRUNCATION_MESSAGE
+ 
+     def parse_parameters(self, parameters: dict) -> None:
+@@
+     def create_event_report_content(self, story) -> str:
+-        return "# Story description\n" + story.get("description") + "\n\n" + "# Story comment\n" + story.get("comments")
++        desc = story.get("description", "")
++        comments = story.get("comments", "")
++        content = "# Story description\n" + desc + "\n\n" + "# Story comment\n" + comments
++        return self._truncate_text(content)
+@@
+     def add_news_item_objects(self, news_items: list[dict], event: MISPEvent) -> None:
+         """
+         For each news item in 'news_items', create a TaranisObject and add it to the event.
+         """
+         for news_item in news_items:
+             news_item.pop("last_change", None)  # key intended for internal use only
+             object_data = base_misp_builder.get_news_item_object_dict_empty()
+-            # sourcery skip: dict-assign-update-to-union
+-            object_data.update({k: news_item[k] for k in object_data if k in news_item})  # only keep keys that are in the object_data dict
++            # We are going to update object_data with the news_item, but truncate the 'content' field if present
++            for k in object_data:
++                if k in news_item:
++                    if k == 'content':
++                        object_data[k] = self._truncate_text(news_item[k])
++                    else:
++                        object_data[k] = news_item[k]
++            # sourcery skip: dict-assign-update-to-union
++            # object_data.update({k: news_item[k] for k in object_data if k in news_item})  # only keep keys that are in the object_data dict
+ 
+             news_item_object = BaseMispObject(
+                 parameters=object_data, template="taranis-news-item", misp_objects_path_custom="worker/connectors/definitions/objects"
+             )
+             event.add_object(news_item_object)
+@@
+     def _create_attribute_proposal(
+         self, existing_event: MISPEvent, existing_object: MISPObject, existing_attr: MISPAttribute, new_attr: MISPAttribute
+     ) -> MISPAttribute:
+         attribute_proposal = MISPAttribute()
+         attribute_proposal.from_dict(**new_attr.to_dict())
++        # If the attribute type is text, truncate the value if too long
++        if new_attr.type == 'text':
++            attribute_proposal.value = self._truncate_text(attribute_proposal.value)
++
+         if existing_attr.value == new_attr.value:
+             logger.info(f"No changes detected for {new_attr.object_relation}. Skipping proposal.")
+             return None
+ 
+         attribute_proposal.comment = f"This {new_attr.object_relatio
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 5/8 ---
+   ↳ Response had no complete <<<END>>> markers (likely truncated) -- applying with truncation-tolerant parser.
+✅ Applied changes to: ['src/worker/worker/connectors/misp_connector.py']
+⛔ Syntax check failed in the patch (1):
+   - src/worker/worker/connectors/misp_connector.py: python syntax error: '(' was never closed (misp_connector.py, line 383)
+
+--- Attempt 6/8 ---
+   ↳ Raw model response (for debugging):
+```diff
+--- src/worker/worker/connectors/misp_connector.py
++++ src/worker/worker/connectors/misp_connector.py
+@@ -22,6 +22,9 @@
+ class MispConnector:
+     def __init__(self):
+         self.type = "MISP_CONNECTOR"
+         self.name = "MISP Connector"
+         self.description = "Connector for MISP"
++
++        self._TRUNCATION_MESSAGE = "The rest of the content was truncated..."
++        self._MAX_TEXT_LENGTH = 65535 - len(self._TRUNCATION_MESSAGE)
+ 
+         self.proxies = None
+         self.headers = {}
+         self.connector_id: str = ""
+@@ -376,7 +379,13 @@
+     def create_event_report_content(self, story) -> str:
+         return "# Story description\n" + story.get("description") + "\n\n" + "# Story comment\n" + story.get("comments")
++        description = story.get("description", "")
++        comments = story.get("comments", "")
++        if len(description) > self._MAX_TEXT_LENGTH:
++            description = description[:self._MAX_TEXT_LENGTH] + self._TRUNCATION_MESSAGE
++        if len(comments) > self._MAX_TEXT_LENGTH:
++            comments = comments[:self._MAX_TEXT_LENGTH] + self._TRUNCATION_MESSAGE
++        return "# Story description\n" + description + "\n\n" + "# Story comment\n" + comments
+ 
+     def create_event_report(self, story: dict, existing_uuid: str | None = None) -> MISPEventReport:
+         """
+@@ -382,7 +391,13 @@
+         content = self.create_event_report_content(story)
+         new_report = MISPEventReport()
+         if existing_uuid:
++            new_report.uuid = existing_uuid
+         new_report.from_dict(name=report_title, content=content, timestamp=datetime.now(UTC))
+         return new_report
+ 
++    def _create_attribute_proposal(
++        self, existing_event: MISPEvent, existing_object: MISPObject, existing_attr: MISPAttribute, new_attr: MISPObjectAttribute
++    ) -> MISPAttribute:
++        """
++        Creates a MISPAttribute proposal from a new_attr, truncating text/comment values if necessary.
++        """
++        attribute_proposal = MISPAttribute()
++        attribute_proposal.from_dict(**new_attr.to_dict())
++        if attribute_proposal.type in ['text', 'comment'] and attribute_proposal.value is not None:
++            if len(attribute_proposal.value) > self._MAX_TEXT_LENGTH:
++                attribute_proposal.value = attribute_proposal.value[:self._MAX_TEXT_LENGTH] + self._TRUNCATION_MESSAGE
++        return attribute_proposal
++
+     def _create_attribute_proposal(
+         self, existing_event: MISPEvent, existing_object: MISPObject, existing_attr: MISPAttribute, new_attr: MISPObjectAttribute
+     ) -> MISPAttribute:
+-        attribute_proposal = MISPAttribute()
+-        attribute_proposal.from_dict(**new_attr.to_dict())
+-        return attribute_proposal
++        return self._create_attribute_proposal(existing_event, existing_object, existing_attr, new_attr)
+ 
+     def add_story_proposal(self, existing_event: MISPEvent, event_to_add: MISPEvent, misp: PyMISP) -> list[MISPShadowAttribute]:
+         existing_object = self.get_taranis_story_object(existing_event)
+         new_object = self.get_taranis_story_object(event_to_add)
+ 
+         if not existing_object or not new_object:
+             logger.warning(f"No Taranis story object found in event {existing_event.id}")
+             return []
+ 
+         existing_attributes = {attr.object_relation: attr for attr in existing_object.attributes}
+         shadow_attributes: list[MISPShadowAttribute] = []
+ 
+         for new_attr in new_object.attributes:
+             if new_attr.object_relation in ["links", "tags", "attributes"]:
+                 logger.info(f"Skipping proposal for {new_attr.object_relation} as it is not supported.")
+                 continue
+ 
+             logger.debug(f"Processing new attribute: {new_attr.to_dict()}")
+             if not (existing_attr := existing_attributes.get(new_attr.object_relation)):
+                 logger.error(f"No existing attribute found for {new_attr.object_relation}; cannot add proposal.")
+       
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 7/8 ---
+   ↳ Response had no complete <<<END>>> markers (likely truncated) -- applying with truncation-tolerant parser.
+⚠️  Refusing to apply fix to 'src/worker/worker/connectors/misp_connector.py': original file is 32389 bytes but the model's replacement is only 7002 bytes -- likely because the file exceeds the context truncation limit and the model only saw a partial copy. This file is too large for the current full-file-replace approach; skip it or handle it manually.
+
+--- Attempt 8/8 ---
