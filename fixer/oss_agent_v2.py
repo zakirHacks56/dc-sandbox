@@ -72,22 +72,29 @@ OMNIROUTE_BASE_URL = os.getenv("OMNIROUTE_BASE_URL", "http://localhost:20128/v1"
 # The auto-combo call_model() uses, named once so the workflow record and the
 # conversation metadata can report which model produced a transcript.
 #
-# HARD-CODED, deliberately: they are NOT read from the environment (and by
-# extension not from load_dotenv() above or from any repo secret), because a
-# stale OMNIROUTE_MODEL env value was the exact bug in 7f02810e -- the old
-# value (e.g. an OpenRouter slug like `nvidia/nemotron-3-super-120b-a12b:free`)
-# silently won over this file's defaults, routed to a provider name
-# (`kilo-gateway`) that had no credentials, and every lane crashed with
-# "No active credentials for provider". Env can still point OMNIROUTE_BASE_URL
-# at the gateway, but the model chain itself is fixed here so nothing in the
-# environment can resurrect the failure. These are OmniRoute virtual combos
-# that resolve against whatever providers are connected in the dashboard.
-OMNIROUTE_MODEL = "auto/best-coding"
+# DEFAULTS ARE HARD-CODED to OmniRoute virtual combos (auto/*) that resolve
+# against whatever providers are connected in the gateway's dashboard. These
+# are the SAME defaults that run the local machine, and the fix for 7f02810e:
+# a stale OMNIROUTE_MODEL env value (e.g. an OpenRouter slug routed to a
+# provider with no credentials) silently won over these and crashed every lane
+# with "No active credentials for provider".
+#
+# Because some CLOUD deployments point OMNIROUTE_BASE_URL at a plain
+# OpenAI-compatible endpoint that does not understand auto/* combos, each value
+# here may be overridden through the environment -- but ONLY when the env var
+# is set to a NON-EMPTY value. An empty/unset variable (which is what a stale
+# secret, missing secret, or the '' manual.env comment-out yields) keeps the
+# hard-coded auto/* default, so the old failure mode cannot resurrect itself
+# silently: the only way the chain changes is a deliberate, non-empty override.
+OMNIROUTE_MODEL = os.getenv("OMNIROUTE_MODEL", "").strip() or "auto/best-coding"
 # Fallback combos tried (in order) when a combo fails hard INSTEAD of timing
 # out. OmniRoute returns "Maximum combo retry limit reached" (503) when every
 # model inside a combo has failed; its own recovery hint is to switch combos,
-# so we walk this list rather than dying. Fixed for the same reason as above.
-OMNIROUTE_MODEL_FALLBACKS = ["auto/best-chat", "auto/best-reasoning", "auto/best-fast"]
+# so we walk this list rather than dying. Comma-separated when read from the
+# environment (cloud secret), defaults to the auto/* chain when empty.
+OMNIROUTE_MODEL_FALLBACKS = [
+    m.strip() for m in os.getenv("OMNIROUTE_MODEL_FALLBACKS", "").split(",") if m.strip()
+] or ["auto/best-chat", "auto/best-reasoning", "auto/best-fast"]
 # Seconds before an OmniRoute call times out instead of hanging forever.
 # A silent, provider-less gateway (TCP open, never responding) used to make
 # every run freeze at its first verify/generate step with no visible error.
@@ -99,9 +106,12 @@ OMNIROUTE_TIMEOUT = float(os.getenv("OMNIROUTE_TIMEOUT", "600"))
 # Cheap steps (issue classification, AI file pre-selection) do not need the
 # reasoning-tier combo -- they are short, structured, tolerance-heavy decisions.
 # Routing them through a fast auto-combo makes the front of every run cheaper.
-# Fixed (not env-driven) for the same reason as OMNIROUTE_MODEL above.
-OMNIROUTE_FAST_MODEL = "auto/best-chat"
-OMNIROUTE_FAST_MODEL_FALLBACKS = ["auto/best-coding", "auto/best-fast"]
+# Env-overridable exactly like the coding chain above, and only when non-empty;
+# empty/unset keeps the auto/* default (see OMNIROUTE_MODEL for the rationale).
+OMNIROUTE_FAST_MODEL = os.getenv("OMNIROUTE_FAST_MODEL", "").strip() or "auto/best-chat"
+OMNIROUTE_FAST_MODEL_FALLBACKS = [
+    m.strip() for m in os.getenv("OMNIROUTE_FAST_MODEL_FALLBACKS", "").split(",") if m.strip()
+] or ["auto/best-coding", "auto/best-fast"]
 # Stall guard for the reasoning combo: cap the FIRST attempt of each combo at
 # this many seconds. A dead/silent provider is abandoned after ~this instead
 # of burning the full budget, and the next fallback combo gets the same quick
