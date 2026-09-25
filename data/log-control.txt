@@ -5340,3 +5340,20 @@ it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code':
 
 it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code': 402, 'message': 'This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account'}]}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
 2026-09-25T13:27:35+00:00  tick done
+2026-09-25T13:29:54+00:00  gate poller start (offset=746150288)
+2026-09-25T13:30:03+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T13:30:04+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-25T13:30:05+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-25T13:30:06+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-25T13:30:09+00:00  HUNTING: trying izzywdev/FuzeFront#1135
+2026-09-25T13:30:09+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1135 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-25T13:31:36+00:00  fixer exit=0
+--tail--
+00 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit'
+   Trying fallback combo 'nvidia/nemotron-3-ultra-550b-a55b:free' in 20s...
+⚠️ Combo 'nvidia/nemotron-3-ultra-550b-a55b:free' failed hard (RateLimitError): Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit'
+   Trying fallback combo 'google/gemma-4-31b-it:free' in 25s...
+   ↳ classification unavailable (OmniRoute call failed (Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790380800000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?); assuming GENERIC/medium
+   ↳ ⚠️  Issue looks vague/underspecified -- treating as HARD: plan-first + wider context so it is grounded in real code, not guessed.
+   ↳ Already claimed in comments ('Investigated, but this issue cannot be fully resolved from t...').
+2026-09-25T13:31:36+00:00  tick done
