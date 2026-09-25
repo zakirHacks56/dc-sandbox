@@ -4282,3 +4282,11 @@ te limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model
 2026-09-25T01:53:38+00:00  sweep: resolved 3 stale in-flight lane(s)
 2026-09-25T01:53:38+00:00  budget: 0/2 PRs, 0/3 pending gates
 2026-09-25T01:53:38+00:00  tick done
+2026-09-25T01:54:26+00:00  gate poller start (offset=746150288)
+2026-09-25T01:54:35+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T01:54:35+00:00  sweep: abandoning in-flight lane yunaremaia/sandbox-ffi-layers#25 (state=PAUSED, age=3.0d, no PR ever opened)
+2026-09-25T01:54:35+00:00  sweep: abandoning in-flight lane yunaremaia/sandbox-ffi-layers#28 (state=PAUSED, age=3.2d, no PR ever opened)
+2026-09-25T01:54:35+00:00  sweep: abandoning in-flight lane yunaremaia/sandbox-ffi-layers#30 (state=PAUSED, age=3.3d, no PR ever opened)
+2026-09-25T01:54:35+00:00  sweep: resolved 3 stale in-flight lane(s)
+2026-09-25T01:54:35+00:00  budget: 0/2 PRs, 0/3 pending gates
+2026-09-25T01:54:35+00:00  tick done
