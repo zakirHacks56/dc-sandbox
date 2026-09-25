@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-25T09:31:40",
+  "updated_at": "2026-09-25T09:40:25",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -256,6 +256,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-25T09:31:40"
+    },
+    "Rekin226/aquascope#441": {
+      "repo": "Rekin226/aquascope",
+      "issue": 441,
+      "issue_title": "Reference reports wanted: nine of the twelve recorded studies have none, and score_report needs them",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-441.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-441",
+      "workspace": "workspace/Rekin226-aquascope/issue-441",
+      "conversation_id": "20260925T093921-cd77af95",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-441",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-25T09:40:25"
     }
   }
 }
