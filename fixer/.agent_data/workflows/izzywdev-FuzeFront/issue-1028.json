@@ -1,0 +1,78 @@
+{
+  "schema": 2,
+  "repo": "izzywdev/FuzeFront",
+  "issue": 1028,
+  "issue_title": "[Help wanted] Define a measurable adoption benchmark for the Software Factory",
+  "issue_url": "https://github.com/izzywdev/FuzeFront/issues/1028",
+  "issue_state": "open",
+  "state": "PAUSED",
+  "status": "paused",
+  "branch": "fix-issue-1028",
+  "base_branch": "master",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-25T13:44:38",
+  "updated_at": "2026-09-25T13:47:06",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-25T13:44:38",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-25T13:46:47",
+      "note": "generating fix"
+    },
+    {
+      "from": "IMPLEMENTING",
+      "to": "PAUSED",
+      "at": "2026-09-25T13:47:06",
+      "note": "crashed: RuntimeError: OmniRoute call failed (Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account', 'code': 402, 'metadata': {'limit_source': 'openrouter_credits', 'remedy_hint': 'Add credits at https://openrouter.ai/settings/credits, or lower max_tokens / prompt size to fit your remaining balance.', 'provider_name': None, 'previous_errors': [{'code': 402, 'message': 'This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account'}]}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?"
+    }
+  ],
+  "conversation_id": "20260925T134438-29177e8b",
+  "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1028",
+  "workspace": "workspace/izzywdev-FuzeFront/issue-1028",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 1,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "help wanted"
+  ],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "IbrahimCodes347",
+  "paused_from": "IMPLEMENTING",
+  "paused_at": "2026-09-25T13:47:06",
+  "paused_reason": "crashed: RuntimeError: OmniRoute call failed (Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account', 'code': 402, 'metadata': {'limit_source': 'openrouter_credits', 'remedy_hint': 'Add credits at https://openrouter.ai/settings/credits, or lower max_tokens / prompt size to fit your remaining balance.', 'provider_name': None, 'previous_errors': [{'code': 402, 'message': 'This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account'}]}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?",
+  "paused_by": "crash",
+  "last_stage": "IMPLEMENTING",
+  "last_transition_marker": "LEAVING",
+  "transcript": "conversations/izzywdev-FuzeFront/issue-1028/transcript.log",
+  "messages": "conversations/izzywdev-FuzeFront/issue-1028/messages.jsonl",
+  "workspace_abs": ".agent_data/workspace/izzywdev-FuzeFront/issue-1028",
+  "workspace_dirty": false,
+  "workspace_dirty_files": [],
+  "resume_instructions": [
+    "python oss_agent_v2.py --repo izzywdev/FuzeFront --resume 1028",
+    "python oss_agent_v2.py --repo izzywdev/FuzeFront --conversation 1028"
+  ]
+}
