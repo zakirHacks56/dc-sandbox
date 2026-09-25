@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-25T13:10:35",
+  "updated_at": "2026-09-25T13:14:09",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -361,6 +361,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-25T13:10:35"
+    },
+    "taranis-ai/taranis-ai#605": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 605,
+      "issue_title": "Drop flushing of conflict stores",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-605.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-605",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-605",
+      "conversation_id": "20260925T131349-2616d535",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-605",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-25T13:14:09"
     }
   }
 }
