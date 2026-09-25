@@ -5411,3 +5411,11 @@ it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code':
 
 it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code': 402, 'message': 'This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account'}]}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
 2026-09-25T13:47:06+00:00  tick done
+2026-09-25T13:49:32+00:00  gate poller start (offset=746150288)
+2026-09-25T13:49:40+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T13:49:41+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-25T13:49:42+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-25T13:49:42+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-25T13:49:43+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-25T13:49:43+00:00  no candidate found this tick
+2026-09-25T13:49:43+00:00  tick done
