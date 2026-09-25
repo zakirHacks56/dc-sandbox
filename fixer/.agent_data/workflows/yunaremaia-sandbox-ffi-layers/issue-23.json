@@ -5,7 +5,7 @@
   "issue_title": "security: extensible malicious package detection with similarity scoring and config-driven blocklist",
   "issue_url": "https://github.com/yunaremaia/sandbox-ffi-layers/issues/23",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-23",
   "base_branch": "main",
@@ -76,5 +76,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --resume 23",
     "python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --conversation 23"
-  ]
+  ],
+  "swept_at": "2026-09-25T09:26:34+00:00"
 }

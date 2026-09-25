@@ -5,7 +5,7 @@
   "issue_title": "feat: add specific error messages for lockfile read failures",
   "issue_url": "https://github.com/yunaremaia/sandbox-ffi-layers/issues/30",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-30",
   "base_branch": "main",
@@ -75,5 +75,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --resume 30",
     "python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --conversation 30"
-  ]
+  ],
+  "swept_at": "2026-09-25T09:26:34+00:00"
 }

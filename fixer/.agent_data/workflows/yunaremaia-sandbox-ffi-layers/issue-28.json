@@ -2,10 +2,10 @@
   "schema": 2,
   "repo": "yunaremaia/sandbox-ffi-layers",
   "issue": 28,
-  "issue_title": "feat: multi-ecosystem lockfile support \u2014 add npm package-lock.json and Python requirements.txt parsers",
+  "issue_title": "feat: multi-ecosystem lockfile support — add npm package-lock.json and Python requirements.txt parsers",
   "issue_url": "https://github.com/yunaremaia/sandbox-ffi-layers/issues/28",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-28",
   "base_branch": "main",
@@ -75,5 +75,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --resume 28",
     "python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --conversation 28"
-  ]
+  ],
+  "swept_at": "2026-09-25T09:26:34+00:00"
 }

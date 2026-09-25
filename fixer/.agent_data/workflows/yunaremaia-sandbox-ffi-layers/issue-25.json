@@ -2,10 +2,10 @@
   "schema": 2,
   "repo": "yunaremaia/sandbox-ffi-layers",
   "issue": 25,
-  "issue_title": "security: Cargo.lock format version detection \u2014 validate version field before parsing",
+  "issue_title": "security: Cargo.lock format version detection — validate version field before parsing",
   "issue_url": "https://github.com/yunaremaia/sandbox-ffi-layers/issues/25",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-25",
   "base_branch": "main",
@@ -76,5 +76,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --resume 25",
     "python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --conversation 25"
-  ]
+  ],
+  "swept_at": "2026-09-25T09:26:34+00:00"
 }
