@@ -1,0 +1,7 @@
+[2026-09-25T09:42:41] conversation 20260925T094241-c453f35f opened for taranis-ai/taranis-ai#1065
+[2026-09-25T09:42:41] opened for the one-shot command at state=TASK_RECEIVED status=new pr=None
+[2026-09-25T09:42:44] system/error: model call attempt 1/2 on 'auto/best-coding' FAILED: Error code: 400 - {'error': {'message': 'auto/best-coding is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}
+[2026-09-25T09:42:49] system/error: model call attempt 1/2 on 'auto/best-chat' FAILED: Error code: 400 - {'error': {'message': 'auto/best-chat is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}
+[2026-09-25T09:42:59] system/error: model call attempt 1/2 on 'auto/best-reasoning' FAILED: Error code: 400 - {'error': {'message': 'auto/best-reasoning is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}
+[2026-09-25T09:43:14] system/error: model call attempt 1/2 on 'auto/best-fast' FAILED: Error code: 400 - {'error': {'message': 'auto/best-fast is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}
+[2026-09-25T09:43:14] PAUSED from IMPLEMENTING via crash: crashed: RuntimeError: OmniRoute call failed (Error code: 400 - {'error': {'message': 'auto/best-fast is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard? (dirty=False, branch=fix-issue-1065)
