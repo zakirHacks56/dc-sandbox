@@ -124,7 +124,12 @@
       "state": "ABANDONED",
       "decision": false,
       "updated": "2026-09-21T22:04:45"
+    },
+    "yunaremaia/sandbox-ffi-layers#25": {
+      "state": "ABANDONED",
+      "decision": false,
+      "updated": "2026-09-22T00:46:12"
     }
   },
-  "last_tick": "2026-09-25T00:44:19+00:00"
+  "last_tick": "2026-09-25T00:56:26+00:00"
 }
