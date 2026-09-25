@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-25T13:27:35",
+  "updated_at": "2026-09-25T13:42:33",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -391,6 +391,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-25T13:27:35"
+    },
+    "izzywdev/FuzeFront#1029": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1029,
+      "issue_title": "[Help wanted] Create a production-readiness checklist for external adopters",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1029.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1029",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1029",
+      "conversation_id": "20260925T134007-97c82029",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-1029",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-25T13:42:33"
     }
   }
 }
