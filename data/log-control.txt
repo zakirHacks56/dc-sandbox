@@ -5265,3 +5265,19 @@ it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code':
 
 it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code': 402, 'message': 'This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account'}]}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
 2026-09-25T13:10:35+00:00  tick done
+2026-09-25T13:11:04+00:00  gate poller start (offset=746150288)
+2026-09-25T13:11:13+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T13:11:13+00:00  sweep: closing stale own PR #34 for yunaremaia/sandbox-ffi-layers#22 (state=WAITING_FOR_FEEDBACK, age=3.0d)
+2026-09-25T13:11:13+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 22 --force -close  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-25T13:11:14+00:00  fixer exit=2
+--tail--
+[--new-conversation [ISSUE]] [--status [ISSUE]]
+                       [--list-workflows] [--conversation-info [ISSUE]]
+                       [--finish [ISSUE]] [--review-feedback [ISSUE]]
+                       [--reason REASON] [--force] [--force-workspace]
+                       [--transcript-lines TRANSCRIPT_LINES]
+oss_agent_v2.py: error: --force skips the confirmation on --finish and --new-conversation. To let a run discard its own workspace changes use --force-workspace.
+2026-09-25T13:11:14+00:00  sweep: fixer close of yunaremaia/sandbox-ffi-layers#22 -> exit2
+2026-09-25T13:11:14+00:00  sweep: resolved 1 stale in-flight lane(s)
+2026-09-25T13:11:14+00:00  budget: 0/2 PRs, 0/3 pending gates
+2026-09-25T13:11:14+00:00  tick done
