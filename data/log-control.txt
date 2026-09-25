@@ -5161,3 +5161,11 @@ els-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code':
 2026-09-25T12:07:12+00:00  izzywdev/FuzeFront: skipping (hit 2-lane/day budget)
 2026-09-25T12:07:12+00:00  no candidate found this tick
 2026-09-25T12:07:12+00:00  tick done
+2026-09-25T12:08:48+00:00  gate poller start (offset=746150288)
+2026-09-25T12:08:56+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T12:08:58+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-25T12:08:59+00:00  Rekin226/aquascope: skipping (hit 2-lane/day budget)
+2026-09-25T12:09:00+00:00  taranis-ai/taranis-ai: skipping (hit 2-lane/day budget)
+2026-09-25T12:09:01+00:00  izzywdev/FuzeFront: skipping (hit 2-lane/day budget)
+2026-09-25T12:09:01+00:00  no candidate found this tick
+2026-09-25T12:09:01+00:00  tick done
