@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-25T13:42:33",
+  "updated_at": "2026-09-25T13:47:06",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -406,6 +406,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-25T13:42:33"
+    },
+    "izzywdev/FuzeFront#1028": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1028,
+      "issue_title": "[Help wanted] Define a measurable adoption benchmark for the Software Factory",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1028.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1028",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1028",
+      "conversation_id": "20260925T134438-29177e8b",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-1028",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-25T13:47:06"
     }
   }
 }

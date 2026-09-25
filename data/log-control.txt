@@ -5384,3 +5384,30 @@ it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code':
 
 it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code': 402, 'message': 'This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account'}]}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
 2026-09-25T13:42:34+00:00  tick done
+2026-09-25T13:42:55+00:00  gate poller start (offset=746150288)
+2026-09-25T13:43:03+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T13:43:05+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-25T13:43:06+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-25T13:43:07+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-25T13:43:10+00:00  HUNTING: trying izzywdev/FuzeFront#1028
+2026-09-25T13:43:10+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1028 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-25T13:47:06+00:00  fixer exit=1
+--tail--
+- {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit'
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 700 tokens, but can only afford 6. To increase, visit https://openrouter.ai/settin
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+--- Attempt 1/8 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (RateLimitError): Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit'
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (APIStatusError): Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 6. To increase, visit https://openrouter.ai/setti
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+💾 Saved state for izzywdev/FuzeFront#1028 before exit (status: paused). Nothing on GitHub changed.
+   Resume with:
+      python oss_agent_v2.py --repo izzywdev/FuzeFront --resume 1028
+      python oss_agent_v2.py --repo izzywdev/FuzeFront --conversation 1028
+
+it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code': 402, 'message': 'This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 4. To increase, visit https://openrouter.ai/settings/credits and upgrade to a paid account'}]}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
+2026-09-25T13:47:06+00:00  tick done
