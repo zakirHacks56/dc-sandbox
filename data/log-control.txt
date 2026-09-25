@@ -6371,3 +6371,25 @@ it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code':
 2026-09-25T22:05:26+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
 2026-09-25T22:05:26+00:00  no candidate found this tick
 2026-09-25T22:05:26+00:00  tick done
+2026-09-25T22:19:40+00:00  gate poller start (offset=746150288)
+2026-09-25T22:19:48+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T22:19:48+00:00  gh_api GET /user failed: HTTP Error 401: Unauthorized
+2026-09-25T22:19:48+00:00  gh_api GET /repos/yunaremaia/sandbox-ffi-layers failed: HTTP Error 401: Unauthorized
+2026-09-25T22:19:48+00:00  gh_api GET /repos/yunaremaia/sandbox-ffi-layers failed: HTTP Error 401: Unauthorized
+2026-09-25T22:19:48+00:00  gh_api GET /repos/yunaremaia/sandbox-ffi-layers/issues?state=open&labels=good%20first%20issue&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-25T22:19:48+00:00  yunaremaia/sandbox-ffi-layers: no eligible issue under label 'good first issue'
+2026-09-25T22:19:48+00:00  gh_api GET /repos/yunaremaia/sandbox-ffi-layers/issues?state=open&labels=enhancement&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-25T22:19:48+00:00  yunaremaia/sandbox-ffi-layers: no eligible issue under label 'enhancement'
+2026-09-25T22:19:48+00:00  gh_api GET /repos/yunaremaia/sandbox-ffi-layers/issues?state=open&labels=bug&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-25T22:19:48+00:00  yunaremaia/sandbox-ffi-layers: no eligible issue under label 'bug'
+2026-09-25T22:19:49+00:00  gh_api GET /repos/Rekin226/aquascope failed: HTTP Error 401: Unauthorized
+2026-09-25T22:19:49+00:00  gh_api GET /repos/Rekin226/aquascope failed: HTTP Error 401: Unauthorized
+2026-09-25T22:19:49+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-25T22:19:49+00:00  gh_api GET /repos/taranis-ai/taranis-ai failed: HTTP Error 401: Unauthorized
+2026-09-25T22:19:49+00:00  gh_api GET /repos/taranis-ai/taranis-ai failed: HTTP Error 401: Unauthorized
+2026-09-25T22:19:49+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-25T22:19:49+00:00  gh_api GET /repos/izzywdev/FuzeFront failed: HTTP Error 401: Unauthorized
+2026-09-25T22:19:49+00:00  gh_api GET /repos/izzywdev/FuzeFront failed: HTTP Error 401: Unauthorized
+2026-09-25T22:19:49+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-25T22:19:49+00:00  no candidate found this tick
+2026-09-25T22:19:49+00:00  tick done
