@@ -1,0 +1,57 @@
+{
+  "schema": 2,
+  "repo": "izzywdev/FuzeFront",
+  "issue": 1187,
+  "issue_title": "DS extraction: recurring UI pattern (ds-fp:24ccaa1c7879)",
+  "issue_url": "https://github.com/izzywdev/FuzeFront/issues/1187",
+  "issue_state": "open",
+  "state": "IMPLEMENTING",
+  "status": "implementing",
+  "branch": "fix-issue-1187",
+  "base_branch": "master",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-25T10:38:33",
+  "updated_at": "2026-09-25T10:40:52",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-25T10:38:33",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-25T10:40:52",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260925T103833-d46fd58a",
+  "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1187",
+  "workspace": "workspace/izzywdev-FuzeFront/issue-1187",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "ds-extraction"
+  ],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "IbrahimCodes347"
+}
