@@ -5,7 +5,7 @@
   "difficulty_cap": 2,
   "max_stars": 10000,
   "max_file_bytes": 400000,
-  "max_attempts_per_repo_day": 2,
+  "max_attempts_per_repo_day": 4,
   "targets": [
     { "repo": "yunaremaia/sandbox-ffi-layers", "labels": ["good first issue", "enhancement", "bug"], "enabled": true },
     { "repo": "Rekin226/aquascope", "labels": ["good first issue", "help wanted", "bug", "testing", "enhancement"], "enabled": true },
