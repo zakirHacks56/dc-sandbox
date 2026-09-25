@@ -5699,3 +5699,11 @@ it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code':
 2026-09-25T17:52:00+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
 2026-09-25T17:52:00+00:00  no candidate found this tick
 2026-09-25T17:52:00+00:00  tick done
+2026-09-25T17:56:01+00:00  gate poller start (offset=746150288)
+2026-09-25T17:56:10+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T17:56:11+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-25T17:56:13+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-25T17:56:14+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-25T17:56:16+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-25T17:56:16+00:00  no candidate found this tick
+2026-09-25T17:56:16+00:00  tick done
