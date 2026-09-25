@@ -22,7 +22,8 @@
     ],
     "Rekin226/aquascope": [
       446,
-      443
+      443,
+      442
     ],
     "izzywdev/FuzeFront": [
       1181,
@@ -134,7 +135,12 @@
       "state": "ABANDONED",
       "decision": false,
       "updated": "2026-09-22T05:27:20"
+    },
+    "Rekin226/aquascope#442": {
+      "state": "PAUSED",
+      "pr": null,
+      "updated": "2026-09-25T09:31:40+00:00"
     }
   },
-  "last_tick": "2026-09-25T09:26:34+00:00"
+  "last_tick": "2026-09-25T09:31:40+00:00"
 }

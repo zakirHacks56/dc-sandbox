@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-24T12:03:37",
+  "updated_at": "2026-09-25T09:31:40",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -241,6 +241,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-24T12:03:37"
+    },
+    "Rekin226/aquascope#442": {
+      "repo": "Rekin226/aquascope",
+      "issue": 442,
+      "issue_title": "Reference plans wanted: bring a basin you know, especially outside the US, UK and France",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-442.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-442",
+      "workspace": "workspace/Rekin226-aquascope/issue-442",
+      "conversation_id": "20260925T093006-f27cfcba",
+      "state": "PAUSED",
+      "status": "paused",
+      "branch": "fix-issue-442",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-25T09:31:40"
     }
   }
 }
