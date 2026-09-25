@@ -9029,3 +9029,5 @@
 2026-09-25T13:34:26+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-25T13:35:26+00:00  gate poller start (offset=746150288)
 2026-09-25T13:35:35+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T13:36:18+00:00  gate poller start (offset=746150288)
+2026-09-25T13:36:26+00:00  gate poller done: 0 decree(s), new offset=746150288
