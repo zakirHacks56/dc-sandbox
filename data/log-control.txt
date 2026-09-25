@@ -5072,3 +5072,28 @@ TypeError [ERR_UNKNOWN_FILE_EXTENSION]: Unknown file extension ".jsx" for /home/
 
 Switched to a new branch 'fix-issue-1187'
 2026-09-25T10:51:36+00:00  tick done
+2026-09-25T11:06:27+00:00  gate poller start (offset=746150288)
+2026-09-25T11:06:36+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T11:06:38+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-25T11:06:39+00:00  Rekin226/aquascope: skipping (hit 2-lane/day budget)
+2026-09-25T11:06:40+00:00  taranis-ai/taranis-ai: skipping (hit 2-lane/day budget)
+2026-09-25T11:06:43+00:00  HUNTING: trying izzywdev/FuzeFront#1137
+2026-09-25T11:06:43+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1137 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-25T11:18:57+00:00  fixer exit=1
+--tail--
+els-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit'
+   Trying fallback combo 'cohere/north-mini-code:free' in 15s...
+⚠️ Combo 'cohere/north-mini-code:free' failed hard (RateLimitError): Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit'
+   Trying fallback combo 'dots-studio/dots-3-note-preview:free' in 20s...
+⚠️ Combo 'dots-studio/dots-3-note-preview:free' failed hard (RateLimitError): Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit'
+   Trying fallback combo 'nvidia/nemotron-3-ultra-550b-a55b:free' in 25s...
+⚠️ Combo 'nvidia/nemotron-3-ultra-550b-a55b:free' failed hard (RateLimitError): Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit'
+   Trying fallback combo 'google/gemma-4-31b-it:free' in 30s...
+
+💾 Saved state for izzywdev/FuzeFront#1137 before exit (status: paused). Nothing on GitHub changed.
+   Resume with:
+      python oss_agent_v2.py --repo izzywdev/FuzeFront --resume 1137
+      python oss_agent_v2.py --repo izzywdev/FuzeFront --conversation 1137
+
+'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1790380800000'}, 'limit_source': 'openrouter_free_tier_daily', 'remedy_hint': 'Wait for the daily reset (see X-RateLimit-Reset), or purchase credits to raise your free-model daily limit.', 'provider_name': None}}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
+2026-09-25T11:18:57+00:00  tick done
