@@ -1,0 +1,14 @@
+{
+  "conversation_id": "20260925T093921-cd77af95",
+  "repo": "Rekin226/aquascope",
+  "issue": 441,
+  "created_at": "2026-09-25T09:39:21",
+  "updated_at": "2026-09-25T09:40:25",
+  "provider": "omniroute",
+  "model": "auto/best-coding",
+  "message_count": 7,
+  "rounds": 0,
+  "archived_conversation_ids": [],
+  "transcript": "conversations/Rekin226-aquascope/issue-441/transcript.log",
+  "messages": "conversations/Rekin226-aquascope/issue-441/messages.jsonl"
+}

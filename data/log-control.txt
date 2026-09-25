@@ -4899,3 +4899,33 @@ te limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model
     raise RuntimeError(
 RuntimeError: OmniRoute call failed (Error code: 400 - {'error': {'message': 'auto/best-fast is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
 2026-09-25T09:31:40+00:00  tick done
+2026-09-25T09:38:51+00:00  gate poller start (offset=746150288)
+2026-09-25T09:39:00+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T09:39:01+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-25T09:39:03+00:00  HUNTING: trying Rekin226/aquascope#441
+2026-09-25T09:39:03+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 441 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-25T09:40:25+00:00  fixer exit=1
+--tail--
+400 - {'error': {'message': 'auto/best-fast is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?), using keyword matching only.
+✅ Found 6 relevant files (0 via AI selection, 6 via keyword match)
+Step 8a: running baseline tests (before any changes)...
+❌ Tests failed
+
+--- Attempt 1/5 ---
+⚠️ Combo 'auto/best-coding' failed hard (BadRequestError): Error code: 400 - {'error': {'message': 'auto/best-coding is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}
+   Trying fallback combo 'auto/best-chat' in 5s...
+⚠️ Combo 'auto/best-chat' failed hard (BadRequestError): Error code: 400 - {'error': {'message': 'auto/best-chat is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}
+   Trying fallback combo 'auto/best-reasoning' in 10s...
+⚠️ Combo 'auto/best-reasoning' failed hard (BadRequestError): Error code: 400 - {'error': {'message': 'auto/best-reasoning is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}
+   Trying fallback combo 'auto/best-fast' in 15s...
+
+💾 Saved state for Rekin226/aquascope#441 before exit (status: paused). Nothing on GitHub changed.
+   Resume with:
+      python oss_agent_v2.py --repo Rekin226/aquascope --resume 441
+      python oss_agent_v2.py --repo Rekin226/aquascope --conversation 441
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py", line 2462, in call_model
+    raise RuntimeError(
+RuntimeError: OmniRoute call failed (Error code: 400 - {'error': {'message': 'auto/best-fast is not a valid model ID', 'code': 400}, 'user_id': 'user_3IPFsRnE4Cuyw4MucQxG5tU55FE'}). Is 'omniroute' running in another terminal, and do you have at least one provider connected in its dashboard at http://localhost:20128/dashboard?
+2026-09-25T09:40:25+00:00  tick done
