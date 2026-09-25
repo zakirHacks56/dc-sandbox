@@ -34,6 +34,20 @@ jobs:
       OMNIROUTE_MODEL_FALLBACKS: ${{ secrets.OMNIROUTE_MODEL_FALLBACKS }}
       OMNIROUTE_FAST_MODEL: ${{ secrets.OMNIROUTE_FAST_MODEL }}
       OMNIROUTE_FAST_MODEL_FALLBACKS: ${{ secrets.OMNIROUTE_FAST_MODEL_FALLBACKS }}
+      # Fallback endpoint: an opt-in hosted OpenAI-compatible LLM used when the
+      # primary omniRoute gateway is unreachable (e.g. the PC hosting it is off,
+      # or the tunnel is down). Leave these empty to keep omniRoute-only behavior
+      # (the fixer stays on the local gateway when reachable). When set, the
+      # fixer probes the primary endpoint once per run: if it answers, omniRoute
+      # is used with its auto/* combos; if not, the cloud run fails over to the
+      # fallback model chain (concrete model IDs, since hosted endpoints usually
+      # have no auto/* aliases).
+      OMNIROUTE_FALLBACK_BASE_URL: ${{ secrets.OMNIROUTE_FALLBACK_BASE_URL }}
+      OMNIROUTE_FALLBACK_API_KEY: ${{ secrets.OMNIROUTE_FALLBACK_API_KEY }}
+      OMNIROUTE_FALLBACK_MODEL: ${{ secrets.OMNIROUTE_FALLBACK_MODEL }}
+      OMNIROUTE_FALLBACK_MODEL_FALLBACKS: ${{ secrets.OMNIROUTE_FALLBACK_MODEL_FALLBACKS }}
+      OMNIROUTE_FALLBACK_FAST_MODEL: ${{ secrets.OMNIROUTE_FALLBACK_FAST_MODEL }}
+      OMNIROUTE_FALLBACK_FAST_MODEL_FALLBACKS: ${{ secrets.OMNIROUTE_FALLBACK_FAST_MODEL_FALLBACKS }}
       SOLVE_MAX_OUTPUT_TOKENS: "3000"
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}

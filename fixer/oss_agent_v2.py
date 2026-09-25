@@ -119,6 +119,40 @@ OMNIROUTE_FAST_MODEL_FALLBACKS = [
 # full budget (so a slow-but-healthy reasoning model is not starved).
 OMNIROUTE_STALL_SECONDS = float(os.getenv("OMNIROUTE_STALL_SECONDS", "90"))
 
+# ============================================================
+# Fallback endpoint (opt-in hosted OpenAI-compatible LLM)
+# ============================================================
+# omniRoute is the PRIMARY endpoint everywhere: local runs resolve it on
+# localhost, and a cloud deployment can reach it through a tunnel. But if
+# omniRoute is down (PC off, gateway stopped) a cloud run would otherwise
+# hard-fail every step -- so call_model() falls back to this hosted endpoint
+# when the primary is unreachable OR every primary combo fails hard.
+#
+# The fallback is DISABLED by default (all envs empty) so local behavior is
+# byte-for-byte unchanged. Configure it only where you want outage tolerance
+# (e.g. GitHub Actions secrets). Each setting is only consulted when non-empty,
+# matching the deliberate non-empty-override rule of the model chain above.
+OMNIROUTE_FALLBACK_BASE_URL = os.getenv("OMNIROUTE_FALLBACK_BASE_URL", "").strip()
+# API key for the fallback endpoint. Defaults to the primary key (many hosted
+# gateways share one key); set separately when the endpoints have different auth.
+OMNIROUTE_FALLBACK_API_KEY = os.getenv("OMNIROUTE_FALLBACK_API_KEY", "").strip() or os.getenv("LLM_API_KEY", "").strip()
+# Model chain for the fallback endpoint: a hosted OpenAI-compatible endpoint
+# typically does NOT understand omniRoute's auto/* virtual combos, so the
+# fallback chain must be concrete model names (e.g. "gemini-3.6-flash").
+# Empty/unset keeps the primary chain so the fallback still works for the
+# common case where the hosted endpoint mirrors omniRoute's model names.
+OMNIROUTE_FALLBACK_MODEL = os.getenv("OMNIROUTE_FALLBACK_MODEL", "").strip()
+OMNIROUTE_FALLBACK_MODEL_FALLBACKS = [
+    m.strip() for m in os.getenv("OMNIROUTE_FALLBACK_MODEL_FALLBACKS", "").split(",") if m.strip()
+]
+OMNIROUTE_FALLBACK_FAST_MODEL = os.getenv("OMNIROUTE_FALLBACK_FAST_MODEL", "").strip()
+OMNIROUTE_FALLBACK_FAST_MODEL_FALLBACKS = [
+    m.strip() for m in os.getenv("OMNIROUTE_FALLBACK_FAST_MODEL_FALLBACKS", "").split(",") if m.strip()
+]
+# Seconds a primary-endpoint probe may take before we declare omniRoute down.
+# Kept small: this probe runs once at startup, not per call.
+OMNIROUTE_FALLBACK_PROBE_SECONDS = float(os.getenv("OMNIROUTE_FALLBACK_PROBE_SECONDS", "5"))
+
 # System prompt attached to every model call. It steers BOTH the fix content
 # and the prose around it (PR bodies, comments, commit messages) towards a
 # plain human engineering note instead of machine-authored filler. Keep it
@@ -333,7 +367,57 @@ gh = _LazyClient(lambda: Github(auth=Auth.Token(GITHUB_TOKEN)))
 # OMNIROUTE_BASE_URL/OMNIROUTE_MODEL env) lets a cloud deployment point this
 # at a hosted OpenAI-compatible endpoint without editing code.
 LLM_API_KEY = os.getenv("LLM_API_KEY", "omniroute-local")
-ai_client = _LazyClient(lambda: OpenAI(api_key=LLM_API_KEY, base_url=OMNIROUTE_BASE_URL))
+
+
+def _endpoint_is_reachable(base_url: str, api_key: str, timeout: float = OMNIROUTE_FALLBACK_PROBE_SECONDS) -> bool:
+    """Cheap probe: does an OpenAI-compatible server answer at base_url?
+
+    Uses the OpenAI SDK client so the same auth/TLS path the real calls use,
+    but only lists models (no token spend, no provider involvement). A
+    reachable endpoint answers even with no/bogus credentials (omniRoute
+    returns 200 without auth; hosted gateways return 200/401 both of which
+    mean "a server is there"). Network errors/timeouts -> not reachable.
+    """
+    if not base_url:
+        return False
+    try:
+        client = OpenAI(api_key=api_key or "omniroute-local", base_url=base_url)
+        client.models.list(timeout=timeout)
+        return True
+    except Exception:
+        return False
+
+
+def _primary_unreachable() -> bool:
+    """True while a live omniRoute cannot be reached.
+
+    Probes are cached for OMNIROUTE_FALLBACK_PROBE_SECONDS so a healthy run
+    never wastes time probing before every call; a down gateway is re-probed
+    after that window so a fixer session lasting many minutes can pick the
+    gateway back up if it recovers mid-run. Each probe is a short models.list
+    call, not a model inference."""
+    now = time.monotonic()
+    last = getattr(_primary_unreachable, "_t", 0.0)
+    if now - last >= OMNIROUTE_FALLBACK_PROBE_SECONDS:
+        _primary_unreachable._t = now
+        _primary_unreachable._down = not _endpoint_is_reachable(OMNIROUTE_BASE_URL, LLM_API_KEY)
+    return getattr(_primary_unreachable, "_down", True)
+
+
+def _make_ai_client():
+    """Primary is omniRoute; fall back to a hosted endpoint only when both
+    configured AND omniRoute cannot be reached. This keeps every local run on
+    the free local gateway (~890 models, auto/* combos) while letting a cloud
+    deployment survive an offline PC."""
+    if OMNIROUTE_FALLBACK_BASE_URL and _primary_unreachable():
+        print(f"WARNING: omniRoute unreachable at {OMNIROUTE_BASE_URL}; "
+              f"falling back to hosted endpoint {OMNIROUTE_FALLBACK_BASE_URL}")
+        return OpenAI(api_key=OMNIROUTE_FALLBACK_API_KEY or "omniroute-local",
+                      base_url=OMNIROUTE_FALLBACK_BASE_URL)
+    return OpenAI(api_key=LLM_API_KEY, base_url=OMNIROUTE_BASE_URL)
+
+
+ai_client = _LazyClient(_make_ai_client)
 
 
 # ============================================================
@@ -2353,10 +2437,35 @@ FILES:
 # (across whatever providers you connected in its dashboard), so
 # the script just makes one call to its "best coding" auto-combo.
 # ============================================================
+def _using_fallback_endpoint() -> bool:
+    """True when the hosted fallback endpoint is active for this process.
+
+    The decision is made once and cached: ai_client also resolves once (the
+    _LazyClient proxy caches the built client), so caching here guarantees the
+    model chain always matches the endpoint the client actually talks to. A
+    *new* fixer invocation re-decides, so a recovered omniRoute is picked up
+    on the next run automatically."""
+    if not getattr(_using_fallback_endpoint, "_decided", False):
+        _using_fallback_endpoint._decided = True
+        _using_fallback_endpoint._fallback = bool(OMNIROUTE_FALLBACK_BASE_URL) and _primary_unreachable()
+    return _using_fallback_endpoint._fallback
+
+
 def _model_chain(fast: bool = False) -> list:
     """Combos to try, user's choice first, deduped, always non-empty. The fast
-    chain is used for cheap structured steps (classification, AI file pick)."""
-    if fast:
+    chain is used for cheap structured steps (classification, AI file pick).
+    On the hosted fallback endpoint the fallback model chain is used instead,
+    since hosted endpoints usually need concrete model names, not auto/*."""
+    if _using_fallback_endpoint():
+        if fast:
+            primary = OMNIROUTE_FALLBACK_FAST_MODEL or OMNIROUTE_FALLBACK_MODEL or OMNIROUTE_FAST_MODEL
+            fallbacks = (OMNIROUTE_FALLBACK_FAST_MODEL_FALLBACKS
+                         or OMNIROUTE_FALLBACK_MODEL_FALLBACKS
+                         or OMNIROUTE_FAST_MODEL_FALLBACKS)
+        else:
+            primary = OMNIROUTE_FALLBACK_MODEL or OMNIROUTE_MODEL
+            fallbacks = OMNIROUTE_FALLBACK_MODEL_FALLBACKS or OMNIROUTE_MODEL_FALLBACKS
+    elif fast:
         primary, fallbacks = OMNIROUTE_FAST_MODEL, OMNIROUTE_FAST_MODEL_FALLBACKS
     else:
         primary, fallbacks = OMNIROUTE_MODEL, OMNIROUTE_MODEL_FALLBACKS
@@ -2473,12 +2582,22 @@ def call_model(prompt: str, max_tokens: int = 4000, retry_variant: bool = False,
                     f"OmniRoute call failed ({e}). Is 'omniroute' running in another "
                     f"terminal, and do you have at least one provider connected in "
                     f"its dashboard at http://localhost:20128/dashboard?"
+                    + (
+                        f" (fallback endpoint {OMNIROUTE_FALLBACK_BASE_URL} was "
+                        f"configured but also failed)"
+                        if OMNIROUTE_FALLBACK_BASE_URL else ""
+                    )
                 )
     raise RuntimeError(
         f"OmniRoute call failed after exhausting {attempts} timeout-retries per combo "
         f"across all [{', '.join(chain)}] (last error: {last_error}). Is 'omniroute' "
         f"running in another terminal, and do you have at least one provider "
         f"connected in its dashboard at http://localhost:20128/dashboard?"
+        + (
+            f" (fallback endpoint {OMNIROUTE_FALLBACK_BASE_URL} was configured "
+            f"but also failed)"
+            if OMNIROUTE_FALLBACK_BASE_URL else ""
+        )
     )
 
 
