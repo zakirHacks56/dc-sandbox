@@ -5201,3 +5201,11 @@ oss_agent_v2.py: error: --force skips the confirmation on --finish and --new-con
 2026-09-25T12:42:30+00:00  izzywdev/FuzeFront: skipping (hit 2-lane/day budget)
 2026-09-25T12:42:30+00:00  no candidate found this tick
 2026-09-25T12:42:30+00:00  tick done
+2026-09-25T12:43:40+00:00  gate poller start (offset=746150288)
+2026-09-25T12:43:48+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T12:43:49+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-25T12:43:50+00:00  Rekin226/aquascope: skipping (hit 2-lane/day budget)
+2026-09-25T12:43:51+00:00  taranis-ai/taranis-ai: skipping (hit 2-lane/day budget)
+2026-09-25T12:43:52+00:00  izzywdev/FuzeFront: skipping (hit 2-lane/day budget)
+2026-09-25T12:43:52+00:00  no candidate found this tick
+2026-09-25T12:43:52+00:00  tick done
