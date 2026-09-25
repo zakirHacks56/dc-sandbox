@@ -231,6 +231,22 @@ def _sweep_stale(board, enabled_repos: set) -> int:
                 "decision": False,
                 "updated": rec.get("updated_at") or rec.get("updated") or util.now_utc(),
             }
+            # Make the sweep CONVERGE: persist the workflow record as ABANDONED
+            # too, so the next tick no longer sees an in-flight record here and
+            # stops re-abandoning the same lane every run. Before this, a stale
+            # no-PR lane was abandoned in the board forever but the record kept
+            # its old PAUSED state + old timestamp, so the sweep re-fired on the
+            # same lane each tick and ate the tick's single unit of work,
+            # starving the hunter. ABANDONED is not in _INFLIGHT_STATES, so the
+            # record will not be swept again. Keep the record's ORIGINAL
+            # updated/updated_at so the lane stays out of today's budget.
+            try:
+                rec["state"] = "ABANDONED"
+                rec["swept_at"] = util.now_utc()
+                util.save_json(rec_path, rec)
+            except Exception as sweep_err:
+                util.log(f"sweep: could not persist ABANDONED state for "
+                         f"{lane_key}: {sweep_err}")
     return closed
 
 
