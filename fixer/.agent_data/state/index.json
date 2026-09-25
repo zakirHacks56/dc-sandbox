@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-25T10:25:44",
+  "updated_at": "2026-09-25T10:54:43",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -316,6 +316,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-25T10:25:44"
+    },
+    "izzywdev/FuzeFront#1137": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1137,
+      "issue_title": "Portal shows 10 of 19 products working: applications-service migrations 013/014 are not taking effect in prod after a redeploy",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1137.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1137",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1137",
+      "conversation_id": "20260925T105227-614f541b",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-1137",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-25T10:54:43"
     }
   }
 }
