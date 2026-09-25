@@ -5169,3 +5169,19 @@ els-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code':
 2026-09-25T12:09:01+00:00  izzywdev/FuzeFront: skipping (hit 2-lane/day budget)
 2026-09-25T12:09:01+00:00  no candidate found this tick
 2026-09-25T12:09:01+00:00  tick done
+2026-09-25T12:26:20+00:00  gate poller start (offset=746150288)
+2026-09-25T12:26:29+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-25T12:26:29+00:00  sweep: closing stale own PR #33 for yunaremaia/sandbox-ffi-layers#21 (state=WAITING_FOR_FEEDBACK, age=3.0d)
+2026-09-25T12:26:29+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 21 --force -close  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-25T12:26:30+00:00  fixer exit=2
+--tail--
+[--new-conversation [ISSUE]] [--status [ISSUE]]
+                       [--list-workflows] [--conversation-info [ISSUE]]
+                       [--finish [ISSUE]] [--review-feedback [ISSUE]]
+                       [--reason REASON] [--force] [--force-workspace]
+                       [--transcript-lines TRANSCRIPT_LINES]
+oss_agent_v2.py: error: --force skips the confirmation on --finish and --new-conversation. To let a run discard its own workspace changes use --force-workspace.
+2026-09-25T12:26:30+00:00  sweep: fixer close of yunaremaia/sandbox-ffi-layers#21 -> exit2
+2026-09-25T12:26:30+00:00  sweep: resolved 1 stale in-flight lane(s)
+2026-09-25T12:26:30+00:00  budget: 0/2 PRs, 0/3 pending gates
+2026-09-25T12:26:30+00:00  tick done
