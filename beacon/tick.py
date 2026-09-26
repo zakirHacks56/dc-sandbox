@@ -303,6 +303,14 @@ def main() -> int:
                     }
                 acted = True
             else:
+                calls, fails = util.gh_api_stats()
+                if calls >= 3 and fails == calls:
+                    util.log(
+                        f"FATAL: every GitHub API call failed ({fails}/{calls}) -- "
+                        "the token (PR_PAT) is dead (revoked/expired?) and the "
+                        "machine is running blind. Sounding the alarm."
+                    )
+                    return 1
                 util.log("no candidate found this tick")
         else:
             util.log(f"budget: {prs_today}/{max_prs} PRs, {len(pending)}/{max_pending} pending gates")

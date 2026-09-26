@@ -79,12 +79,25 @@ def gh_api(method: str, path: str, payload=None):
     req = urllib.request.Request(
         url, data=data, method=method.upper(), headers=gh_headers(),
     )
+    _GH_API_ERRORS["calls"] += 1
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
             return json.loads(resp.read().decode("utf-8"))
     except Exception as exc:
         log(f"gh_api {method} {path} failed: {exc}")
+        _GH_API_ERRORS["fails"] += 1
         return None
+
+
+# Per-process counter so tick can distinguish "no issues found" (healthy) from
+# "every API call failed" (dead token) and raise the alarm instead of silently
+# doing nothing every ten minutes.
+_GH_API_ERRORS = {"calls": 0, "fails": 0}
+
+
+def gh_api_stats() -> tuple:
+    """(total calls, failed calls) for GitHub REST calls this process."""
+    return _GH_API_ERRORS["calls"], _GH_API_ERRORS["fails"]
 
 
 def gh_paged(path: str, pages: int = 3) -> list:
