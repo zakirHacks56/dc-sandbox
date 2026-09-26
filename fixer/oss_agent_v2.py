@@ -34,6 +34,16 @@ from dotenv import load_dotenv
 from github import Auth, Github
 from openai import OpenAI  # used to talk to OmniRoute's OpenAI-compatible endpoint
 
+# Solution-plan modules (W1/W11/W12/W14/W18/W19 -> llm_router;
+# W15/W16/W22/W10 -> guards; W4 -> repo_policy; W6 -> repo_map).
+# Imported at module level like session_store below: each is self-contained
+# and depends only on stdlib + the OpenAI SDK, so importing this file stays
+# side-effect-free (no token/network is touched by the import itself).
+import llm_router
+import guards
+from repo_policy import etiquette_ok
+import repo_map as _repo_map
+
 try:
     # PyGithub raises this on 403/429 secondary-rate-limit responses.
     from github import RateLimitExceededException
@@ -408,16 +418,17 @@ def _primary_unreachable() -> bool:
 
 
 def _make_ai_client():
-    """Primary is omniRoute; fall back to a hosted endpoint only when both
-    configured AND omniRoute cannot be reached. This keeps every local run on
-    the free local gateway (~890 models, auto/* combos) while letting a cloud
-    deployment survive an offline PC."""
-    if OMNIROUTE_FALLBACK_BASE_URL and _primary_unreachable():
-        print(f"WARNING: omniRoute unreachable at {OMNIROUTE_BASE_URL}; "
-              f"falling back to hosted endpoint {OMNIROUTE_FALLBACK_BASE_URL}")
-        return OpenAI(api_key=OMNIROUTE_FALLBACK_API_KEY or "omniroute-local",
-                      base_url=OMNIROUTE_FALLBACK_BASE_URL)
-    return OpenAI(api_key=OMNIROUTE_API_KEY, base_url=OMNIROUTE_BASE_URL)
+    """Route every model call through the tiered provider pool (llm_router).
+
+    The old client pinned the run to one endpoint plus one hosted fallback.
+    The router keeps the same call site (`proxy.chat.completions.create(...)`)
+    but walks a hierarchy of providers -- omniRoute gateway first, then direct
+    cloud providers (Gemini/Groq/OpenRouter/Mistral) when their keys are set,
+    then the opportunistic tier -- with a per-provider circuit breaker (W12),
+    per-call watchdog (W11) and a usage budget that is checked before each call
+    (W18). With no extra keys configured the pool is omniRoute-only, so local
+    behaviour is unchanged."""
+    return llm_router.build_completion_proxy()
 
 
 ai_client = _LazyClient(_make_ai_client)
@@ -1306,6 +1317,12 @@ def discover_valid_issue(repo_names: list, label: str = "good first issue"):
                 print(f"   ↳ Skipping unusable repo-list line: {stripped[:60]!r}")
             continue
         print(f"🔎 Scanning {repo_name} (labels: {', '.join(labels)})...")
+        # W4: etiquette preflight -- never hunt, claim or burn tokens on a repo
+        # whose own docs say external/automated PRs are unwelcome.
+        policy_reason = etiquette_ok(repo_name, gh)
+        if policy_reason:
+            print(f"   ↳ Skipping {repo_name} (etiquette preflight: {policy_reason})")
+            continue
         first_failure = None
         any_query_ran = False
         for lbl in labels:
@@ -4952,6 +4969,14 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
     state = load_state()
     check_pr_limits(state, repo_name)
 
+    # W4: etiquette preflight before any token is spent on this repo.
+    policy_reason = etiquette_ok(repo_name, gh)
+    if policy_reason:
+        print(f"❌ Repo {repo_name} fails etiquette preflight ({policy_reason}). Skipping.")
+        guards.abandon({"repo": repo_name, "issue": issue_number, "language": "unknown"},
+                       reason="etiquette_refused", notes=f"preflight: {policy_reason}")
+        return
+
     repo = gh.get_repo(repo_name)
     issue = repo.get_issue(number=issue_number)
     print(f"Step 1-2: checking #{issue.number} - {issue.title}")
@@ -5082,6 +5107,10 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
     # allowed more attempts, wider context and a mandatory plan-first step
     # instead of the flat 5-attempt box.
     budget = escalation_budget(classification["kind"], effective_difficulty)
+    # W9: hard-flagged issues may escalate to the reserved copilot tier when a
+    # COPILOT_API_KEY is configured (e.g. GitHub Copilot Student). Opt-in: with
+    # no such key the flag changes nothing and the free pool keeps serving.
+    llm_router.set_escalation(effective_difficulty == "hard")
     labels = classification.get("labels") or []
     relevant_files = find_relevant_files(
         repo_dir, issue.title, issue.body,
@@ -5141,9 +5170,17 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
     grounding = ""
     if budget["plan_first"] or vague:
         grounding = collect_codebase_facts(repo_dir, issue, relevant_files)
+    # W6: structural repo map rides into the grounding for EVERY attempt, so the
+    # model reasons from the real shape of the repo (files, functions, imports)
+    # instead of a raw dump. Cheap: capped by REPO_MAP_MAX_FILES/MAX_CHARS.
+    repo_map_text = ""
+    try:
+        repo_map_text = _repo_map.build_repo_map(repo_dir).render(max_chars=4000)
+    except Exception:  # noqa: BLE001 - a map is a bonus, never a blocker
+        repo_map_text = ""
     # Reverse-dependency facts ride in with the grounding so EVERY fix attempt
     # sees who depends on the files it is about to touch.
-    grounding = "\n".join([g for g in (grounding, impact_block) if g]).strip()
+    grounding = "\n".join([g for g in (grounding, repo_map_text, impact_block) if g]).strip()
     plan = ""
     if budget["plan_first"]:
         print(f"🗺️  {'Hard' if effective_difficulty == 'hard' else 'Scoped'} task -- "
@@ -5164,9 +5201,41 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
     previous_error_signature = None
     failure_history = []
     test_layout = describe_test_layout(repo_dir)
+    # W15: this issue gets a hard ceiling independent of the per-repo-per-day
+    # caps -- tokens, iterations and wall-clock. W18's provider-usage counters
+    # supply the token side; iterations and time are measured around the loop.
     attempts = budget["attempts"]
+    issue_budget = guards.IssueBudget(
+        max_iterations=attempts,
+        max_tokens=int(os.getenv("ISSUE_TOKEN_BUDGET", guards.DEFAULT_TOKEN_BUDGET)),
+        max_wall_clock_seconds=float(os.getenv("ISSUE_WALL_CLOCK_SECONDS",
+                                               guards.DEFAULT_WALL_CLOCK_SECONDS)),
+    )
+    start_tokens = guards.total_spent_tokens()
     for attempt in range(1, attempts + 1):
         print(f"\n--- Attempt {attempt}/{attempts} ---")
+        spent_delta = guards.total_spent_tokens() - start_tokens
+        issue_budget.tally(tokens=max(0, spent_delta - issue_budget.tokens_spent),
+                          iterations=1)
+        # W10: checkpoint after every sub-step so a crash resumes, never loses.
+        guards.checkpoint(repo_name, issue_number, {
+            "attempt": attempt, "state": record.get("state"),
+            "tokens_spent": issue_budget.tokens_spent,
+            "iterations": issue_budget.iterations,
+        })
+        if issue_budget.exceeded():
+            reason = issue_budget.exceeded()
+            guards.abandon({"repo": repo_name, "issue": issue_number,
+                            "language": detected["language"]}, reason, issue_budget)
+            guards.metrics(record, "abandoned",
+                           issue_budget.tokens_spent, issue_budget.iterations,
+                           notes=reason)
+            print(f"🧮 Issue budget exceeded ({reason}) -- abandoning this issue.")
+            log_experience(
+                repo_name, issue, detected["language"], "failed",
+                error_category="D", notes=reason,
+            )
+            return
         try:
             # On a RE-RUN of a failed one-shot the transcript already holds the
             # previous attempt's turns, so the model remembers them. The
@@ -7332,6 +7401,24 @@ def _dispatch_session_command(parser, args, command: str) -> int:
     return 1 if outcome in _INEFFECTIVE else 0
 
 
+def _guarded_call(stage: str, repo: str, issue: int, fn) -> str:
+    """W16: run one per-issue unit inside a boundary that records, never raises.
+
+    An exception becomes a data/failures.jsonl row and a metrics row; the
+    caller (tick.py's commit-back / gate-sync / hunt) keeps going. Returns the
+    call's outcome string on success, or `error:<type>` on failure."""
+    start_tokens = guards.total_spent_tokens()
+    try:
+        outcome = fn()
+    except Exception as exc:  # noqa: BLE001 - isolation is the entire point
+        guards.log_failure(stage, exc, issue={"repo": repo, "issue": issue})
+        outcome = f"error:{type(exc).__name__}"
+    guards.metrics({"repo": repo, "issue": issue},
+                   str(outcome) if outcome else "noop",
+                   guards.total_spent_tokens() - start_tokens)
+    return outcome if outcome else "done"
+
+
 def _dispatch_workflow_command(parser, args) -> int:
     """The original three commands, unchanged in behaviour.
 
@@ -7342,12 +7429,15 @@ def _dispatch_workflow_command(parser, args) -> int:
         # Read-only investigation: --repo is enough (repo-wide), --issue narrows
         # it to one issue; --scope gives a topic when no issue is given.
         _start_run_log(f"{args.repo.replace('/', '-')}_analyze")
-        path = investigate_report(
-            args.repo,
-            issue_number=args.issue,
-            test_command=args.test_command,
-            scope_text=args.scope,
-            task_override=args.task_type,
+        path = _guarded_call(
+            f"analyze:{args.repo}", args.repo, args.issue or 0,
+            lambda: investigate_report(
+                args.repo,
+                issue_number=args.issue,
+                test_command=args.test_command,
+                scope_text=args.scope,
+                task_override=args.task_type,
+            ),
         )
         print("\n🛑 Analysis complete. Nothing on GitHub or in the workflow store was changed.")
         return 0
@@ -7379,9 +7469,12 @@ def _dispatch_workflow_command(parser, args) -> int:
         return 0
 
     if args.conversation:
-        outcome = run_conversation(
-            repo, issue_num, args.test_command,
-            force_finalize=args.finalize, force_workspace=args.force_workspace,
+        outcome = _guarded_call(
+            f"conversation:{repo}", repo, issue_num,
+            lambda: run_conversation(
+                repo, issue_num, args.test_command,
+                force_finalize=args.finalize, force_workspace=args.force_workspace,
+            ),
         )
         print(f"\n🛑 Conversation round finished ({outcome}). Shutting down.")
         return 0
@@ -7408,7 +7501,9 @@ def _dispatch_workflow_command(parser, args) -> int:
         )
         return 0
 
-    outcome = main(repo, issue_num, args.test_command, force_workspace=args.force_workspace)
+    outcome = _guarded_call(f"main:{repo}", repo, issue_num, lambda: main(
+        repo, issue_num, args.test_command, force_workspace=args.force_workspace
+    ))
     if outcome == "draft_pr":
         print("\n🛑 Draft PR is up -- shutting down here by design (nothing runs unattended).")
     return 0

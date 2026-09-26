@@ -1,58 +1,59 @@
 {
-  "python": {
-    "markers": ["pyproject.toml", "requirements.txt", "setup.py"],
-    "extensions": [".py"],
-    "install_cmd": ["pip", "install", "-e", "."],
-    "test_cmd": "pytest",
-    "lint_cmd": "ruff check ."
+  "purpose": "Language capability map (W5). A language is only trusted to run real issues after the validation harness has proven it on synthetic fixtures. status: proven | untested. test_cmd/build_cmd are the defaults the harness and the fixer's detect_language_and_commands use; env_guarded means the harness needs that toolchain installed to run.",
+  "languages": {
+    "python": {
+      "status": "proven",
+      "test_cmd": "pytest",
+      "build_cmd": "",
+      "env_guarded": false,
+      "notes": "Only language genuinely exercised in production so far. Validation harness must re-prove it in CI before it counts again."
+    },
+    "javascript": {
+      "status": "proven",
+      "test_cmd": "npm test",
+      "build_cmd": "npm run build",
+      "env_guarded": true,
+      "notes": "Runs on the aquascope target; node toolchain needed."
+    },
+    "typescript": {
+      "status": "untested",
+      "test_cmd": "npm test",
+      "build_cmd": "npm run build",
+      "env_guarded": true,
+      "notes": "Configured in targets but no synthetic-fixture validation yet."
+    },
+    "java": {
+      "status": "untested",
+      "test_cmd": "mvn test",
+      "build_cmd": "mvn compile",
+      "env_guarded": true,
+      "notes": "Never run against a real issue; must pass the harness before enabling as a hunt target."
+    },
+    "go": {
+      "status": "untested",
+      "test_cmd": "go test ./...",
+      "build_cmd": "go build ./...",
+      "env_guarded": true,
+      "notes": "Never run against a real issue; must pass the harness before enabling as a hunt target."
+    },
+    "ruby": {
+      "status": "untested",
+      "test_cmd": "bundle exec rspec",
+      "build_cmd": "bundle exec rubocop",
+      "env_guarded": true,
+      "notes": "Never run against a real issue; must pass the harness before enabling as a hunt target."
+    },
+    "rust": {
+      "status": "untested",
+      "test_cmd": "cargo test",
+      "build_cmd": "cargo build",
+      "env_guarded": true,
+      "notes": "Never run against a real issue; must pass the harness before enabling as a hunt target."
+    }
   },
-  "javascript": {
-    "markers": ["package.json"],
-    "extensions": [".js", ".jsx"],
-    "install_cmd": ["npm", "install"],
-    "test_cmd": "npm test",
-    "lint_cmd": "npx eslint ."
-  },
-  "typescript": {
-    "markers": ["tsconfig.json"],
-    "extensions": [".ts", ".tsx"],
-    "install_cmd": ["npm", "install"],
-    "test_cmd": "npm test",
-    "lint_cmd": "npx eslint ."
-  },
-  "java_maven": {
-    "markers": ["pom.xml"],
-    "extensions": [".java"],
-    "install_cmd": ["mvn", "install", "-DskipTests"],
-    "test_cmd": "mvn test",
-    "lint_cmd": null
-  },
-  "java_gradle": {
-    "markers": ["build.gradle", "build.gradle.kts"],
-    "extensions": [".java", ".kt"],
-    "install_cmd": ["gradle", "build", "-x", "test"],
-    "test_cmd": "gradle test",
-    "lint_cmd": null
-  },
-  "go": {
-    "markers": ["go.mod"],
-    "extensions": [".go"],
-    "install_cmd": ["go", "mod", "download"],
-    "test_cmd": "go test ./...",
-    "lint_cmd": null
-  },
-  "ruby": {
-    "markers": ["Gemfile"],
-    "extensions": [".rb"],
-    "install_cmd": ["bundle", "install"],
-    "test_cmd": "bundle exec rspec",
-    "lint_cmd": null
-  },
-  "rust": {
-    "markers": ["Cargo.toml"],
-    "extensions": [".rs"],
-    "install_cmd": ["cargo", "build"],
-    "test_cmd": "cargo test",
-    "lint_cmd": "cargo clippy"
+  "rules": {
+    "enable_only_if_proven": true,
+    "harness_fixtures_per_language": 3,
+    "harness_command": "python fixer/validate_language.py --language <lang>"
   }
 }

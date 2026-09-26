@@ -3,6 +3,7 @@ on:
   schedule:
     - cron: "*/10 * * * *"
     - cron: "2-59/10 * * * *"
+    - cron: "0 17 * * *"
   workflow_dispatch:
 
 permissions:
@@ -23,6 +24,22 @@ jobs:
       LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
       OMNIROUTE_API_KEY: ${{ secrets.OMNIROUTE_API_KEY }}
       OMNIROUTE_BASE_URL: ${{ secrets.OMNIROUTE_BASE_URL }}
+      # W1/W14: direct cloud providers (opt-in). Each becomes a tier in
+      # fixer/llm_router.py the moment its secret is set -- omniRoute stays the
+      # first provider, these are the failover ladder. Empty means skipped, so
+      # a machine without them is byte-for-byte the omniRoute-only path.
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+      HETZNER_API_KEY: ${{ secrets.HETZNER_API_KEY }}
+      LLM7_API_KEY: ${{ secrets.LLM7_API_KEY }}
+      # W9: reserved escalation tier for hard-flagged issues (opt-in).
+      COPILOT_API_KEY: ${{ secrets.COPILOT_API_KEY }}
+      COPILOT_BASE_URL: ${{ secrets.COPILOT_BASE_URL }}
+      COPILOT_MODEL: ${{ secrets.COPILOT_MODEL }}
+      # W18: daily token ceiling across all providers (hard safety net).
+      GLOBAL_DAILY_TOKEN_BUDGET: ${{ secrets.GLOBAL_DAILY_TOKEN_BUDGET }}
       # Model chain: the fixer defaults to the HARD-CODED OmniRoute auto/* combos
       # (auto/best-coding + auto/best-chat,auto/best-reasoning,auto/best-fast;
       # fast auto/best-chat). That default is correct when OMNIROUTE_BASE_URL
@@ -62,6 +79,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: fixer/requirements.txt
       - name: install fixer dependencies
         run: pip install -q -r fixer/requirements.txt
       - name: poll gates
@@ -104,3 +123,21 @@ jobs:
               except Exception:
                   continue
           EOF
+  # W17: one daily digest of per-issue failures instead of pinging Telegram on
+  # every routine failure. Runs once a day (17:00 UTC) and reads the
+  # failures/metrics JSONL the fixer committed during the tick runs.
+  digest:
+    if: github.event_name == 'schedule' && github.event.schedule == '0 17 * * *' && always()
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+          fetch-depth: 1
+      - name: daily failure digest
+        run: python beacon/digest.py --send
