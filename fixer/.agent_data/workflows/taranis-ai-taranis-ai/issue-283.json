@@ -5,7 +5,7 @@
   "issue_title": "Collector: On preview of source, show message if no items were collected",
   "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/283",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-283",
   "base_branch": "master",
@@ -75,5 +75,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo taranis-ai/taranis-ai --resume 283",
     "python oss_agent_v2.py --repo taranis-ai/taranis-ai --conversation 283"
-  ]
+  ],
+  "swept_at": "2026-09-26T21:30:23+00:00"
 }
