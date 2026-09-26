@@ -11431,3 +11431,42 @@ it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code':
 2026-09-26T12:40:32+00:00  izzywdev/FuzeFront: no eligible open issue (unlabeled hunt)
 2026-09-26T12:40:32+00:00  no candidate found this tick
 2026-09-26T12:40:32+00:00  tick done
+2026-09-26T12:51:48+00:00  gate poller start (offset=746150288)
+2026-09-26T12:51:57+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-26T12:51:57+00:00  gh_api GET /user failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:57+00:00  gh_api GET /repos/yunaremaia/sandbox-ffi-layers failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:57+00:00  gh_api GET /repos/yunaremaia/sandbox-ffi-layers failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:57+00:00  gh_api GET /repos/yunaremaia/sandbox-ffi-layers/issues?state=open&labels=good%20first%20issue&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:57+00:00  yunaremaia/sandbox-ffi-layers: no eligible issue under label 'good first issue'
+2026-09-26T12:51:58+00:00  gh_api GET /repos/yunaremaia/sandbox-ffi-layers/issues?state=open&labels=enhancement&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:58+00:00  yunaremaia/sandbox-ffi-layers: no eligible issue under label 'enhancement'
+2026-09-26T12:51:58+00:00  gh_api GET /repos/yunaremaia/sandbox-ffi-layers/issues?state=open&labels=bug&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:58+00:00  yunaremaia/sandbox-ffi-layers: no eligible issue under label 'bug'
+2026-09-26T12:51:58+00:00  gh_api GET /repos/Rekin226/aquascope failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:58+00:00  gh_api GET /repos/Rekin226/aquascope failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:58+00:00  gh_api GET /repos/Rekin226/aquascope/issues?state=open&labels=good%20first%20issue&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:58+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-26T12:51:58+00:00  gh_api GET /repos/Rekin226/aquascope/issues?state=open&labels=help%20wanted&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:58+00:00  Rekin226/aquascope: no eligible issue under label 'help wanted'
+2026-09-26T12:51:59+00:00  gh_api GET /repos/Rekin226/aquascope/issues?state=open&labels=bug&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:59+00:00  Rekin226/aquascope: no eligible issue under label 'bug'
+2026-09-26T12:51:59+00:00  gh_api GET /repos/Rekin226/aquascope/issues?state=open&labels=testing&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:59+00:00  Rekin226/aquascope: no eligible issue under label 'testing'
+2026-09-26T12:51:59+00:00  gh_api GET /repos/Rekin226/aquascope/issues?state=open&labels=enhancement&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:59+00:00  Rekin226/aquascope: no eligible issue under label 'enhancement'
+2026-09-26T12:51:59+00:00  gh_api GET /repos/taranis-ai/taranis-ai failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:59+00:00  gh_api GET /repos/taranis-ai/taranis-ai failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:59+00:00  gh_api GET /repos/taranis-ai/taranis-ai/issues?state=open&labels=good%20first%20issue&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:51:59+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-26T12:52:00+00:00  gh_api GET /repos/taranis-ai/taranis-ai/issues?state=open&labels=help%20wanted&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:52:00+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-26T12:52:00+00:00  gh_api GET /repos/taranis-ai/taranis-ai/issues?state=open&labels=bug&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:52:00+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-26T12:52:00+00:00  gh_api GET /repos/taranis-ai/taranis-ai/issues?state=open&labels=enhancement&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:52:00+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-26T12:52:00+00:00  gh_api GET /repos/izzywdev/FuzeFront failed: HTTP Error 401: Unauthorized
+2026-09-26T12:52:00+00:00  gh_api GET /repos/izzywdev/FuzeFront failed: HTTP Error 401: Unauthorized
+2026-09-26T12:52:00+00:00  gh_api GET /repos/izzywdev/FuzeFront/issues?state=open&per_page=100&page=1 failed: HTTP Error 401: Unauthorized
+2026-09-26T12:52:00+00:00  izzywdev/FuzeFront: no eligible open issue (unlabeled hunt)
+2026-09-26T12:52:00+00:00  no candidate found this tick
+2026-09-26T12:52:00+00:00  tick done
