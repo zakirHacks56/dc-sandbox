@@ -16,6 +16,6 @@ fixer/.agent_data/checkpoints/
 fixer/repo_skip_list.json
 data/log.txt
 data/manual_offset.json
-data/provider_usage.json
-data/failures.jsonl
-data/metrics.jsonl
+# NOTE: data/failures.jsonl, data/metrics.jsonl and data/provider_usage.json
+# are deliberately NOT ignored: the tick commits them via `git add -A` so the
+# daily digest job and the W18 daily budget ledger survive across jobs/runs.

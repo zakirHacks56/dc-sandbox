@@ -172,7 +172,7 @@ def load_providers(env: Optional[dict] = None) -> list[Provider]:
                            "https://generativelanguage.googleapis.com/v1beta/openai").strip(),
             api_key=gemini,
             tier="primary",
-            default_model=(e.get("GEMINI_MODEL") or "gemini-2.0-flash").strip(),
+            default_model=(e.get("GEMINI_MODEL") or "gemini-2.5-flash").strip(),
             models=[m.strip() for m in (e.get("GEMINI_MODELS") or "").split(",") if m.strip()],
         ))
 
@@ -194,7 +194,7 @@ def load_providers(env: Optional[dict] = None) -> list[Provider]:
             api_key=openrouter,
             tier="tertiary",
             default_model=(e.get("OPENROUTER_MODEL") or
-                           "google/gemini-2.0-flash-lite:free").strip(),
+                           "meta-llama/llama-3.1-8b-instruct:free").strip(),
         ))
 
     mistral = _key("MISTRAL_API_KEY")
@@ -223,12 +223,15 @@ def load_providers(env: Optional[dict] = None) -> list[Provider]:
             ))
 
     # W9: escalation tier, opt-in (e.g. GitHub Copilot Student access).
+    # NOTE: the SDK appends `/chat/completions` to base_url, so the default
+    # is the API root (not the full path); Copilot also requires the
+    # Editor-Version headers or it answers 400, which complete() adds for us.
     copilot = _key("COPILOT_API_KEY")
     if copilot:
         providers.append(Provider(
             name="copilot",
             base_url=(e.get("COPILOT_BASE_URL") or
-                      "https://api.githubcopilot.com/chat/completions").strip(),
+                      "https://api.githubcopilot.com/").strip(),
             api_key=copilot,
             tier="escalation",
             default_model=(e.get("COPILOT_MODEL") or "claude-sonnet-4").strip(),
@@ -421,7 +424,16 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
             last_error = ProviderBudgetExceeded(f"{provider.name}: daily budget spent")
             continue
         resolved = resolve_model(provider, model)
-        client = OpenAI(api_key=provider.api_key, base_url=provider.base_url)
+        client_kwargs: dict = {"api_key": provider.api_key, "base_url": provider.base_url}
+        if provider.name == "copilot":
+            # Copilot's /chat/completions rejects requests that lack the
+            # editor integration metadata (400 otherwise).
+            client_kwargs["default_headers"] = {
+                "Copilot-Integration-Id": "oss-agent",
+                "Editor-Version": "oss-agent-1.0",
+                "Editor-Plugin-Version": "copilot-chat-1.0",
+            }
+        client = OpenAI(**client_kwargs)
         started = time.monotonic()
         try:
             response = call_with_watchdog(
