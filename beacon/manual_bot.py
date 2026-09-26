@@ -13,9 +13,21 @@ Design:
         OMNIROUTE_TIMEOUT / OMNIROUTE_STALL_SECONDS  (optional tuning)
   * Allowed chats default to TELEGRAM_CHAT_ID / TELEGRAM_ALLOWED_IDS.
   * Commands:
+        /hunt                       pick the next candidate via the SAME issue
+                                    hunter the cloud tick uses, then solve it
         /run <owner/repo> <issue>   solve an issue -> draft PR
-        /status                     board + gates + workflows summary
+        /conversation <owner/repo> <issue>   one maintainer-feedback round
+        /finalize <owner/repo> <issue>  arm finalization (human gate stays)
+        /resume [issue]             restore a saved workflow and continue
+        /close <owner/repo> <issue> close the draft PR + un-claim
+        /leave [issue]              park the workflow locally
+        /status [issue]             board + gates (no issue) / one workflow
         /gates                      what needs a human decision right now
+        /list                       table of every tracked workflow
+        /conv-info [issue]          transcript + round history dump
+        /review [issue]             read-only GitHub maintainer comments
+        /finish [issue]             mark workflow finished locally
+        /stop                       kill the active fixer run
         /help                       this text
   * Backend per /run: if OmniRoute is up at localhost:20128 => use it.
     Otherwise fall back to OpenRouter (free-tier chain; needs LLM_API_KEY).
@@ -26,9 +38,11 @@ Design:
 
 stdlib-only on purpose so it runs on a bare box with no pip install.
 """
+import argparse
 import json
 import os
 import re
+import shlex
 import subprocess
 import sys
 import threading
@@ -38,6 +52,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import beacon_util as util  # noqa: E402
+import hunter_stage  # noqa: E402
 
 BOT_TOKEN = os.getenv("MANUAL_BOT_TOKEN") or os.getenv("TELEGRAM_BOT_TOKEN", "")
 ALLOWED = [
@@ -47,7 +62,9 @@ ALLOWED = [
 ]
 OFFSET_FILE = util.DATA / "manual_offset.json"
 LOCAL_GATEWAY = os.getenv("OMNIROUTE_LOCAL_URL", "http://localhost:20128")
-FALLBACK_BASE = os.getenv("OMNIROUTE_BASE_URL", "https://openrouter.ai")
+FALLBACK_BASE = os.getenv(
+    "OMNIROUTE_BASE_URL", "https://openrouter.ai/api/v1"
+)
 
 _active = {"proc": None, "lock": threading.Lock(), "label": None}
 
@@ -103,17 +120,42 @@ def _sentinel_chat() -> str:
 # --------------------------------------------------------------- commands
 def _cmd_help() -> str:
     return (
-        "dc-sandbox manual bot\n"
-        "/run <owner/repo> <issue>  -> solve to a draft PR\n"
-        "    (uses local OmniRoute if it is up, else OpenRouter free chain)\n"
-        "/status                    -> board + budget + lanes\n"
-        "/gates                     -> decisions waiting on a human\n"
-        "/help                      -> this text\n"
-        "Draft PRs wait for your Approve/Decline button tap."
+        "dc-sandbox manual bot -- full control of the fixer from Telegram\n\n"
+        "/hunt -- pick the next candidate via the same issue hunter the cloud "
+        "tick uses, then solve it to a draft PR\n"
+        "/run <owner/repo> <issue> -- solve an issue -> draft PR\n"
+        "/conversation <owner/repo> <issue> -- one maintainer-feedback round "
+        "on the existing draft PR\n"
+        "/finalize <owner/repo> <issue> -- arm finalization (final green test "
+        "+ human approval still required)\n"
+        "/resume [issue] -- restore a saved workflow and continue\n"
+        "/close <owner/repo> <issue> -- close the draft PR + un-claim issue\n"
+        "/leave [issue] -- park workflow locally\n"
+        "/status [issue] -- board/gates, or one workflow's report\n"
+        "/gates -- what needs a human decision right now\n"
+        "/list -- table of every tracked workflow\n"
+        "/conv-info [issue] -- transcript + round history\n"
+        "/review [issue] -- read-only GitHub comments/reviews\n"
+        "/finish [issue] -- mark workflow finished locally\n"
+        "/stop -- kill the active fixer run\n\n"
+        "Backend: local OmniRoute at localhost:20128 if up, else the "
+        "OpenRouter free chain (needs LLM_API_KEY in manual.env)."
     )
 
 
-def _cmd_status() -> str:
+def _hunt_candidate() -> tuple | None:
+    """Same pick the cloud tick makes: targets.json + board.json through
+    hunter_stage.find_candidate(). Returns (repo, issue) or None."""
+    conf = util.load_json(util.CONFIG, {})
+    if not conf:
+        return None
+    board = util.load_json(util.BOARD, {"date": util.today_utc()})
+    return hunter_stage.find_candidate(conf, board)
+
+
+def _cmd_status(issue=None) -> str:
+    if issue is not None:
+        return _run_readonly(["--status", str(issue)]) or "(no output)"
     board = util.load_json(util.BOARD, {})
     lines = [
         f"date={board.get('date')}  prs_today={board.get('prs_today', 0)}",
@@ -128,6 +170,8 @@ def _cmd_status() -> str:
         lines.append("lanes: none")
     pending = _pending_keys()
     lines.append(f"pending gates: {len(pending)}")
+    if pending:
+        lines.append("  " + ", ".join(pending[:10]))
     return "\n".join(lines)
 
 
@@ -151,30 +195,87 @@ def _pending_keys() -> list:
     return sorted(p.stem for p in util.GATES.glob("*.pending"))
 
 
+def _repo_for_issue(issue: str) -> str:
+    """Resolve `owner/repo` for a bare issue number from the fixer's saved
+    workflow index, so /resume N works without typing the repo."""
+    index = util.load_json(util.FIXER / ".agent_data" / "state" / "index.json", {})
+    workflows = index.get("workflows", {}) or {}
+    for key, rec in workflows.items():
+        if str(rec.get("issue")) == str(issue):
+            return rec.get("repo") or ""
+        key_issue = key.rsplit("#", 1)[-1] if "#" in key else ""
+        if key_issue == str(issue) and rec.get("repo"):
+            return rec["repo"]
+    return ""
+
+
 def _gateway_up() -> str:
-    """Return the base URL to use. Prefers a live local OmniRoute gateway,
-    else the fallback provider (OpenRouter). Probe is short and non-fatal."""
-    probe = f"{LOCAL_GATEWAY}/v1/models"
-    try:
-        req = urllib.request.Request(probe, method="GET")
-        with urllib.request.urlopen(req, timeout=3) as resp:
-            if resp.status == 200:
-                return f"{LOCAL_GATEWAY}/v1"
-    except Exception:
-        pass
+    """Return the base URL that can ACTUALLY generate text.
+
+    A gateway that answers /v1/models with 200 but has no provider credentials
+    connected (``No active credentials for provider``) would make the fixer
+    spin through its whole fallback chain for 40+ minutes, so the probe must
+    be a real 1-token chat completion, not a reachability ping. Non-fatal:
+    on any failure we return the fallback provider base instead.
+    The probed models are the ones the fixer will actually use (auto/* combos
+    served by the gateway, never valid on the OpenRouter fallback), tried
+    with a generous timeout because the first combo the gateway routes can be
+    slow to warm up."""
+    import json as _json
+
+    for model in ("auto/best-chat", "auto/best-coding"):
+        payload = _json.dumps({
+            "model": model,
+            "messages": [{"role": "user", "content": "hi"}],
+            "max_tokens": 1,
+        }).encode()
+        try:
+            req = urllib.request.Request(
+                f"{LOCAL_GATEWAY}/v1/chat/completions",
+                data=payload, headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=25) as resp:
+                if resp.status in (200, 201):
+                    util.log(f"gateway probe OK via {model}")
+                    return f"{LOCAL_GATEWAY}/v1"
+        except Exception as exc:
+            util.log(f"gateway probe {model} failed: {exc}")
+            continue
     return FALLBACK_BASE
 
 
-def _spawn_fixer(repo_name: str, issue_number: int, chat_id: str) -> None:
-    base = _gateway_up()
-    args = ["--repo", repo_name, "--issue", str(issue_number), "--gate-sync"]
+def _fixer_env(base: str, extra=None) -> dict:
     env = util.env_for_fixer({
         "GATE_AUTO": "0",  # manual mode: always wait for a button tap
         "OMNIROUTE_BASE_URL": base,
         "BEACON_LOG": str(util.DATA / "log-manual.txt"),
     })
-    util.log(f"manual /run {repo_name}#{issue_number} via {base}")
-    _send(chat_id, f"starting {repo_name}#{issue_number} via {base} ...")
+    if extra:
+        env.update(extra)
+    return env
+
+
+def _spawn_fixer(args: list, chat_id: str) -> None:
+    base = _gateway_up()
+    if base == FALLBACK_BASE and not (
+        os.getenv("OMNIROUTE_API_KEY") or os.getenv("LLM_API_KEY")
+        or os.getenv("OPENROUTER_API_KEY")
+    ):
+        _send(
+            chat_id,
+            "no working LLM backend: the local gateway at "
+            f"{LOCAL_GATEWAY} has no provider credentials connected, and no "
+            "OMNIROUTE_API_KEY/LLM_API_KEY is set for the fallback. "
+            "Connect a provider at http://localhost:20128/dashboard (or paste "
+            "a key into manual.env), then retry. Not starting a run that "
+            "would spin forever.",
+        )
+        return
+    env = _fixer_env(base)
+    label = " ".join(args)
+    util.log(f"manual fixer: {label} via {base}")
+    _send(chat_id, f"starting fixer `{label}` via {base} ...")
     cmd = [sys.executable, str(util.FIXER_SCRIPT), *args]
     with _active["lock"]:
         if _active["proc"] is not None and _active["proc"].poll() is None:
@@ -186,14 +287,33 @@ def _spawn_fixer(repo_name: str, issue_number: int, chat_id: str) -> None:
             text=True, encoding="utf-8", errors="replace",
         )
         _active["proc"] = proc
-        _active["label"] = f"{repo_name}#{issue_number}"
+        _active["label"] = label
     util.log(f"fixer pid={proc.pid} spawned")
     _send(chat_id, f"fixer pid={proc.pid} started; I will report when it finishes.")
 
 
-def _run_thread(repo_name: str, issue_number: int, chat_id: str) -> None:
+def _run_readonly(args: list, timeout: int = 180) -> str:
+    """Run a fixer read-only command (--status/--list-workflows/--conv-info/
+    --review-feedback) synchronously and return its output. Safe to run while
+    another fixer is active: these commands take no locks and write nothing."""
+    base = _gateway_up()
+    env = _fixer_env(base)
     try:
-        _spawn_fixer(repo_name, issue_number, chat_id)
+        proc = subprocess.run(
+            [sys.executable, str(util.FIXER_SCRIPT), *args],
+            cwd=str(util.FIXER), env=env, capture_output=True,
+            text=True, encoding="utf-8", errors="replace", timeout=timeout,
+        )
+    except subprocess.TimeoutExpired:
+        return f"(read-only command timed out after {timeout}s)"
+    out = (proc.stdout or "").strip()
+    err = (proc.stderr or "").strip()
+    return out or err or f"(exit {proc.returncode}, no output)"
+
+
+def _run_thread(args: list, chat_id: str) -> None:
+    try:
+        _spawn_fixer(args, chat_id)
     except Exception as exc:
         _send(chat_id, f"failed to start fixer: {exc}")
         return
@@ -266,7 +386,9 @@ def _handle_callback(query: dict) -> bool:
     if repo and issue is not None:
         target_chat = chat or _sentinel_chat()
         threading.Thread(
-            target=_run_thread, args=(repo, int(issue), target_chat), daemon=True
+            target=_run_thread,
+            args=(["--repo", repo, "--issue", str(issue), "--gate-sync"], target_chat),
+            daemon=True,
         ).start()
     return True
 
@@ -274,20 +396,90 @@ def _handle_callback(query: dict) -> bool:
 def _handle_text(chat_id: str, text: str) -> None:
     text = (text or "").strip()
     low = text.lower()
-    if low.startswith("/run"):
-        m = re.match(r"^/run\s+([\w.-]+/[\w.-]+)\s+(\d+)\b", text)
+    starts = low.split()
+    cmd = starts[0] if starts else ""
+    rest = text[len(cmd):].strip() if cmd else ""
+
+    if cmd == "/run":
+        m = re.match(r"^([\w.-]+/[\w.-]+)\s+(\d+)\b", rest)
         if not m:
             _send(chat_id, "usage: /run <owner/repo> <issue>")
             return
-        repo_name, issue_number = m.group(1), int(m.group(2))
+        args = ["--repo", m.group(1), "--issue", m.group(2), "--gate-sync"]
+        threading.Thread(target=_run_thread, args=(args, chat_id), daemon=True).start()
+    elif cmd == "/hunt":
+        try:
+            candidate = _hunt_candidate()
+        except Exception as exc:
+            _send(chat_id, f"hunt failed: {exc}")
+            return
+        if not candidate:
+            _send(chat_id, "hunter found no candidate right now "
+                           "(budget/gates/stars/filters -- /status for lanes)")
+            return
+        repo_name, issue = candidate
+        args = ["--repo", repo_name, "--issue", str(issue), "--gate-sync"]
+        _send(chat_id, f"/hunt picked {repo_name}#{issue} -- solving...")
+        threading.Thread(target=_run_thread, args=(args, chat_id), daemon=True).start()
+    elif cmd == "/conversation":
+        m = re.match(r"^([\w.-]+/[\w.-]+)\s+(\d+)\b", rest)
+        if not m:
+            _send(chat_id, "usage: /conversation <owner/repo> <issue>")
+            return
+        args = ["--repo", m.group(1), "--issue", m.group(2), "-conversation",
+                "--gate-sync"]
+        threading.Thread(target=_run_thread, args=(args, chat_id), daemon=True).start()
+    elif cmd == "/finalize":
+        m = re.match(r"^([\w.-]+/[\w.-]+)\s+(\d+)\b", rest)
+        if not m:
+            _send(chat_id, "usage: /finalize <owner/repo> <issue>")
+            return
+        args = ["--repo", m.group(1), "--issue", m.group(2), "-conversation",
+                "--finalize", "--gate-sync"]
+        threading.Thread(target=_run_thread, args=(args, chat_id), daemon=True).start()
+    elif cmd == "/close":
+        m = re.match(r"^([\w.-]+/[\w.-]+)\s+(\d+)\b", rest)
+        if not m:
+            _send(chat_id, "usage: /close <owner/repo> <issue>")
+            return
+        args = ["--repo", m.group(1), "--issue", m.group(2), "--force", "-close"]
+        threading.Thread(target=_run_thread, args=(args, chat_id), daemon=True).start()
+    elif cmd == "/resume":
+        issue = rest.split()[0] if rest.split() else None
+        if issue and re.fullmatch(r"\d+", issue):
+            repo = _repo_for_issue(issue)
+            if repo:
+                args = ["--repo", repo, "--issue", issue, "--resume", issue]
+            else:
+                args = ["--resume", issue]
+        else:
+            args = ["--resume"]
+        threading.Thread(target=_run_thread, args=(args, chat_id), daemon=True).start()
+    elif cmd == "/leave":
+        issue = rest.split()[0] if rest.split() else None
+        args = ["--leave"] + ([issue] if issue else [])
+        threading.Thread(target=_run_thread, args=(args, chat_id), daemon=True).start()
+    elif cmd == "/finish":
+        issue = rest.split()[0] if rest.split() else None
+        args = ["--force", "--finish"] + ([issue] if issue else [])
+        threading.Thread(target=_run_thread, args=(args, chat_id), daemon=True).start()
+    elif cmd in ("/status", "/conv-info", "/review"):
+        issue = rest.split()[0] if rest.split() else None
+        flag = {"status": "--status", "conv-info": "--conversation-info",
+                "review": "--review-feedback"}[cmd[1:]]
+        args = [flag] + ([issue] if issue else [])
         threading.Thread(
-            target=_run_thread, args=(repo_name, issue_number, chat_id), daemon=True
+            target=lambda: _send(chat_id, _run_readonly(args) or "(no output)"),
+            daemon=True,
         ).start()
-    elif low == "/status":
-        _send(chat_id, _cmd_status())
-    elif low == "/gates":
+    elif cmd == "/list":
+        threading.Thread(
+            target=lambda: _send(chat_id, _run_readonly(["--list-workflows"]) or "(no output)"),
+            daemon=True,
+        ).start()
+    elif cmd == "/gates":
         _send(chat_id, _cmd_gates())
-    elif low in ("/stop", "/stopall"):
+    elif cmd in ("/stop", "/stopall"):
         _stop_thread()
     else:
         _send(chat_id, _cmd_help())
