@@ -362,11 +362,14 @@ class _LazyClient:
 
 
 gh = _LazyClient(lambda: Github(auth=Auth.Token(GITHUB_TOKEN)))
-# api_key is unused by OmniRoute itself (auth happens in its dashboard)
-# but the OpenAI client requires a non-empty string. LLM_API_KEY (plus the
-# OMNIROUTE_BASE_URL/OMNIROUTE_MODEL env) lets a cloud deployment point this
-# at a hosted OpenAI-compatible endpoint without editing code.
+# API key for the omniRoute PRIMARY endpoint. The OpenAI client requires a
+# non-empty string; omniRoute itself validates it against its api_keys store
+# only when REQUIRE_API_KEY is enabled. Dedicated OMNIROUTE_API_KEY keeps the
+# omniRoute token separate from LLM_API_KEY (the hosted fallback key), so a
+# local PC with auth enforced keeps working while the fallback stays keyed by
+# LLM_API_KEY. Unset -> falls back to LLM_API_KEY for backward compatibility.
 LLM_API_KEY = os.getenv("LLM_API_KEY", "omniroute-local")
+OMNIROUTE_API_KEY = os.getenv("OMNIROUTE_API_KEY", "").strip() or LLM_API_KEY
 
 
 def _endpoint_is_reachable(base_url: str, api_key: str, timeout: float = OMNIROUTE_FALLBACK_PROBE_SECONDS) -> bool:
@@ -400,7 +403,7 @@ def _primary_unreachable() -> bool:
     last = getattr(_primary_unreachable, "_t", 0.0)
     if now - last >= OMNIROUTE_FALLBACK_PROBE_SECONDS:
         _primary_unreachable._t = now
-        _primary_unreachable._down = not _endpoint_is_reachable(OMNIROUTE_BASE_URL, LLM_API_KEY)
+        _primary_unreachable._down = not _endpoint_is_reachable(OMNIROUTE_BASE_URL, OMNIROUTE_API_KEY)
     return getattr(_primary_unreachable, "_down", True)
 
 
@@ -414,7 +417,7 @@ def _make_ai_client():
               f"falling back to hosted endpoint {OMNIROUTE_FALLBACK_BASE_URL}")
         return OpenAI(api_key=OMNIROUTE_FALLBACK_API_KEY or "omniroute-local",
                       base_url=OMNIROUTE_FALLBACK_BASE_URL)
-    return OpenAI(api_key=LLM_API_KEY, base_url=OMNIROUTE_BASE_URL)
+    return OpenAI(api_key=OMNIROUTE_API_KEY, base_url=OMNIROUTE_BASE_URL)
 
 
 ai_client = _LazyClient(_make_ai_client)
