@@ -1,0 +1,29 @@
+{
+  "capability": {},
+  "language_results": [
+    {
+      "language": "python",
+      "status": "proven",
+      "fixtures": [
+        {
+          "name": "off-by-one",
+          "status": "pass",
+          "map_files": 2,
+          "test_output": ".                                                                        [100%]\n1 passed in 0.04s\n"
+        },
+        {
+          "name": "missing-key-default",
+          "status": "pass",
+          "map_files": 2,
+          "test_output": ".                                                                        [100%]\n1 passed in 0.04s\n"
+        },
+        {
+          "name": "dead-condition",
+          "status": "pass",
+          "map_files": 2,
+          "test_output": ".                                                                        [100%]\n1 passed in 0.04s\n"
+        }
+      ]
+    }
+  ]
+}

@@ -6,3 +6,16 @@ __pycache__/
 venv/
 .tmp/
 .DS_Store
+
+# runtime state (committed by the controller/gate-poll only where intended)
+.agent_data/
+fixer/.agent_data/logs/
+fixer/.agent_data/conversations/
+fixer/.agent_data/reports/
+fixer/.agent_data/checkpoints/
+fixer/repo_skip_list.json
+data/log.txt
+data/manual_offset.json
+data/provider_usage.json
+data/failures.jsonl
+data/metrics.jsonl
