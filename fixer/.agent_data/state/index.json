@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T08:33:09",
+  "updated_at": "2026-09-27T08:37:04",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -451,6 +451,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T08:33:09"
+    },
+    "yunaremaia/sandbox-ffi-layers#22": {
+      "repo": "yunaremaia/sandbox-ffi-layers",
+      "issue": 22,
+      "issue_title": "security: Cargo.lock v4 format silently ignored by parser",
+      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-22.json",
+      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-22",
+      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-22",
+      "conversation_id": "20260922T095907-55626542",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-22",
+      "pr_number": 34,
+      "pr_url": "https://github.com/yunaremaia/sandbox-ffi-layers/pull/34",
+      "updated_at": "2026-09-27T08:37:04"
     }
   }
 }
