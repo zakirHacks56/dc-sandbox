@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T15:48:54",
+  "updated_at": "2026-09-27T15:53:55",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -826,6 +826,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T15:48:54"
+    },
+    "izzywdev/FuzeFront#1194": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1194,
+      "issue_title": "Spine prefixes `cnv`/`msg` vs FuzeContact conversations \u2014 and an id namespace for the Party master",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1194.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1194",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1194",
+      "conversation_id": "20260927T155342-7686be53",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-1194",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T15:53:55"
     }
   }
 }
