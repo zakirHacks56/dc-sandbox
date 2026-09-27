@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T15:55:35",
+  "updated_at": "2026-09-27T16:04:40",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -841,6 +841,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T15:55:35"
+    },
+    "izzywdev/FuzeFront#1023": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1023,
+      "issue_title": "[Good first issue] Add a troubleshooting decision tree for app registration failures",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1023.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1023",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1023",
+      "conversation_id": "20260927T160404-265620ef",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-1023",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T16:04:40"
     }
   }
 }
