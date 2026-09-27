@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T09:50:17",
+  "updated_at": "2026-09-27T09:54:25",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -601,6 +601,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T09:50:17"
+    },
+    "izzywdev/FuzeFront#1026": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1026,
+      "issue_title": "[Good first issue] Document FuzeFront non-goals and architectural boundaries",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1026.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1026",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1026",
+      "conversation_id": "20260927T095423-e2e2fe95",
+      "state": "ANALYZING",
+      "status": "analyzing",
+      "branch": "fix-issue-1026",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T09:54:25"
     }
   }
 }
