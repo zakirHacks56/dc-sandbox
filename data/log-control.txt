@@ -15317,3 +15317,39 @@ ays "Link it from the integration documentation." - if we put it in the OpenAPI,
 
 Switched to a new branch 'fix-issue-1022'
 2026-09-27T16:06:56+00:00  tick done
+2026-09-27T16:22:03+00:00  gate poller start (offset=746150288)
+2026-09-27T16:22:11+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T16:22:12+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T16:22:12+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T16:22:13+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T16:22:15+00:00  HUNTING: trying izzywdev/FuzeFront#1021
+2026-09-27T16:22:15+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1021 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T16:23:09+00:00  fixer exit=0
+--tail--
+be about the website frontend (fuzefront-website/frontend) which is likely the
+ marketing site or documentation site. And we are allowed to change the package-lock.json of that? But again, we cannot
+ change the actual documentation content via package-lock.json.
+
+ This is a dilemma.
+
+ However, looking at the history of past attempts, the previous attempts were for JavaScript and they failed due to
+ token budget or parsing issues. But note that the issue labels say "good first issue", so it should be simple.
+
+ Another possibility: the example is to be added as a comment in the code? But the issue says "documented example".
+
+ Let me check the provided code snippets in the repository map: we see some backend and frontend code, but we are not
+ allowed to change those because they are not in the allowed file paths.
+
+ Given the constraints, I think we must interpret the task as: we are to update the package-lock.json files to include
+ a new dependency that is the example? But that doesn't make sense.
+
+ Alternatively, note that the issue says: "Include one working example URL/config using a local example, not a third-party production service."
+
+ We might be expected to create a new file? But w
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 2/5 ---
+🧮 Issue budget exceeded (token_budget_exceeded) -- abandoning this issue.
+
+Switched to a new branch 'fix-issue-1021'
+2026-09-27T16:23:09+00:00  tick done
