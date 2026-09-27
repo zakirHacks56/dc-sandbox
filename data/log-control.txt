@@ -14772,3 +14772,44 @@ Switched to a new branch 'fix-issue-1024'
 2026-09-27T14:05:27+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
 2026-09-27T14:05:27+00:00  no candidate found this tick
 2026-09-27T14:05:27+00:00  tick done
+2026-09-27T14:18:41+00:00  gate poller start (offset=746150288)
+2026-09-27T14:18:49+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T14:18:50+00:00  HUNTING: trying yunaremaia/sandbox-ffi-layers#21
+2026-09-27T14:18:50+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 21 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T14:22:02+00:00  fixer exit=0
+--tail--
+"warnings": 12,
+            "passed": 27
+          },
+          "results": [ ... ]
+        }
+
+    The summary has total, errors, warnings, passed. And the results array contains the findings.
+
+    What is a "result"? In the example, each result has an id, severity, message, etc.
+
+    We must decide what constitutes a result.
+
+    Looking at the current output, we have:
+      - For each surface, we print a line (e.g., "[PROC-MACRO] serde_derive@1.0.228 — proc-macro crate")
+      - We also have the malicious packages (proc-macro1 and proc-macro-en) which we print as errors.
+
+    We can consider:
+      - Each surface (native build surface) as a result? But note: the example result has a severity (warning, error, passed) and a suggestion.
+
+    We don't currently have a passed/success state for packages. We only flag risks.
+
+    Let's reinterpret the issue: the tool is checking for risks. So:
+      - A package with a proc-macro or build script is a risk (warning or error?).
+      - The known malicious packages are errors.
+
+    We can define:
+      - Errors: known malicious packages (proc-macro1, proc-macro-en)
+      - Warnings: packages with native build surface (proc-macro or buil
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 5/5 ---
+🧮 Issue budget exceeded (token_budget_exceeded) -- abandoning this issue.
+
+Switched to a new branch 'fix-issue-21'
+2026-09-27T14:22:02+00:00  tick done

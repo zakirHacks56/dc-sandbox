@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T10:03:55",
+  "updated_at": "2026-09-27T14:19:02",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -646,6 +646,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T10:03:55"
+    },
+    "yunaremaia/sandbox-ffi-layers#21": {
+      "repo": "yunaremaia/sandbox-ffi-layers",
+      "issue": 21,
+      "issue_title": "[sandbox-ffi-layers] Add JSON output format for programmatic consumption",
+      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-21.json",
+      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-21",
+      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-21",
+      "conversation_id": "20260922T101033-10a39f46",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-21",
+      "pr_number": 33,
+      "pr_url": "https://github.com/yunaremaia/sandbox-ffi-layers/pull/33",
+      "updated_at": "2026-09-27T14:19:02"
     }
   }
 }
