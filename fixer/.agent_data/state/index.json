@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T15:04:32",
+  "updated_at": "2026-09-27T15:06:22",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -736,6 +736,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T15:04:32"
+    },
+    "Rekin226/aquascope#455": {
+      "repo": "Rekin226/aquascope",
+      "issue": 455,
+      "issue_title": "Taiwan CWA and USGS still list the same place twice: infer site_id at harvest time",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-455.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-455",
+      "workspace": "workspace/Rekin226-aquascope/issue-455",
+      "conversation_id": "20260927T150600-987eddc1",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-455",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T15:06:22"
     }
   }
 }
