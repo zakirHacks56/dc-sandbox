@@ -15537,3 +15537,42 @@ Step 8a: running baseline tests (before any changes)...
 
 Switched to a new branch 'fix-issue-14'
 2026-09-27T18:11:56+00:00  tick done
+2026-09-27T18:21:05+00:00  gate poller start (offset=746150288)
+2026-09-27T18:21:13+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T18:21:14+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T18:21:16+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-27T18:21:17+00:00  HUNTING: trying Rekin226/aquascope#449
+2026-09-27T18:21:17+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 449 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T18:23:44+00:00  fixer exit=0
+--tail--
+string compare
+         # against 'true' is always false and silently skipped the first CI runs).
+-        if: env.HF_TOKEN != '' && (github.event_name == 'schedule' || inputs.publish == true)
++        if: always() && env.HF_TOKEN != '' && (github.event_name == 'schedule' || inputs.publish == true)
+         run: |
+           python - <<'EOF'
+           import os
+           from aquascope.archive import publish_folder
+@@ -160,8 +164,18 @@
+         if: always() && env.HF_TOKEN == '' && github.event_name == 'schedule'
+         run: |
+           echo "::error::HF_TOKEN is not set, so the harvest ran but published nothing. Set the repository \
+           secret HF_TOKEN to a Hugging Face token with write access to $HF_DATASET."
+           exit 1
++
++      - name: Fail visibly on scheduled runs that published nothing or where publishing was skipped
++        if: always() && github.event_name == 'schedule'
++        run: |
++          # Check if HF token was present and publish step attempted/succeeded, or fail visibly
++          if [ -z "${{ env.HF_TOKEN }}" ]; then
++            echo "::error::Scheduled run failed because HF_TOKEN is missing."
++            exit 1
++          fi
++          echo "C
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 2/8 ---
+🧮 Issue budget exceeded (token_budget_exceeded) -- abandoning this issue.
+
+Switched to a new branch 'fix-issue-449'
+2026-09-27T18:23:44+00:00  tick done
