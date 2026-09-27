@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T09:42:10",
+  "updated_at": "2026-09-27T09:46:02",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -571,6 +571,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T09:42:10"
+    },
+    "taranis-ai/taranis-ai#1045": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 1045,
+      "issue_title": "Add guided analyst review workflow from Dashboard to Publish",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-1045.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-1045",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-1045",
+      "conversation_id": "20260927T094559-fa152e62",
+      "state": "ANALYZING",
+      "status": "analyzing",
+      "branch": "fix-issue-1045",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T09:46:02"
     }
   }
 }
