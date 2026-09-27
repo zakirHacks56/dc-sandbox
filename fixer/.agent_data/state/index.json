@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T16:04:40",
+  "updated_at": "2026-09-27T16:06:09",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -856,6 +856,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T16:04:40"
+    },
+    "izzywdev/FuzeFront#1022": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1022,
+      "issue_title": "[Good first issue] Add a minimal Web Component integration example",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1022.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1022",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1022",
+      "conversation_id": "20260927T160555-ec52835d",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-1022",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T16:06:09"
     }
   }
 }
