@@ -14309,3 +14309,18 @@ Step 1-2: checking #397 - test_docs_counts knows the right number: let it write 
 
 Switched to a new branch 'fix-issue-397'
 2026-09-27T08:55:40+00:00  tick done
+2026-09-27T08:56:03+00:00  gate poller start (offset=746150288)
+2026-09-27T08:56:05+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T08:56:06+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T08:56:07+00:00  HUNTING: trying Rekin226/aquascope#207
+2026-09-27T08:56:07+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 207 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T08:56:16+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/Rekin226-aquascope_issue207_20260927_085608.log
+Step 1-2: checking #207 - Registry: verify data licences for the nine sources still marked unknown (gates the Archive mirroring)
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium domain=docs
+   ↳ ⚠️  Issue looks vague/underspecified -- treating as HARD: plan-first + wider context so it is grounded in real code, not guessed.
+✅ Forked, cloned, branched: fix-issue-207
+
+Switched to a new branch 'fix-issue-207'
+2026-09-27T08:56:16+00:00  tick done
