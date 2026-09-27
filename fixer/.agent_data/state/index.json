@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T19:04:55",
+  "updated_at": "2026-09-27T19:08:23",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1021,6 +1021,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T19:04:55"
+    },
+    "taranis-ai/taranis-ai#651": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 651,
+      "issue_title": "Group chat with collaborators",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-651.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-651",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-651",
+      "conversation_id": "20260927T190818-f3bceb63",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-651",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T19:08:23"
     }
   }
 }
