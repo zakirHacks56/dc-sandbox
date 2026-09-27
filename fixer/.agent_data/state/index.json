@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T17:44:16",
+  "updated_at": "2026-09-27T17:49:14",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -901,6 +901,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T17:44:16"
+    },
+    "yunaremaia/sandbox-ffi-layers#16": {
+      "repo": "yunaremaia/sandbox-ffi-layers",
+      "issue": 16,
+      "issue_title": "[sandbox-ffi-layers] Implement eBPF-based command interception for watch mode",
+      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-16.json",
+      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-16",
+      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-16",
+      "conversation_id": "20260927T174734-e651c390",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-16",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T17:49:14"
     }
   }
 }
