@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T15:06:22",
+  "updated_at": "2026-09-27T15:23:14",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -751,6 +751,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T15:06:22"
+    },
+    "Rekin226/aquascope#453": {
+      "repo": "Rekin226/aquascope",
+      "issue": 453,
+      "issue_title": "Fourteen stale count mentions outside the guard, and nine more break when #448 merges",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-453.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-453",
+      "workspace": "workspace/Rekin226-aquascope/issue-453",
+      "conversation_id": "20260927T152251-9814ff6b",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-453",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T15:23:14"
     }
   }
 }
