@@ -123,9 +123,9 @@
       "updated": "2026-09-24T11:05:04"
     },
     "Rekin226/aquascope#443": {
-      "state": "PAUSED",
-      "pr": null,
-      "updated": "2026-09-24T11:10:03+00:00"
+      "state": "ABANDONED",
+      "decision": false,
+      "updated": "2026-09-24T11:10:03"
     },
     "taranis-ai/taranis-ai#227": {
       "state": "PAUSED",
@@ -298,5 +298,5 @@
       "updated": "2026-09-27T10:03:55+00:00"
     }
   },
-  "last_tick": "2026-09-27T11:05:37+00:00"
+  "last_tick": "2026-09-27T11:19:36+00:00"
 }
