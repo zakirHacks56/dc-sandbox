@@ -1,4 +1,5 @@
 """Tests for fixer/guards.py (W15/W16/W22/W10)."""
+import json
 import time
 from pathlib import Path
 
@@ -17,11 +18,15 @@ def iso_tmp(tmp_path, monkeypatch):
 
 
 def _fresh_usage(monkeypatch, tmp_path):
+    # Spend accounting now reads the append-only EVENTS log (Bug 2 defense in
+    # depth), keyed off the same directory as PROVIDER_USAGE_FILE.
     usage = tmp_path / "provider_usage.json"
+    events = tmp_path / "provider_usage_events.jsonl"
     monkeypatch.setenv("PROVIDER_USAGE_FILE", str(usage))
-    usage.write_text('{"providers": {"gemini": {"date": "' + time.strftime('%Y-%m-%d') +
-                     '", "tokens": 1234, "calls": 2, "fails": 0, "down": false, '
-                     '"cooldown_until": 0}}}', encoding="utf-8")
+    ev = json.dumps({"provider": "gemini", "ok": True, "tokens": 1234,
+                     "ts": time.time(), "date": time.strftime("%Y-%m-%d"),
+                     "run_id": "test"})
+    events.write_text(ev + "\n", encoding="utf-8")
     return usage
 
 
@@ -75,9 +80,10 @@ def test_checkpoint_roundtrip(iso_tmp):
 
 
 def test_total_spent_tokens(iso_tmp, monkeypatch):
-    usage = _fresh_usage(monkeypatch, iso_tmp)
+    _fresh_usage(monkeypatch, iso_tmp)
     assert guards.total_spent_tokens() == 1234
-    usage.unlink()
+    # Tokens are derived from the events log, not the (legacy) snapshot file.
+    (iso_tmp / "provider_usage_events.jsonl").unlink()
     assert guards.total_spent_tokens() == 0
 
 

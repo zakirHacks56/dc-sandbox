@@ -13,8 +13,9 @@ fixer's OmniRoute-only path:
        provider into a cooldown instead of retrying it into the ground.
   W14  multi-provider pool with failover    -- `complete()` walks a tier chain
        and moves to the next healthy/budgeted provider.
-  W18  usage counters checked before call   -- data/provider_usage.json tracks
-       daily tokens + calls; providers over budget are skipped pre-call.
+  W18  usage counters checked before call   -- data/provider_usage_events.jsonl
+       (append-only) tracks daily tokens + calls; providers over budget are
+       skipped pre-call, and breaker state is a derived 3-state circuit.
   W19  opportunistic-only tier              -- Hetzner/LLM7 never enter the
        primary path; they are explicitly last-resort.
   W9   selective escalation                 -- a COPILOT tier (opt-in, e.g.
@@ -268,47 +269,132 @@ def load_providers(env: Optional[dict] = None) -> list[Provider]:
 
 
 # ---------------------------------------------------------------------------
-# Usage budget + circuit breaker store (W18 / W12)
+# Usage budget + circuit breaker (W18 / W12)
+#
+# State is DERIVED from an append-only events log, not stored as overwritable
+# JSON. Every call appends one line to provider_usage_events.jsonl
+# ({provider, ok, tokens, ts, date, run_id}); per-provider usage (tokens,
+# calls) and the 3-state circuit (CLOSED/OPEN/HALF_OPEN) are recomputed from
+# today's events at read time. Append-only is the defense-in-depth half of the
+# concurrency fix: the gate-poll and controller workflows each commit the whole
+# worktree with `pull -X ours`, so a snapshot file silently loses whichever
+# run committed second -- but no commit can roll another run's tokens back out
+# of a log, and day-rollover (Bug 3) is emergent: tomorrow has no events, so
+# no tokens, no fails, and no open circuit.
+#
+# Breaker rules (Bug 1): is_healthy()/budget_available() used to disagree about
+# `down`, which deadlocked recovery -- a fired provider could never be retried
+# because budget_available() short-circuited on `down`, yet only a successful
+# call can clear it. Now one is_callable() owns the decision: OPEN rejects,
+# HALF_OPEN (cooldown elapsed) is allowed through for a real trial call, and
+# quota (has_quota) is a PURE token-count check that never consults the
+# breaker, so "budget_spent" is only reported when it is actually true.
 # ---------------------------------------------------------------------------
 _LOCK = threading.Lock()
 
+RUN_ID = (
+    os.getenv("GITHUB_RUN_ID", "")
+    or os.getenv("RUN_ID", "")
+    or f"proc-{os.getpid()}"
+)
 
-def _default_store() -> dict:
-    return {"providers": {}, "updated": time.time()}
+
+def _events_file() -> Path:
+    # PROVIDER_USAGE_FILE is read from the env at call time (not just the
+    # import-time constant) so tests and live runs can redirect it cleanly.
+    usage_path = os.getenv("PROVIDER_USAGE_FILE", PROVIDER_USAGE_FILE)
+    default = str(Path(usage_path).with_name("provider_usage_events.jsonl"))
+    return Path(os.getenv("PROVIDER_USAGE_EVENTS_FILE", default))
 
 
-def _read_store() -> dict:
+def _read_events() -> list:
+    """All lines from the append-only events log (malformed lines skipped)."""
+    path = _events_file()
+    if not path.exists():
+        return []
     try:
-        with open(PROVIDER_USAGE_FILE, "r", encoding="utf-8") as fh:
-            return json.load(fh)
-    except (OSError, ValueError):
-        return _default_store()
+        raw = path.read_text(encoding="utf-8")
+    except OSError:
+        return []
+    events = []
+    for line in raw.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            events.append(json.loads(line))
+        except ValueError:
+            continue
+    return events
 
 
-def _write_store(store: dict) -> None:
-    store["updated"] = time.time()
-    path = Path(PROVIDER_USAGE_FILE)
+def _append_event(provider: Provider, ok: bool, tokens: int) -> None:
+    path = _events_file()
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(".json.tmp")
-    with open(tmp, "w", encoding="utf-8") as fh:
-        json.dump(store, fh, indent=2)
-    os.replace(tmp, path)
+    event = {
+        "provider": provider.name,
+        "ok": bool(ok),
+        "tokens": max(0, int(tokens)),
+        "ts": time.time(),
+        "date": _today(),
+        "run_id": RUN_ID,
+    }
+    with _LOCK:
+        try:
+            with open(path, "a", encoding="utf-8") as fh:
+                fh.write(json.dumps(event) + "\n")
+        except OSError:
+            return
 
 
 def _today() -> str:
     return date.today().isoformat()
 
 
-def _entry(store: dict, name: str) -> dict:
-    entry = store.setdefault("providers", {}).setdefault(name, {})
-    if entry.get("date") != _today():
-        # New day: roll usage over, keep breaker state.
-        entry = {"date": _today(), "tokens": 0, "calls": 0,
-                 "fails": entry.get("fails", 0),
-                 "down": entry.get("down", False),
-                 "cooldown_until": entry.get("cooldown_until", 0)}
-        store["providers"][name] = entry
-    return entry
+def provider_usage(provider: Provider) -> dict:
+    """Per-provider daily usage + breaker position, derived from today's events.
+
+    tokens/calls count only today. The circuit is computed from the fails
+    tallied since the last success; a provider that tripped can only be
+    re-enabled by an actual successful call (see provider_state())."""
+    events = [e for e in _read_events()
+              if e.get("provider") == provider.name and e.get("date") == _today()]
+    tokens = 0
+    calls = 0
+    fails = 0
+    down = False
+    down_since = 0.0
+    for e in events:
+        calls += 1
+        if e.get("ok"):
+            tokens += int(e.get("tokens") or 0)
+            fails = 0
+            down = False
+            down_since = 0.0
+        else:
+            fails += 1
+            if not down and fails >= BREAKER_THRESHOLD:
+                down = True
+                down_since = float(e.get("ts") or 0)
+    cooldown_until = down_since + BREAKER_COOLDOWN_SECONDS if down else 0.0
+    return {
+        "date": _today(),
+        "tokens": tokens,
+        "calls": calls,
+        "fails": fails,
+        "down": down,
+        "down_since": down_since,
+        "cooldown_until": cooldown_until,
+    }
+
+
+def provider_state(entry: dict) -> str:
+    """CLOSED (healthy) | OPEN (tripped, reject) | HALF_OPEN (trial allowed)."""
+    if not entry.get("down"):
+        return "CLOSED"
+    if time.time() >= float(entry.get("cooldown_until", 0)):
+        return "HALF_OPEN"
+    return "OPEN"
 
 
 def daily_budget_for(provider: Provider) -> int:
@@ -316,50 +402,47 @@ def daily_budget_for(provider: Provider) -> int:
     return int(raw) if raw.isdigit() else GLOBAL_DAILY_TOKEN_BUDGET
 
 
-def provider_usage(provider: Provider) -> dict:
-    with _LOCK:
-        store = _read_store()
-        return dict(_entry(store, provider.name))
-
-
-def budget_available(provider: Provider) -> bool:
-    """W18: is this provider under its daily token budget, checked BEFORE a call?"""
-    entry = provider_usage(provider)
-    if entry.get("down"):
-        return False
+def has_quota(provider: Provider, entry: dict) -> bool:
+    """Pure token-count check. NEVER consults the breaker, so an OPEN circuit
+    can still come back through HALF_OPEN and be re-probed by a real call."""
     return int(entry.get("tokens", 0)) < daily_budget_for(provider)
 
 
-def global_budget_available() -> bool:
-    total = sum(e.get("tokens", 0) for e in _read_store().get("providers", {}).values())
-    return total < GLOBAL_DAILY_TOKEN_BUDGET
+def is_callable(provider: Provider) -> tuple:
+    """(callable, reason). reason is None when the provider may be called now;
+    'circuit_open' when its cooldown is still pending, 'budget_spent' only when
+    its daily token ceiling is genuinely exhausted."""
+    entry = provider_usage(provider)
+    if provider_state(entry) == "OPEN":
+        return False, "circuit_open"
+    if not has_quota(provider, entry):
+        return False, "budget_spent"
+    return True, None
 
 
 def is_healthy(provider: Provider) -> bool:
-    entry = provider_usage(provider)
-    if not entry.get("down"):
-        return True
-    cooldown_until = entry.get("cooldown_until", 0)
-    return time.time() >= cooldown_until  # cooldown elapsed -> healthy again
+    """Back-compat alias: callable except a still-cooling-down OPEN circuit."""
+    return provider_state(provider_usage(provider)) != "OPEN"
+
+
+def budget_available(provider: Provider) -> bool:
+    """Back-compat alias: pure quota check (never consults the breaker)."""
+    return has_quota(provider, provider_usage(provider))
 
 
 def mark_result(provider: Provider, ok: bool, tokens: int = 0) -> None:
-    """W12/W18: update the breaker + usage counters for one call outcome."""
-    with _LOCK:
-        store = _read_store()
-        entry = _entry(store, provider.name)
-        if ok:
-            entry["fails"] = 0
-            entry["down"] = False
-        else:
-            entry["fails"] = int(entry.get("fails", 0)) + 1
-            if entry["fails"] >= BREAKER_THRESHOLD:
-                entry["down"] = True
-                entry["cooldown_until"] = time.time() + BREAKER_COOLDOWN_SECONDS
-        if tokens > 0:
-            entry["tokens"] = int(entry.get("tokens", 0)) + tokens
-        entry["calls"] = int(entry.get("calls", 0)) + 1
-        _write_store(store)
+    """Record one call outcome. Append-only; usage and the breaker re-derive
+    themselves from the log, so concurrent runners cannot clobber each other."""
+    _append_event(provider, bool(ok), max(0, int(tokens)))
+
+
+def daily_tokens_spent() -> int:
+    return sum(int(e.get("tokens") or 0) for e in _read_events()
+               if e.get("ok") and e.get("date") == _today())
+
+
+def global_budget_available() -> bool:
+    return daily_tokens_spent() < GLOBAL_DAILY_TOKEN_BUDGET
 
 
 # ---------------------------------------------------------------------------
@@ -440,11 +523,15 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
 
     last_error: Optional[Exception] = None
     for provider in candidates:
-        if not is_healthy(provider):
-            continue
-        if not budget_available(provider):
+        callable_now, reason = is_callable(provider)
+        if reason == "circuit_open":
+            continue  # OPEN: cooldown still pending -- try the next provider
+        if reason == "budget_spent":
             last_error = ProviderBudgetExceeded(f"{provider.name}: daily budget spent")
             continue
+        # CLOSED or HALF_OPEN with quota: HALF_OPEN means the cooldown has
+        # elapsed, so we MUST actually call -- its result is what decides
+        # whether the circuit re-closes or re-trips (Bug 1 deadlock escape).
         resolved = resolve_model(provider, model)
         client_kwargs: dict = {"api_key": provider.api_key, "base_url": provider.base_url}
         if provider.name == "copilot":
@@ -576,21 +663,26 @@ def build_completion_proxy():
 # ---------------------------------------------------------------------------
 def health_status() -> str:
     lines = ["llm_router provider pool", "-" * 42]
-    store = _read_store()
     providers = load_providers()
     if not providers:
         lines.append("  <no providers registered -- set at least one API key>")
     else:
         for provider in providers:
-            entry = _entry(store, provider.name)
-            health = "UP" if is_healthy(provider) else "DOWN"
-            budget = "ok" if budget_available(provider) else "OVER"
+            entry = provider_usage(provider)
+            state = provider_state(entry)
+            if state == "CLOSED":
+                health = "UP"
+            elif state == "HALF_OPEN":
+                health = "trial"
+            else:
+                health = "DOWN"
+            budget = "ok" if has_quota(provider, entry) else "OVER"
             lines.append(
                 f"  {provider.name:<14} tier={provider.tier:<13} {health:4} budget={budget:5} "
                 f"tokens={int(entry.get('tokens', 0))} calls={int(entry.get('calls', 0))} "
-                f"fails={int(entry.get('fails', 0))}"
+                f"fails={int(entry.get('fails', 0))} state={state}"
             )
-    lines.append(f"global daily tokens: {sum(e.get('tokens', 0) for e in store.get('providers', {}).values())}/{GLOBAL_DAILY_TOKEN_BUDGET}")
+    lines.append(f"global daily tokens: {daily_tokens_spent()}/{GLOBAL_DAILY_TOKEN_BUDGET}")
     return "\n".join(lines)
 
 

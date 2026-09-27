@@ -211,19 +211,16 @@ def read_jsonl(path: Path, limit: int = 0) -> list:
 
 
 def total_spent_tokens() -> int:
-    """W18: aggregate tokens spent across providers, from provider_usage.json.
-
-    Fed to IssueBudget.tally() so the per-issue ceiling counts real model spend
-    (which the router records after every call) rather than a guess."""
-    import json as _json
-    path = Path(os.getenv("PROVIDER_USAGE_FILE",
-                          str(ROOT / "data" / "provider_usage.json")))
+    """W18: aggregate tokens spent today across providers, from the append-only
+    events log (see llm_router.mark_result). Fed to IssueBudget.tally() so the
+    per-issue ceiling counts real model spend rather than a guess. Reads the
+    log instead of a snapshot JSON because concurrent runners clobber a mutable
+    file; appends cannot be rolled back (Bug 2 defense in depth)."""
     try:
-        store = _json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, ValueError):
+        from llm_router import daily_tokens_spent
+    except Exception:  # noqa: BLE001 -- import never blocks spend accounting
         return 0
-    return sum(int(e.get("tokens", 0))
-               for e in store.get("providers", {}).values())
+    return daily_tokens_spent()
 
 
 def digest_failures(days: int = 1) -> list:

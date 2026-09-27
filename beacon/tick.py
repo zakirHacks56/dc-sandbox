@@ -34,6 +34,30 @@ PENDING_MAX_AGE_DAYS = 14
 STALE_PR_AGE_DAYS = 3
 
 
+def _providers_callable() -> bool:
+    """Preflight for the fresh-hunt path: is any registered LLM provider
+    callable right now?
+
+    If every provider is OPEN (cooldown) or over budget, a new hunt would only
+    burn CI minutes + baseline-test time for an immediate
+    AllProvidersExhaustedError -- skip scanning until something recovers.
+    Fail-open: no keys or an import hiccup lets the fixer run, since it
+    reports its own diagnosis either way. Never touches the network."""
+    try:
+        if str(util.FIXER) not in sys.path:
+            sys.path.insert(1, str(util.FIXER))
+        import llm_router as router
+    except Exception:  # noqa: BLE001 -- preflight must never crash the tick
+        return True
+    try:
+        providers = router.load_providers()
+    except Exception:  # noqa: BLE001
+        return True
+    if not providers:
+        return True
+    return any(router.is_callable(p)[0] for p in providers)
+
+
 def _run_fixer(args: list, extra_env: dict | None = None) -> str:
     cmd = [sys.executable, str(util.FIXER_SCRIPT), *args]
     util.log(f"fixer: {' '.join(cmd)}  (cwd={util.FIXER})")
@@ -285,33 +309,36 @@ def main() -> int:
         max_pending = int(conf.get("max_pending_gates", 3))
         max_prs = int(conf.get("max_prs_per_day", 2))
         if not acted and len(pending) < max_pending and prs_today < max_prs:
-            candidate = hunter_stage.find_candidate(conf, board)
-            if candidate:
-                repo_name, issue_number = candidate
-                util.log(f"HUNTING: trying {repo_name}#{issue_number}")
-                _run_fixer(["--repo", repo_name, "--issue", str(issue_number), "--gate-sync"])
-                attempts = _attempted(board, repo_name)
-                if issue_number not in attempts:
-                    attempts.append(issue_number)
-                    if len(attempts) > 50:
-                        del attempts[: len(attempts) - 50]
-                rec = _workflow_record(repo_name, issue_number)
-                if rec:
-                    board.setdefault("lanes", {})[f"{repo_name}#{issue_number}"] = {
-                        "state": rec.get("state"), "pr": rec.get("pr_number"),
-                        "updated": util.now_utc(),
-                    }
-                acted = True
+            if _providers_callable():
+                candidate = hunter_stage.find_candidate(conf, board)
+                if candidate:
+                    repo_name, issue_number = candidate
+                    util.log(f"HUNTING: trying {repo_name}#{issue_number}")
+                    _run_fixer(["--repo", repo_name, "--issue", str(issue_number), "--gate-sync"])
+                    attempts = _attempted(board, repo_name)
+                    if issue_number not in attempts:
+                        attempts.append(issue_number)
+                        if len(attempts) > 50:
+                            del attempts[: len(attempts) - 50]
+                    rec = _workflow_record(repo_name, issue_number)
+                    if rec:
+                        board.setdefault("lanes", {})[f"{repo_name}#{issue_number}"] = {
+                            "state": rec.get("state"), "pr": rec.get("pr_number"),
+                            "updated": util.now_utc(),
+                        }
+                    acted = True
+                else:
+                    calls, fails = util.gh_api_stats()
+                    if calls >= 3 and fails == calls:
+                        util.log(
+                            f"FATAL: every GitHub API call failed ({fails}/{calls}) -- "
+                            "the token (PR_PAT) is dead (revoked/expired?) and the "
+                            "machine is running blind. Sounding the alarm."
+                        )
+                        return 1
+                    util.log("no candidate found this tick")
             else:
-                calls, fails = util.gh_api_stats()
-                if calls >= 3 and fails == calls:
-                    util.log(
-                        f"FATAL: every GitHub API call failed ({fails}/{calls}) -- "
-                        "the token (PR_PAT) is dead (revoked/expired?) and the "
-                        "machine is running blind. Sounding the alarm."
-                    )
-                    return 1
-                util.log("no candidate found this tick")
+                util.log("preflight: no LLM provider callable -- skipping hunt")
         else:
             util.log(f"budget: {prs_today}/{max_prs} PRs, {len(pending)}/{max_pending} pending gates")
 
