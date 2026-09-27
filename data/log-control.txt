@@ -15537,42 +15537,25 @@ Step 8a: running baseline tests (before any changes)...
 
 Switched to a new branch 'fix-issue-14'
 2026-09-27T18:11:56+00:00  tick done
-2026-09-27T18:21:05+00:00  gate poller start (offset=746150288)
-2026-09-27T18:21:13+00:00  gate poller done: 0 decree(s), new offset=746150288
-2026-09-27T18:21:14+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
-2026-09-27T18:21:16+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
-2026-09-27T18:21:17+00:00  HUNTING: trying Rekin226/aquascope#449
-2026-09-27T18:21:17+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 449 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
-2026-09-27T18:23:44+00:00  fixer exit=0
+2026-09-27T18:24:10+00:00  gate poller start (offset=746150288)
+2026-09-27T18:24:19+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T18:24:20+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T18:24:21+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-27T18:24:22+00:00  HUNTING: trying Rekin226/aquascope#449
+2026-09-27T18:24:22+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 449 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T18:26:49+00:00  fixer exit=0
 --tail--
-string compare
-         # against 'true' is always false and silently skipped the first CI runs).
--        if: env.HF_TOKEN != '' && (github.event_name == 'schedule' || inputs.publish == true)
-+        if: always() && env.HF_TOKEN != '' && (github.event_name == 'schedule' || inputs.publish == true)
-         run: |
-           python - <<'EOF'
-           import os
-           from aquascope.archive import publish_folder
-@@ -160,8 +164,18 @@
-         if: always() && env.HF_TOKEN == '' && github.event_name == 'schedule'
-         run: |
-           echo "::error::HF_TOKEN is not set, so the harvest ran but published nothing. Set the repository \
-           secret HF_TOKEN to a Hugging Face token with write access to $HF_DATASET."
-           exit 1
-+
-+      - name: Fail visibly on scheduled runs that published nothing or where publishing was skipped
-+        if: always() && github.event_name == 'schedule'
-+        run: |
-+          # Check if HF token was present and publish step attempted/succeeded, or fail visibly
-+          if [ -z "${{ env.HF_TOKEN }}" ]; then
-+            echo "::error::Scheduled run failed because HF_TOKEN is missing."
-+            exit 1
-+          fi
-+          echo "C
-⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+': {'X-RateLimit-Limit': '50', 'X-RateLimit-Rem
+⚠️ provider gemini failed: NotFoundError: Error code: 404 - [{'error': {'code': 404, 'message': 'models/nvidia/nemotron-3-super-120b-a12b:free is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the list o
+⚠️ provider openrouter_free failed: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Rem
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (AllProvidersExhaustedError): all providers for tier 'escalation' failed or were over budget (last: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model reques
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ provider omniroute failed: APIStatusError: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 8000 tokens, but can only afford 6. To increase, visit https://openrouter.ai/settings/credits and upgrade 
+✅ Applied changes to: ['tests/test_workflows/test_harvest_workflow.py']
+🧪 Rejecting this patch before testing it: the patch only touches tests -- a fix has to change the code that is broken
 
 --- Attempt 2/8 ---
 🧮 Issue budget exceeded (token_budget_exceeded) -- abandoning this issue.
 
 Switched to a new branch 'fix-issue-449'
-2026-09-27T18:23:44+00:00  tick done
+2026-09-27T18:26:49+00:00  tick done
