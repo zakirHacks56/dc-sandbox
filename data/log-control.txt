@@ -15465,11 +15465,11 @@ Step 8a: running baseline tests (before any changes)...
 
 Switched to a new branch 'fix-issue-17'
 2026-09-27T17:44:32+00:00  tick done
-2026-09-27T17:46:04+00:00  gate poller start (offset=746150288)
-2026-09-27T17:46:12+00:00  gate poller done: 0 decree(s), new offset=746150288
-2026-09-27T17:46:14+00:00  HUNTING: trying yunaremaia/sandbox-ffi-layers#16
-2026-09-27T17:46:14+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 16 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
-2026-09-27T17:49:30+00:00  fixer exit=0
+2026-09-27T17:50:06+00:00  gate poller start (offset=746150288)
+2026-09-27T17:50:14+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T17:50:16+00:00  HUNTING: trying yunaremaia/sandbox-ffi-layers#16
+2026-09-27T17:50:16+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 16 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T17:53:32+00:00  fixer exit=0
 --tail--
 dio/dots-3-note-preview:free' failed hard (AllProvidersExhaustedError): all providers for tier 'primary' failed or were over budget (last: openrouter_free: daily budget spent)
    Trying fallback combo 'nvidia/nemotron-3-ultra-550b-a55b:free' in 20s...
