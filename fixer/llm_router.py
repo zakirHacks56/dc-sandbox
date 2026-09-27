@@ -135,8 +135,10 @@ class Provider:
             return True
         if tier == "escalation":
             # Escalation is a preference, not a hard requirement: if no copilot
-            # tier is configured the free primary pool takes over.
-            return self.tier in ("escalation", "primary")
+            # tier is configured the free primary pool takes over. Tertiary
+            # (e.g. OpenRouter) is part of that wide-coverage pool, so a "hard"
+            # issue must not lose the only providers that are actually healthy.
+            return self.tier in ("escalation", "primary", "tertiary")
         return False
 
 

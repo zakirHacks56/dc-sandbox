@@ -60,6 +60,8 @@ def test_matches_tier():
     cop = router.Provider(name="c", base_url="b", api_key="k", tier="escalation")
     assert cop.matches_tier("escalation")      # only escalation -> escalation ok
     assert p.matches_tier("escalation")        # fallback to primary when no copilot
+    ter = router.Provider(name="o", base_url="b", api_key="k", tier="tertiary")
+    assert ter.matches_tier("escalation")      # tertiary stays in the hard-issue pool
 
 
 def test_breaker_trips_and_recovers(tmp_usage):
