@@ -14569,3 +14569,9 @@ Switched to a new branch 'fix-issue-1024'
 2026-09-27T11:20:08+00:00  sweep: resolved 1 stale in-flight lane(s)
 2026-09-27T11:20:08+00:00  budget: 0/2 PRs, 0/3 pending gates
 2026-09-27T11:20:08+00:00  tick done
+2026-09-27T11:30:22+00:00  gate poller start (offset=746150288)
+2026-09-27T11:30:30+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T11:30:30+00:00  sweep: abandoning in-flight lane taranis-ai/taranis-ai#227 (state=PAUSED, age=3.0d, no PR ever opened)
+2026-09-27T11:30:30+00:00  sweep: resolved 1 stale in-flight lane(s)
+2026-09-27T11:30:30+00:00  budget: 0/2 PRs, 0/3 pending gates
+2026-09-27T11:30:30+00:00  tick done

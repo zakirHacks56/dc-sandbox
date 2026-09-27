@@ -128,9 +128,9 @@
       "updated": "2026-09-24T11:10:03"
     },
     "taranis-ai/taranis-ai#227": {
-      "state": "PAUSED",
-      "pr": null,
-      "updated": "2026-09-24T11:26:04+00:00"
+      "state": "ABANDONED",
+      "decision": false,
+      "updated": "2026-09-24T11:26:04"
     },
     "taranis-ai/taranis-ai#1089": {
       "state": "IMPLEMENTING",
@@ -298,5 +298,5 @@
       "updated": "2026-09-27T10:03:55+00:00"
     }
   },
-  "last_tick": "2026-09-27T11:20:08+00:00"
+  "last_tick": "2026-09-27T11:30:30+00:00"
 }
