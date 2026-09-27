@@ -15074,3 +15074,50 @@ ver, we are not allowed to change `docs/api.md` and `docs/faq.md` because they a
 
 Switched to a new branch 'fix-issue-453'
 2026-09-27T15:23:50+00:00  tick done
+2026-09-27T15:30:56+00:00  gate poller start (offset=746150288)
+2026-09-27T15:31:04+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T15:31:05+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T15:31:06+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T15:31:08+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-27T15:31:08+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-27T15:31:09+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-27T15:31:09+00:00  HUNTING: trying taranis-ai/taranis-ai#889
+2026-09-27T15:31:09+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo taranis-ai/taranis-ai --issue 889 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T15:31:31+00:00  fixer exit=0
+--tail--
+tial_stories_updates_story_tags_and_relevance(self, app, cleanup_report_item, stories):
+        from core.model.report_item import ReportItem
+        from core.model.story import Story
+
+        report_payload = deepcopy(cleanup_report_item)
+        report_payload["id"] = str(uuid7())
+        report_payload["title"] = "Report With Initial Stories"
+        report_payload["stories"] = stories[:2]
+
+        with app.app_context():
+            report, status = ReportItem.add(report_payload)
+            assert status == 200
+            assert not isinstance(report, dict)
+            assert report.id == report_payload["id"]
+
+            for story_id in stories[:2]:
+                story = Story.get(story_id)
+                assert story is not None
+                assert story.find_attribute_by_key(f"report_{report_payload['id']}") is not None
+                assert story.relevance_feedback == 3
+                assert story.relevance == story.relevance_source + 3 + (story.relevance_override or 0)
+
+    def test_delete_all_reports_cleans_story_tags_and_keeps_stories(self, app, cleanup_report_item, stories):
+        from core.model.report_item import ReportItem
+        from core.model.story import Story
+
+        report_payload = deepcopy(cleanup_report_item)
+        report_payload["id"] = str(uuid7())
+        report_payload["title"] = "Report Delete All Cleanup"
+        report_payload["storie
+
+--- Attempt 2/5 ---
+🧮 Issue budget exceeded (token_budget_exceeded) -- abandoning this issue.
+
+Switched to a new branch 'fix-issue-889'
+2026-09-27T15:31:31+00:00  tick done

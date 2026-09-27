@@ -28,3 +28,5 @@
 {"ts": "2026-09-27T15:07:21.230169+00:00", "repo": "Rekin226/aquascope", "issue": 455, "language": "", "outcome": "noop", "tokens_spent": 78688, "iterations": 0, "notes": ""}
 {"ts": "2026-09-27T15:23:50.218687+00:00", "repo": "Rekin226/aquascope", "issue": 453, "language": "", "outcome": "abandoned", "tokens_spent": 61010, "iterations": 3, "notes": "token_budget_exceeded"}
 {"ts": "2026-09-27T15:23:50.219055+00:00", "repo": "Rekin226/aquascope", "issue": 453, "language": "", "outcome": "noop", "tokens_spent": 63277, "iterations": 0, "notes": ""}
+{"ts": "2026-09-27T15:31:31.520919+00:00", "repo": "taranis-ai/taranis-ai", "issue": 889, "language": "", "outcome": "abandoned", "tokens_spent": 63539, "iterations": 2, "notes": "token_budget_exceeded"}
+{"ts": "2026-09-27T15:31:31.521176+00:00", "repo": "taranis-ai/taranis-ai", "issue": 889, "language": "", "outcome": "noop", "tokens_spent": 64712, "iterations": 0, "notes": ""}
