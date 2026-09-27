@@ -277,6 +277,13 @@ HARD_FILE_CHARS = int(os.getenv("HARD_FILE_CHARS", "24000"))
 # the 4000-token default cap and truncate, which then fails the format parser
 # and costs a full retry. 8000 tokens covers most cross-cutting patch shapes.
 HARD_MAX_TOKENS = int(os.getenv("HARD_MAX_TOKENS", "8000"))
+# Hard issues also get a whole-issue TOKEN ceiling much larger than the flat
+# routine budget: the classification pass already verified the task is hard,
+# so the budget exists to cap runaway spend (the 99k-input kill), not to
+# starve a legit multi-file solution. The pre-flight guard (set_preflight_ceiling,
+# refreshed per attempt) makes calls refuse themselves BEFORE spend instead of
+# discovering the blow-up after the fact.
+HARD_ISSUE_TOKEN_BUDGET = int(os.getenv("HARD_ISSUE_TOKEN_BUDGET", "300000"))
 # "enhancement"-labelled issues are accepted when the model judges them SCOPED
 # or MODERATE (a contained improvement to existing code: a new option, a
 # missing code path, an extra API field + test, one new UI element in an
@@ -1620,6 +1627,12 @@ def escalation_budget(kind: str, difficulty: str) -> dict:
         "context_files": HARD_CONTEXT_FILES if hard else MAX_CONTEXT_FILES,
         "file_chars": HARD_FILE_CHARS if hard else MAX_FILE_CHARS,
         "plan_first": hard or (kind == "ENHANCEMENT" and difficulty in ("medium", "hard")),
+        # Tiered whole-issue token ceiling: hard tasks may spend far more (pre-
+        # flight refuses single calls that would blow the REMAINING budget, so
+        # a big ceiling is not a big-spend licence, it is headroom for calls
+        # that genuinely fit).
+        "token_budget": (HARD_ISSUE_TOKEN_BUDGET if hard
+                         else int(os.getenv("ISSUE_TOKEN_BUDGET", "40000"))),
     }
 
 
@@ -5214,7 +5227,7 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
     attempts = budget["attempts"]
     issue_budget = guards.IssueBudget(
         max_iterations=attempts,
-        max_tokens=int(os.getenv("ISSUE_TOKEN_BUDGET", guards.DEFAULT_TOKEN_BUDGET)),
+        max_tokens=int(budget.get("token_budget", guards.DEFAULT_TOKEN_BUDGET)),
         max_wall_clock_seconds=float(os.getenv("ISSUE_WALL_CLOCK_SECONDS",
                                                guards.DEFAULT_WALL_CLOCK_SECONDS)),
     )
@@ -5224,6 +5237,11 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
         spent_delta = guards.total_spent_tokens() - start_tokens
         issue_budget.tally(tokens=max(0, spent_delta - issue_budget.tokens_spent),
                           iterations=1)
+        # Pre-flight: every LLM call this attempt is refused BEFORE spend if it
+        # would blow the REMAINING issue budget (the budget is checked from the
+        # request size, not after the 99k-input call already landed). Refreshed
+        # each attempt so a solved issue never carries a stale ceiling.
+        llm_router.set_preflight_ceiling(issue_budget.left_tokens())
         # W10: checkpoint after every sub-step so a crash resumes, never loses.
         guards.checkpoint(repo_name, issue_number, {
             "attempt": attempt, "state": record.get("state"),

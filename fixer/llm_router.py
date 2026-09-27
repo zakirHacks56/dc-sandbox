@@ -100,9 +100,50 @@ class AllProvidersExhaustedError(RouterError):
     """Every provider in the tier chain was down or over budget (W14)."""
 
 
+class PreflightTokenBudgetExceeded(RouterError):
+    """A single call's estimated input + max_tokens exceeds the per-issue
+    pre-flight ceiling, so it was refused before any token was spent."""
+
+
 # W9: when set, hard-flagged issues may route to the reserved escalation tier
 # (COPILOT_API_KEY) before the free pool. Opt-in -- no key, no effect.
 _ESCALATE = {"enabled": False}
+
+# Per-issue pre-flight ceiling (tokens): when set, complete() estimates the
+# messages' input tokens BEFORE calling and refuses to send a call whose
+# input + max_tokens would blow the remaining issue budget. This stops the
+# "spend 99k on input, then discover the 40k issue budget is blown" pattern
+# (the Rekin226/aquascope#449 kill) -- refusal happens before spend, not after.
+_PREFLIGHT_CEILING: Optional[int] = None
+
+# Within-run memo of (provider.name, resolved_model) pairs that already failed
+# this process. A run re-tries the same combo repeatedly across attempts; once
+# a pair has failed hard it is skipped for the rest of the process instead of
+# re-eating the same 429/404/timeout on every hunt.
+_NEGATIVE_MODELS: set = set()
+
+
+def set_preflight_ceiling(tokens: Optional[int]) -> None:
+    """Set/clear the per-issue pre-flight ceiling. The fixer calls this with
+    the remaining issue budget at the start of every attempt."""
+    global _PREFLIGHT_CEILING
+    _PREFLIGHT_CEILING = (int(tokens) if tokens is not None and int(tokens) > 0 else None)
+
+
+# Preferred failover order within the PRIMARY tier. gemini proved healthy
+# today (102k real tokens, no shared quota with OpenRouter); groq is a
+# separate free tier that shares nothing with the exhausted openrouter-free
+# bucket; openrouter_free/omniroute funnel into that same exhausted bucket and
+# are deliberately last. Anything not listed keeps its old relative position.
+_PROVIDER_ORDER = {
+    "gemini": 0,
+    "groq": 1,
+    "openrouter_free": 2,
+    "omniroute": 3,
+    "omniroute_fallback": 4,
+    "copilot": 5,
+    "mistral": 6,
+}
 
 
 def set_escalation(enabled: bool) -> None:
@@ -130,16 +171,19 @@ class Provider:
         explicitly part of."""
         if self.tier == tier:
             return True
-        if tier == "primary" and self.tier in ("primary", "tertiary"):
+        if tier == "primary" and self.tier in ("primary", "tertiary", "fast"):
+            # fast (e.g. groq) is explicitly part of the primary chain -- it
+            # shares no quota with the openrouter funnel and is cheap.
             return True
         if tier == "fast" and self.tier in ("fast", "primary"):
             return True
         if tier == "escalation":
             # Escalation is a preference, not a hard requirement: if no copilot
             # tier is configured the free primary pool takes over. Tertiary
-            # (e.g. OpenRouter) is part of that wide-coverage pool, so a "hard"
+            # (e.g. OpenRouter) is part of that wide-coverage pool, and fast
+            # (groq) shares no quota with the openrouter funnel, so a "hard"
             # issue must not lose the only providers that are actually healthy.
-            return self.tier in ("escalation", "primary", "tertiary")
+            return self.tier in ("escalation", "primary", "tertiary", "fast")
         return False
 
 
@@ -328,7 +372,8 @@ def _read_events() -> list:
     return events
 
 
-def _append_event(provider: Provider, ok: bool, tokens: int, reason: str = "") -> None:
+def _append_event(provider: Provider, ok: bool, tokens: int, reason: str = "",
+                  quota: bool = False) -> None:
     path = _events_file()
     path.parent.mkdir(parents=True, exist_ok=True)
     event = {
@@ -341,6 +386,8 @@ def _append_event(provider: Provider, ok: bool, tokens: int, reason: str = "") -
     }
     if reason:
         event["reason"] = reason[:240]
+    if quota:
+        event["quota"] = True
     with _LOCK:
         try:
             with open(path, "a", encoding="utf-8") as fh:
@@ -353,12 +400,35 @@ def _today() -> str:
     return date.today().isoformat()
 
 
+def _next_daily_reset() -> float:
+    """Seconds-since-epoch of the next UTC midnight. OpenRouter's
+    'free-models-per-day' quota resets then; providers marked 429 stay out of
+    rotation until this instant instead of being cooldown-cycled every 5 min."""
+    from datetime import datetime, timezone, timedelta
+    now = datetime.now(timezone.utc)
+    return (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0).timestamp()
+
+
+def _is_quota_error(exc: BaseException) -> bool:
+    """True when the failure is a quota/credit ceiling, not a transient fault.
+    429 = rate/per-day limit; 402 'requires more credits' = balance ceiling.
+    Both say 'do not retry on cooldown, this will not succeed until reset'."""
+    status = getattr(exc, "status_code", None)
+    if status in (429, 402):
+        return True
+    text = str(exc)
+    return "rate limit exceeded" in text.lower() or "more credits" in text.lower()
+
+
 def provider_usage(provider: Provider) -> dict:
     """Per-provider daily usage + breaker position, derived from today's events.
 
     tokens/calls count only today. The circuit is computed from the fails
     tallied since the last success; a provider that tripped can only be
-    re-enabled by an actual successful call (see provider_state())."""
+    re-enabled by an actual successful call (see provider_state()). A provider
+    whose LATEST event is a quota failure is additionally marked
+    quota_exhausted_until = next UTC midnight -- it is skipped instantly for
+    the rest of the day instead of being cooldown-retried into the same 429."""
     events = [e for e in _read_events()
               if e.get("provider") == provider.name and e.get("date") == _today()]
     tokens = 0
@@ -366,8 +436,11 @@ def provider_usage(provider: Provider) -> dict:
     fails = 0
     down = False
     down_since = 0.0
+    quota_exhausted_until = 0.0
+    latest_ok = None  # None (no events) | True | False
     for e in events:
         calls += 1
+        latest_ok = bool(e.get("ok"))
         if e.get("ok"):
             tokens += int(e.get("tokens") or 0)
             fails = 0
@@ -375,9 +448,13 @@ def provider_usage(provider: Provider) -> dict:
             down_since = 0.0
         else:
             fails += 1
+            if e.get("quota"):
+                quota_exhausted_until = _next_daily_reset()
             if not down and fails >= BREAKER_THRESHOLD:
                 down = True
                 down_since = float(e.get("ts") or 0)
+    if not events or latest_ok is True:
+        quota_exhausted_until = 0.0
     cooldown_until = down_since + BREAKER_COOLDOWN_SECONDS if down else 0.0
     return {
         "date": _today(),
@@ -387,6 +464,7 @@ def provider_usage(provider: Provider) -> dict:
         "down": down,
         "down_since": down_since,
         "cooldown_until": cooldown_until,
+        "quota_exhausted_until": quota_exhausted_until,
     }
 
 
@@ -412,9 +490,13 @@ def has_quota(provider: Provider, entry: dict) -> bool:
 
 def is_callable(provider: Provider) -> tuple:
     """(callable, reason). reason is None when the provider may be called now;
-    'circuit_open' when its cooldown is still pending, 'budget_spent' only when
-    its daily token ceiling is genuinely exhausted."""
+    'quota_exhausted' when its daily free quota is spent (skipped until the
+    next UTC reset -- NO cooldown cycling), 'circuit_open' when its cooldown is
+    still pending, 'budget_spent' only when its daily token ceiling is
+    genuinely exhausted."""
     entry = provider_usage(provider)
+    if float(entry.get("quota_exhausted_until", 0)) > time.time():
+        return False, "quota_exhausted"
     if provider_state(entry) == "OPEN":
         return False, "circuit_open"
     if not has_quota(provider, entry):
@@ -432,11 +514,14 @@ def budget_available(provider: Provider) -> bool:
     return has_quota(provider, provider_usage(provider))
 
 
-def mark_result(provider: Provider, ok: bool, tokens: int = 0, reason: str = "") -> None:
+def mark_result(provider: Provider, ok: bool, tokens: int = 0, reason: str = "",
+                quota: bool = False) -> None:
     """Record one call outcome. Append-only; usage and the breaker re-derive
     themselves from the log, so concurrent runners cannot clobber each other.
-    `reason` is a short human-readable failure text captured for the event log."""
-    _append_event(provider, bool(ok), max(0, int(tokens)), reason)
+    `reason` is a short human-readable failure text captured for the event log.
+    `quota=True` marks a quota/credit ceiling (429/402) -- the provider is then
+    skipped until the next daily reset instead of being cooldown-retried."""
+    _append_event(provider, bool(ok), max(0, int(tokens)), reason, quota=bool(quota))
 
 
 def daily_tokens_spent() -> int:
@@ -492,9 +577,90 @@ def resolve_model(provider: Provider, requested: str) -> str:
     return requested
 
 
+_OPENROUTER_SLUGS = ("nvidia/", "cohere/", "dots-studio/", "google/gemma",
+                     "meta-llama/", "openrouter/", "anthropic/", "mistralai/")
+
+
+def _looks_foreign(requested: str) -> bool:
+    """True for vendor-prefixed OpenRouter model IDs ('nvidia/…:free'). These
+    only belong on the openrouter funnel, not on gemini/groq's native APIs."""
+    requested = str(requested or "").strip()
+    low = requested.lower()
+    return ((":free" in low and "/" in low)
+            or any(low.startswith(slug) for slug in _OPENROUTER_SLUGS)
+            or low.startswith("google/"))
+
+
+def _provider_accepts(provider: Provider, requested: str) -> bool:
+    """Whether this provider can realistically serve this model ID, so we
+    never burn a call on a doomed pairing. gemini only takes its own
+    'gemini-*' family (the fixer's openrouter-style combos leak into it and
+    404 -- the events log showed 8 identical 404s); groq takes anything that
+    is NOT an openrouter vendor slug; the openrouter funnel/omniroute take
+    everything (they are auto-model-aware)."""
+    requested = str(requested or "").strip()
+    if provider.auto_model_aware:  # omniroute: resolves auto/* combos itself
+        return True
+    if requested.startswith("auto/"):
+        return True
+    if provider.name == "gemini":
+        return requested.startswith("gemini-") or requested.startswith("models/gemini")
+    if provider.name == "groq":
+        return not _looks_foreign(requested)
+    return True
+
+
+def _sort_candidates(providers: Iterable[Provider]) -> list:
+    """Order providers for the serving tier. Three groups, in priority:
+
+      0  escalation (e.g. copilot) -- ALWAYS first on hard-flagged issues so
+         the reserved tier is never starved of a turn,
+      1  the user-approved primary chain, in explicit order
+         (gemini -> groq -> openrouter_free -> omniroute -> ...): gemini is
+         first because it proved healthy yesterday with no shared quota;
+         groq and openrouter* follow the funnel preference; omniroute -- which
+         funnels into the same exhausted openrouter-free bucket -- is last,
+         despite being tier 'primary', because its primary rank is deliberately
+         overridden here.
+      2  anything else, sorted by tier rank then name."""
+    def _key(p: Provider):
+        if p.tier == "escalation":
+            return (0, _PROVIDER_ORDER.get(p.name, 0))
+        base = _PROVIDER_ORDER.get(p.name)
+        if base is not None:
+            return (1, base)
+        return (2, _TIER_RANK.get(p.tier, 9), p.name)
+
+    return sorted(providers, key=_key)
+
+
 # ---------------------------------------------------------------------------
 # The public completion entry point (W14 failover core)
 # ---------------------------------------------------------------------------
+def estimate_input_tokens(messages: list) -> int:
+    """Cheap deterministic pre-flight estimate of a messages list's input size.
+    Conservative (chars//3, code-heavy English texts run ~3-4 chars/token), so
+    the guard errs toward refusal rather than silent overspend."""
+    total_chars = sum(len(m.get("content") or "") for m in messages)
+    return max(0, int(total_chars / 3))
+
+
+def _preflight_check(messages: list, max_tokens: int) -> None:
+    """Refuse a call BEFORE it spends anything when input + output would blow
+    the remaining per-issue ceiling. This is what stops the 99k-input call
+    that previously atomically exceeded the issue budget mid-attempt."""
+    ceiling = _PREFLIGHT_CEILING
+    if ceiling is None:
+        return
+    est = estimate_input_tokens(messages) + int(max_tokens)
+    if est > ceiling:
+        raise PreflightTokenBudgetExceeded(
+            f"pre-flight: call needs ~{est} tokens (input {estimate_input_tokens(messages)} "
+            f"+ max_tokens {max_tokens}) but only {ceiling} remain in the issue budget "
+            f"-- refusing before spend"
+        )
+
+
 def complete(messages: list, model: str, max_tokens: int = 4000,
              timeout: float = DEFAULT_WATCHDOG_SECONDS,
              provider_hint: Optional[str] = None):
@@ -502,14 +668,18 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
 
     Returns a LightCompletion(response-like) so the fixer's call site receives
     `.choices[0].message.content` exactly as before. Raises
-    AllProvidersExhaustedError when the whole tier chain is down/over-budget.
+    AllProvidersExhaustedError when the whole tier chain is down/over-budget,
+    or PreflightTokenBudgetExceeded when this single call would blow the
+    remaining per-issue ceiling BEFORE any token is spent.
     """
     from openai import OpenAI
+
+    _preflight_check(messages, max_tokens)
 
     tier = "fast" if "fast" in str(model).lower() else "primary"
     if escalation_enabled():
         tier = "escalation"
-    providers = sorted(load_providers(), key=lambda p: _TIER_RANK.get(p.tier, 9))
+    providers = _sort_candidates(load_providers())
     if provider_hint:
         providers = [p for p in providers if p.name == provider_hint] or providers
 
@@ -529,6 +699,11 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
         callable_now, reason = is_callable(provider)
         if reason == "circuit_open":
             continue  # OPEN: cooldown still pending -- try the next provider
+        if reason == "quota_exhausted":
+            # Daily free quota spent (429/402). Do NOT cooldown-retry: skipped
+            # instantly until the next UTC reset instead of re-eating the same
+            # refusal every 5 minutes.
+            continue
         if reason == "budget_spent":
             last_error = ProviderBudgetExceeded(f"{provider.name}: daily budget spent")
             continue
@@ -536,6 +711,12 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
         # elapsed, so we MUST actually call -- its result is what decides
         # whether the circuit re-closes or re-trips (Bug 1 deadlock escape).
         resolved = resolve_model(provider, model)
+        # Bug-1 companion: never let a foreign model ID reach a provider whose
+        # native API can't serve it (gemini got 8 pointless 404s yesterday).
+        if not _provider_accepts(provider, resolved) and not provider.auto_model_aware:
+            continue
+        if (provider.name, resolved) in _NEGATIVE_MODELS:
+            continue  # already failed this process -- don't re-eat it
         client_kwargs: dict = {"api_key": provider.api_key, "base_url": provider.base_url}
         if provider.name == "copilot":
             # Copilot's /chat/completions rejects requests that lack the
@@ -557,8 +738,11 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
                 timeout=timeout,
             )
         except Exception as exc:  # noqa: BLE001 - record and fail over
+            cohort = provider if isinstance(provider, Provider) else provider
+            quota = _is_quota_error(exc)
             reason = f"{type(exc).__name__}: {exc}"
-            mark_result(provider, ok=False, reason=reason)
+            mark_result(cohort, ok=False, reason=reason, quota=quota)
+            _NEGATIVE_MODELS.add((provider.name, resolved))
             print(f"⚠️ provider {provider.name} failed: {reason[:240]}", flush=True)
             last_error = exc
             continue
@@ -569,9 +753,11 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
         if not content:
             reason = "returned an empty completion"
             mark_result(provider, ok=False, reason=reason)
+            _NEGATIVE_MODELS.add((provider.name, resolved))
             print(f"⚠️ provider {provider.name} failed: {reason}", flush=True)
             last_error = RuntimeError(f"{provider.name} returned an empty completion")
             continue
+        _NEGATIVE_MODELS.discard((provider.name, resolved))
         return LightCompletion(
             provider_name=provider.name,
             model=resolved,
@@ -684,9 +870,10 @@ def health_status() -> str:
             else:
                 health = "DOWN"
             budget = "ok" if has_quota(provider, entry) else "OVER"
+            qmark = " QUOTA" if float(entry.get("quota_exhausted_until", 0)) > time.time() else ""
             lines.append(
-                f"  {provider.name:<14} tier={provider.tier:<13} {health:4} budget={budget:5} "
-                f"tokens={int(entry.get('tokens', 0))} calls={int(entry.get('calls', 0))} "
+                f"  {provider.name:<14} tier={provider.tier:<13} {health:4} budget={budget:5}"
+                f"{qmark} tokens={int(entry.get('tokens', 0))} calls={int(entry.get('calls', 0))} "
                 f"fails={int(entry.get('fails', 0))} state={state}"
             )
     lines.append(f"global daily tokens: {daily_tokens_spent()}/{GLOBAL_DAILY_TOKEN_BUDGET}")
