@@ -40,5 +40,5 @@
 {"ts": "2026-09-27T16:04:55.560069+00:00", "repo": "izzywdev/FuzeFront", "issue": 1023, "language": "", "outcome": "error:RuntimeError", "tokens_spent": 1207, "iterations": 0, "notes": ""}
 {"ts": "2026-09-27T16:06:56.264479+00:00", "repo": "izzywdev/FuzeFront", "issue": 1022, "language": "", "outcome": "abandoned", "tokens_spent": 110114, "iterations": 3, "notes": "token_budget_exceeded"}
 {"ts": "2026-09-27T16:06:56.264659+00:00", "repo": "izzywdev/FuzeFront", "issue": 1022, "language": "", "outcome": "noop", "tokens_spent": 111303, "iterations": 0, "notes": ""}
-{"ts": "2026-09-27T16:21:36.977248+00:00", "repo": "izzywdev/FuzeFront", "issue": 1021, "language": "", "outcome": "abandoned", "tokens_spent": 43572, "iterations": 2, "notes": "token_budget_exceeded"}
-{"ts": "2026-09-27T16:21:36.977627+00:00", "repo": "izzywdev/FuzeFront", "issue": 1021, "language": "", "outcome": "noop", "tokens_spent": 44770, "iterations": 0, "notes": ""}
+{"ts": "2026-09-27T16:23:09.705529+00:00", "repo": "izzywdev/FuzeFront", "issue": 1021, "language": "", "outcome": "abandoned", "tokens_spent": 47857, "iterations": 2, "notes": "token_budget_exceeded"}
+{"ts": "2026-09-27T16:23:09.705890+00:00", "repo": "izzywdev/FuzeFront", "issue": 1021, "language": "", "outcome": "noop", "tokens_spent": 49055, "iterations": 0, "notes": ""}
