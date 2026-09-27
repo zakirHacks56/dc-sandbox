@@ -11,6 +11,15 @@ import llm_router as router
 FIXER = Path(__file__).resolve().parent.parent
 
 
+def _gateway_accepting(host="127.0.0.1", port=20128, timeout=1.0):
+    import socket
+    try:
+        with socket.create_connection((host, port), timeout=timeout):
+            return True
+    except OSError:
+        return False
+
+
 @pytest.fixture
 def tmp_usage(tmp_path, monkeypatch):
     monkeypatch.setattr(router, "PROVIDER_USAGE_FILE", str(tmp_path / "provider_usage.json"))
@@ -140,6 +149,8 @@ def test_live_complete_via_local_omniroute(tmp_usage):
     env_file = FIXER.parent / "manual.env"  # repo root (where manual.env lives)
     if not env_file.exists():
         pytest.skip("manual.env not present; cannot live-test the gateway")
+    if not _gateway_accepting():
+        pytest.skip("omniRoute gateway not listening on localhost:20128")
     env = {}
     for line in env_file.read_text(encoding="utf-8").splitlines():
         line = line.strip()

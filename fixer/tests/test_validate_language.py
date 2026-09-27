@@ -22,6 +22,35 @@ def test_capability_map_marks_python_proven_after_harness():
     assert cap["languages"]["python"]["status"] in ("proven", "untested")
 
 
+def test_load_capability_map_unwraps_namespace():
+    """Regression: load_capability_map must return the flat lang->config dict,
+    NOT the {purpose, languages, rules} namespace. Before the fix it returned
+    the raw top level, so iterating it hit the 'purpose' STRING as a config
+    and detect_language_and_commands crashed for every repo in the cloud
+    (TypeError: string indices must be integers)."""
+    sys.path.insert(0, str(FIXER))
+    import oss_agent_v2 as o
+    flat = o.load_capability_map()
+    assert "purpose" not in flat
+    assert "languages" not in flat
+    assert "rules" not in flat
+    assert all(isinstance(cfg, dict) for cfg in flat.values())
+    for cfg in flat.values():
+        assert isinstance(cfg.get("markers", []), list)
+        assert isinstance(cfg.get("extensions", []), list)
+
+
+def test_detect_language_python(tmp_path):
+    sys.path.insert(0, str(FIXER))
+    import oss_agent_v2 as o
+    (tmp_path / "pyproject.toml").write_text("[project]\n")
+    (tmp_path / "src").mkdir()
+    (tmp_path / "src" / "app.py").write_text("x = 1\n")
+    detected = o.detect_language_and_commands(tmp_path)
+    assert detected["language"] == "python"
+    assert detected["test"] == "pytest"
+
+
 def test_harness_cli_end_to_end():
     proc = subprocess.run(
         [sys.executable, str(FIXER / "validate_language.py"), "--language", "python"],

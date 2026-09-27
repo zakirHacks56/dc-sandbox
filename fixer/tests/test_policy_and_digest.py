@@ -96,16 +96,19 @@ def test_filter_ok_repos(tmp_path, monkeypatch):
 
 
 def test_digest_builds_from_jsonl(tmp_path, monkeypatch):
+    import datetime
     failures = tmp_path / "failures.jsonl"
     metrics = tmp_path / "metrics.jsonl"
     monkeypatch.setattr(digest, "FAILURES", failures)
     monkeypatch.setattr(digest, "METRICS", metrics)
+    now = datetime.datetime.now(datetime.timezone.utc)
+    ts = (now - datetime.timedelta(hours=1)).isoformat()
     failures.write_text(json.dumps({
-        "ts": "2026-09-26T10:00:00+00:00", "type": "failure",
+        "ts": ts, "type": "failure",
         "stage": "generate_fix", "repo": "a/b",
         "issue": {"repo": "a/b", "issue": 2}, "error": "x"}) + "\n")
     metrics.write_text(json.dumps({
-        "ts": "2026-09-26T10:00:00+00:00", "repo": "a/b", "issue": 2,
+        "ts": ts, "repo": "a/b", "issue": 2,
         "outcome": "failed", "tokens_spent": 30, "iterations": 3}) + "\n")
     text = digest.build_digest(days=1)
     assert "a/b" in text

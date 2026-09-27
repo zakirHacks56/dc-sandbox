@@ -1,11 +1,24 @@
 {
-  "purpose": "Language capability map (W5). A language is only trusted to run real issues after the validation harness has proven it on synthetic fixtures. status: proven | untested. test_cmd/build_cmd are the defaults the harness and the fixer's detect_language_and_commands use; env_guarded means the harness needs that toolchain installed to run.",
+  "purpose": "Language capability map (W5). A language is only trusted to run real issues after the validation harness has proven it on synthetic fixtures. status: proven | untested. test_cmd/build_cmd are the defaults the harness and the fixer's detect_language_and_commands use; env_guarded means the harness needs that toolchain installed to run. markers/extensions are the detection signals detect_language_and_commands scores against.",
   "languages": {
     "python": {
       "status": "proven",
       "test_cmd": "pytest",
       "build_cmd": "",
       "env_guarded": false,
+      "markers": [
+        "pyproject.toml",
+        "requirements.txt",
+        "setup.py",
+        "setup.cfg",
+        "Pipfile",
+        "tox.ini",
+        "pytest.ini"
+      ],
+      "extensions": [
+        ".py",
+        ".pyi"
+      ],
       "notes": "Only language genuinely exercised in production so far. Validation harness must re-prove it in CI before it counts again."
     },
     "javascript": {
@@ -13,6 +26,19 @@
       "test_cmd": "npm test",
       "build_cmd": "npm run build",
       "env_guarded": true,
+      "markers": [
+        "package.json",
+        "package-lock.json",
+        "yarn.lock",
+        "pnpm-lock.yaml",
+        "webpack.config.js",
+        ".eslintrc"
+      ],
+      "extensions": [
+        ".js",
+        ".mjs",
+        ".jsx"
+      ],
       "notes": "Runs on the aquascope target; node toolchain needed."
     },
     "typescript": {
@@ -20,6 +46,16 @@
       "test_cmd": "npm test",
       "build_cmd": "npm run build",
       "env_guarded": true,
+      "markers": [
+        "tsconfig.json",
+        "package.json",
+        "deno.json"
+      ],
+      "extensions": [
+        ".ts",
+        ".tsx",
+        ".mts"
+      ],
       "notes": "Configured in targets but no synthetic-fixture validation yet."
     },
     "java": {
@@ -27,6 +63,16 @@
       "test_cmd": "mvn test",
       "build_cmd": "mvn compile",
       "env_guarded": true,
+      "markers": [
+        "pom.xml",
+        "build.gradle",
+        "build.gradle.kts",
+        "settings.gradle",
+        "settings.gradle.kts"
+      ],
+      "extensions": [
+        ".java"
+      ],
       "notes": "Never run against a real issue; must pass the harness before enabling as a hunt target."
     },
     "go": {
@@ -34,6 +80,14 @@
       "test_cmd": "go test ./...",
       "build_cmd": "go build ./...",
       "env_guarded": true,
+      "markers": [
+        "go.mod",
+        "go.sum",
+        "Gopkg.toml"
+      ],
+      "extensions": [
+        ".go"
+      ],
       "notes": "Never run against a real issue; must pass the harness before enabling as a hunt target."
     },
     "ruby": {
@@ -41,6 +95,16 @@
       "test_cmd": "bundle exec rspec",
       "build_cmd": "bundle exec rubocop",
       "env_guarded": true,
+      "markers": [
+        "Gemfile",
+        "Rakefile",
+        "config.ru",
+        ".ruby-version"
+      ],
+      "extensions": [
+        ".rb",
+        ".rbs"
+      ],
       "notes": "Never run against a real issue; must pass the harness before enabling as a hunt target."
     },
     "rust": {
@@ -48,6 +112,13 @@
       "test_cmd": "cargo test",
       "build_cmd": "cargo build",
       "env_guarded": true,
+      "markers": [
+        "Cargo.toml",
+        "Cargo.lock"
+      ],
+      "extensions": [
+        ".rs"
+      ],
       "notes": "Never run against a real issue; must pass the harness before enabling as a hunt target."
     }
   },

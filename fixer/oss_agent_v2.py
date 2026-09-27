@@ -1302,7 +1302,7 @@ def discover_valid_issue(repo_names: list, label: str = "good first issue"):
     capability_map = load_capability_map()
     supported_extensions = set()
     for cfg in capability_map.values():
-        supported_extensions.update(cfg["extensions"])
+        supported_extensions.update(cfg.get("extensions", []))
 
     labels = [item.strip() for item in (label or "").split(",") if item.strip()]
     labels = labels or ["good first issue"]
@@ -3375,7 +3375,11 @@ def load_capability_map() -> dict:
     """Config-driven language support: adding a new language means editing
     this JSON file, never touching code. This replaces the previous
     if/elif chain, which is exactly the kind of hardcoding that caused
-    'works on Python repos, breaks on others' compatibility bugs."""
+    'works on Python repos, breaks on others' compatibility bugs.
+
+    The file is namespaced ({purpose, languages, rules}) so the harness
+    (validate_language) can re-stamp status in place; callers that iterate
+    languages get the flat lang -> config dict, not the wrapper."""
     path = CAPABILITY_MAP_PATH if CAPABILITY_MAP_PATH.exists() else _BUNDLED_CAPABILITY_MAP
     if not path.exists():
         raise FileNotFoundError(
@@ -3383,7 +3387,10 @@ def load_capability_map() -> dict:
             f"or {_BUNDLED_CAPABILITY_MAP}. This file defines language support "
             f"and is required."
         )
-    return json.loads(path.read_text())
+    data = json.loads(path.read_text())
+    if "languages" in data:
+        data = data["languages"]
+    return {k: v for k, v in data.items() if isinstance(v, dict)}
 
 
 def detect_language_and_commands(repo_dir: Path) -> dict:
@@ -3394,10 +3401,10 @@ def detect_language_and_commands(repo_dir: Path) -> dict:
     scores = {}
     for lang, config in capability_map.items():
         score = 0
-        for marker in config["markers"]:
+        for marker in config.get("markers", []):
             if (repo_dir / marker).exists():
                 score += 2
-        for ext in config["extensions"]:
+        for ext in config.get("extensions", []):
             match_count = sum(1 for _ in repo_dir.rglob(f"*{ext}"))
             score += min(match_count, 10) * 0.1
         if score > 0:
