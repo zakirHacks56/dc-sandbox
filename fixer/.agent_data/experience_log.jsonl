@@ -24,3 +24,4 @@
 {"repo": "taranis-ai/taranis-ai", "issue_title": "Revisit Report View Attribute Rendering", "language": "python", "outcome": "failed", "error_category": "D", "notes": "token_budget_exceeded", "timestamp": "2026-09-27"}
 {"repo": "taranis-ai/taranis-ai", "issue_title": "shard e2e test files", "language": "python", "outcome": "failed", "error_category": "D", "notes": "token_budget_exceeded", "timestamp": "2026-09-27"}
 {"repo": "taranis-ai/taranis-ai", "issue_title": "Integrate neon (postgresql hosting service) for CI runs", "language": "python", "outcome": "failed", "error_category": "D", "notes": "token_budget_exceeded", "timestamp": "2026-09-27"}
+{"repo": "izzywdev/FuzeFront", "issue_title": "Spine prefixes `cnv`/`msg` vs FuzeContact conversations \u2014 and an id namespace for the Party master", "language": "javascript", "outcome": "failed", "error_category": "D", "notes": "token_budget_exceeded", "timestamp": "2026-09-27"}

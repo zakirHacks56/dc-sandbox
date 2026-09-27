@@ -15223,3 +15223,38 @@ Step 8a: running baseline tests (before any changes)...
 
 Switched to a new branch 'fix-issue-673'
 2026-09-27T15:49:09+00:00  tick done
+2026-09-27T15:54:56+00:00  gate poller start (offset=746150288)
+2026-09-27T15:55:04+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T15:55:05+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T15:55:06+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T15:55:07+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T15:55:11+00:00  HUNTING: trying izzywdev/FuzeFront#1194
+2026-09-27T15:55:11+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1194 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T15:56:59+00:00  fixer exit=0
+--tail--
+n: 'ckd',
+  // `configHistory` — FF-EPIC-18 (FFRNT-280), the append-only change trail
+  // (`GET /v1/config/history`) and reveal-once secret audit
+  // (`POST /v1/config/secrets/reveal`) both write. Bare `cvh_`, per the same
+  // FuzeFront-hosted-for-the-family reasoning as `cns_`/`ckd_` above — already
+  // declared in the frozen contract's "Identifiers" section.
+  configHistory: 'cvh',
+
+We note that the messaging types (`conversation`, `message`, `notification`) are currently bare spine prefixes (without `front_`).
+
+The issue suggests two options for conversations and messages:
+
+Option (a): Keep them in FuzeFront (so they remain as bare spine prefixes) and let FuzeContact use namespaced types (like `contact_cnv_...`).
+
+Option (b): Move `cnv`/`msg` ownership to FuzeContact, meaning we would remove them from the FuzeFront registry and FuzeContact would own them (and then FuzeFront would have to use namespaced for its own messaging?).
+
+However, note that the issue says: "FuzeContact's frozen v1 contract owns the customer-facing `Conversation` and `Message` model (voice, WhatsApp, Messenger, email, web chat)."
+
+If we choose option (b), then we would remove `conversation` and `message` fro
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 2/5 ---
+🧮 Issue budget exceeded (token_budget_exceeded) -- abandoning this issue.
+
+Switched to a new branch 'fix-issue-1194'
+2026-09-27T15:56:59+00:00  tick done
