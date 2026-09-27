@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T09:21:08",
+  "updated_at": "2026-09-27T09:32:33",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -541,6 +541,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T09:21:08"
+    },
+    "taranis-ai/taranis-ai#1121": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 1121,
+      "issue_title": "Create assets from SBOMs with editable triggers for OSINT matching",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-1121.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-1121",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-1121",
+      "conversation_id": "20260927T093232-21362f0e",
+      "state": "ANALYZING",
+      "status": "analyzing",
+      "branch": "fix-issue-1121",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T09:32:33"
     }
   }
 }
