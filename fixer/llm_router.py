@@ -172,7 +172,7 @@ def load_providers(env: Optional[dict] = None) -> list[Provider]:
                            "https://generativelanguage.googleapis.com/v1beta/openai").strip(),
             api_key=gemini,
             tier="primary",
-            default_model=(e.get("GEMINI_MODEL") or "gemini-2.5-flash").strip(),
+            default_model=(e.get("GEMINI_MODEL") or "gemini-3.8-flash").strip(),
             models=[m.strip() for m in (e.get("GEMINI_MODELS") or "").split(",") if m.strip()],
         ))
 
@@ -183,7 +183,7 @@ def load_providers(env: Optional[dict] = None) -> list[Provider]:
             base_url=e.get("GROQ_BASE_URL", "https://api.groq.com/openai/v1").strip(),
             api_key=groq,
             tier="fast",
-            default_model=(e.get("GROQ_MODEL") or "llama-3.3-70b-versatile").strip(),
+            default_model=(e.get("GROQ_MODEL") or "qwen/qwen3.8-27b").strip(),
         ))
 
     openrouter = _key("OPENROUTER_API_KEY")
@@ -194,7 +194,7 @@ def load_providers(env: Optional[dict] = None) -> list[Provider]:
             api_key=openrouter,
             tier="tertiary",
             default_model=(e.get("OPENROUTER_MODEL") or
-                           "meta-llama/llama-3.1-8b-instruct:free").strip(),
+                           "meta-llama/llama-3.1-8b-instruct").strip(),
         ))
 
     mistral = _key("MISTRAL_API_KEY")
@@ -204,13 +204,16 @@ def load_providers(env: Optional[dict] = None) -> list[Provider]:
             base_url=e.get("MISTRAL_BASE_URL", "https://api.mistral.ai/v1").strip(),
             api_key=mistral,
             tier="batch",
-            default_model=(e.get("MISTRAL_MODEL") or "mistral-small-2507").strip(),
+            default_model=(e.get("MISTRAL_MODEL") or "mistral-small-latest").strip(),
         ))
 
     # W19: opportunistic-only tier. Never used unless every other tier is down.
     for name, default_url, default_model in (
         ("hetzner", "https://inference.hetzner.com/api/v1", "Hetzner/turbo"),
-        ("llm7", "https://llm7.io/api/v1", "openchat/openchat-7b:free"),
+        ("llm7", "https://api.llm7.io/v1", "GLM-5.3-Flash"),
+        ("aion_lab", "https://api.aionlabs.ai/v1", "aion-labs/aion-3.0-mini"),
+        ("nvidia_nim", "https://integrate.api.nvidia.com/v1",
+         "nvidia/nemotron-3-super-120b-a12b"),
     ):
         api_key = _key(f"{name.upper()}_API_KEY")
         if api_key:

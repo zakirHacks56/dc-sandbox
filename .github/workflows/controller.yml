@@ -34,6 +34,8 @@ jobs:
       MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
       HETZNER_API_KEY: ${{ secrets.HETZNER_API_KEY }}
       LLM7_API_KEY: ${{ secrets.LLM7_API_KEY }}
+      AION_LAB_API_KEY: ${{ secrets.AION_LAB_API_KEY }}
+      NVIDIA_NIM_API_KEY: ${{ secrets.NVIDIA_NIM_API_KEY }}
       # W9: reserved escalation tier for hard-flagged issues (opt-in).
       COPILOT_API_KEY: ${{ secrets.COPILOT_API_KEY }}
       COPILOT_BASE_URL: ${{ secrets.COPILOT_BASE_URL }}
