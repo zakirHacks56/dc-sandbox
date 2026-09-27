@@ -15822,3 +15822,7 @@ Step 8a: running baseline tests (before any changes)...
 
 Switched to a new branch 'fix-issue-1019'
 2026-09-27T19:50:30+00:00  tick done
+2026-09-27T19:52:11+00:00  gate poller start (offset=746150288)
+2026-09-27T19:52:19+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T19:52:19+00:00  preflight: no LLM provider callable -- skipping hunt
+2026-09-27T19:52:19+00:00  tick done
