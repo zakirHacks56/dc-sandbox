@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T18:44:40",
+  "updated_at": "2026-09-27T18:52:56",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -976,6 +976,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T18:44:40"
+    },
+    "Rekin226/aquascope#439": {
+      "repo": "Rekin226/aquascope",
+      "issue": 439,
+      "issue_title": "UK EA: every daily reading carries quality, completeness and valid/invalid/missing, and we keep none of it",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-439.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-439",
+      "workspace": "workspace/Rekin226-aquascope/issue-439",
+      "conversation_id": "20260927T185224-64acc11f",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-439",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T18:52:56"
     }
   }
 }
