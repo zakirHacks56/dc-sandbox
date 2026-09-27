@@ -185,9 +185,9 @@
       "updated": "2026-09-21T18:28:49"
     },
     "yunaremaia/sandbox-ffi-layers#28": {
-      "state": "IMPLEMENTING",
-      "pr": null,
-      "updated": "2026-09-26T08:05:39+00:00"
+      "state": "ABANDONED",
+      "decision": false,
+      "updated": "2026-09-24T23:34:54"
     },
     "yunaremaia/sandbox-ffi-layers#25": {
       "state": "ABANDONED",
@@ -485,5 +485,5 @@
       "updated": "2026-09-27T20:24:19+00:00"
     }
   },
-  "last_tick": "2026-09-27T23:29:51+00:00"
+  "last_tick": "2026-09-27T23:37:56+00:00"
 }
