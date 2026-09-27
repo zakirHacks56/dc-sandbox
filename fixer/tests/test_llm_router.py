@@ -1,4 +1,5 @@
 """Unit + live tests for fixer/llm_router.py (W1/W9/W11/W12/W14/W18/W19)."""
+import json
 import os
 import sys
 import time
@@ -64,19 +65,24 @@ def test_matches_tier():
     assert ter.matches_tier("escalation")      # tertiary stays in the hard-issue pool
 
 
-def test_breaker_trips_and_recovers(tmp_usage):
+def test_breaker_trips_opens_and_closes_via_trial(tmp_usage, monkeypatch):
     p = router.Provider(name="gemini", base_url="b", api_key="k")
     router.mark_result(p, ok=False)
     router.mark_result(p, ok=False)
-    assert router.is_healthy(p) is True  # threshold not reached
+    assert router.provider_state(router.provider_usage(p)) == "CLOSED"
+    assert router.is_healthy(p) is True  # under threshold, still closed
     router.mark_result(p, ok=False)
-    assert router.is_healthy(p) is False  # tripped
-    # Simulate cooldown elapsing.
-    store = router._read_store()
-    store["providers"]["gemini"]["cooldown_until"] = time.time() - 1
-    router._write_store(store)
-    assert router.is_healthy(p) is True
-    router.mark_result(p, ok=True)  # success clears the breaker
+    assert router.provider_state(router.provider_usage(p)) == "OPEN"
+    assert router.is_healthy(p) is False  # tripped, waiting out cooldown
+    assert router.is_callable(p) == (False, "circuit_open")
+    # Cooldown elapses -> HALF_OPEN: a trial call is allowed through, and its
+    # result -- not a flag -- is what re-closes the circuit (Bug 1 deadlock).
+    monkeypatch.setattr(router, "BREAKER_COOLDOWN_SECONDS", -1.0)
+    assert router.provider_state(router.provider_usage(p)) == "HALF_OPEN"
+    assert router.is_callable(p) == (True, None)
+    router.mark_result(p, ok=True)  # trial succeeds
+    entry = router.provider_usage(p)
+    assert router.provider_state(entry) == "CLOSED"
     assert router.is_healthy(p) is True
 
 
@@ -89,16 +95,29 @@ def test_budget_available_and_daily_rollover(tmp_usage, monkeypatch):
     assert router.budget_available(p) is False  # 120 >= 100
 
 
+def test_budget_never_consults_breaker(tmp_usage, monkeypatch):
+    """Bug 1 regression: quota is a PURE token check. A tripped-then-recovered
+    provider with quota is callable; a healthy provider over budget reports
+    'budget_spent' -- and only then is that label true."""
+    p = router.Provider(name="gemini", base_url="b", api_key="k")
+    monkeypatch.setattr(router, "GLOBAL_DAILY_TOKEN_BUDGET", 100)
+    for _ in range(3):
+        router.mark_result(p, ok=False)  # trip the circuit
+    assert router.provider_state(router.provider_usage(p)) == "OPEN"
+    # Even while OPEN-cooling, the quota side is independent and healthy.
+    assert router.has_quota(p, router.provider_usage(p)) is True
+    assert router.budget_available(p) is True
+    # Healthy + over budget -> the label is real this time.
+    other = router.Provider(name="openrouter_free", base_url="b", api_key="k")
+    router.mark_result(other, ok=True, tokens=120)
+    assert router.is_callable(other) == (False, "budget_spent")
+    assert router.provider_state(router.provider_usage(other)) == "CLOSED"
+
+
 def test_global_budget_gate(tmp_usage):
     assert router.global_budget_available() is True
     p = router.Provider(name="gemini", base_url="b", api_key="k")
-    router._write_store({
-        "updated": time.time(),
-        "providers": {"gemini": {"date": time.strftime("%Y-%m-%d"),
-                                 "tokens": router.GLOBAL_DAILY_TOKEN_BUDGET,
-                                 "calls": 1, "fails": 0, "down": False,
-                                 "cooldown_until": 0}},
-    })
+    router.mark_result(p, ok=True, tokens=router.GLOBAL_DAILY_TOKEN_BUDGET)
     assert router.global_budget_available() is False
 
 
@@ -142,6 +161,28 @@ def test_mark_result_usage_counts(tmp_usage):
     router.mark_result(p, ok=True, tokens=99)
     entry = router.provider_usage(p)
     assert entry["tokens"] == 99 and entry["calls"] == 1
+
+
+def test_new_day_rollover_clears_breaker(tmp_usage):
+    """Bug 3: usage and the circuit are derived from TODAY's events only, so a
+    new day has no tokens, no fails and no open circuit -- there is no stored
+    breaker state left behind to forget to reset. Previous days' rows (even
+    failures + token spend) are ignored entirely."""
+    p = router.Provider(name="gemini", base_url="b", api_key="k")
+    events_path = router._events_file()
+    events_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(events_path, "a", encoding="utf-8") as fh:
+        for _ in range(5):
+            fh.write(json.dumps({
+                "provider": "gemini", "ok": False, "tokens": 9999,
+                "ts": time.time() - 86400, "date": "2020-01-01",
+                "run_id": "old-day",
+            }) + "\n")
+    entry = router.provider_usage(p)
+    assert entry["tokens"] == 0 and entry["calls"] == 0 and entry["fails"] == 0
+    assert router.provider_state(entry) == "CLOSED"
+    assert router.is_callable(p) == (True, None)
+    assert router.daily_tokens_spent() == 0
 
 
 @pytest.mark.live
