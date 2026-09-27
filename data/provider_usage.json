@@ -3,27 +3,27 @@
     "omniroute": {
       "date": "2026-09-27",
       "tokens": 151717,
-      "calls": 33,
-      "fails": 0,
-      "down": false,
-      "cooldown_until": 0
+      "calls": 36,
+      "fails": 3,
+      "down": true,
+      "cooldown_until": 1790520810.151647
     },
     "gemini": {
       "date": "2026-09-27",
       "tokens": 0,
-      "calls": 1,
-      "fails": 1,
-      "down": false,
-      "cooldown_until": 0
+      "calls": 3,
+      "fails": 3,
+      "down": true,
+      "cooldown_until": 1790520786.7117193
     },
     "openrouter_free": {
       "date": "2026-09-27",
-      "tokens": 11323,
-      "calls": 1,
+      "tokens": 56926,
+      "calls": 9,
       "fails": 0,
       "down": false,
       "cooldown_until": 0
     }
   },
-  "updated": 1790520206.6123998
+  "updated": 1790520761.5232413
 }

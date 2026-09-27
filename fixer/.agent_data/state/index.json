@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T14:40:41",
+  "updated_at": "2026-09-27T14:52:38",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -691,6 +691,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T14:40:41"
+    },
+    "yunaremaia/sandbox-ffi-layers#18": {
+      "repo": "yunaremaia/sandbox-ffi-layers",
+      "issue": 18,
+      "issue_title": "[sandbox-ffi-layers] Add CODE_OF_CONDUCT.md with community standards",
+      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-18.json",
+      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-18",
+      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-18",
+      "conversation_id": "20260927T144800-6748f629",
+      "state": "TESTING",
+      "status": "testing",
+      "branch": "fix-issue-18",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T14:52:38"
     }
   }
 }
