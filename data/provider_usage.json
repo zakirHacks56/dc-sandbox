@@ -18,12 +18,12 @@
     },
     "openrouter_free": {
       "date": "2026-09-27",
-      "tokens": 56926,
-      "calls": 9,
+      "tokens": 129917,
+      "calls": 12,
       "fails": 0,
       "down": false,
       "cooldown_until": 0
     }
   },
-  "updated": 1790520761.5232413
+  "updated": 1790520904.9410646
 }
