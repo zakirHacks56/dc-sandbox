@@ -59,7 +59,8 @@
       1027,
       1026,
       1025,
-      1024
+      1024,
+      1194
     ],
     "yunaremaia/sandbox-ffi-layers": [
       39,
@@ -363,7 +364,12 @@
       "state": "IMPLEMENTING",
       "pr": null,
       "updated": "2026-09-27T15:49:09+00:00"
+    },
+    "izzywdev/FuzeFront#1194": {
+      "state": "IMPLEMENTING",
+      "pr": null,
+      "updated": "2026-09-27T15:54:31+00:00"
     }
   },
-  "last_tick": "2026-09-27T15:49:09+00:00"
+  "last_tick": "2026-09-27T15:54:31+00:00"
 }
