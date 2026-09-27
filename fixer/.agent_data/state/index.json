@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T09:46:02",
+  "updated_at": "2026-09-27T09:50:17",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -586,6 +586,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T09:46:02"
+    },
+    "izzywdev/FuzeFront#1027": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1027,
+      "issue_title": "[Help wanted] Build a reference app onboarding walkthrough from zero to registered runtime",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1027.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1027",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1027",
+      "conversation_id": "20260927T095013-9312dae3",
+      "state": "ANALYZING",
+      "status": "analyzing",
+      "branch": "fix-issue-1027",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T09:50:17"
     }
   }
 }
