@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T19:31:32",
+  "updated_at": "2026-09-27T19:37:41",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1066,6 +1066,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T19:31:32"
+    },
+    "izzywdev/FuzeFront#1020": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1020,
+      "issue_title": "[Good first issue] Add a minimal external app registration example",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1020.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1020",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1020",
+      "conversation_id": "20260927T193727-0dd19e99",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-1020",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T19:37:41"
     }
   }
 }
