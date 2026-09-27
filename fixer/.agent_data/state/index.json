@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T18:55:52",
+  "updated_at": "2026-09-27T19:00:14",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -991,6 +991,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T18:55:52"
+    },
+    "Rekin226/aquascope#432": {
+      "repo": "Rekin226/aquascope",
+      "issue": 432,
+      "issue_title": "The Windows leg lands red: 13 failures, all test-environment assumptions",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-432.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-432",
+      "workspace": "workspace/Rekin226-aquascope/issue-432",
+      "conversation_id": "20260927T185954-190a34a0",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-432",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T19:00:14"
     }
   }
 }
