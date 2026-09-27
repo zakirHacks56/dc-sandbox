@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T09:32:33",
+  "updated_at": "2026-09-27T09:42:10",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -556,6 +556,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T09:32:33"
+    },
+    "taranis-ai/taranis-ai#1116": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 1116,
+      "issue_title": "Web History: investigate what changed, recover lost content, and cite historical evidence",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-1116.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-1116",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-1116",
+      "conversation_id": "20260927T094208-63d0c775",
+      "state": "ANALYZING",
+      "status": "analyzing",
+      "branch": "fix-issue-1116",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T09:42:10"
     }
   }
 }
