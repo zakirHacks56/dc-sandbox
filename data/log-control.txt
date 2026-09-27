@@ -14212,3 +14212,18 @@ it your remaining balance.', 'provider_name': None, 'previous_errors': [{'code':
 2026-09-26T21:39:32+00:00  sweep: resolved 1 stale in-flight lane(s)
 2026-09-26T21:39:32+00:00  budget: 0/2 PRs, 0/3 pending gates
 2026-09-26T21:39:32+00:00  tick done
+2026-09-27T08:03:29+00:00  gate poller start (offset=746150288)
+2026-09-27T08:03:38+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T08:03:38+00:00  new day: resetting PR budget
+2026-09-27T08:03:39+00:00  HUNTING: trying yunaremaia/sandbox-ffi-layers#39
+2026-09-27T08:03:39+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 39 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T08:03:41+00:00  fixer exit=1
+--tail--
+Traceback (most recent call last):
+  File "/home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py", line 42, in <module>
+    import llm_router
+  File "/home/runner/work/dc-sandbox/dc-sandbox/fixer/llm_router.py", line 62, in <module>
+    GLOBAL_DAILY_TOKEN_BUDGET = int(os.getenv("GLOBAL_DAILY_TOKEN_BUDGET", "2000000"))
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
+2026-09-27T08:03:41+00:00  tick done
