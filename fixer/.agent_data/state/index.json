@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-25T13:47:06",
+  "updated_at": "2026-09-27T08:21:49",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -421,6 +421,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-25T13:47:06"
+    },
+    "yunaremaia/sandbox-ffi-layers#25": {
+      "repo": "yunaremaia/sandbox-ffi-layers",
+      "issue": 25,
+      "issue_title": "security: Cargo.lock format version detection \u2014 validate version field before parsing",
+      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-25.json",
+      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-25",
+      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-25",
+      "conversation_id": "20260922T004520-b02af82d",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-25",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T08:21:49"
     }
   }
 }

@@ -43,7 +43,8 @@
     ],
     "yunaremaia/sandbox-ffi-layers": [
       39,
-      28
+      28,
+      25
     ]
   },
   "lanes": {
@@ -144,8 +145,8 @@
     },
     "yunaremaia/sandbox-ffi-layers#25": {
       "state": "ABANDONED",
-      "decision": false,
-      "updated": "2026-09-22T00:46:12"
+      "pr": null,
+      "updated": "2026-09-27T08:21:49+00:00"
     },
     "yunaremaia/sandbox-ffi-layers#23": {
       "state": "ABANDONED",
@@ -223,5 +224,5 @@
       "updated": "2026-09-25T13:47:06+00:00"
     }
   },
-  "last_tick": "2026-09-27T08:05:39+00:00"
+  "last_tick": "2026-09-27T08:21:49+00:00"
 }
