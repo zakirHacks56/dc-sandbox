@@ -2,10 +2,10 @@
   "schema": 2,
   "repo": "izzywdev/FuzeFront",
   "issue": 1181,
-  "issue_title": "selection-list-service: S7 authorization was never implemented \u2014 38 acceptance tests are correctly red",
+  "issue_title": "selection-list-service: S7 authorization was never implemented — 38 acceptance tests are correctly red",
   "issue_url": "https://github.com/izzywdev/FuzeFront/issues/1181",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-1181",
   "base_branch": "master",
@@ -72,5 +72,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo izzywdev/FuzeFront --resume 1181",
     "python oss_agent_v2.py --repo izzywdev/FuzeFront --conversation 1181"
-  ]
+  ],
+  "swept_at": "2026-09-27T12:04:30+00:00"
 }

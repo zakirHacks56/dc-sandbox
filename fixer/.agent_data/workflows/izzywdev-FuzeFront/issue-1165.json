@@ -5,7 +5,7 @@
   "issue_title": "ArgoCD unhealthy: fuzefront (Degraded/Synced)",
   "issue_url": "https://github.com/izzywdev/FuzeFront/issues/1165",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-1165",
   "base_branch": "master",
@@ -74,5 +74,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo izzywdev/FuzeFront --resume 1165",
     "python oss_agent_v2.py --repo izzywdev/FuzeFront --conversation 1165"
-  ]
+  ],
+  "swept_at": "2026-09-27T12:04:30+00:00"
 }
