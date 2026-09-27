@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T19:22:48",
+  "updated_at": "2026-09-27T19:31:32",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1051,6 +1051,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T19:22:48"
+    },
+    "taranis-ai/taranis-ai#627": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 627,
+      "issue_title": "RSS Collector: Compute hash without the `author` property",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-627.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-627",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-627",
+      "conversation_id": "20260927T193129-154d6147",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-627",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T19:31:32"
     }
   }
 }
