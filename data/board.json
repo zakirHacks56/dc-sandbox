@@ -138,14 +138,14 @@
       "updated": "2026-09-24T11:37:12"
     },
     "izzywdev/FuzeFront#1181": {
-      "state": "PAUSED",
-      "pr": null,
-      "updated": "2026-09-24T11:51:59+00:00"
+      "state": "ABANDONED",
+      "decision": false,
+      "updated": "2026-09-24T11:58:49"
     },
     "izzywdev/FuzeFront#1165": {
-      "state": "PAUSED",
-      "pr": null,
-      "updated": "2026-09-24T12:03:37+00:00"
+      "state": "ABANDONED",
+      "decision": false,
+      "updated": "2026-09-24T12:03:37"
     },
     "yunaremaia/sandbox-ffi-layers#30": {
       "state": "ABANDONED",
@@ -298,5 +298,5 @@
       "updated": "2026-09-27T10:03:55+00:00"
     }
   },
-  "last_tick": "2026-09-27T11:54:37+00:00"
+  "last_tick": "2026-09-27T12:04:30+00:00"
 }
