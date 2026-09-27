@@ -15707,3 +15707,29 @@ Step 8a: running baseline tests (before any changes)...
 
 Switched to a new branch 'fix-issue-651'
 2026-09-27T19:08:38+00:00  tick done
+2026-09-27T19:20:46+00:00  gate poller start (offset=746150288)
+2026-09-27T19:20:55+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T19:20:56+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T19:20:57+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T19:20:58+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-27T19:20:59+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-27T19:20:59+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-27T19:20:59+00:00  HUNTING: trying taranis-ai/taranis-ai#644
+2026-09-27T19:20:59+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo taranis-ai/taranis-ai --issue 644 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T19:23:27+00:00  fixer exit=0
+--tail--
+if isinstance(shadow_attribute, dict) and "errors" in shadow_attribute:
+                    logger.error(f"Failed to add proposal for {new_attr.object_relation}: {shadow_attribute['errors']}")
+                elif isin
+
+--- Attempt 4/8 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (AllProvidersExhaustedError): all providers for tier 'escalation' failed or were over budget
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ provider gemini failed: RateLimitError: Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limi
+⚠️ provider groq failed: NotFoundError: Error code: 404 - {'error': {'message': 'The model `gemini-3.5-flash-lite` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (AllProvidersExhaustedError): all providers for tier 'escalation' failed or were over budget (last: Error code: 404 - {'error': {'message': 'The model `gemini-3.5-flash-lite` does not exist or you do not have access to it.', 'type
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+⚠️ provider groq failed: NotFoundError: Error code: 404 - {'error': {'message': 'The model `gemini-3.6-flash` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+
+Switched to a new branch 'fix-issue-644'
+2026-09-27T19:23:27+00:00  tick done
