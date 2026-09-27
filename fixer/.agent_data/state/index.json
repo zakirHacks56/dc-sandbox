@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T09:54:25",
+  "updated_at": "2026-09-27T09:56:27",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -616,6 +616,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T09:54:25"
+    },
+    "izzywdev/FuzeFront#1025": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1025,
+      "issue_title": "[Good first issue] Audit Hebrew/RTL examples and newcomer docs",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1025.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1025",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1025",
+      "conversation_id": "20260927T095624-2a40a6de",
+      "state": "ANALYZING",
+      "status": "analyzing",
+      "branch": "fix-issue-1025",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T09:56:27"
     }
   }
 }
