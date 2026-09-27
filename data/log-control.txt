@@ -14772,3 +14772,45 @@ Switched to a new branch 'fix-issue-1024'
 2026-09-27T14:05:27+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
 2026-09-27T14:05:27+00:00  no candidate found this tick
 2026-09-27T14:05:27+00:00  tick done
+2026-09-27T14:22:26+00:00  gate poller start (offset=746150288)
+2026-09-27T14:22:35+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T14:22:36+00:00  HUNTING: trying yunaremaia/sandbox-ffi-layers#21
+2026-09-27T14:22:36+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 21 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T14:26:11+00:00  fixer exit=0
+--tail--
+doesn't currently mark packages as passed.
+
+    However, the issue example shows:
+        "summary": {
+          "total": 42,
+          "errors": 3,
+          "warnings": 12,
+          "passed": 27
+        }
+
+    We must define:
+        total: total number of packages analyzed? Or total number of findings? The example in the issue has total=42, which is the sum of errors, warnings, and passed.
+
+    Let's look at the existing output:
+
+        The tool currently:
+          - Prints each native surface (proc-macro or build script dep) as a line.
+          - Then checks for known-malicious packages and prints a warning for each.
+
+    We can consider:
+        - Each native surface (proc-macro or build script dep) as a warning? Because they are potential risks but not necessarily malicious.
+        - Each known-malicious package as an error.
+
+    And what about passed? We don't currently have a concept of passed. We could consider:
+        passed = total packages - (errors + warnings)   [if we define total as the number of packages]
+
+    But note: the tool doesn't analyze every package for safety, only those with native surface. However, the issue example summary includes passed.
+
+    Altern
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 5/5 ---
+🧮 Issue budget exceeded (token_budget_exceeded) -- abandoning this issue.
+
+Switched to a new branch 'fix-issue-21'
+2026-09-27T14:26:11+00:00  tick done
