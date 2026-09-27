@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T08:37:04",
+  "updated_at": "2026-09-27T08:48:05",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -466,6 +466,21 @@
       "pr_number": 34,
       "pr_url": "https://github.com/yunaremaia/sandbox-ffi-layers/pull/34",
       "updated_at": "2026-09-27T08:37:04"
+    },
+    "Rekin226/aquascope#473": {
+      "repo": "Rekin226/aquascope",
+      "issue": 473,
+      "issue_title": "Audit Registry Attribution Against First-Party Terms",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-473.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-473",
+      "workspace": "workspace/Rekin226-aquascope/issue-473",
+      "conversation_id": "20260927T084802-76ef2b6c",
+      "state": "ANALYZING",
+      "status": "analyzing",
+      "branch": "fix-issue-473",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T08:48:05"
     }
   }
 }
