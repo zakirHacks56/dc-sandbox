@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T19:00:14",
+  "updated_at": "2026-09-27T19:04:55",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1006,6 +1006,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T19:00:14"
+    },
+    "taranis-ai/taranis-ai#668": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 668,
+      "issue_title": "Wordpress_Publisher.py only worked with username or password. JWT is safer",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-668.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-668",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-668",
+      "conversation_id": "20260927T190449-9548be73",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-668",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T19:04:55"
     }
   }
 }
