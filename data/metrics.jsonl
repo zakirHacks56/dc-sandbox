@@ -34,3 +34,4 @@
 {"ts": "2026-09-27T15:42:03.824176+00:00", "repo": "taranis-ai/taranis-ai", "issue": 856, "language": "", "outcome": "noop", "tokens_spent": 62869, "iterations": 0, "notes": ""}
 {"ts": "2026-09-27T15:46:46.666618+00:00", "repo": "taranis-ai/taranis-ai", "issue": 811, "language": "", "outcome": "abandoned", "tokens_spent": 64459, "iterations": 3, "notes": "token_budget_exceeded"}
 {"ts": "2026-09-27T15:46:46.666961+00:00", "repo": "taranis-ai/taranis-ai", "issue": 811, "language": "", "outcome": "noop", "tokens_spent": 65615, "iterations": 0, "notes": ""}
+{"ts": "2026-09-27T15:49:09.549890+00:00", "repo": "taranis-ai/taranis-ai", "issue": 673, "language": "", "outcome": "error:RuntimeError", "tokens_spent": 1293, "iterations": 0, "notes": ""}
