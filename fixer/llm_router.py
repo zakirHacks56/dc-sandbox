@@ -328,7 +328,7 @@ def _read_events() -> list:
     return events
 
 
-def _append_event(provider: Provider, ok: bool, tokens: int) -> None:
+def _append_event(provider: Provider, ok: bool, tokens: int, reason: str = "") -> None:
     path = _events_file()
     path.parent.mkdir(parents=True, exist_ok=True)
     event = {
@@ -339,6 +339,8 @@ def _append_event(provider: Provider, ok: bool, tokens: int) -> None:
         "date": _today(),
         "run_id": RUN_ID,
     }
+    if reason:
+        event["reason"] = reason[:240]
     with _LOCK:
         try:
             with open(path, "a", encoding="utf-8") as fh:
@@ -430,10 +432,11 @@ def budget_available(provider: Provider) -> bool:
     return has_quota(provider, provider_usage(provider))
 
 
-def mark_result(provider: Provider, ok: bool, tokens: int = 0) -> None:
+def mark_result(provider: Provider, ok: bool, tokens: int = 0, reason: str = "") -> None:
     """Record one call outcome. Append-only; usage and the breaker re-derive
-    themselves from the log, so concurrent runners cannot clobber each other."""
-    _append_event(provider, bool(ok), max(0, int(tokens)))
+    themselves from the log, so concurrent runners cannot clobber each other.
+    `reason` is a short human-readable failure text captured for the event log."""
+    _append_event(provider, bool(ok), max(0, int(tokens)), reason)
 
 
 def daily_tokens_spent() -> int:
@@ -554,7 +557,9 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
                 timeout=timeout,
             )
         except Exception as exc:  # noqa: BLE001 - record and fail over
-            mark_result(provider, ok=False)
+            reason = f"{type(exc).__name__}: {exc}"
+            mark_result(provider, ok=False, reason=reason)
+            print(f"⚠️ provider {provider.name} failed: {reason[:240]}", flush=True)
             last_error = exc
             continue
         # Token accounting (W18): prefer SDK usage, estimate otherwise.
@@ -562,7 +567,9 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
         mark_result(provider, ok=True, tokens=tokens)
         content = _extract_content(response)
         if not content:
-            mark_result(provider, ok=False)
+            reason = "returned an empty completion"
+            mark_result(provider, ok=False, reason=reason)
+            print(f"⚠️ provider {provider.name} failed: {reason}", flush=True)
             last_error = RuntimeError(f"{provider.name} returned an empty completion")
             continue
         return LightCompletion(

@@ -163,6 +163,14 @@ def test_mark_result_usage_counts(tmp_usage):
     assert entry["tokens"] == 99 and entry["calls"] == 1
 
 
+def test_mark_result_records_reason(tmp_usage):
+    p = router.Provider(name="gemini", base_url="b", api_key="k")
+    router.mark_result(p, ok=False, reason="BadRequestError: 400 context window")
+    events = [e for e in router._read_events() if e.get("provider") == "gemini"]
+    assert events and events[-1]["ok"] is False
+    assert "context window" in events[-1]["reason"]
+
+
 def test_new_day_rollover_clears_breaker(tmp_usage):
     """Bug 3: usage and the circuit are derived from TODAY's events only, so a
     new day has no tokens, no fails and no open circuit -- there is no stored
