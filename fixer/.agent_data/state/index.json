@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T14:55:55",
+  "updated_at": "2026-09-27T15:04:32",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -721,6 +721,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T14:55:55"
+    },
+    "Rekin226/aquascope#6": {
+      "repo": "Rekin226/aquascope",
+      "issue": 6,
+      "issue_title": "Add Jupyter notebook tutorial: agricultural water demand and irrigation scheduling",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-6.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-6",
+      "workspace": "workspace/Rekin226-aquascope/issue-6",
+      "conversation_id": "20260927T150351-4ccba2f1",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-6",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T15:04:32"
     }
   }
 }
