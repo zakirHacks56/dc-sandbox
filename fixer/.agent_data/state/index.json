@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T08:21:49",
+  "updated_at": "2026-09-27T08:33:09",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -436,6 +436,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T08:21:49"
+    },
+    "yunaremaia/sandbox-ffi-layers#23": {
+      "repo": "yunaremaia/sandbox-ffi-layers",
+      "issue": 23,
+      "issue_title": "security: extensible malicious package detection with similarity scoring and config-driven blocklist",
+      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-23.json",
+      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-23",
+      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-23",
+      "conversation_id": "20260922T052620-d1a15d0a",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-23",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T08:33:09"
     }
   }
 }
