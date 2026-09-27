@@ -5,7 +5,7 @@
   "issue_title": "Intermittent E2E failure: Share opens a page instead of a dialog",
   "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/1089",
   "issue_state": "open",
-  "state": "IMPLEMENTING",
+  "state": "ABANDONED",
   "status": "implementing",
   "branch": "fix-issue-1089",
   "base_branch": "master",
@@ -53,5 +53,6 @@
     "task_type": "BUG_FIX",
     "reason": "(model unavailable during classification)"
   },
-  "bot_login": "IbrahimCodes347"
+  "bot_login": "IbrahimCodes347",
+  "swept_at": "2026-09-27T11:40:29+00:00"
 }
