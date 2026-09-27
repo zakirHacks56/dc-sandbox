@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T14:22:48",
+  "updated_at": "2026-09-27T14:34:56",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -661,6 +661,21 @@
       "pr_number": 33,
       "pr_url": "https://github.com/yunaremaia/sandbox-ffi-layers/pull/33",
       "updated_at": "2026-09-27T14:22:48"
+    },
+    "yunaremaia/sandbox-ffi-layers#20": {
+      "repo": "yunaremaia/sandbox-ffi-layers",
+      "issue": 20,
+      "issue_title": "[sandbox-ffi-layers] Add SARIF 2.1.0 output format for CI integration",
+      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-20.json",
+      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-20",
+      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-20",
+      "conversation_id": "20260927T143421-f1aba064",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-20",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T14:34:56"
     }
   }
 }
