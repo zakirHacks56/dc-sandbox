@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T14:34:56",
+  "updated_at": "2026-09-27T14:44:34",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -676,6 +676,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T14:34:56"
+    },
+    "yunaremaia/sandbox-ffi-layers#19": {
+      "repo": "yunaremaia/sandbox-ffi-layers",
+      "issue": 19,
+      "issue_title": "[sandbox-ffi-layers] Add Dockerfile for containerized deployment",
+      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-19.json",
+      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-19",
+      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-19",
+      "conversation_id": "20260927T144410-00764284",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-19",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T14:44:34"
     }
   }
 }

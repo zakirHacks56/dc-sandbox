@@ -17,3 +17,5 @@
 {"ts": "2026-09-27T14:26:10.916772+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 21, "language": "", "outcome": "noop", "tokens_spent": 46553, "iterations": 0, "notes": ""}
 {"ts": "2026-09-27T14:37:19.528163+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 20, "language": "", "outcome": "abandoned", "tokens_spent": 42276, "iterations": 4, "notes": "token_budget_exceeded"}
 {"ts": "2026-09-27T14:37:19.528434+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 20, "language": "", "outcome": "noop", "tokens_spent": 45401, "iterations": 0, "notes": ""}
+{"ts": "2026-09-27T14:47:19.197303+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 19, "language": "", "outcome": "abandoned", "tokens_spent": 30003, "iterations": 5, "notes": "max_iterations_reached"}
+{"ts": "2026-09-27T14:47:19.197571+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 19, "language": "", "outcome": "noop", "tokens_spent": 31925, "iterations": 0, "notes": ""}
