@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T18:00:56",
+  "updated_at": "2026-09-27T18:11:40",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -931,6 +931,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T18:00:56"
+    },
+    "yunaremaia/sandbox-ffi-layers#14": {
+      "repo": "yunaremaia/sandbox-ffi-layers",
+      "issue": 14,
+      "issue_title": "[sandbox-ffi-layers] test: add unit tests for FFI security policy validation",
+      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-14.json",
+      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-14",
+      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-14",
+      "conversation_id": "20260927T180951-2fc19770",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-14",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T18:11:40"
     }
   }
 }
