@@ -193,6 +193,155 @@ def test_new_day_rollover_clears_breaker(tmp_usage):
     assert router.daily_tokens_spent() == 0
 
 
+# --- User SDE2 round: quota classification + reset, pre-flight token budget,
+#     provider reorder, model-compat filter, negative cache, and the
+#     deadlock-shaped HALF_OPEN end-to-end trial. ---
+
+def _fake_response(text="ok"):
+    from types import SimpleNamespace
+    return SimpleNamespace(
+        usage=SimpleNamespace(input_tokens=10, output_tokens=5),
+        choices=[SimpleNamespace(message=SimpleNamespace(content=text, reasoning=None))],
+    )
+
+
+def _noop_openai_client(raise_conn=True):
+    """call_with_watchdog stub that either fails every connection (raise_conn)
+    or succeeds; OpenAI() construction never touches the network."""
+    if raise_conn:
+        def _boom(fn, timeout):
+            raise ConnectionError("connection refused")
+        return _boom
+    return lambda fn, timeout: _fake_response("hi")
+
+
+def test_quota_429_skips_until_reset(tmp_usage, monkeypatch):
+    p = router.Provider(name="openrouter_free", base_url="b", api_key="k")
+    router.mark_result(p, ok=False, quota=True, reason="RateLimitError: Error code: 429")
+    events = [e for e in router._read_events() if e.get("provider") == p.name]
+    assert events and events[-1].get("quota") is True
+    entry = router.provider_usage(p)
+    assert entry["fails"] == 1
+    assert float(entry["quota_exhausted_until"]) > time.time()
+    # Even with fails<3 (circuit still CLOSED, never "tripped"), the quota
+    # marker makes the provider un-callable until the daily reset -- NO 5-min
+    # cooldown cycling into the same 429.
+    assert router.is_callable(p) == (False, "quota_exhausted")
+    # A success later in the same day clears the marker and re-opens it.
+    router.mark_result(p, ok=True, tokens=1)
+    assert router.is_callable(p) == (True, None)
+
+
+def test_mocked_date_rollover_clears_quota(tmp_usage, monkeypatch):
+    p = router.Provider(name="openrouter_free", base_url="b", api_key="k")
+    router.mark_result(p, ok=False, quota=True)
+    assert router.is_callable(p) == (False, "quota_exhausted")
+    monkeypatch.setattr(router, "_today", lambda: "2099-12-31")
+    entry = router.provider_usage(p)
+    assert float(entry["quota_exhausted_until"]) == 0.0
+    assert router.is_callable(p) == (True, None)
+
+
+def test_preflight_refuses_before_any_spend(tmp_usage, monkeypatch):
+    p = router.Provider(name="gemini", base_url="http://localhost:1/v1", api_key="k")
+    monkeypatch.setattr(router, "load_providers", lambda env=None: [p])
+    monkeypatch.setattr(router, "call_with_watchdog", _noop_openai_client())
+    router.set_preflight_ceiling(50)  # tiny: no call can fit
+    big = [{"role": "user", "content": "x" * 900}]  # ~300 input tokens alone
+    with pytest.raises(router.PreflightTokenBudgetExceeded):
+        router.complete(big, model="gemini-2.0-flash", max_tokens=64)
+    events = router._read_events()
+    assert all(e.get("provider") != "gemini" for e in events)  # refused before spend
+
+
+def test_preflight_no_ceiling_allows_call(tmp_usage, monkeypatch):
+    p = router.Provider(name="gemini", base_url="http://localhost:1/v1", api_key="k")
+    monkeypatch.setattr(router, "load_providers", lambda env=None: [p])
+    monkeypatch.setattr(router, "call_with_watchdog", _noop_openai_client(raise_conn=False))
+    router.set_preflight_ceiling(None)
+    resp = router.complete(big_messages(), model="gemini-2.0-flash", max_tokens=64)
+    assert resp.provider_name == "gemini" and resp.choices[0].message.content == "hi"
+    assert router.provider_usage(p)["calls"] == 1
+    router.set_preflight_ceiling(None)
+
+
+def test_half_open_end_to_end_trial_recloses(tmp_usage, monkeypatch):
+    """Bug 1 deadlock-shaped, at the complete() level:
+    3 fails -> OPEN -> cooldown elapses -> HALF_OPEN: the trial call is the
+    ONLY thing allowed through, and its SUCCESS is what re-closes the circuit.
+    A "trip/open flag" implementation would refuse this trial forever."""
+    p = router.Provider(name="gemini", base_url="http://localhost:1/v1", api_key="k",
+                        default_model="gemini-2.0-flash")
+    monkeypatch.setattr(router, "load_providers", lambda env=None: [p])
+    monkeypatch.setattr(router, "call_with_watchdog", _noop_openai_client(raise_conn=False))
+    for _ in range(3):
+        router.mark_result(p, ok=False, reason="500")
+    assert router.provider_state(router.provider_usage(p)) == "OPEN"
+    assert router.is_callable(p) == (False, "circuit_open")  # genuinely must NOT call
+    monkeypatch.setattr(router, "BREAKER_COOLDOWN_SECONDS", -1.0)  # cooldown elapsed
+    assert router.provider_state(router.provider_usage(p)) == "HALF_OPEN"
+    resp = router.complete([{"role": "user", "content": "x"}],
+                           model="gemini-2.0-flash", max_tokens=64)
+    assert resp.provider_name == "gemini"
+    assert router.provider_state(router.provider_usage(p)) == "CLOSED"  # re-closed
+    assert router.is_callable(p) == (True, None)
+
+
+def test_reorder_primary_chain_user_order(tmp_usage):
+    env = {"GEMINI_API_KEY": "g", "GROQ_API_KEY": "q",
+           "OPENROUTER_API_KEY": "o", "OMNIROUTE_API_KEY": "m"}
+    names = [p.name for p in router._sort_candidates(router.load_providers(env=env))]
+    assert names == ["gemini", "groq", "openrouter_free", "omniroute"]
+
+
+def test_escalation_sorts_copilot_first(tmp_usage):
+    env = {"COPILOT_API_KEY": "c", "GEMINI_API_KEY": "g", "OMNIROUTE_API_KEY": "m"}
+    names = [p.name for p in router._sort_candidates(router.load_providers(env=env))]
+    assert names[0] == "copilot"
+
+
+def test_model_compat_filter_keeps_foreign_ids_off_native_apis(tmp_usage, monkeypatch):
+    gemini = router.Provider(name="gemini", base_url="http://localhost:1/v1", api_key="k",
+                             default_model="gemini-2.0-flash")
+    groq = router.Provider(name="groq", base_url="http://localhost:1/v1", api_key="k",
+                           default_model="qwen/qwen3.8-27b")
+    openrouter = router.Provider(name="openrouter_free", base_url="http://localhost:1/v1",
+                                 api_key="k", tier="tertiary")
+    monkeypatch.setattr(router, "load_providers", lambda env=None: [gemini, groq, openrouter])
+    monkeypatch.setattr(router, "call_with_watchdog", _noop_openai_client(raise_conn=False))
+    # openrouter-style combos must NOT reach gemini/groq (404/400 class), but
+    # the openrouter funnel accepts them.
+    resp = router.complete([{"role": "user", "content": "x"}],
+                           model="nvidia/nemotron-3-super-120b-a12b:free", max_tokens=8)
+    assert resp.provider_name == "openrouter_free"
+    providers_hit = {e.get("provider") for e in router._read_events() if e.get("ok")}
+    assert providers_hit == {"openrouter_free"}
+    # a gemini id reaches gemini, first in the chain, and never a foreign fn
+    resp2 = router.complete([{"role": "user", "content": "x"}],
+                            model="gemini-2.0-flash", max_tokens=8)
+    assert resp2.provider_name == "gemini"
+    hit = {e.get("provider") for e in router._read_events() if e.get("ok")}
+    assert hit == {"openrouter_free", "gemini"}
+
+
+def test_negative_cache_skips_repeat_failures(tmp_usage, monkeypatch):
+    p = router.Provider(name="gemini", base_url="http://localhost:1/v1", api_key="k")
+    monkeypatch.setattr(router, "load_providers", lambda env=None: [p])
+    monkeypatch.setattr(router, "call_with_watchdog", _noop_openai_client())
+    for _ in range(3):
+        with pytest.raises(router.AllProvidersExhaustedError):
+            router.complete([{"role": "user", "content": "x"}],
+                            model="gemini-2.0-flash", max_tokens=8)
+    # First failure is recorded (and negative-cached); the next two attempts
+    # skip the pair WITHOUT re-eatting the refused socket -> exactly ONE event.
+    events = [e for e in router._read_events() if e.get("provider") == "gemini"]
+    assert len(events) == 1
+
+
+def big_messages():
+    return [{"role": "user", "content": "x" * 900}]
+
+
 @pytest.mark.live
 def test_live_complete_via_local_omniroute(tmp_usage):
     """REAL integration: hit the running omniRoute gateway on localhost:20128
