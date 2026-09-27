@@ -14241,3 +14241,518 @@ Traceback (most recent call last):
                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ValueError: invalid literal for int() with base 10: ''
 2026-09-27T08:05:39+00:00  tick done
+2026-09-27T08:21:29+00:00  gate poller start (offset=746150288)
+2026-09-27T08:21:37+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T08:21:39+00:00  HUNTING: trying yunaremaia/sandbox-ffi-layers#25
+2026-09-27T08:21:39+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 25 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T08:21:49+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/yunaremaia-sandbox-ffi-layers_issue25_20260927_082140.log
+Step 1-2: checking #25 - security: Cargo.lock format version detection — validate version field before parsing
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+✅ Forked, cloned, branched: fix-issue-25
+
+Switched to a new branch 'fix-issue-25'
+2026-09-27T08:21:49+00:00  tick done
+2026-09-27T08:32:48+00:00  gate poller start (offset=746150288)
+2026-09-27T08:32:56+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T08:32:58+00:00  HUNTING: trying yunaremaia/sandbox-ffi-layers#23
+2026-09-27T08:32:58+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 23 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T08:33:09+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/yunaremaia-sandbox-ffi-layers_issue23_20260927_083259.log
+Step 1-2: checking #23 - security: extensible malicious package detection with similarity scoring and config-driven blocklist
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+   ↳ ⚠️  Issue looks vague/underspecified -- treating as HARD: plan-first + wider context so it is grounded in real code, not guessed.
+✅ Forked, cloned, branched: fix-issue-23
+
+Switched to a new branch 'fix-issue-23'
+2026-09-27T08:33:09+00:00  tick done
+2026-09-27T08:36:43+00:00  gate poller start (offset=746150288)
+2026-09-27T08:36:52+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T08:36:54+00:00  HUNTING: trying yunaremaia/sandbox-ffi-layers#22
+2026-09-27T08:36:54+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 22 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T08:37:04+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/yunaremaia-sandbox-ffi-layers_issue22_20260927_083655.log
+Step 1-2: checking #22 - security: Cargo.lock v4 format silently ignored by parser
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+✅ Forked, cloned, branched: fix-issue-22
+
+Switched to a new branch 'fix-issue-22'
+2026-09-27T08:37:04+00:00  tick done
+2026-09-27T08:47:46+00:00  gate poller start (offset=746150288)
+2026-09-27T08:47:55+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T08:47:55+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T08:47:57+00:00  HUNTING: trying Rekin226/aquascope#473
+2026-09-27T08:47:57+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 473 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T08:48:05+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/Rekin226-aquascope_issue473_20260927_084758.log
+Step 1-2: checking #473 - Audit Registry Attribution Against First-Party Terms
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+✅ Forked, cloned, branched: fix-issue-473
+
+Switched to a new branch 'fix-issue-473'
+2026-09-27T08:48:05+00:00  tick done
+2026-09-27T08:55:16+00:00  gate poller start (offset=746150288)
+2026-09-27T08:55:24+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T08:55:25+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T08:55:27+00:00  HUNTING: trying Rekin226/aquascope#397
+2026-09-27T08:55:27+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 397 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T08:55:40+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/Rekin226-aquascope_issue397_20260927_085529.log
+Step 1-2: checking #397 - test_docs_counts knows the right number: let it write it, instead of failing six PRs a fortnight
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium domain=docs
+✅ Forked, cloned, branched: fix-issue-397
+
+Switched to a new branch 'fix-issue-397'
+2026-09-27T08:55:40+00:00  tick done
+2026-09-27T08:56:03+00:00  gate poller start (offset=746150288)
+2026-09-27T08:56:05+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T08:56:06+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T08:56:07+00:00  HUNTING: trying Rekin226/aquascope#207
+2026-09-27T08:56:07+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 207 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T08:56:16+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/Rekin226-aquascope_issue207_20260927_085608.log
+Step 1-2: checking #207 - Registry: verify data licences for the nine sources still marked unknown (gates the Archive mirroring)
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium domain=docs
+   ↳ ⚠️  Issue looks vague/underspecified -- treating as HARD: plan-first + wider context so it is grounded in real code, not guessed.
+✅ Forked, cloned, branched: fix-issue-207
+
+Switched to a new branch 'fix-issue-207'
+2026-09-27T08:56:16+00:00  tick done
+2026-09-27T09:05:06+00:00  gate poller start (offset=746150288)
+2026-09-27T09:05:14+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T09:05:15+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T09:05:17+00:00  HUNTING: trying Rekin226/aquascope#31
+2026-09-27T09:05:17+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 31 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T09:05:27+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/Rekin226-aquascope_issue31_20260927_090518.log
+Step 1-2: checking #31 - i18n: translate the README quickstart into 中文 / Français / 日本語
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium domain=docs
+✅ Forked, cloned, branched: fix-issue-31
+
+Switched to a new branch 'fix-issue-31'
+2026-09-27T09:05:27+00:00  tick done
+2026-09-27T09:20:47+00:00  gate poller start (offset=746150288)
+2026-09-27T09:20:55+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T09:20:56+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T09:20:57+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T09:20:59+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-27T09:20:59+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-27T09:20:59+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-27T09:21:00+00:00  HUNTING: trying taranis-ai/taranis-ai#1122
+2026-09-27T09:21:00+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo taranis-ai/taranis-ai --issue 1122 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T09:21:08+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/taranis-ai-taranis-ai_issue1122_20260927_092101.log
+Step 1-2: checking #1122 - Redesign bots as shared service instances with assigned functionality
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+   ↳ ⚠️  Issue looks vague/underspecified -- treating as HARD: plan-first + wider context so it is grounded in real code, not guessed.
+✅ Forked, cloned, branched: fix-issue-1122
+
+Switched to a new branch 'fix-issue-1122'
+2026-09-27T09:21:08+00:00  tick done
+2026-09-27T09:32:13+00:00  gate poller start (offset=746150288)
+2026-09-27T09:32:22+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T09:32:23+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T09:32:23+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T09:32:24+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-27T09:32:24+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-27T09:32:24+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-27T09:32:25+00:00  HUNTING: trying taranis-ai/taranis-ai#1121
+2026-09-27T09:32:25+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo taranis-ai/taranis-ai --issue 1121 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T09:32:34+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/taranis-ai-taranis-ai_issue1121_20260927_093226.log
+Step 1-2: checking #1121 - Create assets from SBOMs with editable triggers for OSINT matching
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium domain=frontend
+✅ Forked, cloned, branched: fix-issue-1121
+
+Switched to a new branch 'fix-issue-1121'
+2026-09-27T09:32:34+00:00  tick done
+2026-09-27T09:41:48+00:00  gate poller start (offset=746150288)
+2026-09-27T09:41:56+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T09:41:57+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T09:41:58+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T09:41:59+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-27T09:42:00+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-27T09:42:00+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-27T09:42:00+00:00  HUNTING: trying taranis-ai/taranis-ai#1116
+2026-09-27T09:42:00+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo taranis-ai/taranis-ai --issue 1116 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T09:42:10+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/taranis-ai-taranis-ai_issue1116_20260927_094202.log
+Step 1-2: checking #1116 - Web History: investigate what changed, recover lost content, and cite historical evidence
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+   ↳ ⚠️  Issue looks vague/underspecified -- treating as HARD: plan-first + wider context so it is grounded in real code, not guessed.
+✅ Forked, cloned, branched: fix-issue-1116
+
+Switched to a new branch 'fix-issue-1116'
+2026-09-27T09:42:10+00:00  tick done
+2026-09-27T09:45:39+00:00  gate poller start (offset=746150288)
+2026-09-27T09:45:48+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T09:45:49+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T09:45:49+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T09:45:51+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-27T09:45:51+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-27T09:45:51+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-27T09:45:52+00:00  HUNTING: trying taranis-ai/taranis-ai#1045
+2026-09-27T09:45:52+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo taranis-ai/taranis-ai --issue 1045 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T09:46:02+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/taranis-ai-taranis-ai_issue1045_20260927_094553.log
+Step 1-2: checking #1045 - Add guided analyst review workflow from Dashboard to Publish
+   ↳ verification verdict: GENERIC/SCOPED difficulty=medium domain=frontend
+✅ Forked, cloned, branched: fix-issue-1045
+
+Switched to a new branch 'fix-issue-1045'
+2026-09-27T09:46:02+00:00  tick done
+2026-09-27T09:49:51+00:00  gate poller start (offset=746150288)
+2026-09-27T09:50:00+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T09:50:01+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T09:50:02+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T09:50:03+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T09:50:07+00:00  HUNTING: trying izzywdev/FuzeFront#1027
+2026-09-27T09:50:07+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1027 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T09:50:18+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/izzywdev-FuzeFront_issue1027_20260927_095008.log
+Step 1-2: checking #1027 - [Help wanted] Build a reference app onboarding walkthrough from zero to registered runtime
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+✅ Forked, cloned, branched: fix-issue-1027
+
+Switched to a new branch 'fix-issue-1027'
+2026-09-27T09:50:18+00:00  tick done
+2026-09-27T09:54:03+00:00  gate poller start (offset=746150288)
+2026-09-27T09:54:12+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T09:54:12+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T09:54:13+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T09:54:14+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T09:54:15+00:00  HUNTING: trying izzywdev/FuzeFront#1026
+2026-09-27T09:54:15+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1026 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T09:54:26+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/izzywdev-FuzeFront_issue1026_20260927_095417.log
+Step 1-2: checking #1026 - [Good first issue] Document FuzeFront non-goals and architectural boundaries
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+✅ Forked, cloned, branched: fix-issue-1026
+
+Switched to a new branch 'fix-issue-1026'
+2026-09-27T09:54:26+00:00  tick done
+2026-09-27T09:56:02+00:00  gate poller start (offset=746150288)
+2026-09-27T09:56:10+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T09:56:11+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T09:56:12+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T09:56:13+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T09:56:16+00:00  HUNTING: trying izzywdev/FuzeFront#1025
+2026-09-27T09:56:16+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1025 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T09:56:28+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/izzywdev-FuzeFront_issue1025_20260927_095618.log
+Step 1-2: checking #1025 - [Good first issue] Audit Hebrew/RTL examples and newcomer docs
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+   ↳ ⚠️  Issue looks vague/underspecified -- treating as HARD: plan-first + wider context so it is grounded in real code, not guessed.
+✅ Forked, cloned, branched: fix-issue-1025
+
+Switched to a new branch 'fix-issue-1025'
+2026-09-27T09:56:28+00:00  tick done
+2026-09-27T10:03:33+00:00  gate poller start (offset=746150288)
+2026-09-27T10:03:42+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T10:03:43+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T10:03:43+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T10:03:44+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T10:03:46+00:00  HUNTING: trying izzywdev/FuzeFront#1024
+2026-09-27T10:03:46+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1024 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T10:03:55+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/izzywdev-FuzeFront_issue1024_20260927_100347.log
+Step 1-2: checking #1024 - [Good first issue] Audit the app selector for basic accessibility issues
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+✅ Forked, cloned, branched: fix-issue-1024
+
+Switched to a new branch 'fix-issue-1024'
+2026-09-27T10:03:55+00:00  tick done
+2026-09-27T10:05:32+00:00  gate poller start (offset=746150288)
+2026-09-27T10:05:40+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T10:05:42+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T10:05:43+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T10:05:44+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T10:05:46+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T10:05:46+00:00  no candidate found this tick
+2026-09-27T10:05:46+00:00  tick done
+2026-09-27T10:19:24+00:00  gate poller start (offset=746150288)
+2026-09-27T10:19:33+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T10:19:33+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T10:19:34+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T10:19:35+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T10:19:35+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T10:19:35+00:00  no candidate found this tick
+2026-09-27T10:19:35+00:00  tick done
+2026-09-27T10:20:14+00:00  gate poller start (offset=746150288)
+2026-09-27T10:20:23+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T10:20:24+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T10:20:25+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T10:20:26+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T10:20:27+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T10:20:27+00:00  no candidate found this tick
+2026-09-27T10:20:27+00:00  tick done
+2026-09-27T10:32:04+00:00  gate poller start (offset=746150288)
+2026-09-27T10:32:12+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T10:32:13+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T10:32:14+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T10:32:14+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T10:32:15+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T10:32:15+00:00  no candidate found this tick
+2026-09-27T10:32:15+00:00  tick done
+2026-09-27T10:40:49+00:00  gate poller start (offset=746150288)
+2026-09-27T10:40:57+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T10:40:59+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T10:41:00+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T10:41:01+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T10:41:02+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T10:41:02+00:00  no candidate found this tick
+2026-09-27T10:41:02+00:00  tick done
+2026-09-27T10:45:18+00:00  gate poller start (offset=746150288)
+2026-09-27T10:45:27+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T10:45:28+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T10:45:29+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T10:45:30+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T10:45:32+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T10:45:32+00:00  no candidate found this tick
+2026-09-27T10:45:32+00:00  tick done
+2026-09-27T10:48:25+00:00  gate poller start (offset=746150288)
+2026-09-27T10:48:29+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T10:48:30+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T10:48:31+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T10:48:32+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T10:48:33+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T10:48:33+00:00  no candidate found this tick
+2026-09-27T10:48:33+00:00  tick done
+2026-09-27T10:53:36+00:00  gate poller start (offset=746150288)
+2026-09-27T10:53:44+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T10:53:45+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T10:53:45+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T10:53:46+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T10:53:47+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T10:53:47+00:00  no candidate found this tick
+2026-09-27T10:53:47+00:00  tick done
+2026-09-27T10:54:48+00:00  gate poller start (offset=746150288)
+2026-09-27T10:54:57+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T10:54:57+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T10:54:58+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T10:54:58+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T10:54:59+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T10:54:59+00:00  no candidate found this tick
+2026-09-27T10:54:59+00:00  tick done
+2026-09-27T11:03:35+00:00  gate poller start (offset=746150288)
+2026-09-27T11:03:44+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T11:03:45+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T11:03:46+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T11:03:47+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T11:03:49+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T11:03:49+00:00  no candidate found this tick
+2026-09-27T11:03:49+00:00  tick done
+2026-09-27T11:05:29+00:00  gate poller start (offset=746150288)
+2026-09-27T11:05:37+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T11:05:37+00:00  sweep: abandoning in-flight lane Rekin226/aquascope#446 (state=PAUSED, age=3.0d, no PR ever opened)
+2026-09-27T11:05:37+00:00  sweep: resolved 1 stale in-flight lane(s)
+2026-09-27T11:05:37+00:00  budget: 0/2 PRs, 0/3 pending gates
+2026-09-27T11:05:37+00:00  tick done
+2026-09-27T11:20:00+00:00  gate poller start (offset=746150288)
+2026-09-27T11:20:08+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T11:20:08+00:00  sweep: abandoning in-flight lane Rekin226/aquascope#443 (state=PAUSED, age=3.0d, no PR ever opened)
+2026-09-27T11:20:08+00:00  sweep: resolved 1 stale in-flight lane(s)
+2026-09-27T11:20:08+00:00  budget: 0/2 PRs, 0/3 pending gates
+2026-09-27T11:20:08+00:00  tick done
+2026-09-27T11:30:22+00:00  gate poller start (offset=746150288)
+2026-09-27T11:30:30+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T11:30:30+00:00  sweep: abandoning in-flight lane taranis-ai/taranis-ai#227 (state=PAUSED, age=3.0d, no PR ever opened)
+2026-09-27T11:30:30+00:00  sweep: resolved 1 stale in-flight lane(s)
+2026-09-27T11:30:30+00:00  budget: 0/2 PRs, 0/3 pending gates
+2026-09-27T11:30:30+00:00  tick done
+2026-09-27T11:31:02+00:00  gate poller start (offset=746150288)
+2026-09-27T11:31:11+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T11:31:12+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T11:31:13+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T11:31:14+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T11:31:15+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T11:31:15+00:00  no candidate found this tick
+2026-09-27T11:31:15+00:00  tick done
+2026-09-27T11:40:20+00:00  gate poller start (offset=746150288)
+2026-09-27T11:40:29+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T11:40:29+00:00  sweep: abandoning in-flight lane taranis-ai/taranis-ai#1089 (state=IMPLEMENTING, age=3.0d, no PR ever opened)
+2026-09-27T11:40:29+00:00  sweep: resolved 1 stale in-flight lane(s)
+2026-09-27T11:40:29+00:00  budget: 0/2 PRs, 0/3 pending gates
+2026-09-27T11:40:29+00:00  tick done
+2026-09-27T11:45:00+00:00  gate poller start (offset=746150288)
+2026-09-27T11:45:09+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T11:45:10+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T11:45:11+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T11:45:12+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T11:45:13+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T11:45:13+00:00  no candidate found this tick
+2026-09-27T11:45:13+00:00  tick done
+2026-09-27T11:47:52+00:00  gate poller start (offset=746150288)
+2026-09-27T11:48:01+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T11:48:01+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T11:48:02+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T11:48:03+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T11:48:04+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T11:48:04+00:00  no candidate found this tick
+2026-09-27T11:48:04+00:00  tick done
+2026-09-27T11:53:13+00:00  gate poller start (offset=746150288)
+2026-09-27T11:53:22+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T11:53:23+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T11:53:24+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T11:53:25+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T11:53:27+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T11:53:27+00:00  no candidate found this tick
+2026-09-27T11:53:27+00:00  tick done
+2026-09-27T11:54:23+00:00  gate poller start (offset=746150288)
+2026-09-27T11:54:32+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T11:54:33+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T11:54:34+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T11:54:36+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T11:54:37+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T11:54:37+00:00  no candidate found this tick
+2026-09-27T11:54:37+00:00  tick done
+2026-09-27T12:04:22+00:00  gate poller start (offset=746150288)
+2026-09-27T12:04:30+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T12:04:30+00:00  sweep: abandoning in-flight lane izzywdev/FuzeFront#1165 (state=PAUSED, age=3.0d, no PR ever opened)
+2026-09-27T12:04:30+00:00  sweep: abandoning in-flight lane izzywdev/FuzeFront#1181 (state=PAUSED, age=3.0d, no PR ever opened)
+2026-09-27T12:04:30+00:00  sweep: resolved 2 stale in-flight lane(s)
+2026-09-27T12:04:30+00:00  budget: 0/2 PRs, 0/3 pending gates
+2026-09-27T12:04:30+00:00  tick done
+2026-09-27T12:06:56+00:00  gate poller start (offset=746150288)
+2026-09-27T12:07:05+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T12:07:06+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T12:07:07+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T12:07:09+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T12:07:10+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T12:07:10+00:00  no candidate found this tick
+2026-09-27T12:07:10+00:00  tick done
+2026-09-27T12:24:26+00:00  gate poller start (offset=746150288)
+2026-09-27T12:24:34+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T12:24:36+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T12:24:37+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T12:24:38+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T12:24:40+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T12:24:40+00:00  no candidate found this tick
+2026-09-27T12:24:40+00:00  tick done
+2026-09-27T12:25:24+00:00  gate poller start (offset=746150288)
+2026-09-27T12:25:27+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T12:25:28+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T12:25:30+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T12:25:31+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T12:25:32+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T12:25:32+00:00  no candidate found this tick
+2026-09-27T12:25:32+00:00  tick done
+2026-09-27T12:40:06+00:00  gate poller start (offset=746150288)
+2026-09-27T12:40:14+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T12:40:15+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T12:40:16+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T12:40:17+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T12:40:17+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T12:40:17+00:00  no candidate found this tick
+2026-09-27T12:40:17+00:00  tick done
+2026-09-27T12:41:18+00:00  gate poller start (offset=746150288)
+2026-09-27T12:41:22+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T12:41:23+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T12:41:25+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T12:41:26+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T12:41:27+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T12:41:27+00:00  no candidate found this tick
+2026-09-27T12:41:27+00:00  tick done
+2026-09-27T12:53:25+00:00  gate poller start (offset=746150288)
+2026-09-27T12:53:33+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T12:53:34+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T12:53:35+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T12:53:36+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T12:53:37+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T12:53:37+00:00  no candidate found this tick
+2026-09-27T12:53:37+00:00  tick done
+2026-09-27T13:03:32+00:00  gate poller start (offset=746150288)
+2026-09-27T13:03:40+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T13:03:42+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T13:03:43+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T13:03:44+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T13:03:45+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T13:03:45+00:00  no candidate found this tick
+2026-09-27T13:03:45+00:00  tick done
+2026-09-27T13:04:44+00:00  gate poller start (offset=746150288)
+2026-09-27T13:04:52+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T13:04:53+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T13:04:54+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T13:04:55+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T13:04:56+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T13:04:56+00:00  no candidate found this tick
+2026-09-27T13:04:56+00:00  tick done
+2026-09-27T13:18:56+00:00  gate poller start (offset=746150288)
+2026-09-27T13:19:04+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T13:19:05+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T13:19:06+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T13:19:07+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T13:19:08+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T13:19:08+00:00  no candidate found this tick
+2026-09-27T13:19:08+00:00  tick done
+2026-09-27T13:19:50+00:00  gate poller start (offset=746150288)
+2026-09-27T13:19:58+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T13:19:59+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T13:19:59+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T13:20:00+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T13:20:01+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T13:20:01+00:00  no candidate found this tick
+2026-09-27T13:20:01+00:00  tick done
+2026-09-27T13:30:53+00:00  gate poller start (offset=746150288)
+2026-09-27T13:31:02+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T13:31:03+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T13:31:03+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T13:31:04+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T13:31:04+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T13:31:04+00:00  no candidate found this tick
+2026-09-27T13:31:04+00:00  tick done
+2026-09-27T13:40:05+00:00  gate poller start (offset=746150288)
+2026-09-27T13:40:13+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T13:40:14+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T13:40:15+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T13:40:16+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T13:40:16+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T13:40:16+00:00  no candidate found this tick
+2026-09-27T13:40:16+00:00  tick done
+2026-09-27T13:44:52+00:00  gate poller start (offset=746150288)
+2026-09-27T13:45:01+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T13:45:02+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T13:45:03+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T13:45:04+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T13:45:05+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T13:45:05+00:00  no candidate found this tick
+2026-09-27T13:45:05+00:00  tick done
+2026-09-27T13:47:25+00:00  gate poller start (offset=746150288)
+2026-09-27T13:47:34+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T13:47:34+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T13:47:35+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T13:47:35+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T13:47:36+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T13:47:36+00:00  no candidate found this tick
+2026-09-27T13:47:36+00:00  tick done
+2026-09-27T13:53:05+00:00  gate poller start (offset=746150288)
+2026-09-27T13:53:14+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T13:53:15+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T13:53:16+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T13:53:17+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T13:53:19+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T13:53:19+00:00  no candidate found this tick
+2026-09-27T13:53:19+00:00  tick done
+2026-09-27T13:53:59+00:00  gate poller start (offset=746150288)
+2026-09-27T13:54:08+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T13:54:08+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T13:54:09+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T13:54:10+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-27T13:54:10+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-27T13:54:10+00:00  no candidate found this tick
+2026-09-27T13:54:10+00:00  tick done

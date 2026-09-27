@@ -5,7 +5,7 @@
   "issue_title": "Survey: which African and Southeast Asian agencies publish river gauge data we can actually call?",
   "issue_url": "https://github.com/Rekin226/aquascope/issues/446",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-446",
   "base_branch": "main",
@@ -77,5 +77,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo Rekin226/aquascope --resume 446",
     "python oss_agent_v2.py --repo Rekin226/aquascope --conversation 446"
-  ]
+  ],
+  "swept_at": "2026-09-27T11:05:37+00:00"
 }
