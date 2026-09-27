@@ -83,8 +83,11 @@
 {"provider": "gemini", "ok": true, "tokens": 85316, "ts": 1790535361.8172743, "date": "2026-09-27", "run_id": "36342126942"}
 {"provider": "omniroute", "ok": false, "tokens": 0, "ts": 1790535516.7784858, "date": "2026-09-27", "run_id": "36342590933", "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Rem", "quota": true}
 {"provider": "openrouter_free", "ok": false, "tokens": 0, "ts": 1790535568.4658184, "date": "2026-09-27", "run_id": "36342590933", "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Rem", "quota": true}
-{"provider": "gemini", "ok": true, "tokens": 3376, "ts": 1790536759.7445793, "date": "2026-09-27", "run_id": "36343801595"}
-{"provider": "gemini", "ok": true, "tokens": 73183, "ts": 1790536768.2907696, "date": "2026-09-27", "run_id": "36343801595"}
-{"provider": "gemini", "ok": true, "tokens": 1888, "ts": 1790536774.57874, "date": "2026-09-27", "run_id": "36343801595"}
-{"provider": "gemini", "ok": true, "tokens": 73201, "ts": 1790536782.257081, "date": "2026-09-27", "run_id": "36343801595"}
-{"provider": "gemini", "ok": true, "tokens": 80949, "ts": 1790536806.3942864, "date": "2026-09-27", "run_id": "36343801595"}
+{"provider": "gemini", "ok": true, "tokens": 3682, "ts": 1790536951.1048408, "date": "2026-09-27", "run_id": "36343860751"}
+{"provider": "gemini", "ok": true, "tokens": 66285, "ts": 1790536958.8470445, "date": "2026-09-27", "run_id": "36343860751"}
+{"provider": "gemini", "ok": true, "tokens": 67360, "ts": 1790536968.4845219, "date": "2026-09-27", "run_id": "36343860751"}
+{"provider": "gemini", "ok": true, "tokens": 2539, "ts": 1790536974.2238507, "date": "2026-09-27", "run_id": "36343860751"}
+{"provider": "gemini", "ok": true, "tokens": 69839, "ts": 1790536989.0078256, "date": "2026-09-27", "run_id": "36343860751"}
+{"provider": "gemini", "ok": false, "tokens": 0, "ts": 1790536995.929019, "date": "2026-09-27", "run_id": "36343860751", "reason": "RateLimitError: Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limi", "quota": true}
+{"provider": "groq", "ok": false, "tokens": 0, "ts": 1790536996.3395112, "date": "2026-09-27", "run_id": "36343860751", "reason": "NotFoundError: Error code: 404 - {'error': {'message': 'The model `gemini-3.5-flash-lite` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"}
+{"provider": "groq", "ok": false, "tokens": 0, "ts": 1790537006.6487417, "date": "2026-09-27", "run_id": "36343860751", "reason": "NotFoundError: Error code: 404 - {'error': {'message': 'The model `gemini-3.6-flash` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"}
