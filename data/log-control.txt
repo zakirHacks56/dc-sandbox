@@ -15149,3 +15149,44 @@ We might need to adjust the existing test files to be compatible with parallel e
 
 Switched to a new branch 'fix-issue-856'
 2026-09-27T15:42:04+00:00  tick done
+2026-09-27T15:45:10+00:00  gate poller start (offset=746150288)
+2026-09-27T15:45:19+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T15:45:19+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T15:45:20+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T15:45:21+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-27T15:45:21+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-27T15:45:21+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-27T15:45:22+00:00  HUNTING: trying taranis-ai/taranis-ai#811
+2026-09-27T15:45:22+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo taranis-ai/taranis-ai --issue 811 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T15:46:46+00:00  fixer exit=0
+--tail--
+`run_core_external` that uses an external core URL.
+
+ We are testing PostgreSQL specific behaviour and migrations. The core application uses PostgreSQL.
+
+ We need to make sure that when using Neon, the core application (whether local Docker or external) is configured to use the Neon PostgreSQL instance.
+
+ However, note that the core application's database configuration is set via environment variables or config.
+
+ In the core, we have `src/core/core/config.py` which defines the `Settings` class and the database URI.
+
+ We are not allowed to modify that file because it is not in the allowed list.
+
+ Therefore, we must rely on setting environment variables that the core configuration picks up.
+
+ How does the core configuration work?
+   We see in `src/core/core/config.py` that there is a `Settings` class that uses pydantic's `BaseSettings`.
+   The database URI is set by the `SQLALCHEMY_DATABASE_URI` environment variable (or similar) via the `set_sqlalchemy_uri` function.
+
+ We can set the `SQLALCHEMY_DATABASE_URI` environment variable to point to the Neon PostgreSQL instance.
+
+ But note: we are only allowed to modify the allowed files. We cannot change the core configuration file.
+
+ However, 
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 3/5 ---
+🧮 Issue budget exceeded (token_budget_exceeded) -- abandoning this issue.
+
+Switched to a new branch 'fix-issue-811'
+2026-09-27T15:46:46+00:00  tick done

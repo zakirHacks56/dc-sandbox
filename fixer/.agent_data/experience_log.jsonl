@@ -23,3 +23,4 @@
 {"repo": "Rekin226/aquascope", "issue_title": "Fourteen stale count mentions outside the guard, and nine more break when #448 merges", "language": "python", "outcome": "failed", "error_category": "D", "notes": "token_budget_exceeded", "timestamp": "2026-09-27"}
 {"repo": "taranis-ai/taranis-ai", "issue_title": "Revisit Report View Attribute Rendering", "language": "python", "outcome": "failed", "error_category": "D", "notes": "token_budget_exceeded", "timestamp": "2026-09-27"}
 {"repo": "taranis-ai/taranis-ai", "issue_title": "shard e2e test files", "language": "python", "outcome": "failed", "error_category": "D", "notes": "token_budget_exceeded", "timestamp": "2026-09-27"}
+{"repo": "taranis-ai/taranis-ai", "issue_title": "Integrate neon (postgresql hosting service) for CI runs", "language": "python", "outcome": "failed", "error_category": "D", "notes": "token_budget_exceeded", "timestamp": "2026-09-27"}
