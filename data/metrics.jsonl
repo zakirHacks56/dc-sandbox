@@ -42,3 +42,5 @@
 {"ts": "2026-09-27T16:06:56.264659+00:00", "repo": "izzywdev/FuzeFront", "issue": 1022, "language": "", "outcome": "noop", "tokens_spent": 111303, "iterations": 0, "notes": ""}
 {"ts": "2026-09-27T16:23:09.705529+00:00", "repo": "izzywdev/FuzeFront", "issue": 1021, "language": "", "outcome": "abandoned", "tokens_spent": 47857, "iterations": 2, "notes": "token_budget_exceeded"}
 {"ts": "2026-09-27T16:23:09.705890+00:00", "repo": "izzywdev/FuzeFront", "issue": 1021, "language": "", "outcome": "noop", "tokens_spent": 49055, "iterations": 0, "notes": ""}
+{"ts": "2026-09-27T17:40:38.860243+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 17, "language": "", "outcome": "abandoned", "tokens_spent": 50246, "iterations": 5, "notes": "token_budget_exceeded"}
+{"ts": "2026-09-27T17:40:38.860450+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 17, "language": "", "outcome": "noop", "tokens_spent": 52318, "iterations": 0, "notes": ""}
