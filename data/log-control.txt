@@ -15559,3 +15559,28 @@ Switched to a new branch 'fix-issue-14'
 
 Switched to a new branch 'fix-issue-449'
 2026-09-27T18:26:49+00:00  tick done
+2026-09-27T18:42:26+00:00  gate poller start (offset=746150288)
+2026-09-27T18:42:35+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T18:42:36+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T18:42:37+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-27T18:42:38+00:00  HUNTING: trying Rekin226/aquascope#444
+2026-09-27T18:42:38+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 444 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T18:45:10+00:00  fixer exit=0
+--tail--
+://rekin226.github.io/aquascope
+
+
+--- Attempt 2/5 ---
+⚠️ provider omniroute failed: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Rem
+⚠️ provider openrouter_free failed: RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Rem
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (AllProvidersExhaustedError): all providers for tier 'primary' failed or were over budget (last: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests 
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ provider omniroute failed: APIStatusError: Error code: 402 - {'error': {'message': 'This request requires more credits, or fewer max_tokens. You requested up to 3000 tokens, but can only afford 6. To increase, visit https://openrouter.ai/settings/credits and upgrade 
+✅ Applied changes to: ['CITATION.cff']
+🧪 Rejecting this patch before testing it: no regression test: the patch changes only CITATION.cff and adds no test that would fail without it
+
+--- Attempt 3/5 ---
+🧮 Issue budget exceeded (token_budget_exceeded) -- abandoning this issue.
+
+Switched to a new branch 'fix-issue-444'
+2026-09-27T18:45:10+00:00  tick done

@@ -48,3 +48,5 @@
 {"ts": "2026-09-27T18:11:55.803179+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 14, "language": "", "outcome": "error:RuntimeError", "tokens_spent": 0, "iterations": 0, "notes": ""}
 {"ts": "2026-09-27T18:26:49.475977+00:00", "repo": "Rekin226/aquascope", "issue": 449, "language": "", "outcome": "abandoned", "tokens_spent": 86960, "iterations": 2, "notes": "token_budget_exceeded"}
 {"ts": "2026-09-27T18:26:49.476420+00:00", "repo": "Rekin226/aquascope", "issue": 449, "language": "", "outcome": "noop", "tokens_spent": 91399, "iterations": 0, "notes": ""}
+{"ts": "2026-09-27T18:45:09.863781+00:00", "repo": "Rekin226/aquascope", "issue": 444, "language": "", "outcome": "abandoned", "tokens_spent": 76951, "iterations": 3, "notes": "token_budget_exceeded"}
+{"ts": "2026-09-27T18:45:09.864217+00:00", "repo": "Rekin226/aquascope", "issue": 444, "language": "", "outcome": "noop", "tokens_spent": 76951, "iterations": 0, "notes": ""}
