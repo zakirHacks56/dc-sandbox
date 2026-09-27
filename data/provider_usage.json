@@ -2,12 +2,28 @@
   "providers": {
     "omniroute": {
       "date": "2026-09-27",
-      "tokens": 112972,
+      "tokens": 107974,
       "calls": 27,
+      "fails": 1,
+      "down": false,
+      "cooldown_until": 0
+    },
+    "gemini": {
+      "date": "2026-09-27",
+      "tokens": 0,
+      "calls": 1,
+      "fails": 1,
+      "down": false,
+      "cooldown_until": 0
+    },
+    "openrouter_free": {
+      "date": "2026-09-27",
+      "tokens": 11323,
+      "calls": 1,
       "fails": 0,
       "down": false,
       "cooldown_until": 0
     }
   },
-  "updated": 1790519609.1106071
+  "updated": 1790519839.5246718
 }

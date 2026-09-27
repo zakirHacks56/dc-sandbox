@@ -15,5 +15,5 @@
 {"ts": "2026-09-27T10:03:55.162496+00:00", "repo": "izzywdev/FuzeFront", "issue": 1024, "language": "", "outcome": "error:TypeError", "tokens_spent": 1212, "iterations": 0, "notes": ""}
 {"ts": "2026-09-27T14:26:10.916455+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 21, "language": "", "outcome": "abandoned", "tokens_spent": 43837, "iterations": 5, "notes": "token_budget_exceeded"}
 {"ts": "2026-09-27T14:26:10.916772+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 21, "language": "", "outcome": "noop", "tokens_spent": 46553, "iterations": 0, "notes": ""}
-{"ts": "2026-09-27T14:33:29.113749+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 20, "language": "", "outcome": "abandoned", "tokens_spent": 35950, "iterations": 5, "notes": "max_iterations_reached"}
-{"ts": "2026-09-27T14:33:29.114039+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 20, "language": "", "outcome": "noop", "tokens_spent": 39076, "iterations": 0, "notes": ""}
+{"ts": "2026-09-27T14:37:19.528163+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 20, "language": "", "outcome": "abandoned", "tokens_spent": 42276, "iterations": 4, "notes": "token_budget_exceeded"}
+{"ts": "2026-09-27T14:37:19.528434+00:00", "repo": "yunaremaia/sandbox-ffi-layers", "issue": 20, "language": "", "outcome": "noop", "tokens_spent": 45401, "iterations": 0, "notes": ""}
