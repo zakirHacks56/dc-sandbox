@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T08:48:05",
+  "updated_at": "2026-09-27T08:55:39",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -481,6 +481,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T08:48:05"
+    },
+    "Rekin226/aquascope#397": {
+      "repo": "Rekin226/aquascope",
+      "issue": 397,
+      "issue_title": "test_docs_counts knows the right number: let it write it, instead of failing six PRs a fortnight",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-397.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-397",
+      "workspace": "workspace/Rekin226-aquascope/issue-397",
+      "conversation_id": "20260927T085536-9a60fd82",
+      "state": "ANALYZING",
+      "status": "analyzing",
+      "branch": "fix-issue-397",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T08:55:39"
     }
   }
 }
