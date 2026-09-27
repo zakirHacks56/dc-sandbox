@@ -5,7 +5,7 @@
   "issue_title": "Split story",
   "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/237",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-237",
   "base_branch": "master",
@@ -75,5 +75,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo taranis-ai/taranis-ai --resume 237",
     "python oss_agent_v2.py --repo taranis-ai/taranis-ai --conversation 237"
-  ]
+  ],
+  "swept_at": "2026-09-26T21:39:32+00:00"
 }
