@@ -15707,3 +15707,49 @@ Step 8a: running baseline tests (before any changes)...
 
 Switched to a new branch 'fix-issue-651'
 2026-09-27T19:08:38+00:00  tick done
+2026-09-27T19:17:41+00:00  gate poller start (offset=746150288)
+2026-09-27T19:17:42+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-27T19:17:44+00:00  yunaremaia/sandbox-ffi-layers: skipping (hit 4-lane/day budget)
+2026-09-27T19:17:45+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-27T19:17:46+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-27T19:17:47+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-27T19:17:47+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-27T19:17:48+00:00  HUNTING: trying taranis-ai/taranis-ai#644
+2026-09-27T19:17:48+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo taranis-ai/taranis-ai --issue 644 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-27T19:20:21+00:00  fixer exit=0
+--tail--
+misp_auto_update(cls, value: Any) -> Any:
+        if not isinstance(value, dict):
+            return value
+        normalized = dict(value)
+        misp_auto_update = normalized.get("misp_auto_update")
+        if isinstance(misp_auto_update, dict) and not misp_auto_update.get("connector_id") and not misp_auto_update.get("enabled"):
+            normalized.pop("misp_auto_update")
+        return normalized
+
+
+class AnalystReviewActionPayload(TaranisBaseModel):
+    story_id: str
+    action: Literal["add", "dismiss"]
+    report_id: str | None = None
+
+    @model_validator(mode="after")
+    def require_report_for_add(self) -> Self:
+        if self.action == "add" and not self.report_id:
+            raise ValueError("report_id is required when adding a story")
+        return self
+
+
+class BulkAction(TaranisBaseModel):
+    story_ids: list[str] = Field(default_factory=list)
+    payload: StoryUpdatePayload | None = None
+
+
+--- Attempt 4/8 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~100377 tokens (input 92377 + max_tokens 8000) but only 70779 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~100377 tokens (input 92377 + max_tokens 8000) but only 70779 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+Switched to a new branch 'fix-issue-644'
+2026-09-27T19:20:21+00:00  tick done
