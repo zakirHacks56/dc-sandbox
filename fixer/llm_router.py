@@ -50,16 +50,33 @@ PROVIDER_USAGE_FILE = os.getenv(
     str(Path(__file__).resolve().parent.parent / "data" / "provider_usage.json"),
 )
 
+
+def _int_setting(name: str, default: int) -> int:
+    """Read an integer env setting; an EMPTY value behaves like unset.
+
+    GitHub Actions exports missing secrets as the empty string, so a plain
+    os.getenv(name, default) would crash int() once the secret existed and
+    then went blank again (empty-beats-stale, 7f02810e class bug). A blank
+    value must always fall back to the default instead of raising."""
+    raw = (os.getenv(name) or "").strip()
+    return int(raw) if raw else default
+
+
+def _float_setting(name: str, default: float) -> float:
+    raw = (os.getenv(name) or "").strip()
+    return float(raw) if raw else default
+
+
 # Consecutive failures before a provider is tripped into cooldown (W12).
-BREAKER_THRESHOLD = int(os.getenv("BREAKER_THRESHOLD", "3"))
+BREAKER_THRESHOLD = _int_setting("BREAKER_THRESHOLD", 3)
 # Seconds a tripped provider stays out of rotation (W12 recovery window).
-BREAKER_COOLDOWN_SECONDS = float(os.getenv("BREAKER_COOLDOWN_SECONDS", "300"))
+BREAKER_COOLDOWN_SECONDS = _float_setting("BREAKER_COOLDOWN_SECONDS", 300)
 # Hard watchdog cap for a single inference call, in seconds (W11). The fixer
 # also passes its own per-combo timeouts; this is the outer, non-negotiable lid.
-DEFAULT_WATCHDOG_SECONDS = float(os.getenv("LLM_WATCHDOG_SECONDS", "120"))
+DEFAULT_WATCHDOG_SECONDS = _float_setting("LLM_WATCHDOG_SECONDS", 120)
 # Global daily token ceiling across ALL providers (W18). Set per-provider with
 # <PROVIDER>_DAILY_BUDGET; this is the aggregate safety net.
-GLOBAL_DAILY_TOKEN_BUDGET = int(os.getenv("GLOBAL_DAILY_TOKEN_BUDGET", "2000000"))
+GLOBAL_DAILY_TOKEN_BUDGET = _int_setting("GLOBAL_DAILY_TOKEN_BUDGET", 2000000)
 
 # Tier order used for failover within each tier; providers keep this order.
 _TIER_RANK = {"escalation": 0, "primary": 1, "fast": 2, "tertiary": 3,
