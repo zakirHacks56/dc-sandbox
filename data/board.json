@@ -27,7 +27,8 @@
       1121,
       1116,
       1045,
-      889
+      889,
+      856
     ],
     "Rekin226/aquascope": [
       446,
@@ -345,7 +346,12 @@
       "state": "IMPLEMENTING",
       "pr": null,
       "updated": "2026-09-27T15:33:35+00:00"
+    },
+    "taranis-ai/taranis-ai#856": {
+      "state": "IMPLEMENTING",
+      "pr": null,
+      "updated": "2026-09-27T15:42:04+00:00"
     }
   },
-  "last_tick": "2026-09-27T15:33:35+00:00"
+  "last_tick": "2026-09-27T15:42:04+00:00"
 }

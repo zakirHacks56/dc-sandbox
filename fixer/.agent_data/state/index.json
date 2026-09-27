@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-27T15:32:22",
+  "updated_at": "2026-09-27T15:41:07",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -781,6 +781,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-27T15:32:22"
+    },
+    "taranis-ai/taranis-ai#856": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 856,
+      "issue_title": "shard e2e test files",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-856.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-856",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-856",
+      "conversation_id": "20260927T154103-7333eeeb",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-856",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-27T15:41:07"
     }
   }
 }
