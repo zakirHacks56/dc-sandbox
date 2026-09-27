@@ -2,12 +2,12 @@
   "providers": {
     "omniroute": {
       "date": "2026-09-27",
-      "tokens": 22374,
-      "calls": 11,
+      "tokens": 23685,
+      "calls": 12,
       "fails": 0,
       "down": false,
       "cooldown_until": 0
     }
   },
-  "updated": 1790502359.2436736
+  "updated": 1790502613.2803924
 }
