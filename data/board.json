@@ -62,7 +62,8 @@
       392,
       381,
       376,
-      375
+      375,
+      346
     ],
     "izzywdev/FuzeFront": [
       1181,
@@ -376,9 +377,10 @@
       "updated": "2026-09-26T15:07:21+00:00"
     },
     "Rekin226/aquascope#453": {
-      "state": "IMPLEMENTING",
-      "pr": null,
-      "updated": "2026-09-26T15:23:50+00:00"
+      "state": "ABANDONED",
+      "decision": false,
+      "updated": "2026-09-26T22:43:57",
+      "reaped_at": "2026-09-28T17:38:45+00:00"
     },
     "taranis-ai/taranis-ai#889": {
       "state": "IMPLEMENTING",
@@ -604,7 +606,19 @@
       "spent": 0,
       "reason": "one-off retire: budget-exceeded/preflight wave left no terminal state on 2026-09-28",
       "updated": "2026-09-28T02:28:26+00:00"
+    },
+    "yunaremaia/sandbox-ffi-layers#27": {
+      "state": "ABANDONED",
+      "decision": false,
+      "updated": "2026-09-25T02:30:37",
+      "reaped_at": "2026-09-28T17:38:45+00:00"
+    },
+    "Rekin226/aquascope#346": {
+      "state": "ABANDONED",
+      "pr": null,
+      "spent": 20983,
+      "updated": "2026-09-28T17:41:27+00:00"
     }
   },
-  "last_tick": "2026-09-28T15:09:13+00:00"
+  "last_tick": "2026-09-28T17:41:27+00:00"
 }

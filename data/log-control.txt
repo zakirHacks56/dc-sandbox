@@ -17381,3 +17381,46 @@ Switched to a new branch 'fix-issue-1002'
 2026-09-28T15:09:13+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
 2026-09-28T15:09:13+00:00  no candidate found this tick
 2026-09-28T15:09:13+00:00  tick done
+2026-09-28T17:38:37+00:00  gate poller start (offset=746150288)
+2026-09-28T17:38:45+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-28T17:38:45+00:00  reap: abandoning leaked in-flight lane Rekin226/aquascope#453 (state=ANALYZING, age=2575m, no PR, no gate)
+2026-09-28T17:38:45+00:00  reap: abandoning leaked in-flight lane yunaremaia/sandbox-ffi-layers#27 (state=TESTING, age=5228m, no PR, no gate)
+2026-09-28T17:38:45+00:00  reaped 2 leaked lane(s) -- budget freed for a real attempt
+2026-09-28T17:38:46+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-28T17:38:47+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-28T17:38:47+00:00  HUNTING: trying Rekin226/aquascope#346
+2026-09-28T17:38:47+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 346 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-28T17:41:27+00:00  fixer exit=0
+--tail--
++++ tests/test_collectors/test_brazil_ana.py
+@@ -19,2 +19,10 @@
+ 
++def test_ana_rnqa_water_quality_status_documented() -> None:
++    """Verify that ANA RNQA water quality portal status is documented."""
++    doc_path = Path("docs/data_sources.md")
++    assert doc_path.exists()
++    content = doc_path.read_text(encoding="utf-8")
++    assert "RNQA" in content
++    assert "qualidadedaagua.ana.gov.br" in content
++    assert "No public API" in content or "no public REST API" in content.lower()
++
+ FAKE_STATIONS_PAGE = {
+```
+
+Let's review the required diffs.
+
+FILE: `docs/data_sources.md`
+```diff
+--- a/`tes
+⚠️  Your diff was found but failed to apply cleanly (likely incorrect context lines or line numbers). Either fix the diff so its context lines exactly match the real file content shown to you, or use the FILE:/<<<CONTENT>>>/<<<END>>> fallback format instead for this file.
+
+--- Attempt 2/5 ---
+⚠️ Combo 'auto/best-reasoning' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~24510 tokens (input 21510 + max_tokens 3000) but only 19017 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~24510 tokens (input 21510 + max_tokens 3000) but only 19017 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+🛑 Run ended (abandoned_error) -- record terminal, lane freed.
+
+Switched to a new branch 'fix-issue-346'
+2026-09-28T17:41:27+00:00  tick done (outcome=hunted)

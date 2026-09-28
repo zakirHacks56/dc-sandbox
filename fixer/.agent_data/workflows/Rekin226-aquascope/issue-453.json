@@ -5,7 +5,7 @@
   "issue_title": "Fourteen stale count mentions outside the guard, and nine more break when #448 merges",
   "issue_url": "https://github.com/Rekin226/aquascope/issues/453",
   "issue_state": "open",
-  "state": "ANALYZING",
+  "state": "ABANDONED",
   "status": "analyzing",
   "branch": "fix-issue-453",
   "base_branch": "main",
@@ -49,5 +49,6 @@
     "task_type": "DOCS",
     "reason": "The issue extends the existing count-guarding functionality to additional documentation files and cleans up stale count mentions across multiple docs and code files."
   },
-  "bot_login": "zakirHacks56"
+  "bot_login": "zakirHacks56",
+  "reaped_at": "2026-09-28T17:38:45+00:00"
 }

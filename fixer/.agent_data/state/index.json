@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T02:26:16",
+  "updated_at": "2026-09-28T17:41:27",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1351,6 +1351,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T02:26:16"
+    },
+    "Rekin226/aquascope#346": {
+      "repo": "Rekin226/aquascope",
+      "issue": 346,
+      "issue_title": "Brazil ANA water quality (RNQA): find out whether it is reachable programmatically, and collect it if so",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-346.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-346",
+      "workspace": "workspace/Rekin226-aquascope/issue-346",
+      "conversation_id": "20260928T174007-52efff03",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-346",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T17:41:27"
     }
   }
 }
