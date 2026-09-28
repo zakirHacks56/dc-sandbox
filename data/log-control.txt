@@ -18390,3 +18390,39 @@ Step 8a: running baseline tests (before any changes)...
 
 Switched to a new branch 'fix-issue-980'
 2026-09-28T22:00:42+00:00  tick done (outcome=hunted)
+2026-09-28T22:05:43+00:00  gate poller start (offset=746150288)
+2026-09-28T22:05:51+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-28T22:05:53+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-28T22:05:54+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-28T22:05:56+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-28T22:05:56+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-28T22:05:56+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-28T22:05:57+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-28T22:05:57+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-28T22:05:57+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-28T22:06:00+00:00  HUNTING: trying izzywdev/FuzeFront#979
+2026-09-28T22:06:00+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 979 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-28T22:08:03+00:00  fixer exit=0
+--tail--
+ult test command with detected one: npm test
+   ↳ 🚀 Difficulty escalation: hard task -> 8 attempts, 10 context files.
+   ↳  context budget 90000 chars spent -- keeping 5 file(s), dropping rest
+✅ Found 5 relevant files (0 via AI selection, 10 via keyword match)
+Step 8a: running baseline tests (before any changes)...
+❌ Tests failed
+🗺️  Hard task -- drafting an implementation plan before writing code.
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (ProviderBudgetExceeded): global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (ProviderBudgetExceeded): global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+--- Attempt 1/8 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (ProviderBudgetExceeded): global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (ProviderBudgetExceeded): global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+🛑 Run ended (abandoned_error) -- record terminal, lane freed.
+
+Switched to a new branch 'fix-issue-979'
+2026-09-28T22:08:03+00:00  tick done (outcome=hunted)
