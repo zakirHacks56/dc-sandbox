@@ -1,0 +1,59 @@
+{
+  "schema": 2,
+  "repo": "taranis-ai/taranis-ai",
+  "issue": 206,
+  "issue_title": "setup sentry for worker",
+  "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/206",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-206",
+  "base_branch": "master",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-28T20:05:05",
+  "updated_at": "2026-09-28T20:05:24",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-28T20:05:05",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-28T20:05:09",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260928T200505-58221c2f",
+  "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-206",
+  "workspace": "workspace/taranis-ai-taranis-ai/issue-206",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "enhancement",
+    "worker"
+  ],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_error"
+}
