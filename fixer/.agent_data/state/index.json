@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T01:28:52",
+  "updated_at": "2026-09-28T01:34:36",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1261,6 +1261,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T01:28:52"
+    },
+    "taranis-ai/taranis-ai#556": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 556,
+      "issue_title": "Story adds and updates should be transactions",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-556.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-556",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-556",
+      "conversation_id": "20260928T013357-863903c6",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-556",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T01:34:36"
     }
   }
 }

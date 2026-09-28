@@ -16456,3 +16456,43 @@ Step 8a: running baseline tests (before any changes)...
 
 Switched to a new branch 'fix-issue-623'
 2026-09-28T01:29:07+00:00  tick done
+2026-09-28T01:33:35+00:00  gate poller start (offset=746150288)
+2026-09-28T01:33:43+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-28T01:33:44+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-28T01:33:45+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-28T01:33:47+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-28T01:33:47+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-28T01:33:47+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-28T01:33:48+00:00  HUNTING: trying taranis-ai/taranis-ai#556
+2026-09-28T01:33:48+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo taranis-ai/taranis-ai --issue 556 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-28T01:39:39+00:00  fixer exit=0
+--tail--
+n
++        with mock.patch("core.model.story.Story.update", side_effect=Exception("Test error")):
++            response = client.post(
++                f"{self.base_uri}/stories",
++                json=update_data,
++                headers=api_header,
++            )
++            # The API should return an error
++            assert response.status_code == 500
++            # Check that the story was not updated
++            response = client.get(
++                f"{self.base_uri}/stories",
++                headers=api_header,
++                query_string={"story_id": story_id},
++            )
++            updated_story = response.get_json()[0]
++            assert updated_story.get("title") == original_title
+```
+```
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 4/8 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~89455 tokens (input 81455 + max_tokens 8000) but only 85844 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~89455 tokens (input 81455 + max_tokens 8000) but only 85844 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+Switched to a new branch 'fix-issue-556'
+2026-09-28T01:39:39+00:00  tick done
