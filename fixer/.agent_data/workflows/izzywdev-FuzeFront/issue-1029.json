@@ -5,7 +5,7 @@
   "issue_title": "[Help wanted] Create a production-readiness checklist for external adopters",
   "issue_url": "https://github.com/izzywdev/FuzeFront/issues/1029",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-1029",
   "base_branch": "master",
@@ -74,5 +74,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo izzywdev/FuzeFront --resume 1029",
     "python oss_agent_v2.py --repo izzywdev/FuzeFront --conversation 1029"
-  ]
+  ],
+  "swept_at": "2026-09-28T13:52:12+00:00"
 }

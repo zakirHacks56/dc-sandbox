@@ -276,14 +276,14 @@
       "updated": "2026-09-25T13:27:35"
     },
     "izzywdev/FuzeFront#1029": {
-      "state": "PAUSED",
-      "pr": null,
-      "updated": "2026-09-25T13:42:34+00:00"
+      "state": "ABANDONED",
+      "decision": false,
+      "updated": "2026-09-25T13:42:33"
     },
     "izzywdev/FuzeFront#1028": {
-      "state": "PAUSED",
-      "pr": null,
-      "updated": "2026-09-25T13:47:06+00:00"
+      "state": "ABANDONED",
+      "decision": false,
+      "updated": "2026-09-25T13:47:06"
     },
     "Rekin226/aquascope#473": {
       "state": "ANALYZING",
@@ -576,5 +576,5 @@
       "updated": "2026-09-28T02:28:26+00:00"
     }
   },
-  "last_tick": "2026-09-28T13:32:57+00:00"
+  "last_tick": "2026-09-28T13:52:12+00:00"
 }

@@ -5,7 +5,7 @@
   "issue_title": "[Help wanted] Define a measurable adoption benchmark for the Software Factory",
   "issue_url": "https://github.com/izzywdev/FuzeFront/issues/1028",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-1028",
   "base_branch": "master",
@@ -74,5 +74,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo izzywdev/FuzeFront --resume 1028",
     "python oss_agent_v2.py --repo izzywdev/FuzeFront --conversation 1028"
-  ]
+  ],
+  "swept_at": "2026-09-28T13:52:12+00:00"
 }
