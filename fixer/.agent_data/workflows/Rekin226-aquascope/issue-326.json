@@ -1,0 +1,60 @@
+{
+  "schema": 2,
+  "repo": "Rekin226/aquascope",
+  "issue": 326,
+  "issue_title": "GPU-batched GR4J calibration over the whole Archive: a parameter table for regionalisation and HydroGym",
+  "issue_url": "https://github.com/Rekin226/aquascope/issues/326",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-326",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-28T17:51:14",
+  "updated_at": "2026-09-28T17:53:50",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-28T17:51:15",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-28T17:51:35",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260928T175114-bd2c8803",
+  "conversation_dir": "conversations/Rekin226-aquascope/issue-326",
+  "workspace": "workspace/Rekin226-aquascope/issue-326",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "help wanted",
+    "methodology",
+    "gpu"
+  ],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_failed"
+}

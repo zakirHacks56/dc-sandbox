@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T17:46:37",
+  "updated_at": "2026-09-28T17:53:50",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1381,6 +1381,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T17:46:37"
+    },
+    "Rekin226/aquascope#326": {
+      "repo": "Rekin226/aquascope",
+      "issue": 326,
+      "issue_title": "GPU-batched GR4J calibration over the whole Archive: a parameter table for regionalisation and HydroGym",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-326.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-326",
+      "workspace": "workspace/Rekin226-aquascope/issue-326",
+      "conversation_id": "20260928T175114-bd2c8803",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-326",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T17:53:50"
     }
   }
 }

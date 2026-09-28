@@ -159,3 +159,9 @@
 {"provider": "gemini", "ok": true, "tokens": 20983, "ts": 1790617272.2335618, "date": "2026-09-28", "run_id": "36459527029"}
 {"provider": "gemini", "ok": false, "tokens": 0, "ts": 1790617584.7737606, "date": "2026-09-28", "run_id": "36460015377", "reason": "WatchdogTimeout: provider call exceeded watchdog window of 90s"}
 {"provider": "gemini", "ok": false, "tokens": 0, "ts": 1790617597.268474, "date": "2026-09-28", "run_id": "36460015377", "reason": "InternalServerError: Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}]"}
+{"provider": "gemini", "ok": true, "tokens": 17660, "ts": 1790617922.263701, "date": "2026-09-28", "run_id": "36460814450"}
+{"provider": "gemini", "ok": false, "tokens": 0, "ts": 1790617922.5921636, "date": "2026-09-28", "run_id": "36460814450", "reason": "NotFoundError: Error code: 404 - [{'error': {'code': 404, 'message': 'models/auto/best-reasoning is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models "}
+{"provider": "groq", "ok": false, "tokens": 0, "ts": 1790617922.6950974, "date": "2026-09-28", "run_id": "36460814450", "reason": "NotFoundError: Error code: 404 - {'error': {'message': 'The model `auto/best-reasoning` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"}
+{"provider": "gemini", "ok": true, "tokens": 19661, "ts": 1790617949.113953, "date": "2026-09-28", "run_id": "36460814450"}
+{"provider": "gemini", "ok": true, "tokens": 18801, "ts": 1790617992.668519, "date": "2026-09-28", "run_id": "36460814450"}
+{"provider": "gemini", "ok": true, "tokens": 18572, "ts": 1790618029.9495857, "date": "2026-09-28", "run_id": "36460814450"}

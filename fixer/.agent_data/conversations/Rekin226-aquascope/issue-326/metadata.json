@@ -1,0 +1,14 @@
+{
+  "conversation_id": "20260928T175114-bd2c8803",
+  "repo": "Rekin226/aquascope",
+  "issue": 326,
+  "created_at": "2026-09-28T17:51:14",
+  "updated_at": "2026-09-28T17:53:49",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "message_count": 12,
+  "rounds": 0,
+  "archived_conversation_ids": [],
+  "transcript": "conversations/Rekin226-aquascope/issue-326/transcript.log",
+  "messages": "conversations/Rekin226-aquascope/issue-326/messages.jsonl"
+}
