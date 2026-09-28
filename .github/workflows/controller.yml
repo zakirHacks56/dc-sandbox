@@ -94,13 +94,13 @@ jobs:
         run: |
           git config --global user.name "oss-relay[bot]"
           git config --global user.email "oss-relay[bot]@users.noreply.github.com"
-          git add -A
+          git add data/gates data/board.json data/log-control.txt data/log-poll.txt fixer/.agent_data data/offset.json
           git commit -m "controller: $(date -u +%FT%TZ)" --allow-empty || true
           exit_code=1
           for i in 1 2 3 4 5; do
             git config pull.rebase false
             git pull --no-rebase --no-edit -X ours origin master >/dev/null 2>&1 || true
-            git add -A
+            git add data/gates data/board.json data/log-control.txt data/log-poll.txt fixer/.agent_data data/offset.json
             git commit -m "controller: $(date -u +%FT%TZ)" --allow-empty >/dev/null 2>&1 || true
             if git push >/dev/null 2>&1; then exit_code=0; break; fi
             sleep 6
