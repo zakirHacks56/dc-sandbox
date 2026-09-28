@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T00:34:16",
+  "updated_at": "2026-09-28T00:50:32",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1171,6 +1171,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T00:34:16"
+    },
+    "Rekin226/aquascope#392": {
+      "repo": "Rekin226/aquascope",
+      "issue": 392,
+      "issue_title": "Explorer: BOM and ANA Hidroweb pins are on the map but error on click",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-392.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-392",
+      "workspace": "workspace/Rekin226-aquascope/issue-392",
+      "conversation_id": "20260928T004956-c0ef9ae8",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-392",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T00:50:32"
     }
   }
 }

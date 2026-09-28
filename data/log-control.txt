@@ -16276,3 +16276,43 @@ struct it's Option<char> so we can do:
 
 Switched to a new branch 'fix-issue-11'
 2026-09-28T00:35:57+00:00  tick done
+2026-09-28T00:49:36+00:00  gate poller start (offset=746150288)
+2026-09-28T00:49:44+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-28T00:49:46+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-28T00:49:48+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-28T00:49:48+00:00  HUNTING: trying Rekin226/aquascope#392
+2026-09-28T00:49:48+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 392 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-28T00:54:19+00:00  fixer exit=0
+--tail--
+ote = (
++                f"From {SOURCES[source].agency} ({variable} {unit}); {asked}; "
++                f"served {date_range}."
++            )
++        else:
++            note = (
++                f"From {SOURCES[source].agency} ({variable} {unit}); {asked}; "
++                f"no data available."
++            )
++        return _fetched(s, var, unit, note, window)
++
+     else:
+         raise ValueError(f"{source} has no Explorer fetch path yet")
+```
+```diff
+--- tests/test_explore.py
++++ tests/test_explore.py
+@@ -1140,3 +1140,12 @@
+     assert out["browser_unreachable"] is True and "no mirrored file for this station yet" in out["error"]
+ 
+     # Outside the browser nothing changes: the agency is asked as before.
+
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 4/8 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~90006 tokens (input 82006 + max_tokens 8000) but only 18416 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~90006 tokens (input 82006 + max_tokens 8000) but only 18416 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+Switched to a new branch 'fix-issue-392'
+2026-09-28T00:54:19+00:00  tick done
