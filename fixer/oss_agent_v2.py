@@ -3352,10 +3352,24 @@ def apply_fix(
                 text=True,
             )
             if check.returncode == 0:
-                subprocess.run(["git", "apply", "--recount", patch_file.name], cwd=repo_dir)
-                all_touched.extend(touched)
-                any_applied = True
-                print(f"✅ Applied unified diff touching: {touched}")
+                applied = subprocess.run(
+                    ["git", "apply", "--recount", patch_file.name],
+                    cwd=repo_dir,
+                    capture_output=True,
+                    text=True,
+                )
+                if applied.returncode == 0:
+                    all_touched.extend(touched)
+                    any_applied = True
+                    print(f"✅ Applied unified diff touching: {touched}")
+                else:
+                    # Between --check and --apply the tree could theoretically
+                    # change; never record a patch as applied unless git says
+                    # it actually landed.
+                    print(
+                        f"⚠️  git apply --check passed but apply failed "
+                        f"({applied.stderr[-200:]}), skipping just that block."
+                    )
             else:
                 print(
                     f"⚠️  One diff block didn't apply cleanly ({check.stderr[-200:]}), "
@@ -3755,6 +3769,37 @@ def extract_failing_tests(output: str) -> set:
     """Parse pytest output for FAILED test node ids, so we can tell which
     failures are new (caused by the fix) vs pre-existing in the repo."""
     return set(re.findall(r"^FAILED (\S+)", output, re.MULTILINE))
+
+
+def suite_result_is_trustworthy(output: str) -> bool:
+    """Can we treat a non-zero test exit as "no NEW failures" and pass it?
+
+    The old check -- "no FAILED nodes AND the word 'error' not in the first
+    200 chars" -- misclassified runner-level failures as green: a suite that
+    TIMED OUT, a test COMMAND NOT FOUND, or an aborted collection produces no
+    FAILED node ids and no early 'error' word, so it was silently promoted to
+    "only pre-existing failures remain, fix is fine". A fix that hangs the
+    suite must NOT ship as verified.
+
+    A result is trustworthy when the runner actually EXECUTED tests and told
+    us what happened (pytest summary numbers / PASSED-FAILED node lines), or
+    when nothing was collected at all and that is the repository's normal
+    shape ("no tests ran"). Timeouts, missing runners and collection crashes
+    are NOT trustworthy -- treat them as test failures so the attempt retries
+    and, if it recurs identically, the repeated-failure guard stops it."""
+    if not output:
+        return False
+    low = output.lower()
+    if "timeout" in low or "exceeded" in low or "command not found" in low:
+        return False
+    if re.search(r"^ERROR .*during collection|errors? during collection", output, re.MULTILINE):
+        return False
+    # Positive evidence the suite ran to completion.
+    if re.search(r"\b\d+ (passed|failed|errors?|skipped)\b", low):
+        return True
+    if re.search(r"^PASSED |^FAILED ", output, re.MULTILINE):
+        return True
+    return "no tests ran" in low
 
 
 def blame_changed_files(
@@ -4930,7 +4975,10 @@ def finalize_workflow(record, repo_dir, branch, repo_name, base_branch, test_com
     passed, output = run_tests(repo_dir, test_command)
     if not passed:
         new_fail = extract_failing_tests(output)
-        if new_fail:
+        if new_fail or not suite_result_is_trustworthy(output):
+            # Failed node ids, OR a runner-level failure (timeout, missing
+            # runner, collection crash) that must not be treated as "no new
+            # failures -- proceed" -- hang/no-op runs are an unverified state.
             print("❌ Final validation failed -- not finalizing. Returning to iteration.")
             wf_advance(record, WF.WAITING_FOR_FEEDBACK, "final validation failed")
             return False
@@ -5548,8 +5596,10 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
             previous_error_signature = error_signature
 
             new_failures = extract_failing_tests(output) - baseline_failures
-            if not new_failures and "error" not in output.lower()[:200]:
-                # Only pre-existing failures remain -- the fix itself is fine.
+            if not new_failures and suite_result_is_trustworthy(output):
+                # Only pre-existing failures remain (and the runner really did
+                # run the suite -- a timeout/missing-runner is NOT "fine") --
+                # the fix itself is fine.
                 print("   ↳ Remaining failures are all pre-existing, not caused by this fix.")
                 passed = True
 
@@ -5889,7 +5939,7 @@ def _iteration_solve_loop(
                 return False, output, "Repeated identical failure -- stopped early."
             prev_sig = sig
             new_fail = extract_failing_tests(output) - baseline_failures
-            if not new_fail and "error" not in output.lower()[:200]:
+            if not new_fail and suite_result_is_trustworthy(output):
                 passed = True
             else:
                 # Per-file staging for hard tasks during a review round too:

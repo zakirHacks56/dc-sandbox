@@ -51,6 +51,27 @@ def test_detect_language_python(tmp_path):
     assert detected["test"] == "pytest"
 
 
+@pytest.mark.parametrize("output,expected", [
+    ("===== 12 passed, 2 skipped in 42.35s =====", True),
+    ("1 failed, 12 passed in 1.05s", True),
+    ("2 passed in 0.02s", True),
+    ("no tests ran in 0.01s", True),
+    ("Test suite exceeded 600s timeout -- possible infinite loop.", False),
+    ("Test command not found: pytest. Is the test runner installed?", False),
+    ("ERROR during collection of tests/test_x.py", False),
+    ("", False),
+])
+def test_suite_result_is_trustworthy(output, expected):
+    """Regression: a suite that TIMED OUT, whose runner is missing, or that
+    crashed at collection has no 'FAILED' node ids -- so the old 'no new
+    failures' probe wrongly promoted it to green and shipped an unverified
+    fix as verified. Only run-to-completion summaries (or a legitimately
+    empty suite) are trustworthy."""
+    sys.path.insert(0, str(FIXER))
+    import oss_agent_v2 as o
+    assert o.suite_result_is_trustworthy(output) is expected
+
+
 def test_harness_cli_end_to_end():
     proc = subprocess.run(
         [sys.executable, str(FIXER / "validate_language.py"), "--language", "python"],
