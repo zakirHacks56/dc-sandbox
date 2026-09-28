@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T01:41:02",
+  "updated_at": "2026-09-28T01:47:45",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1291,6 +1291,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T01:41:02"
+    },
+    "izzywdev/FuzeFront#1016": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1016,
+      "issue_title": "Design partners wanted: test FuzeFront on a real workload",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1016.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1016",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1016",
+      "conversation_id": "20260928T014731-e2c06b81",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-1016",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T01:47:45"
     }
   }
 }
