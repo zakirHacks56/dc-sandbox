@@ -16338,3 +16338,32 @@ Step 8a: baseline tests (best-effort, read-only)...
 
 🛑 Analysis saved to .agent_data/reports/Rekin226-aquascope/issue-381.md. Nothing on GitHub was changed.
 2026-09-28T01:01:58+00:00  tick done
+2026-09-28T01:09:43+00:00  gate poller start (offset=746150288)
+2026-09-28T01:09:52+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-28T01:09:53+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-28T01:09:56+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-28T01:09:56+00:00  HUNTING: trying Rekin226/aquascope#376
+2026-09-28T01:09:56+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 376 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-28T01:10:39+00:00  fixer exit=0
+--tail--
+ing #376 - MethodPrecondition has no assumptions: gate stationarity-assuming methods on detected change points
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+✅ Forked, cloned, branched: fix-issue-376
+   ↳ Detected language/build system: python
+   ↳ Detected python -- running multi-strategy dependency install.
+   ↳ requirements file requirements.txt: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python -m pip install -r .agent_data/workspace/Rekin226-aquascope/issue-376/requirements.txt
+      ⚠️  exited 1: ERROR: Could not open requirements file: [Errno 2] No such file or directory: '.agent_data/workspace/Rekin226-aquascope/issue-376/requirements.txt'
+
+   ↳ editable install (pip install -e .): /opt/hostedtoolcache/Python/3.12.14/x64/bin/python -m pip install -e .
+✅ Found 6 relevant files (0 via AI selection, 6 via keyword match)
+Step 8a: running baseline tests (before any changes)...
+❌ Tests failed
+
+--- Attempt 1/5 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~44565 tokens (input 41565 + max_tokens 3000) but only 40000 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~44565 tokens (input 41565 + max_tokens 3000) but only 40000 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+Switched to a new branch 'fix-issue-376'
+2026-09-28T01:10:39+00:00  tick done
