@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T19:31:15",
+  "updated_at": "2026-09-28T19:41:36",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1516,6 +1516,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T19:31:15"
+    },
+    "taranis-ai/taranis-ai#535": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 535,
+      "issue_title": "MISP Connector cannot push one event to more MISP instances",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-535.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-535",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-535",
+      "conversation_id": "20260928T194101-9f6519ac",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-535",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T19:41:36"
     }
   }
 }

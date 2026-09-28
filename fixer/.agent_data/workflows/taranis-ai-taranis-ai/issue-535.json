@@ -1,0 +1,60 @@
+{
+  "schema": 2,
+  "repo": "taranis-ai/taranis-ai",
+  "issue": 535,
+  "issue_title": "MISP Connector cannot push one event to more MISP instances",
+  "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/535",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-535",
+  "base_branch": "master",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-28T19:41:00",
+  "updated_at": "2026-09-28T19:41:36",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-28T19:41:01",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-28T19:41:21",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260928T194101-9f6519ac",
+  "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-535",
+  "workspace": "workspace/taranis-ai-taranis-ai/issue-535",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "enhancement",
+    "worker",
+    "collaboration"
+  ],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_error"
+}
