@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T18:04:36",
+  "updated_at": "2026-09-28T18:13:49",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1411,6 +1411,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T18:04:36"
+    },
+    "Rekin226/aquascope#311": {
+      "repo": "Rekin226/aquascope",
+      "issue": 311,
+      "issue_title": "GR5J and GR6J alongside GR4J: the family's low-flow members",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-311.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-311",
+      "workspace": "workspace/Rekin226-aquascope/issue-311",
+      "conversation_id": "20260928T181141-5df6f1cc",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-311",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T18:13:49"
     }
   }
 }

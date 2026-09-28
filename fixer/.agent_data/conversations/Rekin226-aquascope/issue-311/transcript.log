@@ -1,0 +1,5 @@
+[2026-09-28T18:11:41] conversation 20260928T181141-5df6f1cc opened for Rekin226/aquascope#311
+[2026-09-28T18:11:41] opened for the one-shot command at state=TASK_RECEIVED status=new pr=None
+[2026-09-28T18:12:04] system/error: model call attempt 1/2 on 'nvidia/nemotron-3-super-120b-a12b:free' FAILED: all providers for tier 'primary' failed or were over budget
+[2026-09-28T18:13:39] system/error: model call attempt 1/2 on 'gemini-3.5-flash-lite' FAILED: all providers for tier 'primary' failed or were over budget (last: provider call exceeded watchdog window of 90s)
+[2026-09-28T18:13:49] system/error: model call attempt 1/2 on 'gemini-3.6-flash' FAILED: all providers for tier 'primary' failed or were over budget
