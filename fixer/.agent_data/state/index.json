@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T01:10:24",
+  "updated_at": "2026-09-28T01:13:26",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1216,6 +1216,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T01:10:24"
+    },
+    "Rekin226/aquascope#375": {
+      "repo": "Rekin226/aquascope",
+      "issue": 375,
+      "issue_title": "assess_site judges records by length alone: give SiteContext a quality half",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-375.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-375",
+      "workspace": "workspace/Rekin226-aquascope/issue-375",
+      "conversation_id": "20260928T011252-78a487b6",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-375",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T01:13:26"
     }
   }
 }
