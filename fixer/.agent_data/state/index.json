@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T00:05:40",
+  "updated_at": "2026-09-28T00:09:16",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1141,6 +1141,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T00:05:40"
+    },
+    "yunaremaia/sandbox-ffi-layers#12": {
+      "repo": "yunaremaia/sandbox-ffi-layers",
+      "issue": 12,
+      "issue_title": "feat: add configuration file support",
+      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-12.json",
+      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-12",
+      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-12",
+      "conversation_id": "20260928T000853-e7b600c9",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-12",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T00:09:16"
     }
   }
 }
