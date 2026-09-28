@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T01:47:45",
+  "updated_at": "2026-09-28T01:56:11",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1306,6 +1306,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T01:47:45"
+    },
+    "izzywdev/FuzeFront#1015": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 1015,
+      "issue_title": "Architecture review: where does the Software Factory model break?",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-1015.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1015",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-1015",
+      "conversation_id": "20260928T015557-900af3ab",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-1015",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T01:56:11"
     }
   }
 }
