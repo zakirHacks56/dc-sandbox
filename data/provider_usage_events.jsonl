@@ -150,9 +150,9 @@
 {"provider": "gemini", "ok": true, "tokens": 82716, "ts": 1790561568.4624066, "date": "2026-09-28", "run_id": "36368440728"}
 {"provider": "gemini", "ok": true, "tokens": 82807, "ts": 1790561577.5780718, "date": "2026-09-28", "run_id": "36368440728"}
 {"provider": "gemini", "ok": true, "tokens": 82932, "ts": 1790561586.7706938, "date": "2026-09-28", "run_id": "36368440728"}
-{"provider": "omniroute", "ok": true, "tokens": 1476, "ts": 1790562093.4986918, "date": "2026-09-28", "run_id": "36369471377"}
-{"provider": "omniroute", "ok": true, "tokens": 3535, "ts": 1790562121.330185, "date": "2026-09-28", "run_id": "36369471377"}
-{"provider": "omniroute", "ok": false, "tokens": 0, "ts": 1790562211.4332957, "date": "2026-09-28", "run_id": "36369471377", "reason": "WatchdogTimeout: provider call exceeded watchdog window of 90s"}
-{"provider": "gemini", "ok": true, "tokens": 90755, "ts": 1790562238.386661, "date": "2026-09-28", "run_id": "36369471377"}
-{"provider": "gemini", "ok": true, "tokens": 90794, "ts": 1790562259.8088496, "date": "2026-09-28", "run_id": "36369471377"}
-{"provider": "gemini", "ok": true, "tokens": 84565, "ts": 1790562268.8375657, "date": "2026-09-28", "run_id": "36369471377"}
+{"provider": "omniroute", "ok": true, "tokens": 1476, "ts": 1790562332.6469753, "date": "2026-09-28", "run_id": "36369510281"}
+{"provider": "omniroute", "ok": true, "tokens": 3535, "ts": 1790562376.4785905, "date": "2026-09-28", "run_id": "36369510281"}
+{"provider": "omniroute", "ok": false, "tokens": 0, "ts": 1790562466.5753915, "date": "2026-09-28", "run_id": "36369510281", "reason": "WatchdogTimeout: provider call exceeded watchdog window of 90s"}
+{"provider": "gemini", "ok": true, "tokens": 81162, "ts": 1790562477.2356994, "date": "2026-09-28", "run_id": "36369510281"}
+{"provider": "gemini", "ok": true, "tokens": 79772, "ts": 1790562483.414028, "date": "2026-09-28", "run_id": "36369510281"}
+{"provider": "gemini", "ok": true, "tokens": 87612, "ts": 1790562505.9729712, "date": "2026-09-28", "run_id": "36369510281"}

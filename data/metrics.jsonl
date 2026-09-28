@@ -75,4 +75,4 @@
 {"ts": "2026-09-28T01:48:00.983854+00:00", "repo": "izzywdev/FuzeFront", "issue": 1016, "language": "", "outcome": "error:RuntimeError", "tokens_spent": 1355, "iterations": 0, "notes": ""}
 {"ts": "2026-09-28T01:56:26.442021+00:00", "repo": "izzywdev/FuzeFront", "issue": 1015, "language": "", "outcome": "error:RuntimeError", "tokens_spent": 1350, "iterations": 0, "notes": ""}
 {"ts": "2026-09-28T02:13:21.847977+00:00", "repo": "izzywdev/FuzeFront", "issue": 1003, "language": "", "outcome": "error:RuntimeError", "tokens_spent": 253486, "iterations": 0, "notes": ""}
-{"ts": "2026-09-28T02:24:43.852919+00:00", "repo": "izzywdev/FuzeFront", "issue": 1002, "language": "", "outcome": "error:RuntimeError", "tokens_spent": 271125, "iterations": 0, "notes": ""}
+{"ts": "2026-09-28T02:28:25.996797+00:00", "repo": "izzywdev/FuzeFront", "issue": 1002, "language": "", "outcome": "error:OSError", "tokens_spent": 253557, "iterations": 0, "notes": ""}

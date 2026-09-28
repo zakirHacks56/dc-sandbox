@@ -16606,35 +16606,33 @@ on-3-super-120b-a12b:free' failed hard (AllProvidersExhaustedError): all provide
 
 Switched to a new branch 'fix-issue-1003'
 2026-09-28T02:13:22+00:00  tick done
-2026-09-28T02:21:15+00:00  gate poller start (offset=746150288)
-2026-09-28T02:21:23+00:00  gate poller done: 0 decree(s), new offset=746150288
-2026-09-28T02:21:24+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
-2026-09-28T02:21:25+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
-2026-09-28T02:21:25+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
-2026-09-28T02:21:27+00:00  HUNTING: trying izzywdev/FuzeFront#1002
-2026-09-28T02:21:27+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1002 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
-2026-09-28T02:24:44+00:00  fixer exit=0
+2026-09-28T02:25:11+00:00  gate poller start (offset=746150288)
+2026-09-28T02:25:19+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-28T02:25:21+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-28T02:25:22+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-28T02:25:23+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-28T02:25:27+00:00  HUNTING: trying izzywdev/FuzeFront#1002
+2026-09-28T02:25:27+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1002 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-28T02:28:26+00:00  fixer exit=0
 --tail--
-="text-white" />
-                     </div>
--                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{prop.title}</h3>
-+                    <SectionHeading>{prop.title}</SectionHeading>
-                     <p className="text-gray-600 text-sm leading-relaxed">{prop.description}</p>
-                   </motion.div>
---- fuzefront-website/frontend/src/pages/PressPage.tsx
-+++ fuzefront-website/frontend/src/pages/PressPage.tsx
-@@ -5,5 +5,5 @@
- import { Mail, Download, Newspaper, Calendar } from 'lucide-react'
--import { IconTile, Container } from '@fuzefront/design-system'
-+import { IconTile, Container, SectionHeading } from '@fuzefront/design-system'
- import { useAnalytics } from '../contexts/Analy
+diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:36
+), skipping just that block.
+   ↳ git apply rejected all blocks; retrying with content-based matcher...
+✅ Applied diff via content-based matcher (line-number independent): ['fuzefront-website/frontend/src/pages/AboutPage.tsx', 'fuzefront-website/frontend/src/pages/HomePage.tsx', 'fuzefront-website/frontend/src/pages/PressPage.tsx']
+🧪 Rejecting this patch before testing it: no regression test: the patch changes only fuzefront-website/frontend/src/pages/AboutPage.tsx, fuzefront-website/frontend/src/pages/HomePage.tsx, fuzefront-website/frontend/src/pages/PressPage.tsx and adds no test that would fail without it
+
+--- Attempt 2/8 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (AllProvidersExhaustedError): all providers for tier 'escalation' failed or were over budget
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+   ↳ Raw model response (for debugging):
+FILE: fuzefront-website/frontend/vendor-design-system/components/core/SectionHeading.tsx
+<<<END>>>
+
 ⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
 
---- Attempt 4/8 ---
-⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~84295 tokens (input 76295 + max_tokens 8000) but only 33886 remain in the issue budget -- refusing before spend
+--- Attempt 3/8 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (AllProvidersExhaustedError): all providers for tier 'escalation' failed or were over budget
    Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
-⚠️ Combo 'gemini-3.5-flash-lite' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~84295 tokens (input 76295 + max_tokens 8000) but only 33886 remain in the issue budget -- refusing before spend
-   Trying fallback combo 'gemini-3.6-flash' in 10s...
 
 Switched to a new branch 'fix-issue-1002'
-2026-09-28T02:24:44+00:00  tick done
+2026-09-28T02:28:26+00:00  tick done
