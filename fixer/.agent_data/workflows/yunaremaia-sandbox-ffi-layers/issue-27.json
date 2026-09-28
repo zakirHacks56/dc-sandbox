@@ -1,0 +1,63 @@
+{
+  "schema": 2,
+  "repo": "yunaremaia/sandbox-ffi-layers",
+  "issue": 27,
+  "issue_title": "--format and --output CLI flags are accepted but silently ignored",
+  "issue_url": "https://github.com/yunaremaia/sandbox-ffi-layers/issues/27",
+  "issue_state": "open",
+  "state": "TESTING",
+  "status": "testing",
+  "branch": "fix-issue-27",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-25T02:25:59",
+  "updated_at": "2026-09-25T02:30:37",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-25T02:26:00",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-25T02:28:40",
+      "note": "generating fix"
+    },
+    {
+      "from": "IMPLEMENTING",
+      "to": "TESTING",
+      "at": "2026-09-25T02:30:37",
+      "note": "tests green"
+    }
+  ],
+  "conversation_id": "20260925T022600-baf33460",
+  "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-27",
+  "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-27",
+  "provider": "omniroute",
+  "model": "auto/best-coding",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "bug"
+  ],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "SCOPED",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "The issue identifies a clear code defect in `main.rs` where documented CLI flags (`--format` and `--output`) are accepted but silently ignored, requiring a targeted bug fix to handle JSON/SARIF formatting and file output along with integration tests."
+  },
+  "bot_login": "zakirHacks56"
+}

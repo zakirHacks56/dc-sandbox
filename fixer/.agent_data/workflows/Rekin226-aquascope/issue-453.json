@@ -1,0 +1,53 @@
+{
+  "schema": 2,
+  "repo": "Rekin226/aquascope",
+  "issue": 453,
+  "issue_title": "Fourteen stale count mentions outside the guard, and nine more break when #448 merges",
+  "issue_url": "https://github.com/Rekin226/aquascope/issues/453",
+  "issue_state": "open",
+  "state": "ANALYZING",
+  "status": "analyzing",
+  "branch": "fix-issue-453",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-26T22:40:48",
+  "updated_at": "2026-09-26T22:43:57",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-26T22:40:49",
+      "note": "issue verified + unclaimed"
+    }
+  ],
+  "conversation_id": "20260926T224049-93781559",
+  "conversation_dir": "conversations/Rekin226-aquascope/issue-453",
+  "workspace": "workspace/Rekin226-aquascope/issue-453",
+  "provider": "omniroute",
+  "model": "auto/best-coding",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "documentation",
+    "help wanted",
+    "good second issue"
+  ],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "docs",
+  "classification": {
+    "kind": "ENHANCEMENT",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "docs",
+    "task_type": "DOCS",
+    "reason": "The issue extends the existing count-guarding functionality to additional documentation files and cleans up stale count mentions across multiple docs and code files."
+  },
+  "bot_login": "zakirHacks56"
+}

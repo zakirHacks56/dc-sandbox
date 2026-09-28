@@ -9,8 +9,16 @@ venv/
 
 # runtime state (committed by the controller/gate-poll only where intended)
 .agent_data/
+!fixer/.agent_data/
+!fixer/.agent_data/experience_log.jsonl
+!fixer/.agent_data/state.json
+!fixer/.agent_data/state/
+!fixer/.agent_data/state/**
+!fixer/.agent_data/workflows/
+!fixer/.agent_data/workflows/**
+!fixer/.agent_data/conversations/
+!fixer/.agent_data/conversations/**
 fixer/.agent_data/logs/
-fixer/.agent_data/conversations/
 fixer/.agent_data/reports/
 fixer/.agent_data/checkpoints/
 fixer/repo_skip_list.json
