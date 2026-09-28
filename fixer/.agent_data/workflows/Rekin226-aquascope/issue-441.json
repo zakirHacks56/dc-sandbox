@@ -5,7 +5,7 @@
   "issue_title": "Reference reports wanted: nine of the twelve recorded studies have none, and score_report needs them",
   "issue_url": "https://github.com/Rekin226/aquascope/issues/441",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-441",
   "base_branch": "main",
@@ -77,5 +77,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo Rekin226/aquascope --resume 441",
     "python oss_agent_v2.py --repo Rekin226/aquascope --conversation 441"
-  ]
+  ],
+  "swept_at": "2026-09-28T09:50:49+00:00"
 }

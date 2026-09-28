@@ -5,7 +5,7 @@
   "issue_title": "Story Edit View - AI Assisted actions defaults",
   "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/1065",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-1065",
   "base_branch": "master",
@@ -76,5 +76,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo taranis-ai/taranis-ai --resume 1065",
     "python oss_agent_v2.py --repo taranis-ai/taranis-ai --conversation 1065"
-  ]
+  ],
+  "swept_at": "2026-09-28T09:50:49+00:00"
 }
