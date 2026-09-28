@@ -1,0 +1,8 @@
+[2026-09-28T23:05:04] conversation 20260928T230504-14548417 opened for izzywdev/FuzeFront#970
+[2026-09-28T23:05:04] opened for the one-shot command at state=TASK_RECEIVED status=new pr=None
+[2026-09-28T23:05:17] system/error: model call attempt 1/2 on 'nvidia/nemotron-3-super-120b-a12b:free' FAILED: global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+[2026-09-28T23:05:22] system/error: model call attempt 1/2 on 'gemini-3.5-flash-lite' FAILED: global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+[2026-09-28T23:05:32] system/error: model call attempt 1/2 on 'gemini-3.6-flash' FAILED: global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+[2026-09-28T23:05:32] system/error: model call attempt 1/2 on 'nvidia/nemotron-3-super-120b-a12b:free' FAILED: global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+[2026-09-28T23:05:37] system/error: model call attempt 1/2 on 'gemini-3.5-flash-lite' FAILED: global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+[2026-09-28T23:05:47] system/error: model call attempt 1/2 on 'gemini-3.6-flash' FAILED: global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
