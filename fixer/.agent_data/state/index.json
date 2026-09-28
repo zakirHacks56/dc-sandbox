@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T01:13:26",
+  "updated_at": "2026-09-28T01:22:53",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1231,6 +1231,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T01:13:26"
+    },
+    "taranis-ai/taranis-ai#626": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 626,
+      "issue_title": "Story conflicts: Let user compare only meaningful diffs",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-626.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-626",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-626",
+      "conversation_id": "20260928T012239-7bbd5493",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-626",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T01:22:53"
     }
   }
 }
