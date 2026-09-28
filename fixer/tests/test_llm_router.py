@@ -27,6 +27,17 @@ def tmp_usage(tmp_path, monkeypatch):
     return tmp_path / "provider_usage.json"
 
 
+@pytest.fixture(autouse=True)
+def _clean_router_state():
+    """Tests share the module-level negative-model cache and pre-flight
+    ceiling; clear both so one test's failures can't silently skip another."""
+    router._NEGATIVE_MODELS.clear()
+    router.set_preflight_ceiling(None)
+    yield
+    router._NEGATIVE_MODELS.clear()
+    router.set_preflight_ceiling(None)
+
+
 def test_load_providers_empty_env_registers_nothing():
     providers = router.load_providers(env={"OMNIROUTE_API_KEY": ""})
     assert providers == []
@@ -302,9 +313,11 @@ def test_escalation_sorts_copilot_first(tmp_usage):
 
 def test_model_compat_filter_keeps_foreign_ids_off_native_apis(tmp_usage, monkeypatch):
     gemini = router.Provider(name="gemini", base_url="http://localhost:1/v1", api_key="k",
-                             default_model="gemini-2.0-flash")
+                             default_model="gemini-2.0-flash",
+                             models=["gemini-2.0-flash"])
     groq = router.Provider(name="groq", base_url="http://localhost:1/v1", api_key="k",
-                           default_model="qwen/qwen3.8-27b")
+                           default_model="qwen/qwen3.8-27b",
+                           models=["qwen/qwen3.8-27b"])
     openrouter = router.Provider(name="openrouter_free", base_url="http://localhost:1/v1",
                                  api_key="k", tier="tertiary")
     monkeypatch.setattr(router, "load_providers", lambda env=None: [gemini, groq, openrouter])
@@ -336,6 +349,152 @@ def test_negative_cache_skips_repeat_failures(tmp_usage, monkeypatch):
     # skip the pair WITHOUT re-eatting the refused socket -> exactly ONE event.
     events = [e for e in router._read_events() if e.get("provider") == "gemini"]
     assert len(events) == 1
+
+
+from types import SimpleNamespace
+
+
+class _FakeAPIError(Exception):
+    def __init__(self, status_code, body=None, headers=None):
+        super().__init__(f"fake status {status_code}: {body}")
+        self.status_code = status_code
+        self.body = body
+        self.headers = headers or {}
+        self.response = SimpleNamespace(headers=headers or {})
+
+
+def test_classify_failure_splits_402_429_and_transient():
+    assert router._classify_failure(_FakeAPIError(402, "requires more credits")) == "402_call_too_big"
+    assert router._classify_failure(_FakeAPIError(429, "free-models-per-day reached")) == "429_daily"
+    assert router._classify_failure(_FakeAPIError(429, "PerDay limit")) == "429_daily"
+    assert router._classify_failure(_FakeAPIError(429, "rate limit")) == "429_rate"
+    assert router._classify_failure(RuntimeError("connection reset by peer")) == "transient"
+
+
+def test_retry_after_seconds_honoured_or_default():
+    long = router._retry_after_seconds(_FakeAPIError(429, "x", headers={"retry-after": "9999"}))
+    assert long == 300.0
+    short = router._retry_after_seconds(_FakeAPIError(429, "x", headers={"retry-after": "5"}))
+    assert 4.9 < short <= 5.0
+    assert router._retry_after_seconds(RuntimeError("boom")) == 20.0
+
+
+def test_reset_until_per_kind():
+    nowish = time.time()
+    utc = router.Provider(name="a", base_url="b", api_key="k", reset_kind="utc_midnight")
+    pac = router.Provider(name="a", base_url="b", api_key="k", reset_kind="pacific_midnight")
+    slim = router.Provider(name="a", base_url="b", api_key="k", reset_kind="rolling")
+    unknown = router.Provider(name="a", base_url="b", api_key="k", reset_kind="probe")
+    assert 0 < router._reset_until(utc) - nowish <= 26 * 3600
+    assert 0 < router._reset_until(pac) - nowish <= 26 * 3600
+    assert abs(router._reset_until(slim) - (nowish + 24 * 3600)) < 5
+    assert abs(router._reset_until(unknown) - (nowish + router.PROBE_INTERVAL_SECONDS)) < 5
+
+
+def test_402_retries_half_tokens_and_leaves_state_alone(tmp_usage, monkeypatch):
+    calls = {"n": 0}
+    p = router.Provider(name="gemini", base_url="http://localhost:1/v1", api_key="k")
+    monkeypatch.setattr(router, "load_providers", lambda env=None: [p])
+
+    def boom(*a, **k):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            raise _FakeAPIError(402, "requires more credits, or fewer max_tokens")
+        resp = SimpleNamespace(usage=SimpleNamespace(prompt_tokens=9, completion_tokens=40))
+        resp.choices = [SimpleNamespace(message=SimpleNamespace(content="ok-from-402-retry"))]
+        return resp
+
+    monkeypatch.setattr(router, "call_with_watchdog", boom)
+    resp = router.complete([{"role": "user", "content": "x"}],
+                           model="gemini-2.0-flash", max_tokens=1000)
+    assert calls["n"] == 2
+    assert resp.provider_name == "gemini"
+    assert resp.choices[0].message.content == "ok-from-402-retry"
+    entry = router.provider_usage(p)
+    assert float(entry.get("quota_exhausted_until", 0)) == 0.0  # NOT a day-ban
+    assert entry.get("down") is False                        # breaker untouched (trip=False)
+    events = [e for e in router._read_events() if e.get("provider") == "gemini"]
+    assert len(events) == 1  # only the halved-retry ok; the first 402 leaves no trace
+    assert events[0].get("ok") is True
+    # and the SAME call still works next attempt (no negative cache on 402)
+    resp2 = router.complete([{"role": "user", "content": "x"}],
+                            model="gemini-2.0-flash", max_tokens=1000)
+    assert resp2.provider_name == "gemini"
+
+
+def test_429_daily_ban_is_per_reset_kind_and_negative_cache(tmp_usage, monkeypatch):
+    p = router.Provider(name="gemini", base_url="http://localhost:1/v1", api_key="k",
+                        reset_kind="pacific_midnight")
+    monkeypatch.setattr(router, "load_providers", lambda env=None: [p])
+    monkeypatch.setattr(router, "call_with_watchdog",
+                        lambda *a, **k: (_ for _ in ()).throw(
+                            _FakeAPIError(429, {"error": {"message": "PerDay free quota reached"}})))
+    with pytest.raises(router.AllProvidersExhaustedError):
+        router.complete([{"role": "user", "content": "x"}],
+                        model="gemini-2.0-flash", max_tokens=8)
+    assert router.is_callable(p) == (False, "quota_exhausted")
+    until = float(router.provider_usage(p)["quota_exhausted_until"])
+    assert until > time.time()
+    assert abs(until - router._next_pacific_midnight()) < 60
+    # negative-cached in-process too
+    with pytest.raises(router.AllProvidersExhaustedError):
+        router.complete([{"role": "user", "content": "x"}],
+                        model="gemini-2.0-flash", max_tokens=8)
+    events = [e for e in router._read_events() if e.get("provider") == "gemini"]
+    assert len(events) == 1  # 2nd attempt skipped before reaching the socket
+
+
+def test_429_rate_backoff_is_not_a_day_ban(tmp_usage, monkeypatch):
+    p = router.Provider(name="gemini", base_url="http://localhost:1/v1", api_key="k")
+    monkeypatch.setattr(router, "load_providers", lambda env=None: [p])
+    monkeypatch.setattr(router, "call_with_watchdog",
+                        lambda *a, **k: (_ for _ in ()).throw(
+                            _FakeAPIError(429, "You are being rate limited")))
+    with pytest.raises(router.AllProvidersExhaustedError):
+        router.complete([{"role": "user", "content": "x"}],
+                        model="gemini-2.0-flash", max_tokens=8)
+    assert router.is_callable(p) == (False, "rate_limited")
+    backoff = float(router.provider_usage(p)["rate_backoff_until"])
+    assert backoff > time.time()
+    assert router.provider_state(router.provider_usage(p)) == "CLOSED"  # no breaker trip
+    assert float(router.provider_usage(p)["quota_exhausted_until"]) == 0.0  # no day ban
+    # backoff lapses naturally -> callable again (simulate by rewriting the
+    # single gemini event with an already-expired backoff window)
+    events = [e for e in router._read_events() if e.get("provider") == "gemini"]
+    stale = dict(events[-1], rate_backoff_until=time.time() - 10)
+    with open(router._events_file(), "w", encoding="utf-8") as fh:
+        fh.write(json.dumps(stale) + "\n")
+    assert router.is_callable(p) == (True, None)
+
+
+def test_registry_loading_from_file(tmp_path, monkeypatch):
+    reg = tmp_path / "registry.json"
+    reg.write_text(json.dumps({
+        "providers": [
+            {"name": "fastchat", "base_url": "https://x/v1", "key_env": "FASTCHAT_KEY",
+             "role": ["planner"], "models": ["mixtral-8x7b"], "reset_kind": "rolling",
+             "max_tokens_cap": 10000, "rpm": 30},
+            {"name": "biglink", "base_url": "https://y/v1", "key_env": "BIGLINK_KEY",
+             "role": ["coder"], "models": ["big-1"], "reset_kind": "pacific_midnight"},
+            {"name": "ghost", "base_url": "https://z/v1", "key_env": "GHOST_KEY",
+             "role": ["overflow"]},
+        ]}, sort_keys=True), encoding="utf-8")
+    env = {"PROVIDER_REGISTRY": str(reg), "BIGLINK_KEY": "b", "GHOST_KEY": "gr"}
+    vals = sorted((p.name, p.tier, p.reset_kind, p.models, p.max_tokens_cap)
+                  for p in router.load_providers(env=env))
+    assert vals == [
+        ("biglink", "primary", "pacific_midnight", ["big-1"], None),
+        ("ghost", "opportunistic", "utc_midnight", [], None),
+    ]  # fastchat skipped: its key is empty
+
+
+def test_models_list_is_authoritative_compat():
+    p = router.Provider(name="groq", base_url="http://localhost:1/v1", api_key="k",
+                        default_model="qwen/qwen3.8-27b",
+                        models=["qwen/qwen3.8-27b", "llama-3.3-70b-versatile"])
+    assert router._provider_accepts(p, "qwen/qwen3.8-27b") is True
+    assert router._provider_accepts(p, "llama-3.3-70b-versatile") is True
+    assert router._provider_accepts(p, "nvidia/nemotron-3-super-120b-a12b:free") is False
 
 
 def big_messages():
