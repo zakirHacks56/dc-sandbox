@@ -69,6 +69,11 @@ jobs:
       OMNIROUTE_FALLBACK_FAST_MODEL: ${{ secrets.OMNIROUTE_FALLBACK_FAST_MODEL }}
       OMNIROUTE_FALLBACK_FAST_MODEL_FALLBACKS: ${{ secrets.OMNIROUTE_FALLBACK_FAST_MODEL_FALLBACKS }}
       SOLVE_MAX_OUTPUT_TOKENS: "3000"
+      # W15: per-issue token ceiling. The 40k default fits only ~1 routine call
+      # (input dominates; a repo-map + issue context runs ~21k) so a flawed
+      # first patch starves the escalation ladder. 150k allows 4-5 retry calls
+      # per issue; GLOBAL_DAILY_TOKEN_BUDGET is the run-away cap above it.
+      ISSUE_TOKEN_BUDGET: "150000"
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       SIGNOFF_NAME: ${{ secrets.SIGNOFF_NAME }}
