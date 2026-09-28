@@ -167,6 +167,7 @@ class Provider:
     # Registry-supplied tuning (see providers_registry.json / load_providers):
     reset_kind: str = "utc_midnight"  # utc_midnight|pacific_midnight|rolling|probe
     max_tokens_cap: Optional[int] = None  # hard cap per call send (<= fed to API)
+    max_input_tokens: Optional[int] = None  # context window: skip when request would overflow
     rpm: Optional[float] = None  # informational pacing hint
 
     def matches_tier(self, tier: str) -> bool:
@@ -256,6 +257,7 @@ def _provider_from_registry(entry: dict, e: dict) -> Optional[Provider]:
         # URL is only supplied via the OMNIROUTE_FALLBACK_BASE_URL override).
         return None
     cap = entry.get("max_tokens_cap")
+    in_cap = entry.get("max_input_tokens")
     rpm = entry.get("rpm")
     return Provider(
         name=name,
@@ -268,6 +270,7 @@ def _provider_from_registry(entry: dict, e: dict) -> Optional[Provider]:
         enabled=bool(entry.get("enabled", True)),
         reset_kind=str(entry.get("reset_kind") or "utc_midnight"),
         max_tokens_cap=(int(cap) if cap else None),
+        max_input_tokens=(int(in_cap) if in_cap else None),
         rpm=(float(rpm) if rpm is not None else None),
     )
 
@@ -913,6 +916,20 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
             continue
         if (provider.name, resolved) in _NEGATIVE_MODELS:
             continue  # already failed this process -- don't re-eat it
+        # Context-window guard: a provider whose declared input window cannot
+        # hold this request would fail (400/413/context-overflow) and waste the
+        # call on a doomed pairing. Estimated cheaply and conservatively from
+        # the request itself -- no network. An unset max_input_tokens means
+        # "unknown, accept" (fail-open) so legacy/registry-less setups are
+        # unaffected; a set-but-too-small window skips cleanly to the next
+        # candidate exactly like a model-whitelist miss.
+        if provider.max_input_tokens is not None:
+            est_input = estimate_input_tokens(messages)
+            if est_input > provider.max_input_tokens:
+                print(f"⚠️ provider {provider.name} skipped: request input "
+                      f"~{est_input} tokens > its {provider.max_input_tokens}-token "
+                      f"window -- trying the next candidate", flush=True)
+                continue
         client_kwargs: dict = {"api_key": provider.api_key, "base_url": provider.base_url}
         if provider.name == "copilot":
             # Copilot's /chat/completions rejects requests that lack the

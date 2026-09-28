@@ -6,6 +6,7 @@ report-only routing, PR limits). The hunter just avoids obviously-wrong
 targets (already attempted, hard-labelled, too many stars, locked, assigned,
 already has one of our open PRs) and lets the fixer make the final call.
 """
+import os
 import sys
 from pathlib import Path
 from urllib.parse import quote
@@ -16,6 +17,26 @@ import beacon_util as util  # noqa: E402
 # Labels that signal a much-bigger-than-bugfix task. The fixer has its own
 # difficulty scoring; this blocklist just saves an LLM-solve on obvious no-gos.
 _HARD_HINTS = ("hard", "advanced", "complex", "epic", "major", "big", "won't fix")
+
+# Hunt-time body screen: an issue whose specification is this large is a
+# design-doc/feature request, not a bugfix -- the fixer would burn a whole
+# clone + baseline-test tick to read it, then classify it as needing a plan
+# first (or as an ENHANCEMENT beyond its charter). The tokens alone (roughly
+# body_chars//3) can eat the entire routine issue budget before ANY code is
+# fetched. Screen it here, free, before the expensive solve path starts.
+MAX_ISSUE_BODY_CHARS = int(os.getenv("MAX_ISSUE_BODY_CHARS", "12000"))
+
+
+def _body_too_big(issue: dict) -> bool:
+    body = str(issue.get("body") or "")
+    if len(body) <= MAX_ISSUE_BODY_CHARS:
+        return False
+    title = str(issue.get("title") or "")
+    util.log(f"#{issue.get('number')}: skipping (body {len(body)} chars > "
+             f"{MAX_ISSUE_BODY_CHARS} -- feature-request sized)")
+    if title:
+        util.log(f"   ↳ title: {title[:120]}")
+    return True
 
 
 def _is_hard(issue: dict) -> bool:
@@ -36,6 +57,8 @@ def _eligible(issue: dict, attempts: set) -> bool:
     if issue.get("state") != "open":
         return False
     if issue.get("number") in attempts:
+        return False
+    if _body_too_big(issue):
         return False
     return not _is_hard(issue)
 

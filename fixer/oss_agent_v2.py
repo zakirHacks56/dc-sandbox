@@ -273,6 +273,10 @@ VERIFY_TEST_FAILS_WITHOUT_FIX = False
 MAX_HARD_ATTEMPTS = int(os.getenv("MAX_HARD_ATTEMPTS", "8"))
 HARD_CONTEXT_FILES = int(os.getenv("HARD_CONTEXT_FILES", "10"))
 HARD_FILE_CHARS = int(os.getenv("HARD_FILE_CHARS", "24000"))
+# Hard tasks get a proportionally larger TOTAL context budget: more files, and
+# each can legitimately need its real content, but the ceiling must still be a
+# ceiling -- unbounded file text is how a single call eats 100k input tokens.
+HARD_TOTAL_FILE_CHARS = int(os.getenv("HARD_TOTAL_FILE_CHARS", "90000"))
 # Hard tasks also get a bigger answer budget: a multi-file patch can exceed
 # the 4000-token default cap and truncate, which then fails the format parser
 # and costs a full retry. 8000 tokens covers most cross-cutting patch shapes.
@@ -339,6 +343,14 @@ CODE_EXTENSIONS = {
 }
 MAX_CONTEXT_FILES = 6
 MAX_FILE_CHARS = 18000
+# TOTAL cap on the file text embedded into one prompt, not just per-file. Six
+# files at 18k chars each is 108k chars ~= 36k tokens -- the ENTIRE 40k issue
+# budget before a single fix call -- and the whole block is re-sent on every
+# retry attempt, so burn is quadratic in attempts. Weekly-budget accounting
+# needs a hard ceiling the model cannot quietly cross. Kept near ~45k chars
+# (~12-16k tokens for code-heavy English): enough to actually read several
+# real files, tight enough that a fix call + a retry fit the issue budget.
+MAX_TOTAL_FILE_CHARS = int(os.getenv("MAX_TOTAL_FILE_CHARS", "45000"))
 # Raised from 4000 after repeated diff-application failures (blank-line
 # prefixes, hunk math, cross-contamination between multiple diff blocks
 # in one response). Diffs are more fragile in practice than full-file
@@ -351,6 +363,13 @@ MAX_FILE_CHARS = 18000
 # line 133 of a long stylesheet) can easily fall past the normal limit.
 SURFACE_CONTENT_CHARS = 16000
 MAX_ERROR_CHARS = 1500
+# Delta-retry cap (Step 3b): on a retry the model has already seen the full
+# relevant-file block (attempt 1 + its own context window / PRIOR CONVERSATION
+# block), so re-sending 45k chars of file text every attempt is what makes burn
+# quadratic in attempts. Retries therefore keep FULL content only for files the
+# run has actually modified (those are the ones the new patch must get right),
+# and shrink every untouched file to a short reminder head slice.
+RETRY_FILE_HEAD_CHARS = int(os.getenv("RETRY_FILE_HEAD_CHARS", "3000"))
 
 
 class _LazyClient:
@@ -1685,6 +1704,7 @@ def escalation_budget(kind: str, difficulty: str) -> dict:
         "attempts": MAX_HARD_ATTEMPTS if hard else MAX_ATTEMPTS,
         "context_files": HARD_CONTEXT_FILES if hard else MAX_CONTEXT_FILES,
         "file_chars": HARD_FILE_CHARS if hard else MAX_FILE_CHARS,
+        "total_chars": HARD_TOTAL_FILE_CHARS if hard else MAX_TOTAL_FILE_CHARS,
         "plan_first": hard or (kind == "ENHANCEMENT" and difficulty in ("medium", "hard")),
         # Tiered whole-issue token ceiling: hard tasks may spend far more (pre-
         # flight refuses single calls that would blow the REMAINING budget, so
@@ -2372,15 +2392,20 @@ def collect_codebase_facts(repo_dir: Path, issue, relevant_files: list,
 # use bounded instead of ingesting the whole repo)
 # ============================================================
 def find_relevant_files(repo_dir: Path, issue_title: str, issue_body: str,
-                        labels=None, max_files: int = None, max_chars: int = None):
+                        labels=None, max_files: int = None, max_chars: int = None,
+                        total_chars: int = None):
     """Discover the files most likely to change for this issue.
 
     `labels` and `domain`-style hints are fed to the AI file picker so a
     'frontend' or 'ai' task steers toward the right layer. `max_files` /
     `max_chars` let the difficulty escalator widen the context for hard
-    issues (defaults to the module constants, so plain callers stay cheap)."""
+    issues (defaults to the module constants, so plain callers stay cheap).
+    `total_chars` is the TOTAL budget for the combined file text: beyond it we
+    stop adding files (keeping the highest-signal ones first) instead of
+    shipping a context block that alone exceeds the whole issue token budget."""
     max_files = max_files or MAX_CONTEXT_FILES
     max_chars = max_chars or MAX_FILE_CHARS
+    total_chars = total_chars or MAX_TOTAL_FILE_CHARS
     # --- Method 0 (strongest signal): the issue text directly names a
     # real file path in the repo. This is what was missed on the
     # open-fixture-library case -- the issue mentioned the exact SCSS
@@ -2491,6 +2516,7 @@ FILES:
     combined = combined[:max_files]
 
     result = []
+    used = 0
     for rel_path in combined:
         full_path = repo_dir / rel_path
         try:
@@ -2501,7 +2527,23 @@ FILES:
         content = content[:max_chars]
         if truncated:
             content += "\n\n... [TRUNCATED -- this is not the full file] ..."
+        if used + len(content) > total_chars:
+            # This file would push the block past the total context ceiling.
+            # Keep only the part that fits (the head is where signatures /
+            # imports / the most-referenced names live) then stop -- the
+            # strongest files came first, and re-sending a bloated block is
+            # what eats the whole per-issue token budget before any fix call.
+            room = max(0, total_chars - used)
+            marker = "\n\n... [TRUNCATED -- budget-limited] ..."
+            if room > 256 + len(marker):
+                content = content[: max(0, room - len(marker))] + marker
+                result.append((rel_path, content))
+                used += len(content)
+            print(f"   ↳  context budget {total_chars} chars spent -- "
+                  f"keeping {len(result)} file(s), dropping rest")
+            break
         result.append((rel_path, content))
+        used += len(content)
 
     print(
         f"✅ Found {len(result)} relevant files "
@@ -2843,12 +2885,49 @@ def _label_ctx(labels, difficulty=None, domain=None) -> str:
     return ("\n" + "\n".join(parts) + "\n") if parts else ""
 
 
+def _context_block(relevant_files: list, retry_variant: bool = False,
+                   failure_history: list | None = None) -> str:
+    """Render the RELEVANT FILES block, delta-aware on retries.
+
+    Attempt 1 embeds every file's full content (up to the total_chars budget
+    already enforced upstream). On a RETRY the model has seen all of that
+    already (the previous attempt's block + the PRIOR CONVERSATION block), so
+    re-sending the entire block is pure quadratic burn. The delta rule:
+      * files this run has actually changed -> full content (the new patch
+        must get them right),
+      * every untouched file -> a short head slice + an "unchanged since the
+        previous attempt" note, so the model still sees its path and shape
+        without re-paying its full token cost.
+    `failure_history` items carry `changed` (paths touched in that attempt).
+    """
+    if not retry_variant:
+        return "\n\n".join(f"--- {p} ---\n{c}" for p, c in relevant_files)
+    touched = set()
+    for h in (failure_history or []):
+        for p in (h.get("changed") or []):
+            touched.add(p)
+    blocks = []
+    for p, c in relevant_files:
+        if p in touched or len(c) <= RETRY_FILE_HEAD_CHARS:
+            blocks.append(f"--- {p} ---\n{c}")
+        else:
+            blocks.append(
+                f"--- {p} --- (UNCHANGED since the previous attempt; full "
+                f"content already shown in PRIOR CONVERSATION / previous prompt)\n"
+                f"{c[:RETRY_FILE_HEAD_CHARS]}"
+                f"\n\n... [TRUNCATED -- this is not the full file] ..."
+                f"\n(re-request full content via a range only if needed)"
+            )
+    return "\n\n".join(blocks)
+
+
 def generate_fix(
     issue, relevant_files, previous_error=None, retry_variant=False, language="unknown", guidance=None,
     test_layout=None, require_test=None, failure_history=None, memory_context=None,
     labels=None, difficulty=None, domain=None, grounding=None,
 ):
-    context = "\n\n".join(f"--- {p} ---\n{c}" for p, c in relevant_files)
+    context = _context_block(relevant_files, retry_variant=retry_variant,
+                             failure_history=failure_history)
     allowed_paths = "\n".join(f"- {p}" for p, _ in relevant_files)
 
     similar = find_similar_experiences(issue.title, language)
@@ -4952,6 +5031,7 @@ def investigate_report(
         labels=labels,
         max_files=HARD_CONTEXT_FILES,
         max_chars=HARD_FILE_CHARS,
+        total_chars=HARD_TOTAL_FILE_CHARS,
     )
     allowed = [p for p, _ in relevant_files]
     impact = change_impact(repo_dir, allowed)
@@ -5196,6 +5276,7 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
         labels=labels,
         max_files=budget["context_files"],
         max_chars=budget["file_chars"],
+        total_chars=budget["total_chars"],
     )
     allowed_paths = {p for p, _ in relevant_files}
     # Reverse-dependency surface: which repo files depend on the ones selected
@@ -6013,10 +6094,13 @@ def run_conversation(
         rec_labels = record.get("labels") or []
         rec_difficulty = record.get("difficulty", "medium")
         rec_domain = record.get("domain") or ""
+        hard_ctx = rec_difficulty == "hard"
         relevant_files = find_relevant_files(
             repo_dir, issue.title, issue.body,
             labels=rec_labels,
-            max_files=HARD_CONTEXT_FILES if rec_difficulty == "hard" else MAX_CONTEXT_FILES,
+            max_files=HARD_CONTEXT_FILES if hard_ctx else MAX_CONTEXT_FILES,
+            max_chars=HARD_FILE_CHARS if hard_ctx else MAX_FILE_CHARS,
+            total_chars=HARD_TOTAL_FILE_CHARS if hard_ctx else MAX_TOTAL_FILE_CHARS,
         )
         allowed_paths = {p for p, _ in relevant_files}
         # Reverse-dependency surface: which repo files depend on the ones
