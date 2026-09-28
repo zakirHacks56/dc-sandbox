@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T19:51:55",
+  "updated_at": "2026-09-28T19:57:29",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1561,6 +1561,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T19:51:55"
+    },
+    "taranis-ai/taranis-ai#339": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 339,
+      "issue_title": "Admin: Improve error messages",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-339.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-339",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-339",
+      "conversation_id": "20260928T195656-eb55e14c",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-339",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T19:57:29"
     }
   }
 }
