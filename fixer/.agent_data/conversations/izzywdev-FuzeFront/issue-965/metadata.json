@@ -1,0 +1,14 @@
+{
+  "conversation_id": "20260928T235326-024ba138",
+  "repo": "izzywdev/FuzeFront",
+  "issue": 965,
+  "created_at": "2026-09-28T23:53:26",
+  "updated_at": "2026-09-28T23:54:11",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "message_count": 6,
+  "rounds": 0,
+  "archived_conversation_ids": [],
+  "transcript": "conversations/izzywdev-FuzeFront/issue-965/transcript.log",
+  "messages": "conversations/izzywdev-FuzeFront/issue-965/messages.jsonl"
+}
