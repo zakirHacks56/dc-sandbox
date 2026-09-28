@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T00:09:16",
+  "updated_at": "2026-09-28T00:34:16",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1156,6 +1156,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T00:09:16"
+    },
+    "yunaremaia/sandbox-ffi-layers#11": {
+      "repo": "yunaremaia/sandbox-ffi-layers",
+      "issue": 11,
+      "issue_title": "feat: add --version flag",
+      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-11.json",
+      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-11",
+      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-11",
+      "conversation_id": "20260928T003347-1985a18c",
+      "state": "IMPLEMENTING",
+      "status": "implementing",
+      "branch": "fix-issue-11",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T00:34:16"
     }
   }
 }
