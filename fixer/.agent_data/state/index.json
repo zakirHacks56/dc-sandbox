@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T00:34:16",
+  "updated_at": "2026-09-28T00:49:07",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1171,6 +1171,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T00:34:16"
+    },
+    "yunaremaia/sandbox-ffi-layers#9": {
+      "repo": "yunaremaia/sandbox-ffi-layers",
+      "issue": 9,
+      "issue_title": "[sandbox-ffi-layers] docs: add cross-language security policy examples",
+      "workflow_path": "workflows/yunaremaia-sandbox-ffi-layers/issue-9.json",
+      "conversation_dir": "conversations/yunaremaia-sandbox-ffi-layers/issue-9",
+      "workspace": "workspace/yunaremaia-sandbox-ffi-layers/issue-9",
+      "conversation_id": "20260928T004809-a578a7e4",
+      "state": "WAITING_FOR_FEEDBACK",
+      "status": "waiting_for_review",
+      "branch": "fix-issue-9",
+      "pr_number": 41,
+      "pr_url": "https://github.com/yunaremaia/sandbox-ffi-layers/pull/41",
+      "updated_at": "2026-09-28T00:49:07"
     }
   }
 }
