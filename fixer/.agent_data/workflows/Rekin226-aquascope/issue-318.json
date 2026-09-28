@@ -1,0 +1,60 @@
+{
+  "schema": 2,
+  "repo": "Rekin226/aquascope",
+  "issue": 318,
+  "issue_title": "Blocked: New collector: Northern Ireland (DfI Rivers water levels)",
+  "issue_url": "https://github.com/Rekin226/aquascope/issues/318",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-318",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-28T17:57:17",
+  "updated_at": "2026-09-28T17:59:51",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-28T17:57:17",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-28T17:58:03",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260928T175717-d57135a0",
+  "conversation_dir": "conversations/Rekin226-aquascope/issue-318",
+  "workspace": "workspace/Rekin226-aquascope/issue-318",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "enhancement",
+    "help wanted",
+    "new-collector"
+  ],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_error"
+}

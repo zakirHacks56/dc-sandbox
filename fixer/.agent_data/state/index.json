@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T17:53:50",
+  "updated_at": "2026-09-28T17:59:51",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1396,6 +1396,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T17:53:50"
+    },
+    "Rekin226/aquascope#318": {
+      "repo": "Rekin226/aquascope",
+      "issue": 318,
+      "issue_title": "Blocked: New collector: Northern Ireland (DfI Rivers water levels)",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-318.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-318",
+      "workspace": "workspace/Rekin226-aquascope/issue-318",
+      "conversation_id": "20260928T175717-d57135a0",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-318",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T17:59:51"
     }
   }
 }
