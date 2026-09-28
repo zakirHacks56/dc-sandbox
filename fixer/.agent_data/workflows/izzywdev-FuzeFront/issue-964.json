@@ -1,0 +1,58 @@
+{
+  "schema": 2,
+  "repo": "izzywdev/FuzeFront",
+  "issue": 964,
+  "issue_title": "DS extraction: recurring UI pattern (ds-fp:ceea05ec0d0e)",
+  "issue_url": "https://github.com/izzywdev/FuzeFront/issues/964",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-964",
+  "base_branch": "master",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-28T23:57:20",
+  "updated_at": "2026-09-28T23:58:05",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-28T23:57:21",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-28T23:57:50",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260928T235721-eab4d6ab",
+  "conversation_dir": "conversations/izzywdev-FuzeFront/issue-964",
+  "workspace": "workspace/izzywdev-FuzeFront/issue-964",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "ds-extraction"
+  ],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_error"
+}
