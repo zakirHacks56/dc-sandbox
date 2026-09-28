@@ -16276,53 +16276,43 @@ struct it's Option<char> so we can do:
 
 Switched to a new branch 'fix-issue-11'
 2026-09-28T00:35:57+00:00  tick done
-2026-09-28T00:47:53+00:00  gate poller start (offset=746150288)
-2026-09-28T00:48:01+00:00  gate poller done: 0 decree(s), new offset=746150288
-2026-09-28T00:48:03+00:00  HUNTING: trying yunaremaia/sandbox-ffi-layers#9
-2026-09-28T00:48:03+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 9 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
-2026-09-28T00:49:07+00:00  fixer exit=0
+2026-09-28T00:49:36+00:00  gate poller start (offset=746150288)
+2026-09-28T00:49:44+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-28T00:49:46+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-28T00:49:48+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-28T00:49:48+00:00  HUNTING: trying Rekin226/aquascope#392
+2026-09-28T00:49:48+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 392 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-28T00:54:19+00:00  fixer exit=0
 --tail--
-ompilation (`node-gyp`).
+ote = (
++                f"From {SOURCES[source].agency} ({variable} {unit}); {asked}; "
++                f"served {date_range}."
++            )
++        else:
++            note = (
++                f"From {SOURCES[source].agency} ({variable} {unit}); {asked}; "
++                f"no data available."
++            )
++        return _fetched(s, var, unit, note, window)
 +
-+#### Policy YAML (`sandbox-policy.yaml`)
-+```yaml
-+version: "1"
-+policies:
-+  nodejs:
-+    enabled: true
-+    allow_lifecycle_scripts: true
-+    restricted_apis:
-+      - "child_process.exec"
-+      - "child_process.execSync"
-+    
-============================================================
-Test result summary: test tests::read_lockfile_reports_invalid_utf8 ... ok
-test tests::validate_lockfile_path_rejects_escape_attempt ... ok
-test tests::validate_lockfile_path_rejects_directory ... ok
-test tests::validate_lockfile_path_rejects_nonexistent_file ... ok
+     else:
+         raise ValueError(f"{source} has no Explorer fetch path yet")
+```
+```diff
+--- tests/test_explore.py
++++ tests/test_explore.py
+@@ -1140,3 +1140,12 @@
+     assert out["browser_unreachable"] is True and "no mirrored file for this station yet" in out["error"]
+ 
+     # Outside the browser nothing changes: the agency is asked as before.
 
-test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
 
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
-     Running unittests src/main.rs (target/debug/deps/sandbox_ffi-1a43bc6a19f8c1fa)
+--- Attempt 4/8 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~90006 tokens (input 82006 + max_tokens 8000) but only 18416 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~90006 tokens (input 82006 + max_tokens 8000) but only 18416 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
 
-[human] auto-approved (GATE_AUTO) -- decree written
-[human] decree consumed: APPROVE (outcome written)
-branch 'fix-issue-9' set up to track 'origin/fix-issue-9'.
-✅ Draft PR created (https://github.com/yunaremaia/sandbox-ffi-layers/pull/41).
-
-🔄 Draft PR #41 is parked in the review loop (state: WAITING_FOR_FEEDBACK). It will NOT auto-close.
-   Talk to the maintainer / process feedback with:
-      python oss_agent_v2.py --repo yunaremaia/sandbox-ffi-layers --issue 9 -conversation
-   That loop finalizes only after an explicit 'done'/'approved' signal AND a human approval gate.
-
-🛑 Draft PR is up -- shutting down here by design (nothing runs unattended).
-
-Switched to a new branch 'fix-issue-9'
-remote: 
-remote: Create a pull request for 'fix-issue-9' on GitHub by visiting:        
-remote:      https://github.com/zakirHacks56/sandbox-ffi-layers/pull/new/fix-issue-9        
-remote: 
-To https://github.com/zakirHacks56/sandbox-ffi-layers.git
- * [new branch]      fix-issue-9 -> fix-issue-9
-2026-09-28T00:49:07+00:00  tick done
+Switched to a new branch 'fix-issue-392'
+2026-09-28T00:54:19+00:00  tick done
