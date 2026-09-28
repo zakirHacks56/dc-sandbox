@@ -96,3 +96,8 @@
 {"provider": "groq", "ok": false, "tokens": 0, "ts": 1790539694.049524, "date": "2026-09-27", "run_id": "36346733292", "reason": "NotFoundError: Error code: 404 - {'error': {'message': 'The model `gemini-3.6-flash` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"}
 {"provider": "groq", "ok": false, "tokens": 0, "ts": 1790540648.456889, "date": "2026-09-27", "run_id": "36347624892", "reason": "NotFoundError: Error code: 404 - {'error': {'message': 'The model `gemini-3.5-flash-lite` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"}
 {"provider": "groq", "ok": false, "tokens": 0, "ts": 1790540659.028057, "date": "2026-09-27", "run_id": "36347624892", "reason": "NotFoundError: Error code: 404 - {'error': {'message': 'The model `gemini-3.6-flash` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"}
+{"provider": "openrouter_free", "ok": true, "tokens": 1216, "ts": 1790553915.3608096, "date": "2026-09-28", "run_id": "36360821835"}
+{"provider": "openrouter_free", "ok": true, "tokens": 886, "ts": 1790553924.5902414, "date": "2026-09-28", "run_id": "36360821835"}
+{"provider": "openrouter_free", "ok": true, "tokens": 9830, "ts": 1790553973.5087554, "date": "2026-09-28", "run_id": "36360821835"}
+{"provider": "openrouter_free", "ok": true, "tokens": 10040, "ts": 1790554001.0450659, "date": "2026-09-28", "run_id": "36360821835"}
+{"provider": "openrouter_free", "ok": true, "tokens": 10012, "ts": 1790554020.9279273, "date": "2026-09-28", "run_id": "36360821835"}
