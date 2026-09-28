@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T18:13:49",
+  "updated_at": "2026-09-28T18:32:23",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1426,6 +1426,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T18:13:49"
+    },
+    "Rekin226/aquascope#289": {
+      "repo": "Rekin226/aquascope",
+      "issue": 289,
+      "issue_title": "BOM stations() returns a silently partial catalog when KiWIS 500s",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-289.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-289",
+      "workspace": "workspace/Rekin226-aquascope/issue-289",
+      "conversation_id": "20260928T182942-6a66c6e4",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-289",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T18:32:23"
     }
   }
 }

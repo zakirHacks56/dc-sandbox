@@ -1,0 +1,59 @@
+{
+  "schema": 2,
+  "repo": "Rekin226/aquascope",
+  "issue": 289,
+  "issue_title": "BOM stations() returns a silently partial catalog when KiWIS 500s",
+  "issue_url": "https://github.com/Rekin226/aquascope/issues/289",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-289",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-28T18:29:41",
+  "updated_at": "2026-09-28T18:32:23",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-28T18:29:42",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-28T18:30:01",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260928T182942-6a66c6e4",
+  "conversation_dir": "conversations/Rekin226-aquascope/issue-289",
+  "workspace": "workspace/Rekin226-aquascope/issue-289",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "help wanted",
+    "good second issue"
+  ],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_failed"
+}
