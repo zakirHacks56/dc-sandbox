@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T20:05:24",
+  "updated_at": "2026-09-28T20:08:33",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1606,6 +1606,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T20:05:24"
+    },
+    "taranis-ai/taranis-ai#123": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 123,
+      "issue_title": "Split model code into a service layer",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-123.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-123",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-123",
+      "conversation_id": "20260928T200814-46306697",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-123",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T20:08:33"
     }
   }
 }
