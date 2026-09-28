@@ -1,0 +1,59 @@
+{
+  "schema": 2,
+  "repo": "Rekin226/aquascope",
+  "issue": 270,
+  "issue_title": "The Explorer asks every agency for 40 years, and the note says it asked for everything",
+  "issue_url": "https://github.com/Rekin226/aquascope/issues/270",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-270",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-28T18:43:15",
+  "updated_at": "2026-09-28T18:44:25",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-28T18:43:15",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-28T18:43:47",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260928T184315-6e5b3288",
+  "conversation_dir": "conversations/Rekin226-aquascope/issue-270",
+  "workspace": "workspace/Rekin226-aquascope/issue-270",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "bug",
+    "help wanted"
+  ],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_error"
+}

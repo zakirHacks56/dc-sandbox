@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T18:32:23",
+  "updated_at": "2026-09-28T18:44:25",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1441,6 +1441,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T18:32:23"
+    },
+    "Rekin226/aquascope#270": {
+      "repo": "Rekin226/aquascope",
+      "issue": 270,
+      "issue_title": "The Explorer asks every agency for 40 years, and the note says it asked for everything",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-270.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-270",
+      "workspace": "workspace/Rekin226-aquascope/issue-270",
+      "conversation_id": "20260928T184315-6e5b3288",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-270",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T18:44:25"
     }
   }
 }
