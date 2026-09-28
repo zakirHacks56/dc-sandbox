@@ -5,7 +5,7 @@
   "issue_title": "Add a windows-latest leg to CI so the next encoding bug does not reach a contributor first",
   "issue_url": "https://github.com/Rekin226/aquascope/issues/427",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-427",
   "base_branch": "main",
@@ -76,5 +76,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo Rekin226/aquascope --resume 427",
     "python oss_agent_v2.py --repo Rekin226/aquascope --conversation 427"
-  ]
+  ],
+  "swept_at": "2026-09-28T13:12:45+00:00"
 }

@@ -17275,3 +17275,10 @@ Switched to a new branch 'fix-issue-1002'
 2026-09-28T13:00:58+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
 2026-09-28T13:00:58+00:00  no candidate found this tick
 2026-09-28T13:00:58+00:00  tick done
+2026-09-28T13:12:36+00:00  gate poller start (offset=746150288)
+2026-09-28T13:12:45+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-28T13:12:45+00:00  sweep: abandoning in-flight lane Rekin226/aquascope#427 (state=PAUSED, age=3.0d, no PR ever opened)
+2026-09-28T13:12:45+00:00  sweep: abandoning in-flight lane Rekin226/aquascope#438 (state=PAUSED, age=3.0d, no PR ever opened)
+2026-09-28T13:12:45+00:00  sweep: resolved 2 stale in-flight lane(s)
+2026-09-28T13:12:45+00:00  budget: 0/2 PRs, 0/3 pending gates
+2026-09-28T13:12:45+00:00  tick done
