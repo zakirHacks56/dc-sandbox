@@ -241,9 +241,9 @@
       "updated": "2026-09-25T10:40:52"
     },
     "izzywdev/FuzeFront#1137": {
-      "state": "PAUSED",
-      "pr": null,
-      "updated": "2026-09-25T11:18:57+00:00"
+      "state": "ABANDONED",
+      "decision": false,
+      "updated": "2026-09-25T11:18:57"
     },
     "yunaremaia/sandbox-ffi-layers#21": {
       "state": "ABANDONED",
@@ -576,5 +576,5 @@
       "updated": "2026-09-28T02:28:26+00:00"
     }
   },
-  "last_tick": "2026-09-28T11:08:27+00:00"
+  "last_tick": "2026-09-28T11:21:28+00:00"
 }
