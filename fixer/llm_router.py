@@ -164,6 +164,10 @@ class Provider:
     auto_model_aware: bool = False  # understands omniRoute auto/* combos
     models: list = field(default_factory=list)  # concrete models this provider offers
     enabled: bool = True
+    # Registry-supplied tuning (see providers_registry.json / load_providers):
+    reset_kind: str = "utc_midnight"  # utc_midnight|pacific_midnight|rolling|probe
+    max_tokens_cap: Optional[int] = None  # hard cap per call send (<= fed to API)
+    rpm: Optional[float] = None  # informational pacing hint
 
     def matches_tier(self, tier: str) -> bool:
         """A provider serves the requested tier if it IS that tier, or if it is
@@ -194,11 +198,108 @@ def _env_flag(name: str, default: bool = True) -> bool:
     return val in ("1", "true", "yes", "on")
 
 
-def load_providers(env: Optional[dict] = None) -> list[Provider]:
-    """Build the provider pool from the environment. Only providers with a
-    non-empty API key are registered (empty-beats-stale keeps legacy machines
-    omniRoute-only). `env` is injected for tests; defaults to os.environ."""
+def _tier_for_role(roles: list) -> str:
+    """Role -> serving tier, so the registry can express intent without tiers:
+       coder (stronger models) -> primary; planner (cheap fast) -> fast;
+       overflow/opportunistic (experimental) -> never the core path;
+       copilot -> escalation."""
+    r = {str(x).strip().lower() for x in (roles or [])}
+    if "copilot" in r:
+        return "escalation"
+    if "overflow" in r or "opportunistic" in r:
+        return "opportunistic"
+    if "coder" in r:
+        return "primary"
+    if "planner" in r:
+        return "fast"
+    return "primary"
+
+
+def _registry_path(env: Optional[dict]) -> Path:
+    raw = env.get("PROVIDER_REGISTRY") or os.getenv("PROVIDER_REGISTRY", "").strip()
+    if raw:
+        return Path(raw)
+    return Path(__file__).resolve().parent / "providers_registry.json"
+
+
+def load_registry(env: Optional[dict] = None) -> Optional[list]:
+    """Read the provider registry (a JSON list of entries). Returns None when
+    no registry file exists -- the env-derived default chain applies. Registry
+    entries carry NO secrets: the API key always comes from key_env."""
     e = os.environ if env is None else env
+    path = _registry_path(e)
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    return data.get("providers") or []
+
+
+def _provider_from_registry(entry: dict, e: dict) -> Optional[Provider]:
+    """Build one Provider from a registry entry; None when its key_env is empty
+    (empty-beats-stale, same rule as the env-derived chain), its base_url is
+    unset (registry entry OR env OVERRIDE must provide it, then it may be an
+    ops-only endpoint like omniroute_fallback), or it's disabled."""
+    if not bool(entry.get("enabled", True)):
+        return None
+    name = str(entry.get("name") or "").strip()
+    if not name:
+        return None
+    key_env = str(entry.get("key_env") or f"{name.upper()}_API_KEY")
+    api_key = (e.get(key_env) or "").strip()
+    if not api_key:
+        return None
+    base_url = str(e.get(f"{name.upper()}_BASE_URL") or "").strip() \
+        or str(entry.get("base_url") or "").strip()
+    if not base_url:
+        # Registered key but nowhere to call (espera omniroute_fallback whose
+        # URL is only supplied via the OMNIROUTE_FALLBACK_BASE_URL override).
+        return None
+    cap = entry.get("max_tokens_cap")
+    rpm = entry.get("rpm")
+    return Provider(
+        name=name,
+        base_url=base_url,
+        api_key=api_key,
+        tier=str(entry.get("tier") or _tier_for_role(entry.get("role") or [])),
+        default_model=entry.get("default_model") or None,
+        auto_model_aware=bool(entry.get("auto_model_aware", False)),
+        models=list(entry.get("models") or []),
+        enabled=bool(entry.get("enabled", True)),
+        reset_kind=str(entry.get("reset_kind") or "utc_midnight"),
+        max_tokens_cap=(int(cap) if cap else None),
+        rpm=(float(rpm) if rpm is not None else None),
+    )
+
+
+def _apply_env_overrides(providers: list, e: dict) -> None:
+    """Allow env to override registry defaults without editing the registry
+    (OMNIROUTE_BASE_URL, GEMINI_MODEL, ...). Empty env never wins."""
+    for p in providers:
+        base = (e.get(f"{p.name.upper()}_BASE_URL") or "").strip()
+        if base:
+            p.base_url = base
+        model = (e.get(f"{p.name.upper()}_MODEL") or "").strip()
+        if model:
+            p.default_model = model
+
+
+def load_providers(env: Optional[dict] = None) -> list[Provider]:
+    """Build the provider pool. Registry-first: when fixer/providers_registry.json
+    exists, only providers whose key_env holds a non-empty key are registered
+    (empty-beats-stale keeps legacy machines omniRoute-only). Without a registry
+    the env-derived chain below applies unchanged. `env` is injected for tests;
+    defaults to os.environ."""
+    e = os.environ if env is None else env
+    registry = load_registry(e)
+    if registry is not None:
+        providers = [p for entry in registry
+                     if (p := _provider_from_registry(entry, e)) is not None]
+        _apply_env_overrides(providers, e)
+        if _env_flag("LLM_ROUTER_TRIM_TIERS", default=False):
+            providers = [p for p in providers
+                         if p.tier not in ("opportunistic", "batch")]
+        return providers
 
     def _key(name: str) -> str:
         return (e.get(name) or "").strip()
@@ -373,7 +474,8 @@ def _read_events() -> list:
 
 
 def _append_event(provider: Provider, ok: bool, tokens: int, reason: str = "",
-                  quota: bool = False) -> None:
+                  quota: bool = False, rate_backoff_until: float = 0.0,
+                  trip: bool = True) -> None:
     path = _events_file()
     path.parent.mkdir(parents=True, exist_ok=True)
     event = {
@@ -388,6 +490,10 @@ def _append_event(provider: Provider, ok: bool, tokens: int, reason: str = "",
         event["reason"] = reason[:240]
     if quota:
         event["quota"] = True
+    if rate_backoff_until:
+        event["rate_backoff_until"] = float(rate_backoff_until)
+    if not trip:
+        event["trip"] = False
     with _LOCK:
         try:
             with open(path, "a", encoding="utf-8") as fh:
@@ -400,24 +506,104 @@ def _today() -> str:
     return date.today().isoformat()
 
 
-def _next_daily_reset() -> float:
+def _next_utc_midnight() -> float:
     """Seconds-since-epoch of the next UTC midnight. OpenRouter's
-    'free-models-per-day' quota resets then; providers marked 429 stay out of
-    rotation until this instant instead of being cooldown-cycled every 5 min."""
+    'free-models-per-day' quota resets then."""
     from datetime import datetime, timezone, timedelta
     now = datetime.now(timezone.utc)
-    return (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0).timestamp()
+    return (now + timedelta(days=1)).replace(
+        hour=0, minute=0, second=0, microsecond=0, tzinfo=timezone.utc
+    ).timestamp()
+
+
+def _next_pacific_midnight() -> float:
+    """Seconds-since-epoch of the next US Pacific midnight (Gemini free tier
+    resets at midnight PT, not UTC)."""
+    from datetime import datetime, timedelta
+    from zoneinfo import ZoneInfo
+    now = datetime.now(ZoneInfo("America/Los_Angeles"))
+    nxt = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+    return nxt.astimezone(ZoneInfo("UTC")).timestamp()
+
+
+PROBE_INTERVAL_SECONDS = int(os.getenv("LLM_QUOTA_PROBE_SECONDS", "10800").strip() or 10800)
+
+
+def _reset_until(provider: Provider) -> float:
+    """When does this provider's quota re-open? Per the registry's reset_kind
+    (defaults to utc_midnight). 'probe' means we DON'T know the reset cadence,
+    so instead of sleeping to a guessed midnight we re-probe after a few hours."""
+    now = time.time()
+    kind = (provider.reset_kind or "utc_midnight").lower()
+    if kind == "pacific_midnight":
+        return _next_pacific_midnight()
+    if kind == "rolling":
+        return now + 24 * 3600
+    if kind == "probe":
+        return now + PROBE_INTERVAL_SECONDS
+    return _next_utc_midnight()
+
+
+def _response_headers(exc: BaseException) -> dict:
+    resp = getattr(exc, "response", None)
+    if resp is not None:
+        headers = getattr(resp, "headers", None)
+        if isinstance(headers, dict):
+            return headers
+        if hasattr(headers, "items"):
+            try:
+                return {str(k).lower(): str(v) for k, v in headers.items()}
+            except Exception:  # noqa: BLE001
+                return {}
+    return {}
+
+
+def _is_daily_exhausted(exc: BaseException) -> bool:
+    """429 IS 'quota spent for the day' only on the markers providers attach;
+    a bare rate-limit 429 must be handled as a short backoff instead."""
+    low = str(exc).lower()
+    if any(m in low for m in ("perday", "per_day", "free-models-per-day", "daily")):
+        return True
+    for v in _response_headers(exc).values():
+        vl = str(v).lower()
+        if "perday" in vl or "per-day" in vl or "free-models-per-day" in vl:
+            return True
+        if v == "daily" or vl == "daily":
+            return True
+    return False
+
+
+def _classify_failure(exc: BaseException) -> str:
+    """One of '402_call_too_big' | '429_daily' | '429_rate' | 'transient'."""
+    status = getattr(exc, "status_code", None)
+    text = str(exc)
+    low = text.lower()
+    if status == 402 or "more credits" in low:
+        return "402_call_too_big"
+    if status == 429 or "rate limit" in low:
+        return "429_daily" if _is_daily_exhausted(exc) else "429_rate"
+    return "transient"
+
+
+def _retry_after_seconds(exc: BaseException) -> float:
+    """Honour Retry-After when the provider sent it; default 20s, capped 300s."""
+    try:
+        raw = _response_headers(exc).get("retry-after")
+    except Exception:  # noqa: BLE001
+        raw = None
+    if raw:
+        try:
+            return min(300.0, max(1.0, float(raw)))
+        except (TypeError, ValueError):
+            pass
+    return 20.0
 
 
 def _is_quota_error(exc: BaseException) -> bool:
-    """True when the failure is a quota/credit ceiling, not a transient fault.
-    429 = rate/per-day limit; 402 'requires more credits' = balance ceiling.
-    Both say 'do not retry on cooldown, this will not succeed until reset'."""
-    status = getattr(exc, "status_code", None)
-    if status in (429, 402):
-        return True
-    text = str(exc)
-    return "rate limit exceeded" in text.lower() or "more credits" in text.lower()
+    """Back-compat (callers outside complete()) -- classification re-runs
+    _classify_failure so the fast-path consumer sees the same split the
+    complete() loop does."""
+    return _classify_failure(exc) in ("402_call_too_big", "429_daily")
 
 
 def provider_usage(provider: Provider) -> dict:
@@ -426,9 +612,12 @@ def provider_usage(provider: Provider) -> dict:
     tokens/calls count only today. The circuit is computed from the fails
     tallied since the last success; a provider that tripped can only be
     re-enabled by an actual successful call (see provider_state()). A provider
-    whose LATEST event is a quota failure is additionally marked
-    quota_exhausted_until = next UTC midnight -- it is skipped instantly for
-    the rest of the day instead of being cooldown-retried into the same 429."""
+    whose LATEST event is a quota/credit failure is additionally marked
+    quota_exhausted_until = its provider-specific reset instant (per the
+    registry's reset_kind -- UTC/Pacific midnight, rolling 24h, or a periodic
+    probe). A 429 that is merely rate-limiting (no daily marker) sets a short
+    rate_backoff_until instead -- NOT a day-long ban. Failures recorded with
+    trip=False (e.g. the 402-too-big retry) never flip the breaker."""
     events = [e for e in _read_events()
               if e.get("provider") == provider.name and e.get("date") == _today()]
     tokens = 0
@@ -437,6 +626,7 @@ def provider_usage(provider: Provider) -> dict:
     down = False
     down_since = 0.0
     quota_exhausted_until = 0.0
+    rate_backoff_until = 0.0
     latest_ok = None  # None (no events) | True | False
     for e in events:
         calls += 1
@@ -447,14 +637,19 @@ def provider_usage(provider: Provider) -> dict:
             down = False
             down_since = 0.0
         else:
-            fails += 1
+            if e.get("trip", True):
+                fails += 1
             if e.get("quota"):
-                quota_exhausted_until = _next_daily_reset()
+                quota_exhausted_until = _reset_until(provider)
+            if float(e.get("rate_backoff_until") or 0):
+                rate_backoff_until = max(rate_backoff_until,
+                                         float(e["rate_backoff_until"]))
             if not down and fails >= BREAKER_THRESHOLD:
                 down = True
                 down_since = float(e.get("ts") or 0)
     if not events or latest_ok is True:
         quota_exhausted_until = 0.0
+        rate_backoff_until = 0.0
     cooldown_until = down_since + BREAKER_COOLDOWN_SECONDS if down else 0.0
     return {
         "date": _today(),
@@ -465,6 +660,7 @@ def provider_usage(provider: Provider) -> dict:
         "down_since": down_since,
         "cooldown_until": cooldown_until,
         "quota_exhausted_until": quota_exhausted_until,
+        "rate_backoff_until": rate_backoff_until,
     }
 
 
@@ -490,13 +686,17 @@ def has_quota(provider: Provider, entry: dict) -> bool:
 
 def is_callable(provider: Provider) -> tuple:
     """(callable, reason). reason is None when the provider may be called now;
-    'quota_exhausted' when its daily free quota is spent (skipped until the
-    next UTC reset -- NO cooldown cycling), 'circuit_open' when its cooldown is
-    still pending, 'budget_spent' only when its daily token ceiling is
-    genuinely exhausted."""
+    'quota_exhausted' when its quota is spent until its provider-specific reset
+    (skipped -- NO cooldown cycling), 'rate_limited' when a merely-throttled 429
+    is still inside its short Retry-After window, 'circuit_open' when its
+    cooldown is still pending, 'budget_spent' only when its daily token ceiling
+    is genuinely exhausted."""
     entry = provider_usage(provider)
-    if float(entry.get("quota_exhausted_until", 0)) > time.time():
+    now = time.time()
+    if float(entry.get("quota_exhausted_until", 0)) > now:
         return False, "quota_exhausted"
+    if float(entry.get("rate_backoff_until", 0)) > now:
+        return False, "rate_limited"
     if provider_state(entry) == "OPEN":
         return False, "circuit_open"
     if not has_quota(provider, entry):
@@ -515,13 +715,19 @@ def budget_available(provider: Provider) -> bool:
 
 
 def mark_result(provider: Provider, ok: bool, tokens: int = 0, reason: str = "",
-                quota: bool = False) -> None:
+                quota: bool = False, rate_backoff_until: float = 0.0,
+                trip: bool = True) -> None:
     """Record one call outcome. Append-only; usage and the breaker re-derive
     themselves from the log, so concurrent runners cannot clobber each other.
     `reason` is a short human-readable failure text captured for the event log.
-    `quota=True` marks a quota/credit ceiling (429/402) -- the provider is then
-    skipped until the next daily reset instead of being cooldown-retried."""
-    _append_event(provider, bool(ok), max(0, int(tokens)), reason, quota=bool(quota))
+    `quota=True` marks a quota/credit ceiling (429 with a daily marker / 402) --
+    the provider is then skipped until its provider-specific reset instead of
+    being cooldown-retried. `rate_backoff_until` is the instant a 429-rate
+    backoff clears (NOT a day ban). `trip=False` records a failure that must
+    NOT push the circuit breaker (e.g. the 402-too-big halved retry)."""
+    _append_event(provider, bool(ok), max(0, int(tokens)), reason,
+                  quota=bool(quota), rate_backoff_until=rate_backoff_until,
+                  trip=bool(trip))
 
 
 def daily_tokens_spent() -> int:
@@ -572,41 +778,27 @@ def resolve_model(provider: Provider, requested: str) -> str:
         return requested
     if requested.startswith("auto/") and provider.default_model:
         return provider.default_model
-    if provider.models and requested not in provider.models:
-        return provider.models[0]
+    # Concrete ids pass through untouched -- the models-list compat filter
+    # (_provider_accepts) decides whether this provider may serve them. We do
+    # NOT silently substitute models[0]: a caller that named a specific model
+    # gets that exact id or a skip, never a quiet swap that could mask a leak.
     return requested
-
-
-_OPENROUTER_SLUGS = ("nvidia/", "cohere/", "dots-studio/", "google/gemma",
-                     "meta-llama/", "openrouter/", "anthropic/", "mistralai/")
-
-
-def _looks_foreign(requested: str) -> bool:
-    """True for vendor-prefixed OpenRouter model IDs ('nvidia/…:free'). These
-    only belong on the openrouter funnel, not on gemini/groq's native APIs."""
-    requested = str(requested or "").strip()
-    low = requested.lower()
-    return ((":free" in low and "/" in low)
-            or any(low.startswith(slug) for slug in _OPENROUTER_SLUGS)
-            or low.startswith("google/"))
 
 
 def _provider_accepts(provider: Provider, requested: str) -> bool:
     """Whether this provider can realistically serve this model ID, so we
-    never burn a call on a doomed pairing. gemini only takes its own
-    'gemini-*' family (the fixer's openrouter-style combos leak into it and
-    404 -- the events log showed 8 identical 404s); groq takes anything that
-    is NOT an openrouter vendor slug; the openrouter funnel/omniroute take
-    everything (they are auto-model-aware)."""
-    requested = str(requested or "").strip()
-    if provider.auto_model_aware:  # omniroute: resolves auto/* combos itself
+    never burn a call on a doomed pairing. Authoritative source is the
+    provider's OWN whitelist (registry `models` entry -- native ids only):
+    an id not on the list is skipped. When a provider lists no models it
+    accepts everything (openrouter-style funnels / auto-model-aware routers,
+    and tests)."""
+    if provider.auto_model_aware:
         return True
+    requested = str(requested or "").strip()
     if requested.startswith("auto/"):
         return True
-    if provider.name == "gemini":
-        return requested.startswith("gemini-") or requested.startswith("models/gemini")
-    if provider.name == "groq":
-        return not _looks_foreign(requested)
+    if provider.models:
+        return requested in provider.models
     return True
 
 
@@ -700,9 +892,13 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
         if reason == "circuit_open":
             continue  # OPEN: cooldown still pending -- try the next provider
         if reason == "quota_exhausted":
-            # Daily free quota spent (429/402). Do NOT cooldown-retry: skipped
-            # instantly until the next UTC reset instead of re-eating the same
-            # refusal every 5 minutes.
+            # Daily quota spent (429-with-daily-marker / 402 balance). Do NOT
+            # cooldown-retry: skipped instantly until this provider's OWN
+            # reset instant instead of re-eating the same refusal every cycle.
+            continue
+        if reason == "rate_limited":
+            # 429 without a daily marker: short Retry-After backoff, not a
+            # day-long ban. Try the next provider now; it self-heals quickly.
             continue
         if reason == "budget_spent":
             last_error = ProviderBudgetExceeded(f"{provider.name}: daily budget spent")
@@ -711,8 +907,8 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
         # elapsed, so we MUST actually call -- its result is what decides
         # whether the circuit re-closes or re-trips (Bug 1 deadlock escape).
         resolved = resolve_model(provider, model)
-        # Bug-1 companion: never let a foreign model ID reach a provider whose
-        # native API can't serve it (gemini got 8 pointless 404s yesterday).
+        # Never let a foreign model ID reach a provider whose native API can't
+        # serve it (the registry's models whitelist is authoritative).
         if not _provider_accepts(provider, resolved) and not provider.auto_model_aware:
             continue
         if (provider.name, resolved) in _NEGATIVE_MODELS:
@@ -727,25 +923,82 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
                 "Editor-Plugin-Version": "copilot-chat-1.0",
             }
         client = OpenAI(**client_kwargs)
+        call_max_tokens = max_tokens
+        if provider.max_tokens_cap is not None:
+            # Registry cap: some free endpoints hard-fail >N output tokens
+            # (openrouter-free 429s at 2048) -- clamp so the budget fits.
+            call_max_tokens = min(max_tokens, int(provider.max_tokens_cap))
         started = time.monotonic()
         try:
             response = call_with_watchdog(
                 lambda: client.chat.completions.create(
                     model=resolved,
-                    max_tokens=max_tokens,
+                    max_tokens=call_max_tokens,
                     messages=messages,
                 ),
                 timeout=timeout,
             )
         except Exception as exc:  # noqa: BLE001 - record and fail over
             cohort = provider if isinstance(provider, Provider) else provider
-            quota = _is_quota_error(exc)
-            reason = f"{type(exc).__name__}: {exc}"
-            mark_result(cohort, ok=False, reason=reason, quota=quota)
-            _NEGATIVE_MODELS.add((provider.name, resolved))
-            print(f"⚠️ provider {provider.name} failed: {reason[:240]}", flush=True)
-            last_error = exc
-            continue
+            kind = _classify_failure(exc)
+
+            def _record_failure(fail_kind: str, err: BaseException) -> BaseException:
+                """Mark one classified failure on the events log + (per kind)
+                the negative cache, then hand back err for last_error."""
+                if fail_kind == "402_call_too_big":
+                    mark_result(cohort, ok=False, reason=f"{type(err).__name__}: {err}",
+                                quota=True)
+                elif fail_kind == "429_daily":
+                    mark_result(cohort, ok=False, reason=f"{type(err).__name__}: {err}",
+                                quota=True)
+                    _NEGATIVE_MODELS.add((provider.name, resolved))
+                elif fail_kind == "429_rate":
+                    backoff = _retry_after_seconds(err)
+                    mark_result(cohort, ok=False, reason=f"{type(err).__name__}: {err}",
+                                rate_backoff_until=time.time() + backoff)
+                    print(f"⚠️ provider {provider.name} rate-limited "
+                          f"(backoff {backoff:.0f}s)", flush=True)
+                else:
+                    mark_result(cohort, ok=False, reason=f"{type(err).__name__}: {err}")
+                    _NEGATIVE_MODELS.add((provider.name, resolved))
+                if fail_kind != "429_rate":
+                    print(f"⚠️ provider {provider.name} failed: "
+                          f"{f'{type(err).__name__}: {err}'[:240]}", flush=True)
+                return err
+
+            if kind == "402_call_too_big":
+                # 402 = "requires more credits OR fewer max_tokens": one call
+                # blew the daily cap on tokens. Retry ONCE with halved output
+                # on the SAME provider; the cap is what overran, not the quota.
+                # trip=False: this is not circuit noise. quota/negative-cache
+                # stays untouched unless the halved retry ALSO 402s.
+                if call_max_tokens > 1:
+                    print(f"⚠️ provider {provider.name} 402 w/ max_tokens={call_max_tokens} "
+                          f"-- retrying once at {max(1, call_max_tokens // 2)}", flush=True)
+                    try:
+                        response = call_with_watchdog(
+                            lambda: client.chat.completions.create(
+                                model=resolved,
+                                max_tokens=max(1, call_max_tokens // 2),
+                                messages=messages,
+                            ),
+                            timeout=timeout,
+                        )
+                    except Exception as exc2:  # noqa: BLE001
+                        last_error = _record_failure(_classify_failure(exc2), exc2)
+                        continue
+                else:
+                    last_error = _record_failure("402_call_too_big", exc)
+                    continue
+            elif kind == "429_daily":
+                last_error = _record_failure("429_daily", exc)
+                continue
+            elif kind == "429_rate":
+                last_error = _record_failure("429_rate", exc)
+                continue
+            else:
+                last_error = _record_failure("transient", exc)
+                continue
         # Token accounting (W18): prefer SDK usage, estimate otherwise.
         tokens = _estimate_tokens(response, messages)
         mark_result(provider, ok=True, tokens=tokens)

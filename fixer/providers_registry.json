@@ -1,0 +1,117 @@
+{
+  "comment": "Provider registry (STARTER). No secrets here -- api keys always come from the env vars named in key_env. role: coder (strong models, primary) / planner (cheap fast) / overflow (experimental, never the default path) / copilot (escalation). reset_kind: utc_midnight | pacific_midnight (gemini free tier) | rolling (24h window) | probe (unknown -> re-probe every few hours). models = NATIVE ids only; a provider serves nothing outside its own list (empty means accepts anything, openrouter-style funnels only).",
+  "providers": [
+    {
+      "name": "gemini",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+      "key_env": "GEMINI_API_KEY",
+      "role": ["coder"],
+      "models": ["gemini-2.0-flash", "gemini-2.5-flash", "gemini-3-flash", "gemini-3.8-flash"],
+      "reset_kind": "pacific_midnight",
+      "max_tokens_cap": null,
+      "rpm": null
+    },
+    {
+      "name": "groq",
+      "base_url": "https://api.groq.com/openai/v1",
+      "key_env": "GROQ_API_KEY",
+      "role": ["planner"],
+      "models": ["qwen/qwen3.8-27b", "llama-3.3-70b-versatile"],
+      "reset_kind": "probe",
+      "max_tokens_cap": null,
+      "rpm": null
+    },
+    {
+      "name": "openrouter_free",
+      "base_url": "https://openrouter.ai/api/v1",
+      "key_env": "OPENROUTER_API_KEY",
+      "role": ["planner"],
+      "models": [],
+      "reset_kind": "utc_midnight",
+      "max_tokens_cap": 2048,
+      "rpm": null
+    },
+    {
+      "name": "omniroute",
+      "base_url": "https://omniroute.ai/api/v1",
+      "key_env": "OMNIROUTE_API_KEY",
+      "role": ["coder"],
+      "models": [],
+      "auto_model_aware": true,
+      "reset_kind": "probe",
+      "max_tokens_cap": null,
+      "rpm": null
+    },
+    {
+      "name": "omniroute_fallback",
+      "base_url": "",
+      "comment": "ops-only: base_url comes from the OMNIROUTE_FALLBACK_BASE_URL env override; not registered otherwise",
+      "key_env": "OMNIROUTE_API_KEY",
+      "role": ["overflow"],
+      "models": [],
+      "reset_kind": "probe",
+      "max_tokens_cap": null,
+      "rpm": null
+    },
+    {
+      "name": "copilot",
+      "base_url": "https://api.githubcopilot.com/chat/completions",
+      "key_env": "COPILOT_API_KEY",
+      "role": ["copilot"],
+      "models": [],
+      "reset_kind": "probe",
+      "max_tokens_cap": null,
+      "rpm": null
+    },
+    {
+      "name": "mistral",
+      "base_url": "https://api.mistral.ai/v1",
+      "key_env": "MISTRAL_API_KEY",
+      "role": ["overflow"],
+      "models": [],
+      "reset_kind": "probe",
+      "max_tokens_cap": null,
+      "rpm": null
+    },
+    {
+      "name": "hetzner",
+      "base_url": "https://cloud.llm.hetzner.ai/v1",
+      "key_env": "HETZNER_API_KEY",
+      "role": ["overflow"],
+      "models": [],
+      "reset_kind": "probe",
+      "max_tokens_cap": null,
+      "rpm": null
+    },
+    {
+      "name": "llm7",
+      "base_url": "https://llm7.ai/api/v1",
+      "key_env": "LLM7_API_KEY",
+      "role": ["overflow"],
+      "models": [],
+      "reset_kind": "rolling",
+      "max_tokens_cap": null,
+      "rpm": null
+    },
+    {
+      "name": "aion_lab",
+      "base_url": "https://api.aionlab.ai/v1",
+      "key_env": "AION_LAB_API_KEY",
+      "role": ["overflow"],
+      "models": [],
+      "reset_kind": "probe",
+      "max_tokens_cap": null,
+      "rpm": null
+    },
+    {
+      "name": "nvidia_nim",
+      "base_url": "https://integrate.api.nvidia.com/v1",
+      "key_env": "NVIDIA_NIM_API_KEY",
+      "role": ["overflow"],
+      "models": [],
+      "reset_kind": "probe",
+      "max_tokens_cap": null,
+      "rpm": null
+    }
+  ]
+}
