@@ -16581,3 +16581,28 @@ Step 8a: running baseline tests (before any changes)...
 
 Switched to a new branch 'fix-issue-1015'
 2026-09-28T01:56:26+00:00  tick done
+2026-09-28T02:10:14+00:00  gate poller start (offset=746150288)
+2026-09-28T02:10:23+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-28T02:10:24+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-28T02:10:25+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-28T02:10:26+00:00  taranis-ai/taranis-ai: skipping (hit 4-lane/day budget)
+2026-09-28T02:10:30+00:00  HUNTING: trying izzywdev/FuzeFront#1003
+2026-09-28T02:10:30+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1003 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-28T02:13:22+00:00  fixer exit=0
+--tail--
+on-3-super-120b-a12b:free' failed hard (AllProvidersExhaustedError): all providers for tier 'escalation' failed or were over budget
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️  One diff block didn't apply cleanly (error: corrupt patch at .tmp_fix.patch:90
+), skipping just that block.
+   ↳ git apply rejected all blocks; retrying with content-based matcher...
+✅ Applied diff via content-based matcher (line-number independent): ['fuzefront-website/frontend/src/pages/IndustriesPage.tsx', 'fuzefront-website/frontend/src/pages/ProductDetailPage.tsx', 'fuzefront-website/frontend/src/pages/ProductsPage.tsx']
+🧪 Rejecting this patch before testing it: no regression test: the patch changes only fuzefront-website/frontend/src/pages/IndustriesPage.tsx, fuzefront-website/frontend/src/pages/ProductDetailPage.tsx, fuzefront-website/frontend/src/pages/ProductsPage.tsx and adds no test that would fail without it
+
+--- Attempt 4/8 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~85746 tokens (input 77746 + max_tokens 8000) but only 51545 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~85746 tokens (input 77746 + max_tokens 8000) but only 51545 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+Switched to a new branch 'fix-issue-1003'
+2026-09-28T02:13:22+00:00  tick done
