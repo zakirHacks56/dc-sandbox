@@ -15,6 +15,7 @@ produces (board, fixer record, gate files, logs) is committed by the workflow
 step that runs this script, which is what makes the whole machine recoverable
 from nothing but the git history.
 """
+import json
 import os
 import subprocess
 import sys
@@ -97,6 +98,36 @@ def _attempted(board, repo_name):
     return board["attempted"][repo_name]
 
 
+def _lane_spent(repo_name: str, issue_number: int) -> int:
+    """Total tokens spent on (repo, issue) today, from the fixer metrics.
+
+    The day lane budget only counts lanes with a REAL attempt (spent > 0), so a
+    preflight-budget or infra abandonment -- which spends nothing -- can't fill
+    every lane with no-spend stalls and starve other repos."""
+    mfile = util.DATA / "metrics.jsonl"
+    if not mfile.exists():
+        return 0
+    today = util.today_utc()
+    total = 0
+    try:
+        with open(mfile, encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    row = json.loads(line)
+                except Exception:  # noqa: BLE001 -- one bad row must not stop us
+                    continue
+                if (str(row.get("repo", "")), row.get("issue")) != (repo_name, issue_number):
+                    continue
+                if str(row.get("ts", "")).startswith(today):
+                    total += int(row.get("tokens_spent", 0) or 0)
+    except Exception:  # noqa: BLE001
+        return 0
+    return total
+
+
 def _pending_keys() -> list:
     if not util.GATES.exists():
         return []
@@ -147,7 +178,9 @@ def _apply_decree(board, key: str) -> bool:
         })
     board.setdefault("lanes", {})[f"{repo_name}#{issue_number}"] = {
         "state": rec.get("state"), "pr": rec.get("pr_number"),
-        "gate": gate, "decision": decision, "updated": util.now_utc(),
+        "gate": gate, "decision": decision,
+        "spent": _lane_spent(repo_name, issue_number),
+        "updated": util.now_utc(),
     }
     return True
 
@@ -324,6 +357,7 @@ def main() -> int:
                     if rec:
                         board.setdefault("lanes", {})[f"{repo_name}#{issue_number}"] = {
                             "state": rec.get("state"), "pr": rec.get("pr_number"),
+                            "spent": _lane_spent(repo_name, issue_number),
                             "updated": util.now_utc(),
                         }
                     acted = True

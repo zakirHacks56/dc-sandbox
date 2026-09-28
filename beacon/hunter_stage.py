@@ -95,9 +95,16 @@ def _day_attempt_budget_ok(repo_full: str, board: dict, max_per_day: int) -> boo
     """Cap how many distinct issues one repo can burn per day across the board
     so a single unlucky target can't starve the rest of the machine.
 
-    Only lanes touched TODAY count. The board keeps old lanes around as a
-    recoverable record, and stale PAUSED lanes (e.g. after a provider outage
-    left pr=null) must not permanently freeze a repo out of the daily cap."""
+    Only lanes touched TODAY that represent a REAL attempt count: a lane where
+    actual LLM tokens were spent. Preflight refusals (token budget refused
+    before a single call), infra abandons and pure stale sweeps spend nothing,
+    so they don't burn a slice of the daily cap -- otherwise a bot stuck behind
+    a bad context step fills every lane with IMPLEMENTING no-spend stalls and
+    then reports "no candidate" for hours.
+
+    The lane's 'spent' field carries the token spend recorded by the fixer; a
+    lane without it (legacy) is treated as an attempt (counts) to stay
+    conservative. The board keeps old lanes around as a recoverable record."""
     if max_per_day <= 0:
         return True
     today = util.today_utc()
@@ -106,6 +113,7 @@ def _day_attempt_budget_ok(repo_full: str, board: dict, max_per_day: int) -> boo
         1 for lane_key, lane in lanes.items()
         if lane_key.startswith(f"{repo_full}#")
         and str(lane.get("updated", "")).startswith(today)
+        and int(lane.get("spent", 1)) > 0
     )
     return count < max_per_day
 
