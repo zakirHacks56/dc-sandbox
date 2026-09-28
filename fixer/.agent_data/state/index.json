@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T17:41:27",
+  "updated_at": "2026-09-28T17:46:37",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1366,6 +1366,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T17:41:27"
+    },
+    "Rekin226/aquascope#328": {
+      "repo": "Rekin226/aquascope",
+      "issue": 328,
+      "issue_title": "A NeuralHydrology regional LSTM on the Caravan export: HydroGym's data-driven reference, with cost accounting",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-328.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-328",
+      "workspace": "workspace/Rekin226-aquascope/issue-328",
+      "conversation_id": "20260928T174425-86bda70c",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-328",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T17:46:37"
     }
   }
 }

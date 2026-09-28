@@ -1,0 +1,5 @@
+[2026-09-28T17:44:25] conversation 20260928T174425-86bda70c opened for Rekin226/aquascope#328
+[2026-09-28T17:44:25] opened for the one-shot command at state=TASK_RECEIVED status=new pr=None
+[2026-09-28T17:44:49] system/error: model call attempt 1/2 on 'nvidia/nemotron-3-super-120b-a12b:free' FAILED: all providers for tier 'primary' failed or were over budget
+[2026-09-28T17:46:24] system/error: model call attempt 1/2 on 'gemini-3.5-flash-lite' FAILED: all providers for tier 'primary' failed or were over budget (last: provider call exceeded watchdog window of 90s)
+[2026-09-28T17:46:37] system/error: model call attempt 1/2 on 'gemini-3.6-flash' FAILED: all providers for tier 'primary' failed or were over budget (last: Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status':... (+18 chars)

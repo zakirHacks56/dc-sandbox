@@ -157,3 +157,5 @@
 {"provider": "gemini", "ok": true, "tokens": 79772, "ts": 1790562483.414028, "date": "2026-09-28", "run_id": "36369510281"}
 {"provider": "gemini", "ok": true, "tokens": 87612, "ts": 1790562505.9729712, "date": "2026-09-28", "run_id": "36369510281"}
 {"provider": "gemini", "ok": true, "tokens": 20983, "ts": 1790617272.2335618, "date": "2026-09-28", "run_id": "36459527029"}
+{"provider": "gemini", "ok": false, "tokens": 0, "ts": 1790617584.7737606, "date": "2026-09-28", "run_id": "36460015377", "reason": "WatchdogTimeout: provider call exceeded watchdog window of 90s"}
+{"provider": "gemini", "ok": false, "tokens": 0, "ts": 1790617597.268474, "date": "2026-09-28", "run_id": "36460015377", "reason": "InternalServerError: Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}]"}
