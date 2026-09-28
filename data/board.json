@@ -55,7 +55,8 @@
       444,
       439,
       432,
-      392
+      392,
+      381
     ],
     "izzywdev/FuzeFront": [
       1181,
@@ -508,7 +509,12 @@
       "state": "IMPLEMENTING",
       "pr": null,
       "updated": "2026-09-28T00:54:19+00:00"
+    },
+    "Rekin226/aquascope#381": {
+      "state": "IMPLEMENTING",
+      "pr": null,
+      "updated": "2026-09-28T01:00:27+00:00"
     }
   },
-  "last_tick": "2026-09-28T00:54:19+00:00"
+  "last_tick": "2026-09-28T01:00:27+00:00"
 }
