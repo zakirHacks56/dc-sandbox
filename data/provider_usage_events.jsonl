@@ -143,10 +143,10 @@
 {"provider": "openrouter_free", "ok": true, "tokens": 1137, "ts": 1790559657.779701, "date": "2026-09-28", "run_id": "36366867636"}
 {"provider": "openrouter_free", "ok": true, "tokens": 1355, "ts": 1790560050.66256, "date": "2026-09-28", "run_id": "36367288020"}
 {"provider": "openrouter_free", "ok": true, "tokens": 1350, "ts": 1790560556.8773115, "date": "2026-09-28", "run_id": "36367788903"}
-{"provider": "openrouter_free", "ok": true, "tokens": 1472, "ts": 1790561058.942404, "date": "2026-09-28", "run_id": "36368342919"}
-{"provider": "openrouter_free", "ok": true, "tokens": 3559, "ts": 1790561091.5330513, "date": "2026-09-28", "run_id": "36368342919"}
-{"provider": "openrouter_free", "ok": true, "tokens": 76931, "ts": 1790561170.2874827, "date": "2026-09-28", "run_id": "36368342919"}
-{"provider": "openrouter_free", "ok": false, "tokens": 0, "ts": 1790561260.2995424, "date": "2026-09-28", "run_id": "36368342919", "reason": "WatchdogTimeout: provider call exceeded watchdog window of 90s"}
-{"provider": "omniroute", "ok": false, "tokens": 0, "ts": 1790561350.304128, "date": "2026-09-28", "run_id": "36368342919", "reason": "WatchdogTimeout: provider call exceeded watchdog window of 90s"}
-{"provider": "gemini", "ok": true, "tokens": 75189, "ts": 1790561357.667481, "date": "2026-09-28", "run_id": "36368342919"}
-{"provider": "gemini", "ok": true, "tokens": 77581, "ts": 1790561369.8640223, "date": "2026-09-28", "run_id": "36368342919"}
+{"provider": "openrouter_free", "ok": true, "tokens": 1472, "ts": 1790561436.1398787, "date": "2026-09-28", "run_id": "36368440728"}
+{"provider": "openrouter_free", "ok": true, "tokens": 3559, "ts": 1790561466.6597035, "date": "2026-09-28", "run_id": "36368440728"}
+{"provider": "openrouter_free", "ok": false, "tokens": 0, "ts": 1790561468.4991355, "date": "2026-09-28", "run_id": "36368440728", "reason": "RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: free-models-per-day. Add 10 credits to unlock 1000 free model requests per day', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '50', 'X-RateLimit-Rem", "quota": true}
+{"provider": "omniroute", "ok": false, "tokens": 0, "ts": 1790561558.5039546, "date": "2026-09-28", "run_id": "36368440728", "reason": "WatchdogTimeout: provider call exceeded watchdog window of 90s"}
+{"provider": "gemini", "ok": true, "tokens": 82716, "ts": 1790561568.4624066, "date": "2026-09-28", "run_id": "36368440728"}
+{"provider": "gemini", "ok": true, "tokens": 82807, "ts": 1790561577.5780718, "date": "2026-09-28", "run_id": "36368440728"}
+{"provider": "gemini", "ok": true, "tokens": 82932, "ts": 1790561586.7706938, "date": "2026-09-28", "run_id": "36368440728"}
