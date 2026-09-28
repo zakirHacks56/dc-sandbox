@@ -118,7 +118,8 @@
       981,
       980,
       979,
-      978
+      978,
+      977
     ],
     "yunaremaia/sandbox-ffi-layers": [
       39,
@@ -828,7 +829,13 @@
       "pr": null,
       "spent": 0,
       "updated": "2026-09-28T22:12:10+00:00"
+    },
+    "izzywdev/FuzeFront#977": {
+      "state": "ABANDONED",
+      "pr": null,
+      "spent": 0,
+      "updated": "2026-09-28T22:23:32+00:00"
     }
   },
-  "last_tick": "2026-09-28T22:12:10+00:00"
+  "last_tick": "2026-09-28T22:23:32+00:00"
 }
