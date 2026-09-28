@@ -555,6 +555,7 @@ def main() -> int:
                  "lanes": board.get("lanes", {})}
 
     acted = False
+    outcome = "no_candidate"
 
     enabled_repos = {
         t["repo"] for t in conf.get("targets", []) if t.get("enabled", True)
@@ -565,23 +566,27 @@ def main() -> int:
     reaped = _reap_stale(board, enabled_repos)
     if reaped:
         util.log(f"reaped {reaped} leaked lane(s) -- budget freed for a real attempt")
+        outcome = "reaped"
 
     decrees = _decree_keys()
     if decrees:
         key = decrees[0]
         _apply_decree(board, key)
         acted = True
+        outcome = "decreed"
 
     if not acted:
         reconciled = _reconcile_prs(board, enabled_repos)
         if reconciled:
             util.log(f"reconcile: re-filed {reconciled} parked lane(s) to match GitHub truth")
             acted = True  # a subprocess close counts as this tick's unit of work
+            outcome = "reconciled"
 
         stale_resolved = _sweep_stale(board, enabled_repos)
         if stale_resolved:
             util.log(f"sweep: resolved {stale_resolved} stale in-flight lane(s)")
             acted = True  # a close/abandon is this tick's single unit of work
+            outcome = "swept"
 
         pending = _pending_keys()
         prs_today = int(board.get("prs_today", 0))
@@ -607,6 +612,7 @@ def main() -> int:
                             "updated": util.now_utc(),
                         }
                     acted = True
+                    outcome = "hunted"
                 else:
                     calls, fails = util.gh_api_stats()
                     if calls >= 3 and fails == calls:
@@ -615,16 +621,38 @@ def main() -> int:
                             "the token (PR_PAT) is dead (revoked/expired?) and the "
                             "machine is running blind. Sounding the alarm."
                         )
+                        outcome = "gh_dead"
+                        # Infra no-op: the tick can never find a candidate on a
+                        # dead token, so fail the run LOUDLY (everything else
+                        # stays green, a silent dead-man is exactly what we
+                        # don't want with a human gate to answer).
+                        util.metric("tick", outcome=outcome, fails=fails, calls=calls,
+                                    prs_today=prs_today, pending=len(pending))
+                        if util.tg_send(
+                            f"⚠️ OSS bot: every GitHub API call failed "
+                            f"({fails}/{calls}). PR_PAT may be dead -- the "
+                            "machine can't hunt or answer gates."
+                        ):
+                            util.log("outcome: gh_dead - Telegram alert sent")
                         return 1
                     util.log("no candidate found this tick")
             else:
+                outcome = "providers_down"
                 util.log("preflight: no LLM provider callable -- skipping hunt")
         else:
+            outcome = "budget_limited"
             util.log(f"budget: {prs_today}/{max_prs} PRs, {len(pending)}/{max_pending} pending gates")
 
     _housekeeping(board)
     util.save_json(util.BOARD, board)
-    util.log("tick done")
+    # One metrics row per tick so the operator can see -- in git history alone
+    # -- whether the controller is producing outcomes or quietly idling.
+    util.metric("tick", outcome=outcome,
+                reaped=reaped,
+                acted=bool(acted),
+                prs_today=int(board.get("prs_today", 0)),
+                pending=len(_pending_keys()))
+    util.log(f"tick done (outcome={outcome})")
     return 0
 
 

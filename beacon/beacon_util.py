@@ -149,3 +149,87 @@ def env_for_fixer(extra=None) -> dict:
     if extra:
         env.update(extra)
     return env
+
+
+# Tick outcomes, written one line per tick to data/metrics.jsonl so an operator
+# (or the dead-man alert in the cloud workflow) can see -- from the git history
+# alone -- whether the controller is making progress or quietly doing nothing.
+TICK_OUTCOMES = (
+    "decreed",          # applied a waiting gate decree
+    "reconciled",       # re-filed parked lanes to match GitHub truth
+    "swept",            # closed stale own PR(s) / abandoned in-flight lanes
+    "reaped",           # abandoned leaked in-flight lanes at tick start
+    "hunted",           # dispatched a fresh solve attempt
+    "no_candidate",     # healthy tick, but nothing eligible to hunt
+    "budget_limited",   # at PR / pending-gate / lane budget cap
+    "providers_down",   # no LLM provider callable -- a real infra no-op
+    "gh_dead",          # every GitHub API call failed -- token likely dead
+)
+
+
+def metric(event: str, **fields) -> None:
+    """Append one JSONL row to data/metrics.jsonl (same stream the fixer's
+    guards.metrics() writes). Never raises -- a metrics write must not crash
+    a tick. `event` is the metric kind (e.g. "tick"); fields are free-form."""
+    row = {"event": event, "ts": now_utc()}
+    row.update(fields)
+    DATA.mkdir(parents=True, exist_ok=True)
+    tmp = DATA / "metrics.jsonl"
+    try:
+        with open(tmp, "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(row, ensure_ascii=False) + "\n")
+    except OSError:
+        pass
+
+
+def last_metric(event: str) -> dict | None:
+    """Newest row of a given event kind from data/metrics.jsonl, or None."""
+    try:
+        with open(DATA / "metrics.jsonl", "r", encoding="utf-8") as fh:
+            last = None
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    row = json.loads(line)
+                except ValueError:
+                    continue
+                if row.get("event") == event:
+                    last = row
+            return last
+    except OSError:
+        return None
+
+
+def tg_send(text: str, timeout: int = 20) -> bool:
+    """Best-effort Telegram sendMessage (stdlib, zero pip). Returns True when
+    Telegram acknowledged the message. Silently False on missing token or any
+    transport failure, so alerts can never crash a tick. Falls back to the
+    fixed Telegram IPv4 list when DNS is broken."""
+    token = os.getenv("TELEGRAM_BOT_TOKEN") or os.getenv("MANUAL_BOT_TOKEN", "")
+    chat = os.getenv("TELEGRAM_CHAT_ID", "")
+    if not (token and chat):
+        return False
+    body = json.dumps({"chat_id": chat, "text": text[:3900]}).encode("utf-8")
+
+    def _post(host: str, with_host_header: bool) -> bool:
+        url = f"https://{host}/bot{token}/sendMessage"
+        headers = {"Content-Type": "application/json"}
+        if with_host_header:
+            headers["Host"] = TG_API_HOST
+        req = urllib.request.Request(url, data=body, headers=headers)
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            blob = resp.read().decode("utf-8")
+            try:
+                return bool(json.loads(blob).get("ok"))
+            except ValueError:
+                return True
+
+    for host, with_header in [(TG_API_HOST, False)] + [(ip, True) for ip in TG_API_IPS]:
+        try:
+            if _post(host, with_header):
+                return True
+        except Exception:  # noqa: BLE001
+            continue
+    return False

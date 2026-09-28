@@ -122,6 +122,10 @@ OMNIROUTE_FAST_MODEL = os.getenv("OMNIROUTE_FAST_MODEL", "").strip() or "auto/be
 OMNIROUTE_FAST_MODEL_FALLBACKS = [
     m.strip() for m in os.getenv("OMNIROUTE_FAST_MODEL_FALLBACKS", "").split(",") if m.strip()
 ] or ["auto/best-coding", "auto/best-fast"]
+# Strongest reasoning combo, preferred when a fix attempt failed and we retry
+# (W2: a retry after a failure needs MORE capability, not a cheaper/faster
+# model). Env-overridable with the same non-empty rule as the other chains.
+OMNIROUTE_REASONING_MODEL = os.getenv("OMNIROUTE_REASONING_MODEL", "").strip() or "auto/best-reasoning"
 # Stall guard for the reasoning combo: cap the FIRST attempt of each combo at
 # this many seconds. A dead/silent provider is abandoned after ~this instead
 # of burning the full budget, and the next fallback combo gets the same quick
@@ -2585,11 +2589,16 @@ def _using_fallback_endpoint() -> bool:
     return _using_fallback_endpoint._fallback
 
 
-def _model_chain(fast: bool = False) -> list:
+def _model_chain(fast: bool = False, escalate: bool = False) -> list:
     """Combos to try, user's choice first, deduped, always non-empty. The fast
     chain is used for cheap structured steps (classification, AI file pick).
     On the hosted fallback endpoint the fallback model chain is used instead,
-    since hosted endpoints usually need concrete model names, not auto/*."""
+    since hosted endpoints usually need concrete model names, not auto/*.
+
+    `escalate` (retry of a failed fix): prefer the STRONGEST reasoning combo,
+    not the same coding combo that just failed. A retry needs more capability,
+    not variety -- the failed fix's signal is fed back as context, so the
+    extra reasoning head is the marginal ingredient that flips it to done."""
     if _using_fallback_endpoint():
         if fast:
             primary = OMNIROUTE_FALLBACK_FAST_MODEL or OMNIROUTE_FALLBACK_MODEL or OMNIROUTE_FAST_MODEL
@@ -2601,6 +2610,12 @@ def _model_chain(fast: bool = False) -> list:
             fallbacks = OMNIROUTE_FALLBACK_MODEL_FALLBACKS or OMNIROUTE_MODEL_FALLBACKS
     elif fast:
         primary, fallbacks = OMNIROUTE_FAST_MODEL, OMNIROUTE_FAST_MODEL_FALLBACKS
+    elif escalate:
+        # Retry escalation: strongest reasoning combo first, coding combo as
+        # the immediate fallback for the shared auto* provider pool.
+        primary, fallbacks = OMNIROUTE_REASONING_MODEL, (
+            OMNIROUTE_MODEL_FALLBACKS or [OMNIROUTE_MODEL]
+        )
     else:
         primary, fallbacks = OMNIROUTE_MODEL, OMNIROUTE_MODEL_FALLBACKS
     chain = []
@@ -2637,7 +2652,7 @@ def call_model(prompt: str, max_tokens: int = 4000, retry_variant: bool = False,
     #   3. COMBO fallback -- a non-timeout failure (503 combo exhausted,
     #      auth, etc.) means retrying the same combo is futile; move to the
     #      next combo in the chain.
-    chain = _model_chain(fast=fast)
+    chain = _model_chain(fast=fast, escalate=bool(retry_variant) and not fast)
     attempts = 2
     last_error = None
     for combo_index, model in enumerate(chain):
