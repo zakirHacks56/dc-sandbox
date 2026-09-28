@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T19:25:25",
+  "updated_at": "2026-09-28T19:31:15",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1501,6 +1501,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T19:25:25"
+    },
+    "taranis-ai/taranis-ai#546": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 546,
+      "issue_title": "Add a redirect from OSINTSources to docs in regard to RSS Collector fields (`XPATH` and `CONTENT_LOCATION`)",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-546.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-546",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-546",
+      "conversation_id": "20260928T193040-dfdd9a3a",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-546",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T19:31:15"
     }
   }
 }

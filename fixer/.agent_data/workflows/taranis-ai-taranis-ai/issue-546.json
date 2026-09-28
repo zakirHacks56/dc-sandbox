@@ -1,0 +1,60 @@
+{
+  "schema": 2,
+  "repo": "taranis-ai/taranis-ai",
+  "issue": 546,
+  "issue_title": "Add a redirect from OSINTSources to docs in regard to RSS Collector fields (`XPATH` and `CONTENT_LOCATION`)",
+  "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/546",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-546",
+  "base_branch": "master",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-28T19:30:40",
+  "updated_at": "2026-09-28T19:31:15",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-28T19:30:40",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-28T19:31:00",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260928T193040-dfdd9a3a",
+  "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-546",
+  "workspace": "workspace/taranis-ai-taranis-ai/issue-546",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "documentation",
+    "enhancement",
+    "frontend"
+  ],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "docs",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "docs",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_error"
+}
