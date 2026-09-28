@@ -33,6 +33,13 @@ PENDING_MAX_AGE_DAYS = 14
 # hunter (open-PR guard) and burns the repo's daily lane budget, so the sweep
 # closes it via the fixer's --force -close (auto-approving the close gate).
 STALE_PR_AGE_DAYS = 3
+# Reaper age: a solve run is expected to finish (or park) well inside the
+# per-issue wall clock; an in-flight record this old with no PR and no pending
+# gate is a leaked/stuck run (crash between "IMPLEMENTING" and a terminal
+# write), so the reaper abandons it at the start of a tick. This is the
+# backstop for the guaranteed-terminal-state fix: a finally in the fixer can't
+# catch SIGKILL/OOM, so the controller catches those here instead.
+REAP_MAX_AGE_SECONDS = 40 * 60
 
 
 def _providers_callable() -> bool:
@@ -202,6 +209,13 @@ def _housekeeping(board) -> None:
 _INFLIGHT_STATES = ("ANALYZING", "IMPLEMENTING", "WAITING_FOR_FEEDBACK",
                     "REVIEWING", "GATED", "PAUSED")
 
+# States that mean a solve run is ACTIVELY consuming a lane (vs. parked behind
+# a human or deliberately paused). Only these are fast-reaped: a run stuck in
+# ANALYZING/IMPLEMENTING/TESTING for over an hour is leaked, full stop. PAUSED
+# is an explicit operator state, and WAITING_FOR_FEEDBACK/GATED mean a human is
+# (or was meant to be) involved -- neither gets fast-reaped.
+_REAPABLE_STATES = ("ANALYZING", "IMPLEMENTING", "TESTING", "REVIEWING")
+
 
 def _stale_days(updated: str | None) -> float | None:
     """Whole days a timestamp is past (None when it can't be read or is missing)."""
@@ -213,6 +227,20 @@ def _stale_days(updated: str | None) -> float | None:
         if parsed.tzinfo is None:
             parsed = parsed.replace(tzinfo=_dt.timezone.utc)
         return (_dt.datetime.now(_dt.timezone.utc) - parsed).total_seconds() / 86400
+    except Exception:
+        return None
+
+
+def _stale_seconds(updated: str | None) -> float | None:
+    """Seconds a timestamp is past (None when it can't be read or is missing)."""
+    import datetime as _dt
+    if not updated:
+        return None
+    try:
+        parsed = _dt.datetime.fromisoformat(str(updated))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=_dt.timezone.utc)
+        return (_dt.datetime.now(_dt.timezone.utc) - parsed).total_seconds()
     except Exception:
         return None
 
@@ -307,6 +335,87 @@ def _sweep_stale(board, enabled_repos: set) -> int:
     return closed
 
 
+def _reap_stale(board, enabled_repos: set) -> int:
+    """Abandon in-flight lanes whose runs leaked out of the fixer.
+
+    Fast backstop for the guaranteed-terminal-state fix. The fixer's wrapper
+    writes a terminal record before every exit, but a SIGKILL/OOM/CI-host kill
+    can cut a solve run off mid-IMPLEMENTING with no terminal record and a
+    live lane. The controller commits state each tick, so a leaked lane sits
+    stuck in an in-flight state for the next tick -- and every tick -- eating a
+    repo's daily lane budget forever (or until a human notices).
+
+    So at the START of each tick, any lane in an ACTIVELY-RUNNING state
+    (ANALYZING/IMPLEMENTING/TESTING/REVIEWING -- not PAUSED, not gated, not
+    awaiting feedback) older than REAP_MAX_AGE_SECONDS (no PR, no pending
+    gate) is abandoned, freeing its budget slice for a real attempt. This is
+    fast and free (no GitHub calls): it writes the board lane and the workflow
+    record in place and converges.
+
+    Skipped when the record has a real PR (the 3-day sweep owns those) or a
+    human gate is still pending (that run is parked, not leaked). Returns the
+    number of lanes reaped this tick."""
+    reaped = 0
+    lanes = board.setdefault("lanes", {})
+    wf_root = util.FIXER / ".agent_data" / "workflows"
+    if not wf_root.exists():
+        return 0
+    gates_dir = util.GATES
+    for rec_path in sorted(wf_root.glob("*/issue-*.json")):
+        rec = util.load_json(rec_path, None)
+        if not rec:
+            continue
+        state = str(rec.get("state", ""))
+        if state not in _REAPABLE_STATES:
+            continue
+        updated = rec.get("updated_at") or rec.get("updated")
+        age_secs = _stale_seconds(updated)
+        if age_secs is None or age_secs <= REAP_MAX_AGE_SECONDS:
+            continue
+        repo_name = str(rec.get("repo", ""))
+        try:
+            issue_num = int(rec["issue"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if not repo_name or "/" not in repo_name:
+            continue
+        if repo_name not in enabled_repos:
+            continue
+        # Parked at a human gate is a legitimately live lane -- never reap it.
+        if rec.get("pr_number"):
+            continue
+        lane_key = f"{repo_name}#{issue_num}"
+        # A pending gate means the run is waiting on a human decree, broker
+        # outage or not; the reaper must not kill a lane that may still resolve.
+        pending = list((gates_dir.glob(f"*{repo_name.replace('/', '-')}*{issue_num}*.pending"))
+                       ) if gates_dir.exists() else []
+        if pending:
+            util.log(f"reap: skipping {lane_key} (state={state}, "
+                     f"age={age_secs/60:.0f}m, gate pending -- parked)")
+            continue
+        util.log(f"reap: abandoning leaked in-flight lane {lane_key} "
+                 f"(state={state}, age={age_secs/60:.0f}m, no PR, no gate)")
+        reaped += 1
+        keep = rec.get("updated_at") or rec.get("updated") or util.now_utc()
+        # Preserve the ORIGINAL updated timestamp: the daily lane budget counts
+        # lanes touched today, so a reaped lane must keep its old `updated` to
+        # fall out of today's count (it never got a real attempt's spend).
+        lanes[lane_key] = {
+            "state": "ABANDONED",
+            "decision": False,
+            "updated": keep,
+            "reaped_at": util.now_utc(),
+        }
+        try:
+            rec["state"] = "ABANDONED"
+            rec["reaped_at"] = util.now_utc()
+            util.save_json(rec_path, rec)
+        except Exception as reap_err:
+            util.log(f"reap: could not persist ABANDONED state for "
+                     f"{lane_key}: {reap_err}")
+    return reaped
+
+
 def main() -> int:
     util.DATA.mkdir(parents=True, exist_ok=True)
     conf = util.load_json(util.CONFIG, {})
@@ -322,6 +431,16 @@ def main() -> int:
 
     acted = False
 
+    enabled_repos = {
+        t["repo"] for t in conf.get("targets", []) if t.get("enabled", True)
+    }
+
+    # First and cheapest: abandon in-flight lanes whose runs leaked. No GitHub
+    # calls, no fixer subprocess -- just frees budget for a real attempt below.
+    reaped = _reap_stale(board, enabled_repos)
+    if reaped:
+        util.log(f"reaped {reaped} leaked lane(s) -- budget freed for a real attempt")
+
     decrees = _decree_keys()
     if decrees:
         key = decrees[0]
@@ -329,9 +448,6 @@ def main() -> int:
         acted = True
 
     if not acted:
-        enabled_repos = {
-            t["repo"] for t in conf.get("targets", []) if t.get("enabled", True)
-        }
         stale_resolved = _sweep_stale(board, enabled_repos)
         if stale_resolved:
             util.log(f"sweep: resolved {stale_resolved} stale in-flight lane(s)")

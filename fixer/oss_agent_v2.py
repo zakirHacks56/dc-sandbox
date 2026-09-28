@@ -996,6 +996,65 @@ def get_or_create_workflow(repo_name: str, issue_number: int, issue_title: str) 
 TERMINAL_STATES = (WF.COMPLETED, WF.ABANDONED)
 
 
+class AttemptOutcome:
+    """Why a solve run finished. Stamped into the metrics row and used to pick
+    a terminal record state, so a failed run can never be mistaken for a live
+    IMPLEMENTING lane that still has the repo's attention."""
+
+    PR_DRAFTED = "pr_drafted"                 # solve completed, PR parked
+    GATE_DEFERRED = "gate_deferred"           # human gate parked waiting for decree
+    CANCELLED = "cancelled"                   # human declined at review gate
+    ANALYSIS = "analysis"                     # report-only task, nothing changed on GH
+    ABANDONED_PREFLIGHT = "abandoned_preflight"  # every provider refused before spend
+    ABANDONED_ERROR = "abandoned_error"       # unhandled exception aborted the run
+    ABANDONED_FAILED = "abandoned_failed"     # legal exit paths that produced no PR
+    NOOP = "noop"                             # declined/refused before any work
+
+
+# Outcomes that leave a run DONE but the record intentionally NOT terminal
+# (an operator still needs to talk to this workflow): a parked draft PR awaiting
+# the reviewer, a gate parked for a decree, or a cancelled-but-resumable review.
+_PARKED_OUTCOMES = {AttemptOutcome.PR_DRAFTED, AttemptOutcome.GATE_DEFERRED,
+                    AttemptOutcome.CANCELLED}
+
+# Record states that are legitimately parked behind HUMAN action: a run stuck
+# here is waiting on a reviewer/decree, not leaked, so the failed-run wrapper
+# and the tick reaper must both leave them alone.
+_PARKED_STATES = _WF_GATED | {WF.WAITING_FOR_FEEDBACK}
+
+
+def set_terminal_record(record: dict, outcome: str, reason: str = "") -> dict:
+    """Guarantee the record ends in a defined state after a solve run.
+
+    Every exit path (draft PR, budget refusal, parse failures, an unhandled
+    exception) funnels through here exactly once. Terminal/live-parked states
+    make the board lane budget see a REAL attempt (spent tokens) or a real
+    terminal record; a run that vanished without writing a state is what
+    stranded 15 IMPLEMENTING lanes and starved the machine for a day.
+
+    `outcome` in _PARKED_OUTCOMES (or an already-terminal record) is left
+    alone. Anything still in-flight -- including a record a crash or a bare
+    `return` left behind -- is moved to ABANDONED with the outcome recorded."""
+    if not record:
+        return record
+    state = record.get("state")
+    if state in TERMINAL_STATES:
+        return record
+    if outcome in _PARKED_OUTCOMES:
+        return record  # PR parked / gate parked / cancelled: still resumable
+    if state in _WF_GATED or state == WF.WAITING_FOR_FEEDBACK:
+        return record  # legitimately parked behind human action
+    record["outcome"] = outcome
+    if record.get("state") != WF.ABANDONED:
+        try:
+            wf_walk(record, [WF.ABANDONED], f"{outcome}: {reason or ''}"[:200])
+        except Exception:  # noqa: BLE001 -- terminal-state bookkeeping must not crash
+            record["state"] = WF.ABANDONED
+            record["updated_at"] = datetime.now().isoformat(timespec="seconds")
+            save_workflow(record)
+    return record
+
+
 def pause_workflow(record: dict, reason: str = "", trigger: str = "--leave") -> bool:
     """Persist enough context to resume later, then park the record in PAUSED.
 
@@ -7444,6 +7503,101 @@ def _guarded_call(stage: str, repo: str, issue: int, fn) -> str:
     return outcome if outcome else "done"
 
 
+def _parked_or_safe(record) -> bool:
+    """True when the record is legitimately parked and must survive an error.
+
+    A lane at a human gate, in feedback, or with a real PR is parked on
+    purpose: aborting it here would kill a human-reviewed workflow. Those are
+    only ever resolved by the gate decree path or the 3-day sweep, never by
+    the failed-run wrapper."""
+    if not record:
+        return False
+    if record.get("pr_number") or record.get("state") in _PARKED_STATES:
+        return True
+    try:
+        repo_dir = store.safe_repo_dir(str(record.get("repo", "")))
+        issue = int(record.get("issue", 0))
+        if GATE_DIR.exists() and list(GATE_DIR.glob(f"{repo_dir}_issue{issue}_*.pending")):
+            return True
+    except Exception:
+        pass
+    return False
+
+
+def _run_attempt(repo_name: str, issue_number: int, test_command: str,
+                 force_workspace: bool = False) -> str:
+    """Run one solve attempt with a GUARANTEED terminal or parked record state.
+
+    Wraps `main()` so that no matter how the run ends -- draft PR parked, budget
+    refused before a single token, all providers exhausted, an unhandled
+    exception, or a bare `return` -- the workflow record finishes ABANDONED (or
+    stays in a legitimately parked state). That is the direct fix for the
+    stranded-IMPLEMENTING plague: a run that used to `return` mid-solve leaving
+    a forever-live lane now writes its terminal state exactly once.
+
+    Returns an AttemptOutcome string for the metrics row / caller."""
+    try:
+        result = main(repo_name, issue_number, test_command,
+                      force_workspace=force_workspace)
+    except llm_router.PreflightTokenBudgetExceeded as exc:
+        outcome = AttemptOutcome.ABANDONED_PREFLIGHT
+        reason = f"preflight refused everything: {exc}"
+        print(f"⛔ {reason}")
+        _abandon_after_failure(repo_name, issue_number, outcome, reason)
+        return outcome
+    except llm_router.AllProvidersExhaustedError as exc:
+        # "all providers failed or were over budget" per tier. If the failures
+        # were all pre-flight refusals (spent 0 tokens), it's an ABANDONED_PREFLIGHT;
+        # otherwise a plain error. Both are terminal, never a live IMPLEMENTING lane.
+        outcome = AttemptOutcome.ABANDONED_ERROR
+        reason = f"all providers exhausted: {exc}"
+        print(f"⛔ {reason}")
+        guards.log_failure(f"providers:{repo_name}", exc,
+                           issue={"repo": repo_name, "issue": issue_number})
+        _abandon_after_failure(repo_name, issue_number, outcome, reason)
+        return outcome
+    except Exception as exc:  # noqa: BLE001 - isolation is the entire point
+        outcome = AttemptOutcome.ABANDONED_ERROR
+        reason = f"unhandled error: {type(exc).__name__}"
+        guards.log_failure(f"main:{repo_name}", exc,
+                           issue={"repo": repo_name, "issue": issue_number})
+        _abandon_after_failure(repo_name, issue_number, outcome, reason)
+        return outcome
+
+    # Legal exits from main() are strings; None means a bare return (skip /
+    # exhausted / declined) which must still land the record in a defined state.
+    outcome = result if result else AttemptOutcome.ABANDONED_FAILED
+    if result == "draft_pr":
+        outcome = AttemptOutcome.PR_DRAFTED
+    elif result == "gate_deferred":
+        outcome = AttemptOutcome.GATE_DEFERRED
+    elif result == "cancelled":
+        outcome = AttemptOutcome.CANCELLED
+    elif result == "analysis":
+        outcome = AttemptOutcome.ANALYSIS
+    set_terminal_record(
+        load_workflow(repo_name, issue_number) or {},
+        outcome,
+        reason=f"main returned {result}",
+    )
+    return outcome
+
+
+def _abandon_after_failure(repo_name: str, issue_number: int, outcome: str,
+                           reason: str) -> None:
+    """Terminal-state write on the failure paths, safe for parked records.
+
+    Mirrors `set_terminal_record` but ALSO refuses to touch a record parked at
+    a human gate: gated lanes are the decree path's job, and a provider outage
+    must not nuke a human's in-progress review."""
+    record = load_workflow(repo_name, issue_number)
+    if _parked_or_safe(record):
+        print(f"→ leaving {repo_name}#{issue_number} parked "
+              f"(state={record.get('state') if record else 'none'})")
+        return
+    set_terminal_record(record or {}, outcome, reason)
+
+
 def _dispatch_workflow_command(parser, args) -> int:
     """The original three commands, unchanged in behaviour.
 
@@ -7526,11 +7680,14 @@ def _dispatch_workflow_command(parser, args) -> int:
         )
         return 0
 
-    outcome = _guarded_call(f"main:{repo}", repo, issue_num, lambda: main(
+    outcome = _guarded_call(f"main:{repo}", repo, issue_num, lambda: _run_attempt(
         repo, issue_num, args.test_command, force_workspace=args.force_workspace
     ))
-    if outcome == "draft_pr":
+    if outcome == AttemptOutcome.PR_DRAFTED:
         print("\n🛑 Draft PR is up -- shutting down here by design (nothing runs unattended).")
+    elif outcome in (AttemptOutcome.ABANDONED_PREFLIGHT, AttemptOutcome.ABANDONED_ERROR,
+                     AttemptOutcome.ABANDONED_FAILED):
+        print(f"\n🛑 Run ended ({outcome}) -- record terminal, lane freed.")
     return 0
 
 
