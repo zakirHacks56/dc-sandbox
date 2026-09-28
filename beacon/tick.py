@@ -216,6 +216,131 @@ _INFLIGHT_STATES = ("ANALYZING", "IMPLEMENTING", "WAITING_FOR_FEEDBACK",
 # (or was meant to be) involved -- neither gets fast-reaped.
 _REAPABLE_STATES = ("ANALYZING", "IMPLEMENTING", "TESTING", "REVIEWING")
 
+# Records we will NOT re-file based on GitHub truth -- their terminal state is
+# already the honest reflection of the PR's fate.
+_RECONCILE_SKIP_STATES = ("COMPLETED", "ABANDONED", "CANCELLED")
+
+
+def _reconcile_prs(board, enabled_repos: set) -> int:
+    """GitHub-truth reconcile: resolve parked lanes whose PR (or the issue it
+    fixes) has ALREADY been resolved upstream -- without waiting for the
+    3-day sweep.
+
+    The open-PR guard reads GitHub live, so a repo whose PR the maintainer
+    CLOSED or MERGED is already unblocked -- but the lane record keeps sitting
+    WAITING_FOR_FEEDBACK forever, booking today's budget and (for closed) never
+    getting the courteous close + thanks the maintainer earned. Ask GitHub what
+    actually happened to each parked PR and re-file the lane to match:
+
+      * PR MERGED       -> COMPLETED + a courteous thank-you comment (retired
+                           by the fixer's own merge detection on the next
+                           -conversation; doing it here frees the slot now).
+      * PR CLOSED unmerge -> ABANDONED (the maintainer already made the call;
+                           we don't give up on it -- it's already over).
+      * PR still open but the issue it fixes is CLOSED -> courteously close
+                           OUR OWN draft via the fixer -close (auto-approved),
+                           ABANDONED -- the slot is burned on a done issue.
+
+    Cheap: one GET per parked record (two for the issue-closed check), and a
+    courtesy comment / fixer-close subprocess is only spawned for the last
+    case, once per tick. Pure re-files (merged / closed-unmerged) are only
+    local JSON writes and run in bulk. Returns the number of lanes re-filed."""
+    re_filed = 0
+    wf_root = util.FIXER / ".agent_data" / "workflows"
+    if not wf_root.exists():
+        return 0
+    lanes = board.setdefault("lanes", {})
+    closed_one = False
+    for rec_path in sorted(wf_root.glob("*/issue-*.json")):
+        rec = util.load_json(rec_path, None)
+        if not rec:
+            continue
+        if str(rec.get("state", "")) in _RECONCILE_SKIP_STATES:
+            continue
+        repo_name = str(rec.get("repo", ""))
+        try:
+            issue_num = int(rec["issue"])
+            pr_num = int(rec["pr_number"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if not repo_name or "/" not in repo_name or repo_name not in enabled_repos:
+            continue
+        lane_key = f"{repo_name}#{issue_num}"
+        if lane_key in lanes and lanes[lane_key].get("state") in ("COMPLETED", "ABANDONED"):
+            continue
+        pr = util.gh_api("GET", f"/repos/{repo_name}/pulls/{pr_num}")
+        if not pr:
+            continue  # API hiccup -- sweep will catch this lane later anyway
+        merged = bool(pr.get("merged"))
+        pr_state = str(pr.get("state", ""))
+        keep = rec.get("updated_at") or rec.get("updated") or util.now_utc()
+        if merged:
+            util.log(f"reconcile: PR #{pr_num} for {lane_key} MERGED upstream "
+                     f"-- marking COMPLETED")
+            rec["state"] = "COMPLETED"
+            rec["outcome"] = "merged upstream"
+            rec["reconcile_at"] = util.now_utc()
+            util.save_json(rec_path, rec)
+            lanes[lane_key] = {"state": "COMPLETED", "decision": True,
+                               "pr": pr_num, "updated": keep}
+            _thank_merge(repo_name, pr_num)
+            re_filed += 1
+        elif pr_state == "closed":
+            util.log(f"reconcile: PR #{pr_num} for {lane_key} closed WITHOUT "
+                     f"merge -- marking ABANDONED")
+            rec["state"] = "ABANDONED"
+            rec["outcome"] = "maintainer closed PR without merge"
+            rec["reconcile_at"] = util.now_utc()
+            util.save_json(rec_path, rec)
+            lanes[lane_key] = {"state": "ABANDONED", "decision": False,
+                               "pr": pr_num, "updated": keep}
+            re_filed += 1
+        else:
+            # PR is still open. If the issue it fixes is DONE upstream, keep
+            # the repo slot moving instead of parking forever on a corpse.
+            # Only one courteous close per tick -- a subprocess is a real
+            # unit of work, and the rest wait for the following ticks.
+            if closed_one:
+                continue
+            issue = util.gh_api("GET", f"/repos/{repo_name}/issues/{issue_num}")
+            if issue and str(issue.get("state", "")) != "open":
+                util.log(f"reconcile: PR #{pr_num} for {lane_key} still open but "
+                         f"issue #{issue_num} is {issue.get('state')} upstream -- "
+                         f"courteously closing our own PR")
+                try:
+                    result = _run_fixer(
+                        ["--repo", repo_name, "--issue", str(issue_num),
+                         "--force", "-close"],
+                        extra_env={"GATE_AUTO_CLOSE": "1"},
+                    )
+                except subprocess.TimeoutExpired:
+                    util.log(f"reconcile: courteous close of {lane_key} TIMED OUT "
+                             f"-- leaving lane to the sweep")
+                    continue
+                util.log(f"reconcile: fixer close of {lane_key} -> {result}")
+                rec["state"] = "ABANDONED"
+                rec["reconcile_at"] = util.now_utc()
+                util.save_json(rec_path, rec)
+                lanes[lane_key] = {"state": "ABANDONED", "decision": False,
+                                   "updated": keep}
+                closed_one = True
+                re_filed += 1
+    return re_filed
+
+
+def _thank_merge(repo_name: str, pr_num: int) -> None:
+    """Best-effort thank-you on a merged PR; never raises. The maintainer read
+    the draft, reviewed and merged it -- a one-line thanks is the courteous
+    part of the reconcile, and it also nudges flaky merge paths to converge."""
+    try:
+        util.gh_api(
+            "POST",
+            f"/repos/{repo_name}/issues/{pr_num}/comments",
+            {"body": "Thanks for reviewing and merging this!"},
+        )
+    except Exception:  # noqa: BLE001 -- courtesy, never a blocker
+        pass
+
 
 def _stale_days(updated: str | None) -> float | None:
     """Whole days a timestamp is past (None when it can't be read or is missing)."""
@@ -448,6 +573,11 @@ def main() -> int:
         acted = True
 
     if not acted:
+        reconciled = _reconcile_prs(board, enabled_repos)
+        if reconciled:
+            util.log(f"reconcile: re-filed {reconciled} parked lane(s) to match GitHub truth")
+            acted = True  # a subprocess close counts as this tick's unit of work
+
         stale_resolved = _sweep_stale(board, enabled_repos)
         if stale_resolved:
             util.log(f"sweep: resolved {stale_resolved} stale in-flight lane(s)")
