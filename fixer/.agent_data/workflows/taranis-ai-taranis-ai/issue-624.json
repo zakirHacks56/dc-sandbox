@@ -5,7 +5,7 @@
   "issue_title": "Max size of attribute text content",
   "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/624",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-624",
   "base_branch": "master",
@@ -75,5 +75,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo taranis-ai/taranis-ai --resume 624",
     "python oss_agent_v2.py --repo taranis-ai/taranis-ai --conversation 624"
-  ]
+  ],
+  "swept_at": "2026-09-28T10:23:57+00:00"
 }

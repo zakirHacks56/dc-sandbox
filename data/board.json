@@ -231,9 +231,9 @@
       "updated": "2026-09-25T09:43:14"
     },
     "taranis-ai/taranis-ai#624": {
-      "state": "PAUSED",
-      "pr": null,
-      "updated": "2026-09-25T10:22:28+00:00"
+      "state": "ABANDONED",
+      "decision": false,
+      "updated": "2026-09-25T10:22:28"
     },
     "izzywdev/FuzeFront#1187": {
       "state": "IMPLEMENTING",
@@ -576,5 +576,5 @@
       "updated": "2026-09-28T02:28:26+00:00"
     }
   },
-  "last_tick": "2026-09-28T10:13:18+00:00"
+  "last_tick": "2026-09-28T10:23:57+00:00"
 }
