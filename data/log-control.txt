@@ -17625,3 +17625,33 @@ gface.co/datasets/Rekin226/aquascope-gauges/resolve/main/stations.geojson",
 
 Switched to a new branch 'fix-issue-270'
 2026-09-28T18:47:46+00:00  tick done (outcome=hunted)
+2026-09-28T19:01:43+00:00  gate poller start (offset=746150288)
+2026-09-28T19:01:51+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-28T19:01:52+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-28T19:01:53+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-28T19:01:54+00:00  HUNTING: trying taranis-ai/taranis-ai#1132
+2026-09-28T19:01:54+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo taranis-ai/taranis-ai --issue 1132 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-28T19:03:48+00:00  fixer exit=0
+--tail--
+- running multi-strategy dependency install.
+   ↳ 🚀 Difficulty escalation: hard task -> 8 attempts, 10 context files.
+   ↳  context budget 90000 chars spent -- keeping 4 file(s), dropping rest
+✅ Found 4 relevant files (0 via AI selection, 10 via keyword match)
+Step 8a: running baseline tests (before any changes)...
+❌ Tests failed
+🗺️  Hard task -- drafting an implementation plan before writing code.
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (ProviderBudgetExceeded): global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (ProviderBudgetExceeded): global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+--- Attempt 1/8 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (ProviderBudgetExceeded): global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (ProviderBudgetExceeded): global daily token budget of 2000000 exhausted (see /home/runner/work/dc-sandbox/dc-sandbox/data/provider_usage.json)
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+🛑 Run ended (abandoned_error) -- record terminal, lane freed.
+
+Switched to a new branch 'fix-issue-1132'
+2026-09-28T19:03:48+00:00  tick done (outcome=hunted)

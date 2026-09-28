@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T18:47:46",
+  "updated_at": "2026-09-28T19:03:48",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1456,6 +1456,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T18:47:46"
+    },
+    "taranis-ai/taranis-ai#1132": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 1132,
+      "issue_title": "Show OSINT source stats in Dashboard",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-1132.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-1132",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-1132",
+      "conversation_id": "20260928T190314-a459e422",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-1132",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T19:03:48"
     }
   }
 }
