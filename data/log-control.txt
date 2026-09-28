@@ -16496,3 +16496,32 @@ n
 
 Switched to a new branch 'fix-issue-556'
 2026-09-28T01:39:39+00:00  tick done
+2026-09-28T01:40:39+00:00  gate poller start (offset=746150288)
+2026-09-28T01:40:47+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-28T01:40:48+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-28T01:40:49+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-28T01:40:51+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-28T01:40:51+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-28T01:40:51+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-28T01:40:52+00:00  HUNTING: trying taranis-ai/taranis-ai#553
+2026-09-28T01:40:52+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo taranis-ai/taranis-ai --issue 553 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-28T01:41:17+00:00  fixer exit=0
+--tail--
+Full transcript being saved to: .agent_data/logs/taranis-ai-taranis-ai_issue553_20260928_014053.log
+Step 1-2: checking #553 - Add summarize bot to reports
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+✅ Forked, cloned, branched: fix-issue-553
+   ↳ Detected language/build system: python
+   ↳ Detected python -- running multi-strategy dependency install.
+✅ Found 6 relevant files (0 via AI selection, 6 via keyword match)
+Step 8a: running baseline tests (before any changes)...
+❌ Tests failed
+
+--- Attempt 1/5 ---
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~42890 tokens (input 39890 + max_tokens 3000) but only 40000 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~42890 tokens (input 39890 + max_tokens 3000) but only 40000 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+Switched to a new branch 'fix-issue-553'
+2026-09-28T01:41:17+00:00  tick done
