@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-28T21:25:34",
+  "updated_at": "2026-09-28T21:30:50",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -1711,6 +1711,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-28T21:25:34"
+    },
+    "izzywdev/FuzeFront#986": {
+      "repo": "izzywdev/FuzeFront",
+      "issue": 986,
+      "issue_title": "DS extraction: recurring UI pattern (ds-fp:732c954888b4)",
+      "workflow_path": "workflows/izzywdev-FuzeFront/issue-986.json",
+      "conversation_dir": "conversations/izzywdev-FuzeFront/issue-986",
+      "workspace": "workspace/izzywdev-FuzeFront/issue-986",
+      "conversation_id": "20260928T213007-d326715a",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-986",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-28T21:30:50"
     }
   }
 }
