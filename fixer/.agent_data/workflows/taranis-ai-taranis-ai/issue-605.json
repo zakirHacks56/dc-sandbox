@@ -5,7 +5,7 @@
   "issue_title": "Drop flushing of conflict stores",
   "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/605",
   "issue_state": "open",
-  "state": "PAUSED",
+  "state": "ABANDONED",
   "status": "paused",
   "branch": "fix-issue-605",
   "base_branch": "master",
@@ -76,5 +76,6 @@
   "resume_instructions": [
     "python oss_agent_v2.py --repo taranis-ai/taranis-ai --resume 605",
     "python oss_agent_v2.py --repo taranis-ai/taranis-ai --conversation 605"
-  ]
+  ],
+  "swept_at": "2026-09-28T13:15:45+00:00"
 }
