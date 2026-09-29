@@ -18214,3 +18214,9 @@
 2026-09-29T18:58:19+00:00  gate poller start (offset=746150317)
 2026-09-29T18:58:27+00:00  poll lease taken for 45s
 2026-09-29T18:58:27+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T19:08:25+00:00  gate poller start (offset=746150317)
+2026-09-29T19:08:26+00:00  master switch -> RUNNING (via Telegram)
+2026-09-29T19:08:28+00:00  control card edit network error -- keeping card
+2026-09-29T19:08:29+00:00  poll lease taken for 45s
+2026-09-29T19:08:30+00:00  control card edit network error -- keeping card
+2026-09-29T19:08:30+00:00  gate poller done: 1 callback(s), new offset=746150322
