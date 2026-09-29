@@ -256,11 +256,36 @@ def _open_pr_count(repo_full: str, login: str) -> int:
 
 
 def find_candidate(conf: dict, board: dict) -> tuple | None:
-    """Return (repo_full_name, issue_number) or None if nothing is worth a try."""
+    """Return (repo_full_name, issue_number) or None if nothing is worth a try.
+
+    Never raises: a hunt runs 8x a day on a fixed controller slot, so a single
+    misconfigured target or unexpected data shape must not kill the whole tick.
+    Any unexpected exception is logged and treated as 'no candidate'."""
+    try:
+        return _find_candidate_impl(conf, board)
+    except Exception as exc:  # noqa: BLE001 - a hunt must never crash the tick
+        util.log(f"hunt error: {type(exc).__name__}: {str(exc)[:200]} -- "
+                 "treating as no candidate")
+        return None
+
+
+def _as_int(conf: dict, key: str, default: int) -> int:
+    """Tolerate a bad/missing int config so one typo can't kill the hunt."""
+    try:
+        return int(conf.get(key, default))
+    except (TypeError, ValueError):
+        util.log(f"hunt config: '{key}' is not an int ({conf.get(key)!r}) -- "
+                 f"using {default}")
+        return default
+
+
+def _find_candidate_impl(conf: dict, board: dict) -> tuple | None:
+    """Inner candidate search; per-target exceptions are absorbed so one bad
+    target is skipped while the other repos keep being scanned."""
     login = (util.gh_api("GET", "/user") or {}).get("login", "")
-    max_stars = int(conf.get("max_stars", 3000))
-    max_file_bytes = int(conf.get("max_file_bytes", 0))
-    max_per_day = int(conf.get("max_attempts_per_repo_day", 0))
+    max_stars = _as_int(conf, "max_stars", 3000)
+    max_file_bytes = _as_int(conf, "max_file_bytes", 0)
+    max_per_day = _as_int(conf, "max_attempts_per_repo_day", 0)
     labels = conf.get("default_labels", ["good first issue"])
 
     targets = [t for t in conf.get("targets", []) if t.get("enabled", True)]
@@ -268,35 +293,43 @@ def find_candidate(conf: dict, board: dict) -> tuple | None:
         return None
 
     for target in targets:
-        repo_full = target["repo"]
-        attempts = set(board.get("attempted", {}).get(repo_full, []))
-        if not _stars_ok(repo_full, max_stars):
-            util.log(f"{repo_full}: skipping (stars > {max_stars})")
+        repo_full = target.get("repo", "")
+        if not repo_full:
+            util.log(f"hunt: skipping a target with no repo name ({str(target)[:80]})")
             continue
-        if not _repo_active(repo_full, board):
-            util.log(f"{repo_full}: skipping (inactive: archived/disabled/quiet/suspended)")
-            continue
-        if _tree_too_big(repo_full, max_file_bytes):
-            continue
-        if not _day_attempt_budget_ok(repo_full, board, max_per_day):
-            util.log(f"{repo_full}: skipping (hit {max_per_day}-lane/day budget)")
-            continue
-        if login and _open_pr_count(repo_full, login) >= 1:
-            util.log(f"{repo_full}: skipping (we already have an open PR there)")
-            continue
+        try:
+            attempts = set(board.get("attempted", {}).get(repo_full, []))
+            if not _stars_ok(repo_full, max_stars):
+                util.log(f"{repo_full}: skipping (stars > {max_stars})")
+                continue
+            if not _repo_active(repo_full, board):
+                util.log(f"{repo_full}: skipping (inactive: archived/disabled/quiet/suspended)")
+                continue
+            if _tree_too_big(repo_full, max_file_bytes):
+                continue
+            if not _day_attempt_budget_ok(repo_full, board, max_per_day):
+                util.log(f"{repo_full}: skipping (hit {max_per_day}-lane/day budget)")
+                continue
+            if login and _open_pr_count(repo_full, login) >= 1:
+                util.log(f"{repo_full}: skipping (we already have an open PR there)")
+                continue
 
-        repo_labels = target.get("labels")
-        if repo_labels is None:
-            path = f"/repos/{repo_full}/issues?state=open"
-            picked = _pick_issue(util.gh_paged(path), attempts, repo_full)
-            if picked:
-                return repo_full, picked[0]
-            util.log(f"{repo_full}: no eligible open issue (unlabeled hunt)")
+            repo_labels = target.get("labels")
+            if repo_labels is None:
+                path = f"/repos/{repo_full}/issues?state=open"
+                picked = _pick_issue(util.gh_paged(path), attempts, repo_full)
+                if picked:
+                    return repo_full, picked[0]
+                util.log(f"{repo_full}: no eligible open issue (unlabeled hunt)")
+                continue
+            for label in repo_labels:
+                path = f"/repos/{repo_full}/issues?state=open&labels={quote(label)}"
+                picked = _pick_issue(util.gh_paged(path), attempts, repo_full)
+                if picked:
+                    return repo_full, picked[0]
+                util.log(f"{repo_full}: no eligible issue under label '{label}'")
+        except Exception as exc:  # noqa: BLE001 - one bad repo must not kill the hunt
+            util.log(f"{repo_full}: hunt target error: {type(exc).__name__}: "
+                     f"{str(exc)[:200]} -- skipping this repo")
             continue
-        for label in repo_labels:
-            path = f"/repos/{repo_full}/issues?state=open&labels={quote(label)}"
-            picked = _pick_issue(util.gh_paged(path), attempts, repo_full)
-            if picked:
-                return repo_full, picked[0]
-            util.log(f"{repo_full}: no eligible issue under label '{label}'")
     return None

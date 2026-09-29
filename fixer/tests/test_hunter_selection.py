@@ -219,3 +219,31 @@ def test_find_candidate_none_when_all_consumed(tmp_path, monkeypatch):
     _write_record(tmp_path, "o/r", 2,
                   {"state": "COMPLETED", "attempt_status": "attempted_success"})
     assert hunter.find_candidate(_conf(), {}) is None
+
+
+# --- error handling: a hunt must never crash the tick ------------------------
+
+def test_find_candidate_bad_config_int_never_raises(tmp_path, monkeypatch):
+    _patch(monkeypatch, _FakeGH(issues=[_issue(1, "2026-09-01T00:00:00Z")]))
+    monkeypatch.setattr(util, "FIXER", tmp_path / "fixer")
+    conf = _conf()
+    conf["max_stars"] = "not-an-int"
+    conf["max_file_bytes"] = "definitely-not-an-int"
+    assert hunter.find_candidate(conf, {}) == ("o/r", 1)
+
+
+def test_find_candidate_target_missing_repo_never_raises(tmp_path, monkeypatch):
+    _patch(monkeypatch, _FakeGH(issues=[_issue(1, "2026-09-01T00:00:00Z")]))
+    monkeypatch.setattr(util, "FIXER", tmp_path / "fixer")
+    conf = _conf()
+    conf["targets"] = [{"enabled": True}, {"repo": "o/r", "enabled": True}]
+    assert hunter.find_candidate(conf, {}) == ("o/r", 1)
+
+
+def test_find_candidate_unexpected_error_returns_none(tmp_path, monkeypatch):
+    def _boom(method, path, payload=None):
+        raise RuntimeError("vault locked")
+
+    monkeypatch.setattr(util, "gh_api", _boom)
+    monkeypatch.setattr(util, "FIXER", tmp_path / "fixer")
+    assert hunter.find_candidate(_conf(), {}) is None

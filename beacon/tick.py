@@ -91,6 +91,11 @@ def _run_fixer(args: list, extra_env: dict | None = None) -> str:
     except subprocess.TimeoutExpired:
         util.log("fixer TIMED OUT after %s s" % RUN_TIMEOUT_SECONDS)
         return "timeout"
+    except (OSError, subprocess.SubprocessError) as exc:
+        # Launch-level failure (python missing, permission, broken pipe) must
+        # not abort the tick -- report it so the chain can stop cleanly.
+        util.log(f"fixer crash: {type(exc).__name__}: {str(exc)[:200]}")
+        return f"crash:{type(exc).__name__}"
     tail = ((proc.stdout or "")[-1500:] + "\n" + (proc.stderr or "")[-500:]).strip()
     util.log(f"fixer exit={proc.returncode}\n--tail--\n{tail}")
     return "ok" if proc.returncode == 0 else f"exit{proc.returncode}"
@@ -629,7 +634,12 @@ def main() -> int:
                 tried = 0
                 chained_failure = False
                 while tried < max_candidates:
-                    candidate = hunter_stage.find_candidate(conf, board)
+                    try:
+                        candidate = hunter_stage.find_candidate(conf, board)
+                    except Exception as hunt_err:  # noqa: BLE001 - never kill the tick
+                        util.log(f"hunt error: {type(hunt_err).__name__}: "
+                                 f"{str(hunt_err)[:200]} -- no candidate this tick")
+                        candidate = None
                     if candidate is None:
                         if not chained_failure:
                             calls, fails = util.gh_api_stats()
@@ -666,22 +676,31 @@ def main() -> int:
                         util.log(f"human gate required for {repo_name} -- "
                                  "GATE_AUTO=0 so the diff is offered to Telegram")
                         extra_env = {"GATE_AUTO": "0"}
-                    _run_fixer(["--repo", repo_name, "--issue", str(issue_number), "--gate-sync"],
-                               extra_env=extra_env)
-                    attempts = _attempted(board, repo_name)
-                    if issue_number not in attempts:
-                        attempts.append(issue_number)
-                        if len(attempts) > 50:
-                            del attempts[: len(attempts) - 50]
-                    rec = _workflow_record(repo_name, issue_number)
-                    if rec:
-                        board.setdefault("lanes", {})[f"{repo_name}#{issue_number}"] = {
-                            "state": rec.get("state"), "pr": rec.get("pr_number"),
-                            "spent": _lane_spent(repo_name, issue_number),
-                            "updated": util.now_utc(),
-                        }
+                    # This candidate is this tick's unit of work from here on;
+                    # a crash mid-run is still an acted (hunted) block.
                     acted = True
                     outcome = "hunted"
+                    try:
+                        _run_fixer(["--repo", repo_name, "--issue", str(issue_number),
+                                    "--gate-sync"], extra_env=extra_env)
+                        attempts = _attempted(board, repo_name)
+                        if issue_number not in attempts:
+                            attempts.append(issue_number)
+                            if len(attempts) > 50:
+                                del attempts[: len(attempts) - 50]
+                        rec = _workflow_record(repo_name, issue_number)
+                        if rec:
+                            board.setdefault("lanes", {})[f"{repo_name}#{issue_number}"] = {
+                                "state": rec.get("state"), "pr": rec.get("pr_number"),
+                                "spent": _lane_spent(repo_name, issue_number),
+                                "updated": util.now_utc(),
+                            }
+                    except Exception as run_err:  # noqa: BLE001 - keep the tick alive
+                        util.log(f"run error for {repo_name}#{issue_number}: "
+                                 f"{type(run_err).__name__}: {str(run_err)[:200]} "
+                                 "-- stopping the same-run chain")
+                        rec = None
+                        break
                     tried += 1
                     chained_failure = True
                     if tried >= max_candidates:
