@@ -17961,3 +17961,7 @@
 2026-09-28T15:13:42+00:00  gate poller done: 0 decree(s), new offset=746150288
 2026-09-28T15:14:29+00:00  gate poller start (offset=746150288)
 2026-09-28T15:14:38+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-29T08:59:09+00:00  gate poller start (offset=0)
+2026-09-29T08:59:17+00:00  poll lease taken for 45s
+2026-09-29T08:59:18+00:00  control card posted (message_id=282)
+2026-09-29T08:59:18+00:00  gate poller done: 0 callback(s), new offset=0
