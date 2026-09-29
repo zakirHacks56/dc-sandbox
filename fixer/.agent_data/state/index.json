@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-29T00:14:17",
+  "updated_at": "2026-09-29T00:31:31",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -2041,6 +2041,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-29T00:14:17"
+    },
+    "Rekin226/aquascope#126": {
+      "repo": "Rekin226/aquascope",
+      "issue": 126,
+      "issue_title": "Add CemaNeige degree-day snow routine coupled to GR4J",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-126.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-126",
+      "workspace": "workspace/Rekin226-aquascope/issue-126",
+      "conversation_id": "20260929T003032-a18285d1",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-126",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-29T00:31:31"
     }
   }
 }
