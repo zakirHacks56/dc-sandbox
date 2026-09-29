@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-29T19:15:50",
+  "updated_at": "2026-09-29T19:31:06",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -2146,6 +2146,36 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-29T19:15:50"
+    },
+    "tashfeenahmed/freellmapi#1354": {
+      "repo": "tashfeenahmed/freellmapi",
+      "issue": 1354,
+      "issue_title": "JEV-Based Intelligent Model Selection & Routing",
+      "workflow_path": "workflows/tashfeenahmed-freellmapi/issue-1354.json",
+      "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1354",
+      "workspace": "workspace/tashfeenahmed-freellmapi/issue-1354",
+      "conversation_id": "20260929T192728-41a78b07",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-1354",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-29T19:28:32"
+    },
+    "tashfeenahmed/freellmapi#1349": {
+      "repo": "tashfeenahmed/freellmapi",
+      "issue": 1349,
+      "issue_title": "Gemini error iin claude code",
+      "workflow_path": "workflows/tashfeenahmed-freellmapi/issue-1349.json",
+      "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1349",
+      "workspace": "workspace/tashfeenahmed-freellmapi/issue-1349",
+      "conversation_id": "20260929T193012-9bff4bc3",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-1349",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-29T19:31:06"
     }
   }
 }

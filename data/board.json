@@ -160,7 +160,9 @@
     ],
     "tashfeenahmed/freellmapi": [
       1369,
-      1360
+      1360,
+      1354,
+      1349
     ]
   },
   "lanes": {
@@ -986,9 +988,21 @@
       "pr": null,
       "spent": 500132,
       "updated": "2026-09-29T19:15:50+00:00"
+    },
+    "tashfeenahmed/freellmapi#1354": {
+      "state": "ABANDONED",
+      "pr": null,
+      "spent": 157976,
+      "updated": "2026-09-29T19:28:32+00:00"
+    },
+    "tashfeenahmed/freellmapi#1349": {
+      "state": "ABANDONED",
+      "pr": null,
+      "spent": 177150,
+      "updated": "2026-09-29T19:31:06+00:00"
     }
   },
-  "last_tick": "2026-09-29T19:15:50+00:00",
+  "last_tick": "2026-09-29T19:31:14+00:00",
   "repo_activity": {
     "results": {
       "yunaremaia/sandbox-ffi-layers": true,
