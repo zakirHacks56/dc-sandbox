@@ -7,9 +7,9 @@
   "max_file_bytes": 400000,
   "max_attempts_per_repo_day": 4,
   "targets": [
-    { "repo": "yunaremaia/sandbox-ffi-layers", "labels": ["good first issue", "enhancement", "bug"], "enabled": true },
-    { "repo": "Rekin226/aquascope", "labels": ["good first issue", "help wanted", "bug", "testing", "enhancement"], "enabled": true },
-    { "repo": "taranis-ai/taranis-ai", "labels": ["good first issue", "help wanted", "bug", "enhancement"], "enabled": true },
-    { "repo": "izzywdev/FuzeFront", "labels": null, "enabled": true }
+    { "repo": "yunaremaia/sandbox-ffi-layers", "labels": ["good first issue", "enhancement", "bug"], "enabled": true, "require_approval": true },
+    { "repo": "Rekin226/aquascope", "labels": ["good first issue", "help wanted", "bug", "testing", "enhancement"], "enabled": true, "require_approval": true },
+    { "repo": "taranis-ai/taranis-ai", "labels": ["good first issue", "help wanted", "bug", "enhancement"], "enabled": true, "require_approval": true },
+    { "repo": "izzywdev/FuzeFront", "labels": null, "enabled": true, "require_approval": true }
   ]
 }

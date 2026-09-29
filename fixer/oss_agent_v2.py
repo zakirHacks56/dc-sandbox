@@ -4396,7 +4396,7 @@ def _notify_gate(key: str, repo_name: str, issue_number: int, gate: str,
     text = (
         f"Human gate: {gate}\n"
         f"{repo_name}#{issue_number}\n"
-        f"{review_text[:900]}"
+        f"{review_text[:3900]}"
     )
     _tg_send("sendMessage", {
         "text": text,
@@ -4530,7 +4530,7 @@ def human_gate(
     return _human_gate(
         repo_name, issue_number, "human",
         "\n[Human Gate] Approve and submit Draft PR? (y/n): ",
-        f"Diff stats: {shortstat or 'unavailable'}\n{diff[:2000]}",
+        f"Diff stats: {shortstat or 'unavailable'}\n{diff[:3800]}",
     )
 
 

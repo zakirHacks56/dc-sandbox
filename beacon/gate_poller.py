@@ -23,9 +23,14 @@ import beacon_util as util  # noqa: E402
 
 OFFSET = util.DATA / "offset.json"
 
+# The fixer prefers the manual (operator-facing) bot when present, so taps the
+# operator makes locally must be polled with the SAME token precedence or the
+# poller never sees them. Only TELEGRAM_BOT_TOKEN is set in the cloud.
+POLL_LEASE_SECONDS = 120  # one long-poller per window avoids Telegram 409
+
 
 def _tg_call(method: str, payload: dict, timeout: int = 30):
-    token = os.getenv("TELEGRAM_BOT_TOKEN", "")
+    token = os.getenv("MANUAL_BOT_TOKEN") or os.getenv("TELEGRAM_BOT_TOKEN", "")
     if not token:
         return None
     host = util.TG_API_HOST
@@ -199,27 +204,41 @@ def _handle_callback(query: dict) -> bool:
 
 
 def main() -> int:
-    offset = util.load_json(OFFSET, {}).get("offset", 0)
+    doc = util.load_json(OFFSET, {})
+    offset = int(doc.get("offset", 0))
     util.log(f"gate poller start (offset={offset})")
+    # Only ONE long-poller per window: both the controller and gate-poll
+    # workflows run this script, and two concurrent getUpdates on the same bot
+    # make Telegram answer callbacks with "409 Conflict: terminated by other
+    # getUpdates request" -- taps then appear dead. The lease rides in the same
+    # committed offset.json, so both workflows see the most recent winner.
+    lease = doc.get("poll_lease", 0) or 0
+    held = lease and (time.time() - float(lease)) < POLL_LEASE_SECONDS
+    if held:
+        util.log("poll lease held by a concurrent poller -- skipping getUpdates")
     handled = 0
-    for _ in range(2):  # a couple of passes in case buttons arrive in a burst
-        updates = _get_updates(offset)
-        if not updates:
-            break
-        for update in updates:
-            update_id = int(update.get("update_id", 0))
-            if update_id >= offset:
-                offset = update_id + 1
-            query = update.get("callback_query")
-            if query and _handle_callback(query):
-                handled += 1
+    if not held:
+        for _ in range(2):  # a couple of passes in case buttons arrive in a burst
+            updates = _get_updates(offset)
+            if not updates:
+                break
+            for update in updates:
+                update_id = int(update.get("update_id", 0))
+                if update_id >= offset:
+                    offset = update_id + 1
+                query = update.get("callback_query")
+                if query and _handle_callback(query):
+                    handled += 1
+        doc["poll_lease"] = time.time()
+        util.log(f"poll lease taken for {POLL_LEASE_SECONDS}s")
     # Keep the Start/Stop card pinned and current (also posts it if Telegram
     # purged it, or for the very first run -- where the card file is empty).
     if os.getenv("TELEGRAM_CHAT_ID"):
         _ensure_control_card()
-    if offset:
-        # Merge, don't clobber: the same file carries the master switch + card.
-        doc = util.load_json(OFFSET, {})
+    if held or doc.get("poll_lease"):
+        # Merge, don't clobber: the same file carries the master switch + card,
+        # and regardless of whether THIS run polled, any poll means a lease was
+        # taken (or is still held) so it must be persisted for the other poller.
         doc["offset"] = offset
         util.save_json(OFFSET, doc)
     util.log(f"gate poller done: {handled} callback(s), new offset={offset}")

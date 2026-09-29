@@ -42,6 +42,14 @@ STALE_PR_AGE_DAYS = 3
 REAP_MAX_AGE_SECONDS = 40 * 60
 
 
+def _target_flags(conf: dict, repo_name: str) -> dict:
+    """Per-repo flags from config/targets.json (e.g. require_approval)."""
+    for t in conf.get("targets", []):
+        if t.get("repo") == repo_name:
+            return t
+    return {}
+
+
 def _providers_callable() -> bool:
     """Preflight for the fresh-hunt path: is any registered LLM provider
     callable right now?
@@ -615,7 +623,16 @@ def main() -> int:
                 if candidate:
                     repo_name, issue_number = candidate
                     util.log(f"HUNTING: trying {repo_name}#{issue_number}")
-                    _run_fixer(["--repo", repo_name, "--issue", str(issue_number), "--gate-sync"])
+                    extra_env = None
+                    if _target_flags(conf, repo_name).get("require_approval"):
+                        # Real human gate: the fixer parks the draft-PR submit
+                        # gate and posts an Approve/Decline button (with the
+                        # diff) instead of self-approving it.
+                        util.log(f"human gate required for {repo_name} -- "
+                                 "GATE_AUTO=0 so the diff is offered to Telegram")
+                        extra_env = {"GATE_AUTO": "0"}
+                    _run_fixer(["--repo", repo_name, "--issue", str(issue_number), "--gate-sync"],
+                               extra_env=extra_env)
                     attempts = _attempted(board, repo_name)
                     if issue_number not in attempts:
                         attempts.append(issue_number)

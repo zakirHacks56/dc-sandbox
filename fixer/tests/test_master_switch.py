@@ -11,6 +11,7 @@ never touch the network or Telegram API.
 import json
 import os
 import sys
+import time
 from pathlib import Path
 
 import pytest
@@ -185,3 +186,109 @@ def test_status_button_sends_summary(monkeypatch, tmp_path):
     assert gate_poller._handle_callback(query) is True
     assert any("Issues encountered" in t for t in calls["notify"]), \
         "Status tap must send the summary to the chat"
+
+
+def test_poll_lease_skips_getUpdates_when_held(monkeypatch, tmp_path):
+    """A lease fresh enough must keep a second poller from long-polling the
+    same bot (the two workflows both run gate_poller.py)."""
+    import beacon_util as util
+    import gate_poller
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    monkeypatch.setattr(gate_poller, "OFFSET", tmp_path / "offset.json")
+    (tmp_path / "offset.json").write_text(json.dumps({
+        "offset": 5, "poll_lease": time.time() - 10,
+    }), encoding="utf-8")
+    updates_called = {"n": 0}
+    monkeypatch.setattr(gate_poller, "_get_updates",
+                        lambda offset: updates_called.update(n=updates_called["n"] + 1) or [])
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "-100123")
+    rc = gate_poller.main()
+    assert rc == 0
+    assert updates_called["n"] == 0, "held lease must skip getUpdates"
+    doc = json.loads((tmp_path / "offset.json").read_text(encoding="utf-8"))
+    assert doc["offset"] == 5, "offset preserved while skipping"
+    assert doc["poll_lease"], "lease persisted"
+
+
+def test_poll_lease_taken_when_stale(monkeypatch, tmp_path):
+    """An expired lease lets the poller long-poll and stamps a new lease."""
+    import beacon_util as util
+    import gate_poller
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    monkeypatch.setattr(gate_poller, "OFFSET", tmp_path / "offset.json")
+    (tmp_path / "offset.json").write_text(json.dumps({
+        "offset": 0, "poll_lease": time.time() - 1000,
+    }), encoding="utf-8")
+    monkeypatch.setattr(gate_poller, "_get_updates", lambda offset: [])
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "-100123")
+    rc = gate_poller.main()
+    assert rc == 0
+    doc = json.loads((tmp_path / "offset.json").read_text(encoding="utf-8"))
+    assert doc["poll_lease"], "stale lease replaced"
+
+
+def test_tg_call_prefers_manual_bot_token(monkeypatch):
+    """gate_poller must poll the SAME bot the fixer notifies on (the fixer
+    prefers MANUAL_BOT_TOKEN), or local taps would be invisible to it."""
+    import gate_poller
+    import urllib.request
+
+    class _Resp:
+        def __init__(self, url=None):
+            self._url = url
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+        def read(self):
+            return b'{"ok": true}'
+
+    urls = []
+    monkeypatch.setattr(urllib.request, "urlopen",
+                        lambda req, timeout=30: urls.append(req.full_url) or _Resp(req.full_url))
+    monkeypatch.setenv("MANUAL_BOT_TOKEN", "manual:123")
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram:456")
+    assert gate_poller._tg_call("getMe", {}) is not None
+    assert any("manual:123" in u for u in urls), "must use MANUAL_BOT_TOKEN first"
+
+
+def test_tg_call_falls_back_to_telegram_token(monkeypatch):
+    """Without MANUAL_BOT_TOKEN (the cloud default) the poller uses the
+    TELEGRAM_BOT_TOKEN the workflows set."""
+    import gate_poller
+    import urllib.request
+
+    class _Resp:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+        def read(self):
+            return b'{"ok": true}'
+
+    urls = []
+    monkeypatch.setattr(urllib.request, "urlopen",
+                        lambda req, timeout=30: urls.append(req.full_url) or _Resp())
+    monkeypatch.delenv("MANUAL_BOT_TOKEN", raising=False)
+    monkeypatch.setenv("TELEGRAM_BOT_TOKEN", "telegram:456")
+    assert gate_poller._tg_call("getMe", {}) is not None
+    assert any("telegram:456" in u for u in urls), "must fall back to TELEGRAM_BOT_TOKEN"
+
+
+def test_target_flags_reads_require_approval(tmp_path):
+    import beacon_util as util
+    conf = {
+        "targets": [
+            {"repo": "a/b", "enabled": True, "require_approval": True},
+            {"repo": "c/d", "enabled": True},
+        ]
+    }
+    from tick import _target_flags
+    assert _target_flags(conf, "a/b").get("require_approval") is True
+    assert _target_flags(conf, "c/d").get("require_approval") is None
+    assert _target_flags(conf, "missing/x") == {}
