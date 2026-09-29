@@ -160,11 +160,54 @@ TICK_OUTCOMES = (
     "swept",            # closed stale own PR(s) / abandoned in-flight lanes
     "reaped",           # abandoned leaked in-flight lanes at tick start
     "hunted",           # dispatched a fresh solve attempt
+    "paused",           # master switch OFF -- operator stopped the machine
     "no_candidate",     # healthy tick, but nothing eligible to hunt
     "budget_limited",   # at PR / pending-gate / lane budget cap
     "providers_down",   # no LLM provider callable -- a real infra no-op
     "gh_dead",          # every GitHub API call failed -- token likely dead
 )
+
+
+def _offset_doc() -> dict:
+    """The committed data/offset.json document (poll offset + operator state).
+
+    This file is committed by BOTH the controller and gate-poll workflows, so
+    it is the natural vehicle for the master switch + control card -- no
+    workflow YAML changes needed for the state to survive runs."""
+    return load_json(DATA / "offset.json", {})
+
+
+def _save_offset_doc(doc: dict) -> None:
+    save_json(DATA / "offset.json", doc)
+
+
+def master_switch() -> bool:
+    """True when the controller is allowed to work (default). A missing or
+    unreadable switch key means enabled -- the switch is purely additive, so a
+    repo without it keeps running as before."""
+    try:
+        return bool(_offset_doc().get("master_switch", {}).get("enabled", True))
+    except Exception:  # noqa: BLE001
+        return True
+
+
+def set_master_switch(enabled: bool, by: str = "") -> None:
+    """Persist the operator's Start/Stop state so ticks and the dead-man
+    watchdog can see it. `by` records who flipped it (e.g. "telegram")."""
+    doc = _offset_doc()
+    doc["master_switch"] = {"enabled": bool(enabled), "by": by, "at": now_utc()}
+    _save_offset_doc(doc)
+
+
+def load_control_card() -> dict:
+    return _offset_doc().get("control_card", {})
+
+
+def save_control_card(**fields) -> None:
+    doc = _offset_doc()
+    card = doc.setdefault("control_card", {})
+    card.update(fields)
+    _save_offset_doc(doc)
 
 
 def metric(event: str, **fields) -> None:

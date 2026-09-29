@@ -554,6 +554,23 @@ def main() -> int:
                  "attempted": board.get("attempted", {}),
                  "lanes": board.get("lanes", {})}
 
+    # Master switch (Start/Stop via the Telegram card): when the operator has
+    # STOPPED the machine, the tick becomes a free no-op. No GitHub calls, no
+    # fixer subprocess, no LLM tokens -- just a heartbeat row so the dead-man
+    # watchdog still sees the controller is ALIVE, and a fresh board. Pending
+    # decrees stay parked and are applied on the first tick after Start.
+    if not util.master_switch():
+        outcome = "paused"
+        _housekeeping(board)
+        util.save_json(util.BOARD, board)
+        util.metric("tick", outcome=outcome,
+                    acted=False,
+                    prs_today=int(board.get("prs_today", 0)),
+                    pending=len(_pending_keys()))
+        util.log("tick done (outcome=paused, master switch STOPPED -- "
+                 "no work, no tokens spent)")
+        return 0
+
     acted = False
     outcome = "no_candidate"
 
