@@ -233,7 +233,7 @@ def _tier_for_role(roles: list) -> str:
 # order. The heart of the new routing: coder -> nvidia_nim, planner ->
 # cloudflare_workers_ai, background -> mistral; overflow = llm7 -> hetzner.
 _ROLE_ORDER = {
-    "coder": ["nvidia_nim", "omniroute", "gemini"],
+    "coder": ["omniroute", "nvidia_nim", "gemini"],
     "planner": ["cloudflare_workers_ai", "groq", "openrouter_free", "omniroute"],
     "background": ["mistral"],
     "overflow": ["llm7", "hetzner", "aion_lab", "freellmapi"],

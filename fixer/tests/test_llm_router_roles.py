@@ -118,6 +118,21 @@ def test_role_candidates_coder_overflow_ends_with_freellmapi():
     assert names == ["nvidia_nim", "gemini", "llm7", "hetzner", "aion_lab", "freellmapi"]
 
 
+def test_role_candidates_coder_omniroute_first_then_others_freellmapi_last():
+    providers = [
+        _prov("gemini", roles=["coder"]),
+        _prov("omniroute", roles=["coder"], auto_model_aware=True),
+        _prov("nvidia_nim", base_url="https://integrate.api.nvidia.com/v1", roles=["coder"]),
+        _prov("llm7", base_url="https://api.llm7.io/v1", roles=["overflow"]),
+        _prov("hetzner", base_url="https://inference.hetzner.com/api/v1", roles=["overflow"]),
+        _prov("aion_lab", roles=["overflow"]),
+        _prov("freellmapi", roles=["overflow"]),
+    ]
+    names = [p.name for p in router._role_candidates(providers, "coder", "primary")]
+    assert names == ["omniroute", "nvidia_nim", "gemini",
+                     "llm7", "hetzner", "aion_lab", "freellmapi"]
+
+
 # --- role dispatch -----------------------------------------------------------
 
 def test_role_candidates_coder_nvidia_first_then_overflow():

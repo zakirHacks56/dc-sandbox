@@ -519,7 +519,7 @@ def test_live_complete_via_local_omniroute(tmp_usage):
     with pytest.MonkeyPatch.context() as mp:
         for k, v in env.items():
             mp.setenv(k, v)
-        os.environ["PROVIDER_USAGE_FILE"] = str(tmp_usage)
+        mp.setenv("PROVIDER_USAGE_FILE", str(tmp_usage))
         resp = router.complete(
             [{"role": "user", "content": "Reply with the single word: pong"}],
             model="auto/best-chat", max_tokens=10,
