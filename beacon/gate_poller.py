@@ -26,7 +26,11 @@ OFFSET = util.DATA / "offset.json"
 # The fixer prefers the manual (operator-facing) bot when present, so taps the
 # operator makes locally must be polled with the SAME token precedence or the
 # poller never sees them. Only TELEGRAM_BOT_TOKEN is set in the cloud.
-POLL_LEASE_SECONDS = 120  # one long-poller per window avoids Telegram 409
+POLL_LEASE_SECONDS = 45  # one long-poller per window avoids Telegram 409.
+# 120s made button taps wait almost 10 minutes (it suppresses the *paired*
+# cron run of controller.yml, ~2 min later). 45s still prevents two pollers
+# overlapping a single getUpdates window (~8-20s) without eating a whole
+# schedule interval, so the newest Start/Stop/Status tap is polled sooner.
 
 
 def _tg_call(method: str, payload: dict, timeout: int = 30):
@@ -276,9 +280,16 @@ def main() -> int:
         # offset.json fresh, so writing our stale `doc` snapshot back would
         # silently drop the control_card / master_switch they just saved.
         fresh = util.load_json(OFFSET, doc)
+        # Another poller may have advanced the committed offset/seen markers
+        # since we loaded; a stale run must NEVER write a smaller value back,
+        # or its progress would be silently lost (this is the one-way door that
+        # keeps the poll offset monotonic under concurrent controller runs).
+        offset = max(offset,
+                     int(fresh.get("offset", 0) or 0),
+                     int(fresh.get("confirmed_offset", 0) or 0))
         fresh["offset"] = offset
-        fresh["confirmed_offset"] = max(confirmed, offset)
-        fresh["master_seen"] = master_seen
+        fresh["confirmed_offset"] = max(int(fresh.get("confirmed_offset", 0) or 0), offset)
+        fresh["master_seen"] = max(int(fresh.get("master_seen", 0) or 0), master_seen)
         fresh["poll_lease"] = doc.get("poll_lease", time.time())
         util.save_json(OFFSET, fresh)
     util.log(f"gate poller done: {handled} callback(s), new offset={offset}")

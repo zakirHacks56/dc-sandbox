@@ -9,6 +9,8 @@ import datetime
 import json
 import os
 import sys
+import time
+import uuid
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -44,9 +46,22 @@ def load_json(path: Path, default):
 
 
 def save_json(path: Path, obj) -> None:
+    """Atomic write (temp + os.replace) with a UNIQUE temp name and a small
+    retry on Windows sharing violations -- stress tests hammer offset.json from
+    several pollers at once, and a transient PermissionError here would abort
+    a live workflow run."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(str(path.suffix) + ".tmp")
-    tmp.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
+    payload = json.dumps(obj, ensure_ascii=False, indent=2).encode("utf-8")
+    for attempt in range(5):
+        tmp = path.with_name(f"{path.name}.{os.getpid()}.{uuid.uuid4().hex}.tmp")
+        try:
+            tmp.write_bytes(payload)
+            os.replace(tmp, path)
+            return
+        except PermissionError:
+            time.sleep(0.05 * (attempt + 1))
+    # Re-raise the last error: five attempts of an atomic write all failed.
+    tmp.write_bytes(payload)
     os.replace(tmp, path)
 
 

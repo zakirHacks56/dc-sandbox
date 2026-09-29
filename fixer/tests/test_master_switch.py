@@ -388,3 +388,133 @@ def test_main_persist_does_not_drop_control_card(monkeypatch, tmp_path):
     doc = json.loads((tmp_path / "offset.json").read_text(encoding="utf-8"))
     assert doc["control_card"]["message_id"] == 12345, \
         "card saved mid-run must survive the persist merge"
+
+
+def _paged(updates):
+    """A Telegram-like getUpdates stub: only returns updates newer than the
+    offset, 20 at a time, so a backlog drains across several passes."""
+    def _get(offset):
+        return [u for u in updates if u["update_id"] > offset][:20]
+    return _get
+
+
+def test_stress_replay_flood_applies_only_new(monkeypatch, tmp_path):
+    """Hammer the poller with a full 24h-style replay (offset regressed to 0):
+    100 already-decided decrees, 50 stale Stop taps, a handful of genuinely NEW
+    apples -- only the new input must have any effect."""
+    import beacon_util as util
+    import gate_poller
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    monkeypatch.setattr(util, "GATES", tmp_path / "gates")
+    monkeypatch.setattr(gate_poller, "OFFSET", tmp_path / "offset.json")
+    (tmp_path / "gates").mkdir(parents=True, exist_ok=True)
+    updates = []
+    uid = 1000
+    # 100 replayed Approve buttons for gates the fixer already decided.
+    for i in range(100):
+        key = f"a-b_issue{i}_human"
+        (tmp_path / "gates" / f"{key}.outcome").write_text(
+            '{"decision": true}', encoding="utf-8")
+        updates.append({"update_id": uid,
+                        "callback_query": {"id": f"old-d{i}", "data": f"decree:{key}:1"}})
+        uid += 1
+    # 50 stale Stop taps, all older than the master_seen watermark.
+    for i in range(50):
+        updates.append({"update_id": uid,
+                        "callback_query": {"id": f"old-m{i}", "data": "master:off"}})
+        uid += 1
+    # A genuinely NEW gate (no outcome yet) and a fresh Status tap.
+    updates.append({"update_id": uid,
+                    "callback_query": {"id": "new-d", "data": "decree:c-d_issue9_human:1"}})
+    uid += 1
+    updates.append({"update_id": uid,
+                    "callback_query": {"id": "new-s", "data": "master:status"}})
+    uid += 1
+    (tmp_path / "offset.json").write_text(json.dumps({
+        "offset": 0, "confirmed_offset": 995, "master_seen": 1149,
+    }), encoding="utf-8")
+    monkeypatch.setattr(gate_poller, "_get_updates", _paged(updates))
+    monkeypatch.setattr(gate_poller, "_answer_callback", lambda cid, text: None)
+    monkeypatch.setattr(gate_poller, "_notify", lambda text: None)
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "")  # no card posting during flood
+    gate_poller.main()
+    # Only the one genuinely new gate got a decree; the 100 replayed ones did
+    # not re-write (their .outcome already exists), and stale Stops did nothing.
+    decrees = list((tmp_path / "gates").glob("*.decree"))
+    assert [d.name for d in decrees] == ["c-d_issue9_human.decree"], \
+        f"only the new gate may be re-decided, got {[d.name for d in decrees]}"
+    assert util.master_switch() is True, "stale Stop taps must leave the switch on"
+    doc = json.loads((tmp_path / "offset.json").read_text(encoding="utf-8"))
+    assert doc["offset"] == uid, "offset advances to the very newest handled update"
+    assert doc["confirmed_offset"] == uid
+
+
+def test_stress_stale_persist_never_regresses_offset(monkeypatch, tmp_path):
+    """A poller that loaded a stale low offset must never write it back over a
+    higher value another (concurrent) poller just committed."""
+    import beacon_util as util
+    import gate_poller
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    monkeypatch.setattr(gate_poller, "OFFSET", tmp_path / "offset.json")
+    monkeypatch.setattr(gate_poller, "_get_updates", lambda offset: [])
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "")
+    # We loaded a stale copy with offset 5, but by persist time the committed
+    # file has already advanced to 999 (another poller won the merge).
+    (tmp_path / "offset.json").write_text(json.dumps({
+        "offset": 0, "confirmed_offset": 5,
+    }), encoding="utf-8")
+    gate_poller.main()
+    (tmp_path / "offset.json").write_text(json.dumps({
+        "offset": 999, "confirmed_offset": 999,
+    }), encoding="utf-8")
+    gate_poller.main()
+    doc = json.loads((tmp_path / "offset.json").read_text(encoding="utf-8"))
+    assert doc["offset"] == 999, "stale run must not march the offset backwards"
+    assert doc["confirmed_offset"] == 999
+
+
+def test_stress_concurrent_pollers_keep_offset_monotonic(monkeypatch, tmp_path):
+    """N pollers hammering offset.json at once (the two workflows + overlapping
+    controller runs): the file must stay valid JSON and the offset must never
+    fall below the highest any poller reached."""
+    import threading
+
+    import beacon_util as util
+    import gate_poller
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    monkeypatch.setattr(util, "GATES", tmp_path / "gates")
+    monkeypatch.setattr(gate_poller, "OFFSET", tmp_path / "offset.json")
+    (tmp_path / "gates").mkdir(parents=True, exist_ok=True)
+    # A full batch of decrees for gates that are ALREADY decided, so a duplicate
+    # concurrent application is a harmless no-op and the test stays deterministic.
+    updates = []
+    for i in range(20):
+        key = f"a-b_issue{i}_human"
+        (tmp_path / "gates" / f"{key}.outcome").write_text(
+            '{"decision": true}', encoding="utf-8")
+        updates.append({"update_id": 100 + i,
+                        "callback_query": {"id": f"c{i}", "data": f"decree:{key}:1"}})
+    monkeypatch.setattr(gate_poller, "_get_updates", _paged(updates))
+    monkeypatch.setattr(gate_poller, "_answer_callback", lambda cid, text: None)
+    monkeypatch.setattr(gate_poller, "_notify", lambda text: None)
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "")
+    (tmp_path / "offset.json").write_text(json.dumps({
+        "offset": 95, "confirmed_offset": 95,
+    }), encoding="utf-8")
+    errs = []
+
+    def _hammer():
+        try:
+            gate_poller.main()
+        except Exception as exc:  # noqa: BLE001
+            errs.append(exc)
+
+    threads = [threading.Thread(target=_hammer) for _ in range(8)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert not errs, f"concurrent pollers raised: {errs}"
+    doc = json.loads((tmp_path / "offset.json").read_text(encoding="utf-8"))
+    assert doc["offset"] == 120, f"offset must reach the newest update, got {doc}"
+    assert doc["confirmed_offset"] == 120
