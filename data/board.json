@@ -87,7 +87,6 @@
       440
     ],
     "izzywdev/FuzeFront": [
-      1165,
       1187,
       1137,
       1135,
@@ -136,7 +135,8 @@
       966,
       965,
       964,
-      963
+      963,
+      1181
     ],
     "yunaremaia/sandbox-ffi-layers": [
       39,
@@ -236,8 +236,9 @@
     },
     "izzywdev/FuzeFront#1181": {
       "state": "ABANDONED",
-      "decision": false,
-      "updated": "2026-09-24T11:58:49"
+      "pr": null,
+      "spent": 4911,
+      "updated": "2026-09-29T01:22:02+00:00"
     },
     "izzywdev/FuzeFront#1165": {
       "state": "ABANDONED",
@@ -962,5 +963,5 @@
       "updated": "2026-09-29T01:15:03+00:00"
     }
   },
-  "last_tick": "2026-09-29T01:15:03+00:00"
+  "last_tick": "2026-09-29T01:22:02+00:00"
 }
