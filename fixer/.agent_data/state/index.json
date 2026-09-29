@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-29T01:26:24",
+  "updated_at": "2026-09-29T01:33:46",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -310,12 +310,12 @@
       "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1187",
       "workspace": "workspace/izzywdev-FuzeFront/issue-1187",
       "conversation_id": "20260925T103833-d46fd58a",
-      "state": "IMPLEMENTING",
-      "status": "implementing",
+      "state": "ABANDONED",
+      "status": "abandoned",
       "branch": "fix-issue-1187",
       "pr_number": null,
       "pr_url": null,
-      "updated_at": "2026-09-25T10:40:52"
+      "updated_at": "2026-09-29T01:33:46"
     },
     "izzywdev/FuzeFront#1137": {
       "repo": "izzywdev/FuzeFront",

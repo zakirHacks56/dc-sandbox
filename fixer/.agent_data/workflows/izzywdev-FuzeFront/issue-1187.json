@@ -6,13 +6,13 @@
   "issue_url": "https://github.com/izzywdev/FuzeFront/issues/1187",
   "issue_state": "open",
   "state": "ABANDONED",
-  "status": "implementing",
+  "status": "abandoned",
   "branch": "fix-issue-1187",
   "base_branch": "master",
   "pr_number": null,
   "pr_url": null,
   "created_at": "2026-09-25T10:38:33",
-  "updated_at": "2026-09-25T10:40:52",
+  "updated_at": "2026-09-29T01:33:46",
   "processed_comment_ids": [],
   "iterations": [],
   "unresolved_feedback": [],
@@ -53,6 +53,6 @@
     "task_type": "BUG_FIX",
     "reason": "(model unavailable during classification)"
   },
-  "bot_login": "IbrahimCodes347",
+  "bot_login": "zakirHacks56",
   "swept_at": "2026-09-28T10:49:50+00:00"
 }
