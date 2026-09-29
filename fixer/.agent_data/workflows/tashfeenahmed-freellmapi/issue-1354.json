@@ -1,0 +1,57 @@
+{
+  "schema": 2,
+  "repo": "tashfeenahmed/freellmapi",
+  "issue": 1354,
+  "issue_title": "JEV-Based Intelligent Model Selection & Routing",
+  "issue_url": "https://github.com/tashfeenahmed/freellmapi/issues/1354",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-1354",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-29T19:33:37",
+  "updated_at": "2026-09-29T19:34:35",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-29T19:33:37",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-29T19:33:46",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260929T193337-e6ffb286",
+  "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1354",
+  "workspace": "workspace/tashfeenahmed-freellmapi/issue-1354",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "attempt_status": "budget_exhausted",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_failed"
+}
