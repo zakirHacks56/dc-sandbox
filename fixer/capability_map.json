@@ -39,6 +39,7 @@
         ".mjs",
         ".jsx"
       ],
+      "install_cmd": "npm install",
       "notes": "Runs on the aquascope target; node toolchain needed."
     },
     "typescript": {
@@ -56,6 +57,7 @@
         ".tsx",
         ".mts"
       ],
+      "install_cmd": "npm install",
       "notes": "Configured in targets but no synthetic-fixture validation yet."
     },
     "java": {

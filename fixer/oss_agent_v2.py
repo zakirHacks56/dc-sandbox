@@ -3712,6 +3712,16 @@ def load_capability_map() -> dict:
     return {k: v for k, v in data.items() if isinstance(v, dict)}
 
 
+def _split_cmd(cmd):
+    """Normalize a capability-map command (string or list) to a list. The
+    map stores install/test as plain strings; _run_install_step needs a
+    list so on Windows list2cmdline doesn't mangle it into a one-letter
+    command ('n' is not recognized...) when the string contains spaces."""
+    if isinstance(cmd, str):
+        return cmd.split()
+    return list(cmd)
+
+
 def detect_language_and_commands(repo_dir: Path) -> dict:
     """Auto-detect the repo's language/build system by scoring against the
     Capability Map -- marker files are strong signals, extension frequency
@@ -3877,7 +3887,7 @@ def install_dependencies(repo_dir: Path, detected: dict = None):
         return
 
     if detected["install"]:
-        _run_install_step(detected["install"], repo_dir, f"Detected {detected['language']}")
+        _run_install_step(_split_cmd(detected["install"]), repo_dir, f"Detected {detected['language']}")
     else:
         print("   ↳ Could not detect a known build system -- skipping dependency install.")
 
