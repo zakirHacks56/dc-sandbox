@@ -20834,3 +20834,18 @@ Switched to a new branch 'fix-issue-1349'
 2026-09-29T21:38:44+00:00  tashfeenahmed/freellmapi: skipping (hit 4-lane/day budget)
 2026-09-29T21:38:44+00:00  no candidate found this tick
 2026-09-29T21:38:44+00:00  tick done (outcome=no_candidate)
+2026-09-29T21:48:37+00:00  gate poller start (offset=746150322)
+2026-09-29T21:48:45+00:00  poll lease taken for 45s
+2026-09-29T21:48:45+00:00  gate poller done: 0 callback(s), new offset=746150322
+2026-09-29T21:48:47+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-29T21:48:48+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-29T21:48:50+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-29T21:48:50+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-29T21:48:50+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-29T21:48:51+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-29T21:48:51+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-29T21:48:51+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-29T21:48:52+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-29T21:48:53+00:00  tashfeenahmed/freellmapi: skipping (hit 4-lane/day budget)
+2026-09-29T21:48:53+00:00  no candidate found this tick
+2026-09-29T21:48:53+00:00  tick done (outcome=no_candidate)
