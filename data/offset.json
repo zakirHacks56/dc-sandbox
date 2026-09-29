@@ -9,8 +9,8 @@
   "confirmed_offset": 746150317,
   "master_seen": 746150316,
   "master_switch": {
-    "enabled": false,
-    "by": "telegram",
-    "at": "2026-09-29T09:12:16+00:00"
+    "enabled": true,
+    "by": "telegram-manual",
+    "at": "2026-09-29T19:05:26+00:00"
   }
 }
