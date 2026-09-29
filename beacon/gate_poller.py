@@ -171,6 +171,15 @@ def _handle_callback(query: dict) -> bool:
     if not match:
         return False
     key, decision = match.group(1), match.group(2) == "1"
+
+    # Idempotency: an update Telegram re-delivers after an offset regression
+    # must never re-write a decree for a gate that was already decided and
+    # consumed (the fixer wrote a .outcome). Spinner still gets answered.
+    if (util.GATES / f"{key}.outcome").exists():
+        util.log(f"decree skipped (already decided): {key}")
+        _answer_callback(query.get("id", ""), "Already decided")
+        return True
+
     parsed = util.parse_gate_key(key)
 
     # Prefer the rich metadata the fixer wrote when it parked the gate; the
@@ -203,10 +212,22 @@ def _handle_callback(query: dict) -> bool:
     return True
 
 
+def _is_master_toggle(query: dict) -> bool:
+    return (query.get("data") or "").startswith("master:")
+
+
 def main() -> int:
     doc = util.load_json(OFFSET, {})
-    offset = int(doc.get("offset", 0))
-    util.log(f"gate poller start (offset={offset})")
+    offset = int(doc.get("offset", 0) or 0)
+    confirmed = int(doc.get("confirmed_offset", 0) or 0)
+    # Never re-poll below an offset we have already confirmed -- the concurrent
+    # controller runs commit offset.json and `git pull -X ours` can momentarily
+    # clobber it back to 0, which would make Telegram re-deliver the whole
+    # 24h queue, starving the newest button tap and re-firing every old decree.
+    start = max(offset, confirmed)
+    master_seen = int(doc.get("master_seen", 0) or 0)
+    offset = start  # never poll below the last confirmed update id
+    util.log(f"gate poller start (offset={start})")
     # Only ONE long-poller per window: both the controller and gate-poll
     # workflows run this script, and two concurrent getUpdates on the same bot
     # make Telegram answer callbacks with "409 Conflict: terminated by other
@@ -218,17 +239,32 @@ def main() -> int:
         util.log("poll lease held by a concurrent poller -- skipping getUpdates")
     handled = 0
     if not held:
-        for _ in range(2):  # a couple of passes in case buttons arrive in a burst
+        # Drain the WHOLE backlog, not just two passes: after an offset
+        # regression the newest tap sits behind every queued update, and the
+        # repeat of a same update is skipped further down.
+        for _ in range(16):
             updates = _get_updates(offset)
             if not updates:
                 break
+            got = len(updates)
             for update in updates:
                 update_id = int(update.get("update_id", 0))
-                if update_id >= offset:
-                    offset = update_id + 1
+                if update_id <= start:
+                    continue  # already consumed before -- do not re-handle
+                offset = max(offset, update_id + 1)
                 query = update.get("callback_query")
-                if query and _handle_callback(query):
+                if not query:
+                    continue
+                # A stale re-delivered tap must not re-toggle the master switch
+                # (or re-notify) after the first time it was applied.
+                if _is_master_toggle(query) and update_id <= master_seen:
+                    _answer_callback(query.get("id", ""), "Already applied")
+                    continue
+                master_seen = max(master_seen, update_id)
+                if _handle_callback(query):
                     handled += 1
+            if got < 20:
+                break
         doc["poll_lease"] = time.time()
         util.log(f"poll lease taken for {POLL_LEASE_SECONDS}s")
     # Keep the Start/Stop card pinned and current (also posts it if Telegram
@@ -236,11 +272,15 @@ def main() -> int:
     if os.getenv("TELEGRAM_CHAT_ID"):
         _ensure_control_card()
     if held or doc.get("poll_lease"):
-        # Merge, don't clobber: the same file carries the master switch + card,
-        # and regardless of whether THIS run polled, any poll means a lease was
-        # taken (or is still held) so it must be persisted for the other poller.
-        doc["offset"] = offset
-        util.save_json(OFFSET, doc)
+        # Merge, don't clobber: _handle_master/_ensure_control_card each reload
+        # offset.json fresh, so writing our stale `doc` snapshot back would
+        # silently drop the control_card / master_switch they just saved.
+        fresh = util.load_json(OFFSET, doc)
+        fresh["offset"] = offset
+        fresh["confirmed_offset"] = max(confirmed, offset)
+        fresh["master_seen"] = master_seen
+        fresh["poll_lease"] = doc.get("poll_lease", time.time())
+        util.save_json(OFFSET, fresh)
     util.log(f"gate poller done: {handled} callback(s), new offset={offset}")
     return 0
 

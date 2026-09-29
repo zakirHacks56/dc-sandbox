@@ -292,3 +292,99 @@ def test_target_flags_reads_require_approval(tmp_path):
     assert _target_flags(conf, "a/b").get("require_approval") is True
     assert _target_flags(conf, "c/d").get("require_approval") is None
     assert _target_flags(conf, "missing/x") == {}
+
+
+def test_offset_regression_skips_redelivered_but_still_gets_newest(
+        monkeypatch, tmp_path):
+    """When offset.json is clobbered back to 0 but confirmed_offset records the
+    last seen update, a re-delivered OLD tap must be ignored while the newest
+    (newer than confirmed) tap is still handled -- the button must not appear
+    dead behind a replayed backlog."""
+    import beacon_util as util
+    import gate_poller
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    monkeypatch.setattr(gate_poller, "OFFSET", tmp_path / "offset.json")
+    (tmp_path / "offset.json").write_text(json.dumps({
+        "offset": 0, "confirmed_offset": 50,  # clobbered by a bad merge
+    }), encoding="utf-8")
+    old = {"update_id": 40, "callback_query": {"id": "qold", "data": "master:off"}}
+    new = {"update_id": 60, "callback_query": {"id": "qnew", "data": "master:on"}}
+    monkeypatch.setattr(gate_poller, "_get_updates", lambda offset: [old, new])
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "-100123")
+    rc = gate_poller.main()
+    assert rc == 0
+    # The OLD re-delivered Stop tap (uid 40 <= 50) never reaches the handlers,
+    # so the switch stays whatever it was; the NEW Start tap (uid 60) lands.
+    doc = json.loads((tmp_path / "offset.json").read_text(encoding="utf-8"))
+    assert doc["offset"] == 61, "offset advances past the newest handled update"
+    assert doc["confirmed_offset"] >= 61
+    assert util.master_switch() is True
+    assert doc.get("master_seen", 0) >= 60
+
+
+def test_stale_master_toggle_not_reapplied(monkeypatch, tmp_path):
+    """A master switch tap with update_id <= master_seen (an old tap replayed
+    after an offset reset) must not re-toggle the switch or re-notify."""
+    import beacon_util as util
+    import gate_poller
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    monkeypatch.setattr(gate_poller, "OFFSET", tmp_path / "offset.json")
+    (tmp_path / "offset.json").write_text(json.dumps({
+        "offset": 60, "confirmed_offset": 60, "master_seen": 70,
+        "master_switch": {"enabled": True},
+    }), encoding="utf-8")
+    ans = []
+    monkeypatch.setattr(gate_poller, "_answer_callback",
+                        lambda cid, text: ans.append((cid, text)))
+    # A re-delivered old Stop tap (uid 65 < master_seen 70, but > offset 60).
+    monkeypatch.setattr(gate_poller, "_get_updates",
+                        lambda offset: [{"update_id": 65,
+                                         "callback_query": {"id": "qstale",
+                                                            "data": "master:off"}}])
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "-100123")
+    gate_poller.main()
+    assert util.master_switch() is True, "stale Stop must not pause the controller"
+    assert ans and ans[0][1] == "Already applied"
+
+
+def test_redelivered_decree_with_outcome_is_skipped(monkeypatch, tmp_path):
+    """A decree button re-delivered after an offset reset must not re-write a
+    decree for a gate the fixer already decided (outcome exists)."""
+    import beacon_util as util
+    import gate_poller
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    monkeypatch.setattr(util, "GATES", tmp_path / "gates")
+    (tmp_path / "gates").mkdir(parents=True, exist_ok=True)
+    (tmp_path / "gates" / "a-b_issue42_human.outcome").write_text(
+        json.dumps({"decision": True}), encoding="utf-8")
+    ans = []
+    monkeypatch.setattr(gate_poller, "_answer_callback",
+                        lambda cid, text: ans.append((cid, text)))
+    query = {"id": "q", "data": "decree:a-b_issue42_human:1"}
+    assert gate_poller._handle_callback(query) is True
+    assert not (tmp_path / "gates" / "a-b_issue42_human.decree").exists(), \
+        "already-decided gate must not get a second decree"
+    assert ans and ans[0][1] == "Already decided"
+
+
+def test_main_persist_does_not_drop_control_card(monkeypatch, tmp_path):
+    """main() must merge into a FRESH offset.json at persist time, or the card
+    / switch written by _ensure_control_card/_handle_master mid-run gets
+    silently clobbered by the stale snapshot loaded at the top."""
+    import beacon_util as util
+    import gate_poller
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    monkeypatch.setattr(gate_poller, "OFFSET", tmp_path / "offset.json")
+    (tmp_path / "offset.json").write_text(json.dumps({
+        "offset": 0, "confirmed_offset": 10,
+    }), encoding="utf-8")
+    handled = []
+    monkeypatch.setattr(gate_poller, "_tg_call", lambda method, payload, timeout=30: {
+        "ok": True, "result": {"message_id": 12345}})
+    monkeypatch.setattr(gate_poller, "_get_updates",
+                        lambda offset: handled.append(offset) or [])
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "-100123")
+    gate_poller.main()
+    doc = json.loads((tmp_path / "offset.json").read_text(encoding="utf-8"))
+    assert doc["control_card"]["message_id"] == 12345, \
+        "card saved mid-run must survive the persist merge"
