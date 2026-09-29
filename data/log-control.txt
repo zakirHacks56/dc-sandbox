@@ -18930,3 +18930,44 @@ Step 8a: running baseline tests (before any changes)...
 
 Switched to a new branch 'fix-issue-965'
 2026-09-28T23:54:11+00:00  tick done (outcome=hunted)
+2026-09-28T23:58:34+00:00  gate poller start (offset=746150288)
+2026-09-28T23:58:43+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-28T23:58:44+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-28T23:58:44+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-28T23:58:46+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-28T23:58:46+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-28T23:58:46+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-28T23:58:46+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-28T23:58:46+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-28T23:58:46+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-28T23:58:48+00:00  HUNTING: trying izzywdev/FuzeFront#964
+2026-09-28T23:58:48+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 964 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-29T00:03:49+00:00  fixer exit=0
+--tail--
+_/test_passthrough_defaults.py`
+
+Let's write `test_passthrough_defaults.py` cleanly with existing typical tests + our new test:
+
+```python
+import pytest
+import pathlib
+
+def test_ds_conformance_eyebrow_extraction():
+    """Verify that page files do not use raw duplicated eyebrow classes and use DS Eyebrow component."""
+    repo_root = pathlib.Path(__file__).parents[3]
+    
+    careers_path = repo_root / "fuzefront-website" / "frontend" / "src" / "pages" / "CareersPage.tsx"
+    industries_path = repo_root / "fuzefront-website" / "frontend" / "src" / "pages" / "IndustriesPage.tsx"
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 6/8 ---
+⚠️ Combo 'auto/best-reasoning' failed hard (AllProvidersExhaustedError): all providers for tier 'escalation' failed or were over budget
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (AllProvidersExhaustedError): all providers for tier 'escalation' failed or were over budget
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+⚠️ provider gemini failed: InternalServerError: Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}]
+
+🛑 Run ended (abandoned_error) -- record terminal, lane freed.
+
+Switched to a new branch 'fix-issue-964'
+2026-09-29T00:03:49+00:00  tick done (outcome=hunted)
