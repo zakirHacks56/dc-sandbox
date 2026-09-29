@@ -182,8 +182,14 @@ def _seed_status_data(tmp_path, monkeypatch):
     fake_data = tmp_path / "data"
     fake_data.mkdir(parents=True, exist_ok=True)
     monkeypatch.setattr(util, "DATA", fake_data)
-    real_config = util.CONFIG
-    monkeypatch.setattr(util, "CONFIG", real_config)
+    fake_config = fake_data / "config.json"
+    fake_config.write_text(json.dumps({
+        "max_prs_per_day": 2,
+        "max_pending_gates": 3,
+        "max_attempts_per_repo_day": 4,
+        "targets": [{"repo": "a/b", "enabled": True}],
+    }), encoding="utf-8")
+    monkeypatch.setattr(util, "CONFIG", fake_config)
     (fake_data / "metrics.jsonl").write_text(
         "\n".join([
             '{"ts": "2026-09-29T01:00:00+00:00", "repo": "a/b", "issue": 1, '

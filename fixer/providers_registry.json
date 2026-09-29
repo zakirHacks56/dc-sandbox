@@ -143,6 +143,20 @@
       "max_tokens_cap": null,
       "max_input_tokens": 128000,
       "rpm": null
+    },
+    {
+      "name": "freellmapi",
+      "base_url": "",
+      "comment": "ops-only self-hosted OpenAI-compatible router (freellmapi.co) that fronts the 7.4B-token free pool across dozens of providers. base_url comes from the FREELLMAPI_BASE_URL env override (mirrors omniroute_fallback); unified key from FREELLMAPI_API_KEY / FREELLMAPI_UNIFIED_KEY. Not registered until the URL is set, so an offline dev box stays silent.",
+      "key_env": "FREELLMAPI_API_KEY",
+      "key_env_alt": "FREELLMAPI_UNIFIED_KEY",
+      "role": ["overflow"],
+      "models": [],
+      "default_model": "meta-llama/llama-3.3-70b-instruct",
+      "reset_kind": "probe",
+      "max_tokens_cap": null,
+      "max_input_tokens": 128000,
+      "rpm": null
     }
   ]
 }

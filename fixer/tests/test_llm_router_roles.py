@@ -85,6 +85,39 @@ def test_cloudflare_registers_without_base_url(tmp_usage):
     assert cf and cf[0].base_url == ""
 
 
+def test_freellmapi_not_registered_without_url(tmp_usage):
+    env = {"FREELLMAPI_API_KEY": "k"}
+    providers = router.load_providers(env=env)
+    assert all(p.name != "freellmapi" for p in providers)
+
+
+def test_freellmapi_registers_with_env_url(tmp_usage):
+    env = {
+        "FREELLMAPI_BASE_URL": "https://router.example/v1",
+        "FREELLMAPI_UNIFIED_KEY": "freellmapi-secret",
+    }
+    providers = router.load_providers(env=env)
+    fm = next((p for p in providers if p.name == "freellmapi"), None)
+    assert fm is not None
+    assert fm.base_url == "https://router.example/v1"
+    assert fm.api_key == "freellmapi-secret"
+    assert fm.roles == ["overflow"]
+    assert fm.default_model == "meta-llama/llama-3.3-70b-instruct"
+
+
+def test_role_candidates_coder_overflow_ends_with_freellmapi():
+    providers = [
+        _prov("gemini", roles=["coder"]),
+        _prov("nvidia_nim", base_url="https://integrate.api.nvidia.com/v1", roles=["coder"]),
+        _prov("llm7", base_url="https://api.llm7.io/v1", roles=["overflow"]),
+        _prov("hetzner", base_url="https://inference.hetzner.com/api/v1", roles=["overflow"]),
+        _prov("aion_lab", roles=["overflow"]),
+        _prov("freellmapi", roles=["overflow"]),
+    ]
+    names = [p.name for p in router._role_candidates(providers, "coder", "primary")]
+    assert names == ["nvidia_nim", "gemini", "llm7", "hetzner", "aion_lab", "freellmapi"]
+
+
 # --- role dispatch -----------------------------------------------------------
 
 def test_role_candidates_coder_nvidia_first_then_overflow():

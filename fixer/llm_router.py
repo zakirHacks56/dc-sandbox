@@ -236,7 +236,7 @@ _ROLE_ORDER = {
     "coder": ["nvidia_nim", "omniroute", "gemini"],
     "planner": ["cloudflare_workers_ai", "groq", "openrouter_free", "omniroute"],
     "background": ["mistral"],
-    "overflow": ["llm7", "hetzner", "aion_lab"],
+    "overflow": ["llm7", "hetzner", "aion_lab", "freellmapi"],
 }
 
 
