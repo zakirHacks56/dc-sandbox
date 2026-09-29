@@ -884,9 +884,18 @@ def _migrate_workflow_record(record: dict) -> dict:
     """Fill in fields added by the session store so a record written by an older
     version is usable immediately, without a migration command. Only absent keys
     are touched -- existing values are never rewritten."""
+    had_status = "attempt_status" in record
     template = new_workflow(record["repo"], record["issue"], record.get("issue_title", ""))
     for key, default in template.items():
         record.setdefault(key, default)
+    if not had_status:
+        # Legacy records that already concluded are consumed attempts; a record
+        # parked with a real PR counts as a successful attempt, an already
+        # abandoned one as a failed one. In-flight records stay not_attempted.
+        if record.get("state") == WF.COMPLETED or record.get("pr_number"):
+            record["attempt_status"] = "attempted_success"
+        elif record.get("state") == WF.ABANDONED:
+            record["attempt_status"] = "attempted_failed"
     record["schema"] = store.SCHEMA_VERSION
     record["status"] = store.derive_status(record)
     return record
@@ -999,6 +1008,10 @@ def new_workflow(repo_name: str, issue_number: int, issue_title: str) -> dict:
         "workspace": store.rel_to_home(store.workspace_dir(repo_name, issue_number)),
         "provider": "omniroute",
         "model": "",
+        # Run-once bookkeeping (hunter/fix pipeline): not_attempted ->
+        # attempted_success | attempted_failed | budget_exhausted. The hunter
+        # never re-selects an issue whose attempt_status is not not_attempted.
+        "attempt_status": "not_attempted",
         "last_test_status": "",
         "pause_count": 0,
         "resume_count": 0,
@@ -1040,6 +1053,22 @@ class AttemptOutcome:
 _PARKED_OUTCOMES = {AttemptOutcome.PR_DRAFTED, AttemptOutcome.GATE_DEFERRED,
                     AttemptOutcome.CANCELLED}
 
+# Run-once semantics (attempt_status): an issue is only EVER selected again
+# while it is `not_attempted`. Once budget was spent -- success or failure --
+# the attempt is consumed. `budget_exceeded` is stamped directly by the fix
+# loop when a per-issue budget runs dry mid-run (the narrow window where the
+# run consumed tokens but produced nothing and must stop, not reschedule).
+_ATTEMPT_STATUS = {
+    AttemptOutcome.PR_DRAFTED: "attempted_success",
+    AttemptOutcome.GATE_DEFERRED: "attempted_success",
+    AttemptOutcome.CANCELLED: "attempted_failed",
+    AttemptOutcome.ANALYSIS: "attempted_failed",
+    AttemptOutcome.ABANDONED_PREFLIGHT: "budget_exhausted",
+    AttemptOutcome.ABANDONED_ERROR: "attempted_failed",
+    AttemptOutcome.ABANDONED_FAILED: "attempted_failed",
+    AttemptOutcome.NOOP: "not_attempted",
+}
+
 # Record states that are legitimately parked behind HUMAN action: a run stuck
 # here is waiting on a reviewer/decree, not leaked, so the failed-run wrapper
 # and the tick reaper must both leave them alone.
@@ -1057,14 +1086,26 @@ def set_terminal_record(record: dict, outcome: str, reason: str = "") -> dict:
 
     `outcome` in _PARKED_OUTCOMES (or an already-terminal record) is left
     alone. Anything still in-flight -- including a record a crash or a bare
-    `return` left behind -- is moved to ABANDONED with the outcome recorded."""
+    `return` left behind -- is moved to ABANDONED with the outcome recorded.
+    The run-once attempt_status is stamped alongside the outcome."""
+
+    def _stamp(status: str) -> None:
+        record["attempt_status"] = status
+        if record.get("repo") and record.get("issue") is not None:
+            save_workflow(record)
+
     if not record:
         return record
     state = record.get("state")
+    if outcome in _PARKED_OUTCOMES:
+        # PR parked / gate parked / cancelled (when it reaches here): a REAL
+        # attempt concluded, so stamp it consumed before the early return.
+        status = _ATTEMPT_STATUS.get(outcome)
+        if status:
+            _stamp(status)
+        return record
     if state in TERMINAL_STATES:
         return record
-    if outcome in _PARKED_OUTCOMES:
-        return record  # PR parked / gate parked / cancelled: still resumable
     if state in _WF_GATED or state == WF.WAITING_FOR_FEEDBACK:
         return record  # legitimately parked behind human action
     record["outcome"] = outcome
@@ -1075,6 +1116,9 @@ def set_terminal_record(record: dict, outcome: str, reason: str = "") -> dict:
             record["state"] = WF.ABANDONED
             record["updated_at"] = datetime.now().isoformat(timespec="seconds")
             save_workflow(record)
+    if record.get("attempt_status") != "budget_exhausted":
+        # budget_exhausted is stamped directly by the fix loop and must win.
+        _stamp(_ATTEMPT_STATUS.get(outcome, "attempted_failed"))
     return record
 
 
@@ -1379,6 +1423,82 @@ def _explain_search_failure(exc: Exception) -> str:
     return f"{type(exc).__name__}: {exc}"
 
 
+# Issue-selection preference (kept additive on top of the existing easy-issue +
+# token-burn + newest-creation-day scoring): issues numbered 1..N sort FIRST.
+_PREFERRED_ISSUE_NUMBERS_MAX = int(os.getenv("PREFERRED_ISSUE_NUMBERS", "150").strip() or 150)
+# A repo with no commits inside this window is treated as stale and not hunted.
+_REPO_STALE_DAYS = int(os.getenv("REPO_STALE_DAYS", "90").strip() or 90)
+_REPO_ACTIVITY_FILE = os.getenv(
+    "REPO_ACTIVITY_FILE",
+    str(Path(__file__).resolve().parent.parent / "data" / "repo_activity.json"),
+)
+
+
+def _repo_activity_ok(gh_client, repo_name: str, force: bool = False) -> tuple:
+    """(ok, reason). Once per calendar day per repo (disk cache) checks the
+    GitHub repo health that makes hunting a waste of API calls: archived,
+    disabled, no commits within REPO_STALE_DAYS, or a suspended/deleted owner.
+    A failed repo fetch means "don't hunt blind" -> (False, reason)."""
+    path = Path(_REPO_ACTIVITY_FILE)
+    cache = {}
+    if path.exists():
+        try:
+            cache = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            cache = {}
+    today = str(date.today())
+    entry = cache.get(repo_name)
+    if not force and entry and entry.get("date") == today:
+        return bool(entry.get("ok")), str(entry.get("reason") or "")
+    ok, reason = True, ""
+    try:
+        repo = gh_client.get_repo(repo_name)
+        if getattr(repo, "archived", False):
+            ok, reason = False, "archived"
+        elif getattr(repo, "disabled", False):
+            ok, reason = False, "disabled"
+        elif repo.pushed_at is None:
+            ok, reason = False, "no commits"
+        else:
+            age_days = (datetime.now(repo.pushed_at.tzinfo) - repo.pushed_at).days
+            if age_days > _REPO_STALE_DAYS:
+                ok, reason = False, f"no commits in {age_days}d"
+        owner = getattr(repo, "owner", None)
+        if ok and owner is not None and getattr(owner, "suspended_at", None) is not None:
+            ok, reason = False, "owner suspended"
+    except Exception as exc:  # noqa: BLE001 - a fetch failure means don't hunt blind
+        ok, reason = False, f"fetch error: {type(exc).__name__}"
+    cache[repo_name] = {"date": today, "ok": ok, "reason": reason}
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        _atomic_write_json(path, cache)
+    except OSError:
+        pass
+    return ok, reason
+
+
+def _attempt_consumed(repo_name: str, issue_number: int) -> str:
+    """Run-once guard: '' (fresh -- selectable) or a human reason to skip.
+    A workflow record that is not `not_attempted`, or a record still in flight
+    (not yet terminal), is a consumed attempt and must never be re-selected."""
+    record = load_workflow(repo_name, issue_number) or {}
+    if not record:
+        return ""
+    status = record.get("attempt_status") or "not_attempted"
+    if status != "not_attempted":
+        return status
+    if record.get("state") not in (WF.COMPLETED, WF.ABANDONED):
+        return "in_flight"
+    return ""
+
+
+def _issue_pref_bucket(number: int) -> int:
+    n = int(number)
+    if 1 <= n <= _PREFERRED_ISSUE_NUMBERS_MAX:
+        return 0
+    return 1
+
+
 def discover_valid_issue(repo_names: list, label: str = "good first issue"):
     """Scan a list of repos for a candidate issue that's both unclaimed
     and in a language this workflow actually supports (per
@@ -1412,8 +1532,15 @@ def discover_valid_issue(repo_names: list, label: str = "good first issue"):
         if policy_reason:
             print(f"   ↳ Skipping {repo_name} (etiquette preflight: {policy_reason})")
             continue
+        # Daily activity filter: archived/disabled/quiet/suspended repos get no
+        # API calls spent on them, and the result is cached for the day.
+        act_ok, act_reason = _repo_activity_ok(gh, repo_name)
+        if not act_ok:
+            print(f"   ↳ Skipping {repo_name} (inactive/unsafe: {act_reason})")
+            continue
         first_failure = None
         any_query_ran = False
+        scored = []
         for lbl in labels:
             try:
                 query = f'repo:{repo_name} label:"{lbl}" state:open no:assignee'
@@ -1433,6 +1560,17 @@ def discover_valid_issue(repo_names: list, label: str = "good first issue"):
                 if issue.assignees or issue.locked:
                     continue
                 print(f"   ↳ Candidate: #{issue.number} - {issue.title} (label={lbl})")
+                consumed = _attempt_consumed(repo_name, issue.number)
+                if consumed:
+                    print(f"     ✗ Skipping (attempt {consumed} -- run-once)")
+                    continue
+                # Additive preference: low-numbered issues (the early, focused
+                # ones) are scored ahead of brand-new ones, but within a bucket
+                # the existing newest-creation-date scoring still applies.
+                scored.append((_issue_pref_bucket(issue.number), lbl, issue))
+        if scored:
+            scored.sort(key=lambda t: (t[0], -t[2].created_at.timestamp()))
+            for _, lbl, issue in scored:
                 if not verify_issue_is_genuine(issue):
                     print("     ✗ Not a workable issue, skipping.")
                     continue
@@ -2673,6 +2811,7 @@ def call_model(prompt: str, max_tokens: int = 4000, retry_variant: bool = False,
                         {"role": "user", "content": prompt},
                     ],
                     timeout=timeout,
+                    role="planner" if fast else "coder",
                 )
                 reply = response.choices[0].message.content
                 if not reply:
@@ -5463,6 +5602,12 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
                 repo_name, issue, detected["language"], "failed",
                 error_category="D", notes=reason,
             )
+            # Run-once: this attempt ran dry mid-way. Mark it consumed and
+            # stop -- the tick moves straight on to the next candidate in the
+            # SAME run instead of ever coming back to burn more tokens here.
+            record["attempt_status"] = "budget_exhausted"
+            if record.get("repo") and record.get("issue") is not None:
+                save_workflow(record)
             return
         try:
             # On a RE-RUN of a failed one-shot the transcript already holds the

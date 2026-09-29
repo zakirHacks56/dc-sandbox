@@ -165,10 +165,18 @@ class Provider:
     models: list = field(default_factory=list)  # concrete models this provider offers
     enabled: bool = True
     # Registry-supplied tuning (see providers_registry.json / load_providers):
-    reset_kind: str = "utc_midnight"  # utc_midnight|pacific_midnight|rolling|probe
+    reset_kind: str = "utc_midnight"  # utc_midnight|pacific_midnight|rolling|daily|monthly|probe
     max_tokens_cap: Optional[int] = None  # hard cap per call send (<= fed to API)
     max_input_tokens: Optional[int] = None  # context window: skip when request would overflow
-    rpm: Optional[float] = None  # informational pacing hint
+    rpm: Optional[float] = None  # requests per rolling 60s (rpm ceiling when set)
+    rps: Optional[float] = None  # requests per rolling 1s (rps ceiling when set)
+    roles: list = field(default_factory=list)  # coder|planner|background|overflow (role dispatch)
+    adapter: str = ""  # non-OpenAI-schema provider (e.g. "cloudflare_workers_ai"); base_url may be blank
+    key_env_alt: str = ""  # alternate env var name when key_env is empty (e.g. NVIDIA_NIM_API_KEY)
+    daily_tokens: Optional[int] = None  # per-provider calendar-day token ceiling
+    daily_tokens_in: Optional[int] = None  # calendar-day INPUT-token ceiling (Hetzner)
+    daily_neurons: Optional[int] = None  # calendar-day neurons ceiling (Cloudflare Workers AI)
+    monthly_tokens: Optional[int] = None  # calendar-month token ceiling
 
     def matches_tier(self, tier: str) -> bool:
         """A provider serves the requested tier if it IS that tier, or if it is
@@ -202,6 +210,7 @@ def _env_flag(name: str, default: bool = True) -> bool:
 def _tier_for_role(roles: list) -> str:
     """Role -> serving tier, so the registry can express intent without tiers:
        coder (stronger models) -> primary; planner (cheap fast) -> fast;
+       background (slow orderly) -> batch (NOT served by the default path);
        overflow/opportunistic (experimental) -> never the core path;
        copilot -> escalation."""
     r = {str(x).strip().lower() for x in (roles or [])}
@@ -213,7 +222,26 @@ def _tier_for_role(roles: list) -> str:
         return "primary"
     if "planner" in r:
         return "fast"
+    if "background" in r:
+        return "batch"
     return "primary"
+
+
+# Role dispatch (get_client(role)): within a role, the designated provider(s)
+# are tried in this order BEFORE the overflow pool, so a role request never
+# bleeds into a random provider. Providers not listed keep their day-to-day
+# order. The heart of the new routing: coder -> nvidia_nim, planner ->
+# cloudflare_workers_ai, background -> mistral; overflow = llm7 -> hetzner.
+_ROLE_ORDER = {
+    "coder": ["nvidia_nim", "omniroute", "gemini"],
+    "planner": ["cloudflare_workers_ai", "groq", "openrouter_free", "omniroute"],
+    "background": ["mistral"],
+    "overflow": ["llm7", "hetzner", "aion_lab"],
+}
+
+
+def _has_role(provider: "Provider", role: str) -> bool:
+    return role in {str(x).strip().lower() for x in (provider.roles or [])}
 
 
 def _registry_path(env: Optional[dict]) -> Path:
@@ -237,10 +265,11 @@ def load_registry(env: Optional[dict] = None) -> Optional[list]:
 
 
 def _provider_from_registry(entry: dict, e: dict) -> Optional[Provider]:
-    """Build one Provider from a registry entry; None when its key_env is empty
-    (empty-beats-stale, same rule as the env-derived chain), its base_url is
-    unset (registry entry OR env OVERRIDE must provide it, then it may be an
-    ops-only endpoint like omniroute_fallback), or it's disabled."""
+    """Build one Provider from a registry entry; None when its key_env (and
+    key_env_alt, if set) is empty (empty-beats-stale, same rule as the
+    env-derived chain), its base_url is unset AND it has no adapter (registry
+    entry OR env OVERRIDE must provide it, then it may be an ops-only endpoint
+    like omniroute_fallback), or it's disabled."""
     if not bool(entry.get("enabled", True)):
         return None
     name = str(entry.get("name") or "").strip()
@@ -248,17 +277,26 @@ def _provider_from_registry(entry: dict, e: dict) -> Optional[Provider]:
         return None
     key_env = str(entry.get("key_env") or f"{name.upper()}_API_KEY")
     api_key = (e.get(key_env) or "").strip()
+    key_env_alt = str(entry.get("key_env_alt") or "").strip()
+    if not api_key and key_env_alt:
+        api_key = (e.get(key_env_alt) or "").strip()
     if not api_key:
         return None
+    adapter = str(entry.get("adapter") or "").strip()
     base_url = str(e.get(f"{name.upper()}_BASE_URL") or "").strip() \
         or str(entry.get("base_url") or "").strip()
-    if not base_url:
+    if not base_url and not adapter:
         # Registered key but nowhere to call (espera omniroute_fallback whose
         # URL is only supplied via the OMNIROUTE_FALLBACK_BASE_URL override).
         return None
     cap = entry.get("max_tokens_cap")
     in_cap = entry.get("max_input_tokens")
     rpm = entry.get("rpm")
+    rps = entry.get("rps")
+    d_tokens = entry.get("daily_tokens")
+    d_in = entry.get("daily_tokens_in")
+    d_neurons = entry.get("daily_neurons")
+    m_tokens = entry.get("monthly_tokens")
     return Provider(
         name=name,
         base_url=base_url,
@@ -272,6 +310,14 @@ def _provider_from_registry(entry: dict, e: dict) -> Optional[Provider]:
         max_tokens_cap=(int(cap) if cap else None),
         max_input_tokens=(int(in_cap) if in_cap else None),
         rpm=(float(rpm) if rpm is not None else None),
+        rps=(float(rps) if rps is not None else None),
+        roles=[str(x).strip().lower() for x in (entry.get("role") or []) if str(x).strip()],
+        adapter=adapter,
+        key_env_alt=key_env_alt,
+        daily_tokens=(int(d_tokens) if d_tokens is not None else None),
+        daily_tokens_in=(int(d_in) if d_in is not None else None),
+        daily_neurons=(int(d_neurons) if d_neurons is not None else None),
+        monthly_tokens=(int(m_tokens) if m_tokens is not None else None),
     )
 
 
@@ -478,7 +524,8 @@ def _read_events() -> list:
 
 def _append_event(provider: Provider, ok: bool, tokens: int, reason: str = "",
                   quota: bool = False, rate_backoff_until: float = 0.0,
-                  trip: bool = True) -> None:
+                  trip: bool = True, requests: int = 1,
+                  input_tokens: int = 0, neurons: int = 0) -> None:
     path = _events_file()
     path.parent.mkdir(parents=True, exist_ok=True)
     event = {
@@ -489,6 +536,12 @@ def _append_event(provider: Provider, ok: bool, tokens: int, reason: str = "",
         "date": _today(),
         "run_id": RUN_ID,
     }
+    if requests:
+        event["requests"] = max(1, int(requests))
+    if input_tokens:
+        event["input_tokens"] = max(0, int(input_tokens))
+    if neurons:
+        event["neurons"] = max(0, int(neurons))
     if reason:
         event["reason"] = reason[:240]
     if quota:
@@ -535,11 +588,20 @@ PROBE_INTERVAL_SECONDS = int(os.getenv("LLM_QUOTA_PROBE_SECONDS", "10800").strip
 def _reset_until(provider: Provider) -> float:
     """When does this provider's quota re-open? Per the registry's reset_kind
     (defaults to utc_midnight). 'probe' means we DON'T know the reset cadence,
-    so instead of sleeping to a guessed midnight we re-probe after a few hours."""
+    so instead of sleeping to a guessed midnight we re-probe after a few hours.
+    'daily' resets at the next UTC midnight, 'monthly' at the first of next
+    month (both calendar-based, matching the budget windows)."""
     now = time.time()
     kind = (provider.reset_kind or "utc_midnight").lower()
     if kind == "pacific_midnight":
         return _next_pacific_midnight()
+    if kind == "monthly":
+        from datetime import datetime, timezone, timedelta
+        now_utc = datetime.now(timezone.utc)
+        first_next = (now_utc + timedelta(days=32)).replace(
+            day=1, hour=0, minute=0, second=0, microsecond=0, tzinfo=timezone.utc
+        )
+        return first_next.timestamp()
     if kind == "rolling":
         return now + 24 * 3600
     if kind == "probe":
@@ -609,6 +671,47 @@ def _is_quota_error(exc: BaseException) -> bool:
     return _classify_failure(exc) in ("402_call_too_big", "429_daily")
 
 
+def _budget_windows(provider: Provider) -> dict:
+    """Rolling + calendar-budget counters for a provider, derived from the
+    append-only event log (persists across restarts -- no in-memory budget).
+
+    - window_requests_1s / window_requests_60s: ALL calls (ok or failed) whose
+      ts fell inside the trailing window -- the rpm/rps ceilings count requests
+      made, not successful ones.
+    - day_input_tokens: successful calls' input_tokens on the calendar day.
+    - day_neurons: successful calls' neurons on the calendar day.
+    - month_tokens: successful calls' tokens in the calendar month.
+
+    A default of 0 for a missing field means "no budget pressure"; the checks
+    in is_callable only bind when the provider actually declares a ceiling."""
+    now = time.time()
+    today = _today()
+    month = today[:7]
+    recents_1s = recents_60s = 0
+    day_input = day_neurons = 0
+    month_tokens = 0
+    for e in _read_events():
+        if e.get("provider") != provider.name:
+            continue
+        ts = float(e.get("ts") or 0)
+        if ts >= now - 60:
+            recents_60s += 1
+            if ts >= now - 1:
+                recents_1s += 1
+        if e.get("ok") and e.get("date") == today:
+            day_input += int(e.get("input_tokens") or 0)
+            day_neurons += int(e.get("neurons") or 0)
+        if e.get("ok") and str(e.get("date") or "")[:7] == month:
+            month_tokens += int(e.get("tokens") or 0)
+    return {
+        "window_requests_1s": recents_1s,
+        "window_requests_60s": recents_60s,
+        "day_input_tokens": day_input,
+        "day_neurons": day_neurons,
+        "month_tokens": month_tokens,
+    }
+
+
 def provider_usage(provider: Provider) -> dict:
     """Per-provider daily usage + breaker position, derived from today's events.
 
@@ -654,7 +757,7 @@ def provider_usage(provider: Provider) -> dict:
         quota_exhausted_until = 0.0
         rate_backoff_until = 0.0
     cooldown_until = down_since + BREAKER_COOLDOWN_SECONDS if down else 0.0
-    return {
+    entry = {
         "date": _today(),
         "tokens": tokens,
         "calls": calls,
@@ -665,6 +768,8 @@ def provider_usage(provider: Provider) -> dict:
         "quota_exhausted_until": quota_exhausted_until,
         "rate_backoff_until": rate_backoff_until,
     }
+    entry.update(_budget_windows(provider))
+    return entry
 
 
 def provider_state(entry: dict) -> str:
@@ -693,7 +798,10 @@ def is_callable(provider: Provider) -> tuple:
     (skipped -- NO cooldown cycling), 'rate_limited' when a merely-throttled 429
     is still inside its short Retry-After window, 'circuit_open' when its
     cooldown is still pending, 'budget_spent' only when its daily token ceiling
-    is genuinely exhausted."""
+    is genuinely exhausted. Registry-declared ceilings bind BEFORE the daily
+    check: rpm_exceeded (rolling minute), rps_exceeded (rolling second),
+    daily_tokens_exceeded, daily_tokens_in_exceeded, daily_neurons_exceeded,
+    monthly_tokens_exceeded. A field that is None never binds."""
     entry = provider_usage(provider)
     now = time.time()
     if float(entry.get("quota_exhausted_until", 0)) > now:
@@ -702,6 +810,22 @@ def is_callable(provider: Provider) -> tuple:
         return False, "rate_limited"
     if provider_state(entry) == "OPEN":
         return False, "circuit_open"
+    if provider.rps is not None and int(entry.get("window_requests_1s", 0)) >= int(provider.rps):
+        return False, "rps_exceeded"
+    if provider.rpm is not None and int(entry.get("window_requests_60s", 0)) >= int(provider.rpm):
+        return False, "rpm_exceeded"
+    if provider.daily_neurons is not None \
+            and int(entry.get("day_neurons", 0)) >= int(provider.daily_neurons):
+        return False, "daily_neurons_exceeded"
+    if provider.daily_tokens_in is not None \
+            and int(entry.get("day_input_tokens", 0)) >= int(provider.daily_tokens_in):
+        return False, "daily_tokens_in_exceeded"
+    if provider.daily_tokens is not None \
+            and int(entry.get("tokens", 0)) >= int(provider.daily_tokens):
+        return False, "daily_tokens_exceeded"
+    if provider.monthly_tokens is not None \
+            and int(entry.get("month_tokens", 0)) >= int(provider.monthly_tokens):
+        return False, "monthly_tokens_exceeded"
     if not has_quota(provider, entry):
         return False, "budget_spent"
     return True, None
@@ -719,7 +843,8 @@ def budget_available(provider: Provider) -> bool:
 
 def mark_result(provider: Provider, ok: bool, tokens: int = 0, reason: str = "",
                 quota: bool = False, rate_backoff_until: float = 0.0,
-                trip: bool = True) -> None:
+                trip: bool = True, requests: int = 1,
+                input_tokens: int = 0, neurons: int = 0) -> None:
     """Record one call outcome. Append-only; usage and the breaker re-derive
     themselves from the log, so concurrent runners cannot clobber each other.
     `reason` is a short human-readable failure text captured for the event log.
@@ -727,10 +852,13 @@ def mark_result(provider: Provider, ok: bool, tokens: int = 0, reason: str = "",
     the provider is then skipped until its provider-specific reset instead of
     being cooldown-retried. `rate_backoff_until` is the instant a 429-rate
     backoff clears (NOT a day ban). `trip=False` records a failure that must
-    NOT push the circuit breaker (e.g. the 402-too-big halved retry)."""
+    NOT push the circuit breaker (e.g. the 402-too-big halved retry).
+    `requests`/`input_tokens`/`neurons` feed the rolling (rpm/rps) and
+    calendar (daily_*/monthly) budget windows."""
     _append_event(provider, bool(ok), max(0, int(tokens)), reason,
                   quota=bool(quota), rate_backoff_until=rate_backoff_until,
-                  trip=bool(trip))
+                  trip=bool(trip), requests=requests,
+                  input_tokens=int(input_tokens), neurons=int(neurons))
 
 
 def daily_tokens_spent() -> int:
@@ -856,9 +984,102 @@ def _preflight_check(messages: list, max_tokens: int) -> None:
         )
 
 
+def _role_candidates(providers: list, role: str, tier: str) -> list:
+    """Candidate chain for role dispatch (get_client(role)/complete(role=...)).
+    Explicit-role providers first, in the per-role order (coder -> nvidia_nim
+    first, planner -> cloudflare_workers_ai first, background -> mistral);
+    overflow-role providers (`llm7 -> hetzner -> ...`) appended last so a
+    budget-exhausted role provider falls through to the overflow pool exactly
+    as the operator specified instead of hitching a ride on another role."""
+    order = {n: i for i, n in enumerate(_ROLE_ORDER.get(role, []))}
+    of_order = {n: i for i, n in enumerate(_ROLE_ORDER.get("overflow", []))}
+    explicit = [p for p in providers if _has_role(p, role) and p.enabled]
+    overflow = [p for p in providers
+                if _has_role(p, "overflow") and p.name not in {q.name for q in explicit}]
+    explicit.sort(key=lambda p: (order.get(p.name, 10 ** 9),
+                                 _PROVIDER_ORDER.get(p.name, 0), p.name))
+    overflow.sort(key=lambda p: (of_order.get(p.name, 10 ** 9),
+                                 _PROVIDER_ORDER.get(p.name, 0), p.name))
+    return explicit + overflow
+
+
+def _cloudflare_chat(provider: Provider, model: str, messages: list,
+                     max_tokens: int, timeout: float):
+    """Cloudflare Workers AI does NOT speak the OpenAI schema natively: its
+    base endpoint returns its own {success,result} envelope. The opinionated
+    OpenAI-compatible route lives at
+    https://api.cloudflare.com/client/v4/accounts/{CF_ACCOUNT_ID}/ai/v1/...
+    which accepts OpenAI-shaped chat requests but still wraps the reply. This
+    adapter translates request + response both ways so complete()'s existing
+    accounting/failover path consumes it unchanged. Needs CF_ACCOUNT_ID in
+    addition to the CF_API_TOKEN when no base_url is configured."""
+    import urllib.request  # noqa: PLC0415 - stdlib, no openai SDK round-trip
+
+    if not provider.base_url:
+        account_id = os.getenv("CF_ACCOUNT_ID", "").strip()
+        if not account_id:
+            raise RuntimeError(
+                "cloudflare_workers_ai: CF_ACCOUNT_ID unset "
+                "(adapter builds the URL from it; nothing to call)"
+            )
+        url = (f"https://api.cloudflare.com/client/v4/accounts/"
+               f"{account_id}/ai/v1/chat/completions")
+    else:
+        url = provider.base_url.rstrip("/") + "/chat/completions"
+    body = json.dumps({"model": model, "messages": messages,
+                       "max_tokens": int(max_tokens)}).encode("utf-8")
+    req = urllib.request.Request(
+        url, data=body, method="POST",
+        headers={"Authorization": f"Bearer {provider.api_key}",
+                 "Content-Type": "application/json"},
+    )
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        payload = json.loads(resp.read().decode("utf-8"))
+    if payload.get("success") is False:
+        raise RuntimeError(f"cloudflare_workers_ai: {payload.get('errors')}")
+    result = payload.get("result", payload)
+    choices = result.get("choices")
+    if choices:
+        content = str(choices[0].get("message", {}).get("content", "") or "")
+    else:
+        content = str(result.get("response", "") or "")
+    usage = None
+    u = result.get("usage") or payload.get("usage")
+    if u:
+        from types import SimpleNamespace  # noqa: PLC0415
+        usage = SimpleNamespace(
+            prompt_tokens=int(u.get("prompt_tokens", u.get("input_tokens", 0)) or 0),
+            completion_tokens=int(u.get("completion_tokens", 0) or 0),
+            total_tokens=int(u.get("total_tokens", 0) or 0),
+            neurons=int(u.get("neurons", 0) or 0),
+        )
+    return LightCompletion(
+        provider_name=provider.name,
+        model=model,
+        choices=[Choice(Message(content))],
+        usage=usage,
+    )
+
+
+def _neurons_for(response, input_tokens: int) -> int:
+    """Neurons billed (Cloudflare Workers AI unit). Use the response's own
+    figure when present, else an input-token estimate so the daily_neurons
+    ceiling still binds even when a provider omits usage."""
+    usage = getattr(response, "usage", None)
+    if usage is not None:
+        raw = getattr(usage, "neurons", None)
+        if raw:
+            try:
+                return int(raw)
+            except (TypeError, ValueError):
+                pass
+    return int(input_tokens)
+
+
 def complete(messages: list, model: str, max_tokens: int = 4000,
              timeout: float = DEFAULT_WATCHDOG_SECONDS,
-             provider_hint: Optional[str] = None):
+             provider_hint: Optional[str] = None,
+             role: Optional[str] = None):
     """Ask the model, failing over across healthy, budgeted providers.
 
     Returns a LightCompletion(response-like) so the fixer's call site receives
@@ -866,8 +1087,13 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
     AllProvidersExhaustedError when the whole tier chain is down/over-budget,
     or PreflightTokenBudgetExceeded when this single call would blow the
     remaining per-issue ceiling BEFORE any token is spent.
+
+    `role` (coder/planner/background) dispatches through that role's designated
+    provider first (per _ROLE_ORDER) then the overflow pool; when NO provider
+    declares the role the legacy tier chain applies unchanged, so machines
+    without the new role registry behave byte-for-byte as before.
     """
-    from openai import OpenAI
+    from openai import OpenAI  # noqa: PLC0415
 
     _preflight_check(messages, max_tokens)
 
@@ -884,9 +1110,17 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
             f"(see {PROVIDER_USAGE_FILE})"
         )
 
-    candidates = [p for p in providers if p.matches_tier(tier) and p.enabled]
+    if role:
+        role_candidates = _role_candidates(providers, role, tier)
+        if role_candidates and any(_has_role(p, role) for p in role_candidates):
+            candidates = role_candidates
+        else:
+            candidates = [p for p in providers if p.matches_tier(tier) and p.enabled]
+    else:
+        candidates = [p for p in providers if p.matches_tier(tier) and p.enabled]
     if not candidates:
         raise AllProvidersExhaustedError(f"no providers registered for tier '{tier}' "
+                                          f"or role '{role}' "
                                           "(set at least one API key, e.g. OMNIROUTE_API_KEY)")
 
     last_error: Optional[Exception] = None
@@ -905,6 +1139,14 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
             continue
         if reason == "budget_spent":
             last_error = ProviderBudgetExceeded(f"{provider.name}: daily budget spent")
+            continue
+        if reason in ("rpm_exceeded", "rps_exceeded"):
+            # Rolling rate window -- clears in under a minute. Skip quietly to
+            # the next provider instead of setting a scary last_error.
+            continue
+        if reason in ("daily_tokens_exceeded", "daily_tokens_in_exceeded",
+                      "daily_neurons_exceeded", "monthly_tokens_exceeded"):
+            last_error = ProviderBudgetExceeded(f"{provider.name}: {reason}")
             continue
         # CLOSED or HALF_OPEN with quota: HALF_OPEN means the cooldown has
         # elapsed, so we MUST actually call -- its result is what decides
@@ -926,7 +1168,7 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
         if provider.max_input_tokens is not None:
             est_input = estimate_input_tokens(messages)
             if est_input > provider.max_input_tokens:
-                print(f"⚠️ provider {provider.name} skipped: request input "
+                print(f"[!] provider {provider.name} skipped: request input "
                       f"~{est_input} tokens > its {provider.max_input_tokens}-token "
                       f"window -- trying the next candidate", flush=True)
                 continue
@@ -939,7 +1181,19 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
                 "Editor-Version": "oss-agent-1.0",
                 "Editor-Plugin-Version": "copilot-chat-1.0",
             }
-        client = OpenAI(**client_kwargs)
+        client = (None if provider.adapter
+                  else OpenAI(**client_kwargs))
+
+        def _do_call(call_mt: int):
+            if provider.adapter:
+                return _cloudflare_chat(provider, resolved, messages,
+                                        int(call_mt), timeout)
+            return client.chat.completions.create(
+                model=resolved,
+                max_tokens=int(call_mt),
+                messages=messages,
+            )
+
         call_max_tokens = max_tokens
         if provider.max_tokens_cap is not None:
             # Registry cap: some free endpoints hard-fail >N output tokens
@@ -948,11 +1202,7 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
         started = time.monotonic()
         try:
             response = call_with_watchdog(
-                lambda: client.chat.completions.create(
-                    model=resolved,
-                    max_tokens=call_max_tokens,
-                    messages=messages,
-                ),
+                lambda: _do_call(call_max_tokens),
                 timeout=timeout,
             )
         except Exception as exc:  # noqa: BLE001 - record and fail over
@@ -973,13 +1223,13 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
                     backoff = _retry_after_seconds(err)
                     mark_result(cohort, ok=False, reason=f"{type(err).__name__}: {err}",
                                 rate_backoff_until=time.time() + backoff)
-                    print(f"⚠️ provider {provider.name} rate-limited "
+                    print(f"[!] provider {provider.name} rate-limited "
                           f"(backoff {backoff:.0f}s)", flush=True)
                 else:
                     mark_result(cohort, ok=False, reason=f"{type(err).__name__}: {err}")
                     _NEGATIVE_MODELS.add((provider.name, resolved))
                 if fail_kind != "429_rate":
-                    print(f"⚠️ provider {provider.name} failed: "
+                    print(f"[!] provider {provider.name} failed: "
                           f"{f'{type(err).__name__}: {err}'[:240]}", flush=True)
                 return err
 
@@ -990,15 +1240,11 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
                 # trip=False: this is not circuit noise. quota/negative-cache
                 # stays untouched unless the halved retry ALSO 402s.
                 if call_max_tokens > 1:
-                    print(f"⚠️ provider {provider.name} 402 w/ max_tokens={call_max_tokens} "
+                    print(f"[!] provider {provider.name} 402 w/ max_tokens={call_max_tokens} "
                           f"-- retrying once at {max(1, call_max_tokens // 2)}", flush=True)
                     try:
                         response = call_with_watchdog(
-                            lambda: client.chat.completions.create(
-                                model=resolved,
-                                max_tokens=max(1, call_max_tokens // 2),
-                                messages=messages,
-                            ),
+                            lambda: _do_call(max(1, call_max_tokens // 2)),
                             timeout=timeout,
                         )
                     except Exception as exc2:  # noqa: BLE001
@@ -1016,15 +1262,20 @@ def complete(messages: list, model: str, max_tokens: int = 4000,
             else:
                 last_error = _record_failure("transient", exc)
                 continue
-        # Token accounting (W18): prefer SDK usage, estimate otherwise.
+        # Token accounting (W18): prefer SDK usage, estimate otherwise. The
+        # input_tokens/neurons feeds feed the per-provider calendar/neurons
+        # budget walls so they bind BEFORE the next call on that provider.
         tokens = _estimate_tokens(response, messages)
-        mark_result(provider, ok=True, tokens=tokens)
+        input_tokens = estimate_input_tokens(messages)
+        neurons = _neurons_for(response, input_tokens)
+        mark_result(provider, ok=True, tokens=tokens,
+                    input_tokens=input_tokens, neurons=neurons)
         content = _extract_content(response)
         if not content:
             reason = "returned an empty completion"
             mark_result(provider, ok=False, reason=reason)
             _NEGATIVE_MODELS.add((provider.name, resolved))
-            print(f"⚠️ provider {provider.name} failed: {reason}", flush=True)
+            print(f"[!] provider {provider.name} failed: {reason}", flush=True)
             last_error = RuntimeError(f"{provider.name} returned an empty completion")
             continue
         _NEGATIVE_MODELS.discard((provider.name, resolved))
@@ -1096,10 +1347,12 @@ class _Completions:
         self._proxy = proxy
 
     def create(self, model="", max_tokens=4000, messages=None, timeout=None, **kwargs):
+        role = kwargs.pop("role", None)
         del kwargs
         use_timeout = float(timeout) if timeout else DEFAULT_WATCHDOG_SECONDS
         return self._proxy.complete(model=model, max_tokens=max_tokens,
-                                     messages=messages or [], timeout=use_timeout)
+                                     messages=messages or [], timeout=use_timeout,
+                                     role=role)
 
 
 class _Chat:
@@ -1113,12 +1366,48 @@ class CompletionProxy:
     def __init__(self):
         self.chat = _Chat(self)
 
-    def complete(self, model, max_tokens, messages, timeout) -> LightCompletion:
-        return complete(messages, model, max_tokens=max_tokens, timeout=timeout)
+    def complete(self, model, max_tokens, messages, timeout, role=None) -> LightCompletion:
+        # Only forward `role` when the caller actually used it, so legacy
+        # call sites / monkeypatched `complete` (old signature) stay untouched.
+        if role is None:
+            return complete(messages, model, max_tokens=max_tokens, timeout=timeout)
+        return complete(messages, model, max_tokens=max_tokens, timeout=timeout,
+                        role=role)
 
 
 def build_completion_proxy():
     return CompletionProxy()
+
+
+class _RoleProxy(CompletionProxy):
+    """A CompletionProxy pinned to one role: every create() routes through
+    that role's designated provider (then the overflow pool), and reports
+    which provider actually served the call via `provider_name`."""
+
+    def __init__(self, role: str):
+        if role not in ("coder", "planner", "background", "overflow"):
+            raise ValueError(f"unknown llm role: {role!r} "
+                             "(use coder|planner|background|overflow)")
+        super().__init__()
+        self.role = role
+
+    def complete(self, model, max_tokens, messages, timeout, role=None) -> LightCompletion:
+        return complete(messages, model, max_tokens=max_tokens, timeout=timeout,
+                        role=self.role if role is None else role)
+
+
+def get_client(role: str):
+    """Role-routed client shaped like the legacy proxy -- the role picks the
+    provider (coder->nvidia_nim, planner->cloudflare_workers_ai,
+    background->mistral) with overflow fallback, so callers get the same
+    `obj.chat.completions.create(...)` surface as before.
+
+    Every call consults the persistent budget tracker first and reroutes when
+    the designated provider is budget-exhausted; which provider actually
+    served is on `resp.provider_name`. When no provider declares `role`, the
+    legacy tier chain applies (no behavioural change on unconfigured boxes).
+    """
+    return _RoleProxy(role)
 
 
 # ---------------------------------------------------------------------------
@@ -1141,10 +1430,18 @@ def health_status() -> str:
                 health = "DOWN"
             budget = "ok" if has_quota(provider, entry) else "OVER"
             qmark = " QUOTA" if float(entry.get("quota_exhausted_until", 0)) > time.time() else ""
+            roles = ",".join(provider.roles) if provider.roles else provider.tier
+            extras = ""
+            if provider.rpm is not None:
+                extras += f" rpm={int(entry.get('window_requests_60s', 0))}/{int(provider.rpm)}"
+            if provider.daily_tokens is not None:
+                extras += f" day={int(entry.get('tokens', 0))}/{int(provider.daily_tokens)}"
+            if provider.monthly_tokens is not None:
+                extras += f" mo={int(entry.get('month_tokens', 0))}/{int(provider.monthly_tokens)}"
             lines.append(
-                f"  {provider.name:<14} tier={provider.tier:<13} {health:4} budget={budget:5}"
+                f"  {provider.name:<14} role={roles:<12} {health:4} budget={budget:5}"
                 f"{qmark} tokens={int(entry.get('tokens', 0))} calls={int(entry.get('calls', 0))} "
-                f"fails={int(entry.get('fails', 0))} state={state}"
+                f"fails={int(entry.get('fails', 0))} state={state}{extras}"
             )
     lines.append(f"global daily tokens: {daily_tokens_spent()}/{GLOBAL_DAILY_TOKEN_BUDGET}")
     return "\n".join(lines)

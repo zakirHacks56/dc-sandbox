@@ -6,8 +6,10 @@ report-only routing, PR limits). The hunter just avoids obviously-wrong
 targets (already attempted, hard-labelled, too many stars, locked, assigned,
 already has one of our open PRs) and lets the fixer make the final call.
 """
+import json
 import os
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
 
@@ -25,6 +27,13 @@ _HARD_HINTS = ("hard", "advanced", "complex", "epic", "major", "big", "won't fix
 # body_chars//3) can eat the entire routine issue budget before ANY code is
 # fetched. Screen it here, free, before the expensive solve path starts.
 MAX_ISSUE_BODY_CHARS = int(os.getenv("MAX_ISSUE_BODY_CHARS", "12000"))
+
+# Issue-selection preference: issues numbered 1..N are scored ahead of
+# brand-new ones (additive on top of the existing easy-issue/token-burn /
+# newest-creation-date scoring -- not a replacement).
+PREFERRED_ISSUE_NUMBERS_MAX = int(os.getenv("PREFERRED_ISSUE_NUMBERS", "150").strip() or 150)
+# A repo with no commits inside this window is stale and gets no hunt calls.
+REPO_STALE_DAYS = int(os.getenv("REPO_STALE_DAYS", "90").strip() or 90)
 
 
 def _body_too_big(issue: dict) -> bool:
@@ -70,6 +79,106 @@ def _stars_ok(repo_full: str, max_stars: int) -> bool:
     if not meta:
         return True  # let the fixer decide when the meta call fails
     return int(meta.get("stargazers_count", 0)) <= max_stars
+
+
+def _safe_repo_dir(repo_full: str) -> str:
+    """owner/repo -> owner-repo (matches fixer session_store.safe_repo_dir)."""
+    return str(repo_full).replace("/", "-")
+
+
+def _attempt_status(repo_full: str, issue_number: int) -> str:
+    """Run-once guard: attempt_status from the vendored fixer's committed
+    workflow store, or '' when the issue was never selected. These records are
+    tracked in git, so the rule survives restarts and every runner sees the
+    same answer: not_attempted -> attempted_success | attempted_failed |
+    budget_exhausted; an issue that is anything but not_attempted (or a record
+    still literally in flight) is consumed and never selected again."""
+    base = util.FIXER / ".agent_data" / "workflows"
+    new = base / _safe_repo_dir(repo_full) / f"issue-{issue_number}.json"
+    rec_path = new if new.exists() \
+        else base / f"{_safe_repo_dir(repo_full)}_issue{issue_number}.json"
+    if not rec_path.exists():
+        return ""
+    try:
+        record = json.loads(rec_path.read_text(encoding="utf-8")) or {}
+    except (OSError, ValueError):
+        return "corrupt"
+    status = record.get("attempt_status") or "not_attempted"
+    if status != "not_attempted":
+        return status
+    if record.get("state") not in ("COMPLETED", "ABANDONED"):
+        return "in_flight"
+    return ""
+
+
+def _repo_active(repo_full: str, board: dict) -> bool:
+    """Whether a repo is worth hunting today: not archived, not disabled, has
+    commits inside REPO_STALE_DAYS, owner not suspended/deleted. Checked once
+    per calendar day and cached on the board (committed back with the rest),
+    so an 8x-daily repeat scan never re-burns the repo/meta API budget."""
+    today = util.today_utc()[:10]
+    cache = board.setdefault("repo_activity", {})
+    if cache.get("date") == today and repo_full in cache.get("results", {}):
+        return bool(cache["results"][repo_full])
+    meta = util.gh_api("GET", f"/repos/{repo_full}")
+    active = True
+    if not meta:
+        active = False  # 404/renamed/private: don't hunt blind
+    elif meta.get("archived") or meta.get("disabled"):
+        active = False
+    else:
+        pushed = str(meta.get("pushed_at") or "")
+        if not pushed:
+            active = False
+        else:
+            try:
+                pushed_dt = datetime.fromisoformat(pushed.replace("Z", "+00:00"))
+                active = (datetime.now(timezone.utc) - pushed_dt).days <= REPO_STALE_DAYS
+            except ValueError:
+                active = True  # unparseable timestamp: let the fixer decide
+            owner = meta.get("owner") or {}
+            if active and owner.get("suspended_at"):
+                active = False
+    results = cache.get("results", {})
+    results[repo_full] = active
+    cache["results"] = results
+    cache["date"] = today
+    board["repo_activity"] = cache
+    return active
+
+
+def _pref_bucket(number: int) -> int:
+    n = int(number)
+    if 1 <= n <= PREFERRED_ISSUE_NUMBERS_MAX:
+        return 0
+    return 1
+
+
+def _pick_issue(issues: list, attempts: set, repo_full: str) -> tuple | None:
+    """Score one batch of candidate issues: preference bucket (low numbers
+    first) then newest-created (the pre-existing scoring). Returns
+    (number, issue) for the best eligible issue, or None."""
+    scored = []
+    for issue in issues:
+        num = issue.get("number")
+        if num is None:
+            continue
+        if not _eligible(issue, attempts):
+            continue
+        status = _attempt_status(repo_full, num)
+        if status:
+            util.log(f"#{num}: skipping (attempt {status})")
+            continue
+        created = str(issue.get("created_at") or "")
+        try:
+            created_ts = datetime.fromisoformat(created.replace("Z", "+00:00")).timestamp()
+        except ValueError:
+            created_ts = 0.0
+        scored.append((_pref_bucket(num), -created_ts, num, issue))
+    if not scored:
+        return None
+    scored.sort(key=lambda t: (t[0], t[1], t[2]))
+    return scored[0][2], scored[0][3]
 
 
 def _tree_too_big(repo_full: str, max_file_bytes: int) -> bool:
@@ -164,6 +273,9 @@ def find_candidate(conf: dict, board: dict) -> tuple | None:
         if not _stars_ok(repo_full, max_stars):
             util.log(f"{repo_full}: skipping (stars > {max_stars})")
             continue
+        if not _repo_active(repo_full, board):
+            util.log(f"{repo_full}: skipping (inactive: archived/disabled/quiet/suspended)")
+            continue
         if _tree_too_big(repo_full, max_file_bytes):
             continue
         if not _day_attempt_budget_ok(repo_full, board, max_per_day):
@@ -176,23 +288,15 @@ def find_candidate(conf: dict, board: dict) -> tuple | None:
         repo_labels = target.get("labels")
         if repo_labels is None:
             path = f"/repos/{repo_full}/issues?state=open"
-            issues = util.gh_paged(path)
-            for issue in issues:
-                num = issue.get("number")
-                if num is None:
-                    continue
-                if _eligible(issue, attempts):
-                    return repo_full, num
+            picked = _pick_issue(util.gh_paged(path), attempts, repo_full)
+            if picked:
+                return repo_full, picked[0]
             util.log(f"{repo_full}: no eligible open issue (unlabeled hunt)")
             continue
         for label in repo_labels:
             path = f"/repos/{repo_full}/issues?state=open&labels={quote(label)}"
-            issues = util.gh_paged(path)
-            for issue in issues:
-                num = issue.get("number")
-                if num is None:
-                    continue
-                if _eligible(issue, attempts):
-                    return repo_full, num
+            picked = _pick_issue(util.gh_paged(path), attempts, repo_full)
+            if picked:
+                return repo_full, picked[0]
             util.log(f"{repo_full}: no eligible issue under label '{label}'")
     return None

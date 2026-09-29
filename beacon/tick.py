@@ -619,8 +619,43 @@ def main() -> int:
         max_prs = int(conf.get("max_prs_per_day", 2))
         if not acted and len(pending) < max_pending and prs_today < max_prs:
             if _providers_callable():
-                candidate = hunter_stage.find_candidate(conf, board)
-                if candidate:
+                # Same-run candidate rule: every scheduled run works a FRESH
+                # issue. When a run ends `budget_exhausted` (per-issue budget
+                # dried up mid-way) or `attempted_failed` with no PR, the tick
+                # moves straight on to the next candidate in THIS SAME run,
+                # bounded by HUNT_CANDIDATES_PER_TICK so one unlucky streak
+                # can't eat the whole controller slot.
+                max_candidates = int(os.getenv("HUNT_CANDIDATES_PER_TICK", "3").strip() or 3)
+                tried = 0
+                chained_failure = False
+                while tried < max_candidates:
+                    candidate = hunter_stage.find_candidate(conf, board)
+                    if candidate is None:
+                        if not chained_failure:
+                            calls, fails = util.gh_api_stats()
+                            if calls >= 3 and fails == calls:
+                                util.log(
+                                    f"FATAL: every GitHub API call failed ({fails}/{calls}) -- "
+                                    "the token (PR_PAT) is dead (revoked/expired?) and the "
+                                    "machine is running blind. Sounding the alarm."
+                                )
+                                outcome = "gh_dead"
+                                # Infra no-op: the tick can never find a candidate on a
+                                # dead token, so fail the run LOUDLY (everything else
+                                # stays green, a silent dead-man is exactly what we
+                                # don't want with a human gate to answer).
+                                util.metric("tick", outcome=outcome, fails=fails,
+                                            calls=calls, prs_today=prs_today,
+                                            pending=len(pending))
+                                if util.tg_send(
+                                    f"⚠️ OSS bot: every GitHub API call failed "
+                                    f"({fails}/{calls}). PR_PAT may be dead -- the "
+                                    "machine can't hunt or answer gates."
+                                ):
+                                    util.log("outcome: gh_dead - Telegram alert sent")
+                                return 1
+                            util.log("no candidate found this tick")
+                        break
                     repo_name, issue_number = candidate
                     util.log(f"HUNTING: trying {repo_name}#{issue_number}")
                     extra_env = None
@@ -647,29 +682,22 @@ def main() -> int:
                         }
                     acted = True
                     outcome = "hunted"
-                else:
-                    calls, fails = util.gh_api_stats()
-                    if calls >= 3 and fails == calls:
-                        util.log(
-                            f"FATAL: every GitHub API call failed ({fails}/{calls}) -- "
-                            "the token (PR_PAT) is dead (revoked/expired?) and the "
-                            "machine is running blind. Sounding the alarm."
-                        )
-                        outcome = "gh_dead"
-                        # Infra no-op: the tick can never find a candidate on a
-                        # dead token, so fail the run LOUDLY (everything else
-                        # stays green, a silent dead-man is exactly what we
-                        # don't want with a human gate to answer).
-                        util.metric("tick", outcome=outcome, fails=fails, calls=calls,
-                                    prs_today=prs_today, pending=len(pending))
-                        if util.tg_send(
-                            f"⚠️ OSS bot: every GitHub API call failed "
-                            f"({fails}/{calls}). PR_PAT may be dead -- the "
-                            "machine can't hunt or answer gates."
-                        ):
-                            util.log("outcome: gh_dead - Telegram alert sent")
-                        return 1
-                    util.log("no candidate found this tick")
+                    tried += 1
+                    chained_failure = True
+                    if tried >= max_candidates:
+                        break
+                    # Same-run chain decision: only continue when THIS run
+                    # consumed itself without producing live work (per-issue
+                    # budget ran dry, or it failed with no PR). A parked PR /
+                    # gate / in-flight lane means this tick already HAS a unit
+                    # of work -- stop, don't stack more attempts.
+                    status = (rec or {}).get("attempt_status") or ""
+                    if status not in ("budget_exhausted", "attempted_failed"):
+                        break
+                    if rec and rec.get("pr_number"):
+                        break
+                    util.log(f"{repo_name}#{issue_number}: attempt {status} -- "
+                             "moving to next candidate in the same run")
             else:
                 outcome = "providers_down"
                 util.log("preflight: no LLM provider callable -- skipping hunt")
