@@ -185,3 +185,4 @@
 {"event": "tick", "ts": "2026-09-29T01:27:12+00:00", "outcome": "hunted", "reaped": 0, "acted": true, "prs_today": 0, "pending": 0}
 {"ts": "2026-09-29T01:34:10.630773+00:00", "repo": "izzywdev/FuzeFront", "issue": 1187, "language": "", "outcome": "abandoned_error", "tokens_spent": 3775, "iterations": 0, "notes": ""}
 {"event": "tick", "ts": "2026-09-29T01:34:10+00:00", "outcome": "hunted", "reaped": 0, "acted": true, "prs_today": 0, "pending": 0}
+{"event": "tick", "ts": "2026-09-29T01:37:52+00:00", "outcome": "no_candidate", "reaped": 0, "acted": false, "prs_today": 0, "pending": 0}
