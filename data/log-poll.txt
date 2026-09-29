@@ -18220,3 +18220,6 @@
 2026-09-29T19:08:29+00:00  poll lease taken for 45s
 2026-09-29T19:08:30+00:00  control card edit network error -- keeping card
 2026-09-29T19:08:30+00:00  gate poller done: 1 callback(s), new offset=746150322
+2026-09-29T19:23:34+00:00  gate poller start (offset=746150321)
+2026-09-29T19:23:42+00:00  poll lease taken for 45s
+2026-09-29T19:23:42+00:00  gate poller done: 0 callback(s), new offset=746150321

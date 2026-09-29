@@ -4,13 +4,13 @@
   "control_card": {
     "chat_id": "7128424097",
     "message_id": 282,
-    "text": "OSS controller: 🔴 PAUSED\n\nTap Start to let it hunt again, Stop to freeze it (no more fixer runs / tokens spent while paused)."
+    "text": "OSS controller: 🟢 RUNNING\n\nTap Start to let it hunt again, Stop to freeze it (no more fixer runs / tokens spent while paused)."
   },
-  "confirmed_offset": 746150322,
-  "master_seen": 746150321,
+  "confirmed_offset": 746150321,
+  "master_seen": 746150320,
   "master_switch": {
     "enabled": true,
     "by": "telegram-manual",
-    "at": "2026-09-29T19:05:26+00:00"
+    "at": "2026-09-29T19:16:00+00:00"
   }
 }
