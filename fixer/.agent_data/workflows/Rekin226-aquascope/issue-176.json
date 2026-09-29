@@ -1,0 +1,59 @@
+{
+  "schema": 2,
+  "repo": "Rekin226/aquascope",
+  "issue": 176,
+  "issue_title": "taiwan_civil_iot: SensorThings endpoint times out from Taiwan too \u2014 service moved or down, and TLS verification is disabled in the collector",
+  "issue_url": "https://github.com/Rekin226/aquascope/issues/176",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-176",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-29T00:08:13",
+  "updated_at": "2026-09-29T00:10:02",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-29T00:08:13",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-29T00:08:45",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260929T000813-10f6f2fe",
+  "conversation_dir": "conversations/Rekin226-aquascope/issue-176",
+  "workspace": "workspace/Rekin226-aquascope/issue-176",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "help wanted",
+    "good second issue"
+  ],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_error"
+}

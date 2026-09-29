@@ -195,3 +195,12 @@
 {"provider": "gemini", "ok": true, "tokens": 35854, "ts": 1790640161.0034485, "date": "2026-09-29", "run_id": "36500664478"}
 {"provider": "gemini", "ok": true, "tokens": 35912, "ts": 1790640210.0451014, "date": "2026-09-29", "run_id": "36500664478"}
 {"provider": "gemini", "ok": false, "tokens": 0, "ts": 1790640229.8013332, "date": "2026-09-29", "run_id": "36500664478", "reason": "InternalServerError: Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}]"}
+{"provider": "gemini", "ok": true, "tokens": 2710, "ts": 1790640525.3185189, "date": "2026-09-29", "run_id": "36501365620"}
+{"provider": "gemini", "ok": true, "tokens": 43947, "ts": 1790640531.4761536, "date": "2026-09-29", "run_id": "36501365620"}
+{"provider": "gemini", "ok": false, "tokens": 0, "ts": 1790640531.7620473, "date": "2026-09-29", "run_id": "36501365620", "reason": "NotFoundError: Error code: 404 - [{'error': {'code': 404, 'message': 'models/auto/best-reasoning is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models "}
+{"provider": "groq", "ok": false, "tokens": 0, "ts": 1790640531.8633378, "date": "2026-09-29", "run_id": "36501365620", "reason": "NotFoundError: Error code: 404 - {'error': {'message': 'The model `auto/best-reasoning` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"}
+{"provider": "gemini", "ok": true, "tokens": 51927, "ts": 1790640555.8777497, "date": "2026-09-29", "run_id": "36501365620"}
+{"provider": "gemini", "ok": true, "tokens": 45685, "ts": 1790640566.4555504, "date": "2026-09-29", "run_id": "36501365620"}
+{"provider": "gemini", "ok": true, "tokens": 44354, "ts": 1790640573.197088, "date": "2026-09-29", "run_id": "36501365620"}
+{"provider": "gemini", "ok": true, "tokens": 44898, "ts": 1790640580.2502706, "date": "2026-09-29", "run_id": "36501365620"}
+{"provider": "gemini", "ok": true, "tokens": 44977, "ts": 1790640587.5019853, "date": "2026-09-29", "run_id": "36501365620"}

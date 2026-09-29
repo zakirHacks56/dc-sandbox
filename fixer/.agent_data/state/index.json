@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-29T00:03:49",
+  "updated_at": "2026-09-29T00:10:02",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -2026,6 +2026,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-29T00:03:49"
+    },
+    "Rekin226/aquascope#176": {
+      "repo": "Rekin226/aquascope",
+      "issue": 176,
+      "issue_title": "taiwan_civil_iot: SensorThings endpoint times out from Taiwan too \u2014 service moved or down, and TLS verification is disabled in the collector",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-176.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-176",
+      "workspace": "workspace/Rekin226-aquascope/issue-176",
+      "conversation_id": "20260929T000813-10f6f2fe",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-176",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-29T00:10:02"
     }
   }
 }

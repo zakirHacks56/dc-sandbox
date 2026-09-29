@@ -18971,3 +18971,45 @@ def test_ds_conformance_eyebrow_extraction():
 
 Switched to a new branch 'fix-issue-964'
 2026-09-29T00:03:49+00:00  tick done (outcome=hunted)
+2026-09-29T00:06:42+00:00  gate poller start (offset=746150288)
+2026-09-29T00:06:50+00:00  gate poller done: 0 decree(s), new offset=746150288
+2026-09-29T00:06:50+00:00  new day: resetting PR budget
+2026-09-29T00:06:52+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-29T00:06:53+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-29T00:06:54+00:00  HUNTING: trying Rekin226/aquascope#176
+2026-09-29T00:06:54+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo Rekin226/aquascope --issue 176 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-29T00:10:02+00:00  fixer exit=0
+--tail--
+@ -0,0 +1,18 @@
++from unittest.mock import patch
++import pytest
++from aquascope.collectors.taiwan_civil_iot import fetch_taiwan_civil_iot_data, BASE_URL
++from aquascope.security.ca_bundles import get_tw_gca_bundle
++
++@patch("aquascope.collectors.taiwan_civil_iot.requests.get")
++def test_fetch_taiwan_civil_iot_uses_ca_bundle_and_new_url(mock_get):
++    mock_get.return_value.status_code = 200
++    mock_get.return_value.json.return_value = {"value": []}
++
++    res = fetch_taiwan_civil_iot_data()
++    assert res == {"value": []}
++
++    mock_get.assert_called_once_with(
++        BASE_URL,
++        params=None,
++        verify=get_tw_gca_bundle(),
++        timeout=30
++    )
+```
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 7/8 ---
+⚠️ Combo 'auto/best-reasoning' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~44165 tokens (input 36165 + max_tokens 8000) but only 24212 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️ Combo 'gemini-3.5-flash-lite' failed hard (PreflightTokenBudgetExceeded): pre-flight: call needs ~44165 tokens (input 36165 + max_tokens 8000) but only 24212 remain in the issue budget -- refusing before spend
+   Trying fallback combo 'gemini-3.6-flash' in 10s...
+
+🛑 Run ended (abandoned_error) -- record terminal, lane freed.
+
+Switched to a new branch 'fix-issue-176'
+2026-09-29T00:10:02+00:00  tick done (outcome=hunted)
