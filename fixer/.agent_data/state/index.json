@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-29T01:33:46",
+  "updated_at": "2026-09-29T19:25:13",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -2101,6 +2101,51 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-29T01:15:02"
+    },
+    "taranis-ai/taranis-ai#1138": {
+      "repo": "taranis-ai/taranis-ai",
+      "issue": 1138,
+      "issue_title": "Improve Admin Sidebar with collapsible submenus",
+      "workflow_path": "workflows/taranis-ai-taranis-ai/issue-1138.json",
+      "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-1138",
+      "workspace": "workspace/taranis-ai-taranis-ai/issue-1138",
+      "conversation_id": "20260929T191813-25cdd5a6",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-1138",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-29T19:18:59"
+    },
+    "tashfeenahmed/freellmapi#1369": {
+      "repo": "tashfeenahmed/freellmapi",
+      "issue": 1369,
+      "issue_title": "Add rate limiting for LLMTR provider (getting accounts banned)",
+      "workflow_path": "workflows/tashfeenahmed-freellmapi/issue-1369.json",
+      "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1369",
+      "workspace": "workspace/tashfeenahmed-freellmapi/issue-1369",
+      "conversation_id": "20260929T192028-d972015b",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-1369",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-29T19:21:23"
+    },
+    "tashfeenahmed/freellmapi#1360": {
+      "repo": "tashfeenahmed/freellmapi",
+      "issue": 1360,
+      "issue_title": "Unable to add API key for Kilo provider",
+      "workflow_path": "workflows/tashfeenahmed-freellmapi/issue-1360.json",
+      "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1360",
+      "workspace": "workspace/tashfeenahmed-freellmapi/issue-1360",
+      "conversation_id": "20260929T192254-9eb8471e",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-1360",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-29T19:25:13"
     }
   }
 }

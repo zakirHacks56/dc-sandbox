@@ -1,0 +1,57 @@
+{
+  "schema": 2,
+  "repo": "tashfeenahmed/freellmapi",
+  "issue": 1369,
+  "issue_title": "Add rate limiting for LLMTR provider (getting accounts banned)",
+  "issue_url": "https://github.com/tashfeenahmed/freellmapi/issues/1369",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-1369",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-29T19:20:28",
+  "updated_at": "2026-09-29T19:21:23",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-29T19:20:28",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-29T19:20:37",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260929T192028-d972015b",
+  "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1369",
+  "workspace": "workspace/tashfeenahmed-freellmapi/issue-1369",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "attempt_status": "budget_exhausted",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_failed"
+}

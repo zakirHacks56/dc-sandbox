@@ -320,3 +320,9 @@
 {"event": "tick", "ts": "2026-09-29T18:43:01+00:00", "outcome": "paused", "acted": false, "prs_today": 0, "pending": 0}
 {"event": "tick", "ts": "2026-09-29T18:52:45+00:00", "outcome": "paused", "acted": false, "prs_today": 0, "pending": 0}
 {"event": "tick", "ts": "2026-09-29T18:58:48+00:00", "outcome": "paused", "acted": false, "prs_today": 0, "pending": 0}
+{"ts": "2026-09-29T19:18:59.633544+00:00", "repo": "taranis-ai/taranis-ai", "issue": 1138, "language": "", "outcome": "abandoned_failed", "tokens_spent": 71543, "iterations": 0, "notes": ""}
+{"ts": "2026-09-29T19:21:23.274099+00:00", "repo": "tashfeenahmed/freellmapi", "issue": 1369, "language": "", "outcome": "abandoned", "tokens_spent": 77885, "iterations": 5, "notes": "max_iterations_reached"}
+{"ts": "2026-09-29T19:21:23.284410+00:00", "repo": "tashfeenahmed/freellmapi", "issue": 1369, "language": "", "outcome": "abandoned_failed", "tokens_spent": 77885, "iterations": 0, "notes": ""}
+{"ts": "2026-09-29T19:25:13.363510+00:00", "repo": "tashfeenahmed/freellmapi", "issue": 1360, "language": "", "outcome": "abandoned", "tokens_spent": 241169, "iterations": 8, "notes": "max_iterations_reached"}
+{"ts": "2026-09-29T19:25:13.377339+00:00", "repo": "tashfeenahmed/freellmapi", "issue": 1360, "language": "", "outcome": "abandoned_failed", "tokens_spent": 244296, "iterations": 0, "notes": ""}
+{"event": "tick", "ts": "2026-09-29T19:25:13+00:00", "outcome": "hunted", "reaped": 0, "acted": true, "prs_today": 0, "pending": 0}

@@ -1,0 +1,57 @@
+{
+  "schema": 2,
+  "repo": "tashfeenahmed/freellmapi",
+  "issue": 1360,
+  "issue_title": "Unable to add API key for Kilo provider",
+  "issue_url": "https://github.com/tashfeenahmed/freellmapi/issues/1360",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-1360",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-29T19:22:53",
+  "updated_at": "2026-09-29T19:25:13",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-29T19:22:54",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-29T19:23:12",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260929T192254-9eb8471e",
+  "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1360",
+  "workspace": "workspace/tashfeenahmed-freellmapi/issue-1360",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "attempt_status": "budget_exhausted",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_failed"
+}

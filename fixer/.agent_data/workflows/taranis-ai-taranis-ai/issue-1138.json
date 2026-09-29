@@ -1,0 +1,60 @@
+{
+  "schema": 2,
+  "repo": "taranis-ai/taranis-ai",
+  "issue": 1138,
+  "issue_title": "Improve Admin Sidebar with collapsible submenus",
+  "issue_url": "https://github.com/taranis-ai/taranis-ai/issues/1138",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-1138",
+  "base_branch": "master",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-29T19:18:12",
+  "updated_at": "2026-09-29T19:18:59",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-29T19:18:13",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-29T19:18:17",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260929T191813-25cdd5a6",
+  "conversation_dir": "conversations/taranis-ai-taranis-ai/issue-1138",
+  "workspace": "workspace/taranis-ai-taranis-ai/issue-1138",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "attempt_status": "attempted_failed",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "enhancement",
+    "frontend"
+  ],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "frontend",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "frontend",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_failed"
+}
