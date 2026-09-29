@@ -1,0 +1,59 @@
+{
+  "schema": 2,
+  "repo": "Rekin226/aquascope",
+  "issue": 440,
+  "issue_title": "The benchmark's name is taken: rename before the task suite gets a DOI",
+  "issue_url": "https://github.com/Rekin226/aquascope/issues/440",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-440",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-29T01:02:00",
+  "updated_at": "2026-09-29T01:03:37",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-29T01:02:00",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-29T01:02:26",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260929T010200-c639d59a",
+  "conversation_dir": "conversations/Rekin226-aquascope/issue-440",
+  "workspace": "workspace/Rekin226-aquascope/issue-440",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "documentation",
+    "enhancement"
+  ],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "docs",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "docs",
+    "task_type": "BUG_FIX",
+    "reason": "(model unavailable during classification)"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_failed"
+}
