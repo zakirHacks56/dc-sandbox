@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-29T01:21:45",
+  "updated_at": "2026-09-29T01:26:24",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -235,12 +235,12 @@
       "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1165",
       "workspace": "workspace/izzywdev-FuzeFront/issue-1165",
       "conversation_id": "20260924T115942-de4bdaa1",
-      "state": "PAUSED",
-      "status": "paused",
+      "state": "ABANDONED",
+      "status": "abandoned",
       "branch": "fix-issue-1165",
       "pr_number": null,
       "pr_url": null,
-      "updated_at": "2026-09-24T12:03:37"
+      "updated_at": "2026-09-29T01:26:24"
     },
     "Rekin226/aquascope#442": {
       "repo": "Rekin226/aquascope",

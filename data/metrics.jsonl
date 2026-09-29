@@ -180,3 +180,6 @@
 {"event": "tick", "ts": "2026-09-29T01:15:03+00:00", "outcome": "hunted", "reaped": 0, "acted": true, "prs_today": 0, "pending": 0}
 {"ts": "2026-09-29T01:22:02.509608+00:00", "repo": "izzywdev/FuzeFront", "issue": 1181, "language": "", "outcome": "abandoned_error", "tokens_spent": 4911, "iterations": 0, "notes": ""}
 {"event": "tick", "ts": "2026-09-29T01:22:02+00:00", "outcome": "hunted", "reaped": 0, "acted": true, "prs_today": 0, "pending": 0}
+{"ts": "2026-09-29T01:27:12.415049+00:00", "repo": "izzywdev/FuzeFront", "issue": 1165, "language": "", "outcome": "abandoned", "tokens_spent": 103869, "iterations": 5, "notes": "max_iterations_reached"}
+{"ts": "2026-09-29T01:27:12.416749+00:00", "repo": "izzywdev/FuzeFront", "issue": 1165, "language": "", "outcome": "abandoned_failed", "tokens_spent": 103869, "iterations": 0, "notes": ""}
+{"event": "tick", "ts": "2026-09-29T01:27:12+00:00", "outcome": "hunted", "reaped": 0, "acted": true, "prs_today": 0, "pending": 0}
