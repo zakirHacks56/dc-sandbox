@@ -20034,3 +20034,50 @@ Switched to a new branch 'fix-issue-1187'
 2026-09-29T08:51:27+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
 2026-09-29T08:51:27+00:00  no candidate found this tick
 2026-09-29T08:51:27+00:00  tick done (outcome=no_candidate)
+2026-09-29T08:53:18+00:00  gate poller start (offset=0)
+2026-09-29T08:53:26+00:00  poll lease taken for 45s
+2026-09-29T08:53:28+00:00  control card purged -- forgetting it (will repost next poll)
+2026-09-29T08:53:28+00:00  gate poller done: 0 callback(s), new offset=0
+2026-09-29T08:53:29+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-29T08:53:30+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-29T08:53:32+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-29T08:53:32+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-29T08:53:33+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-29T08:53:33+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-29T08:53:33+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-29T08:53:33+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-29T08:53:35+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-29T08:53:35+00:00  no candidate found this tick
+2026-09-29T08:53:35+00:00  tick done (outcome=no_candidate)
+2026-09-29T09:00:14+00:00  gate poller start (offset=0)
+2026-09-29T09:00:24+00:00  poll lease taken for 45s
+2026-09-29T09:00:24+00:00  gate poller done: 0 callback(s), new offset=0
+2026-09-29T09:00:25+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-29T09:00:26+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-29T09:00:27+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-29T09:00:27+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-29T09:00:28+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-29T09:00:28+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-29T09:00:28+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-29T09:00:28+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-29T09:00:29+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-29T09:00:29+00:00  no candidate found this tick
+2026-09-29T09:00:29+00:00  tick done (outcome=no_candidate)
+2026-09-29T09:05:48+00:00  gate poller start (offset=0)
+2026-09-29T09:05:56+00:00  poll lease taken for 45s
+2026-09-29T09:05:56+00:00  gate poller done: 0 callback(s), new offset=0
+2026-09-29T09:05:57+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-29T09:05:58+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-29T09:05:59+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-29T09:06:00+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-29T09:06:00+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-29T09:06:00+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-29T09:06:00+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-29T09:06:00+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-29T09:06:01+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-29T09:06:01+00:00  no candidate found this tick
+2026-09-29T09:06:01+00:00  tick done (outcome=no_candidate)
+2026-09-29T09:13:55+00:00  gate poller start (offset=746150317)
+2026-09-29T09:14:03+00:00  poll lease taken for 45s
+2026-09-29T09:14:03+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T09:14:03+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
