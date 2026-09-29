@@ -210,3 +210,11 @@
 {"provider": "gemini", "ok": true, "tokens": 22407, "ts": 1790642053.3775916, "date": "2026-09-29", "run_id": "36503345515"}
 {"provider": "gemini", "ok": true, "tokens": 22356, "ts": 1790642059.2561514, "date": "2026-09-29", "run_id": "36503345515"}
 {"provider": "gemini", "ok": true, "tokens": 25415, "ts": 1790642070.4245162, "date": "2026-09-29", "run_id": "36503345515"}
+{"provider": "gemini", "ok": true, "tokens": 24237, "ts": 1790643099.1964238, "date": "2026-09-29", "run_id": "36504699664"}
+{"provider": "gemini", "ok": false, "tokens": 0, "ts": 1790643099.3592265, "date": "2026-09-29", "run_id": "36504699664", "reason": "NotFoundError: Error code: 404 - [{'error': {'code': 404, 'message': 'models/auto/best-reasoning is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models "}
+{"provider": "groq", "ok": false, "tokens": 0, "ts": 1790643099.619916, "date": "2026-09-29", "run_id": "36504699664", "reason": "NotFoundError: Error code: 404 - {'error': {'message': 'The model `auto/best-reasoning` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"}
+{"provider": "gemini", "ok": true, "tokens": 27454, "ts": 1790643116.942473, "date": "2026-09-29", "run_id": "36504699664"}
+{"provider": "gemini", "ok": false, "tokens": 0, "ts": 1790643141.002689, "date": "2026-09-29", "run_id": "36504699664", "reason": "InternalServerError: Error code: 503 - [{'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}]"}
+{"provider": "gemini", "ok": true, "tokens": 24717, "ts": 1790643167.3092623, "date": "2026-09-29", "run_id": "36504699664"}
+{"provider": "gemini", "ok": true, "tokens": 24708, "ts": 1790643197.9991345, "date": "2026-09-29", "run_id": "36504699664"}
+{"provider": "gemini", "ok": false, "tokens": 0, "ts": 1790643197.999289, "date": "2026-09-29", "run_id": "36504699664", "reason": "returned an empty completion"}

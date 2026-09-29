@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-29T00:34:30",
+  "updated_at": "2026-09-29T00:53:18",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -2056,6 +2056,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-29T00:34:30"
+    },
+    "Rekin226/aquascope#99": {
+      "repo": "Rekin226/aquascope",
+      "issue": 99,
+      "issue_title": "Phase-0 spike: GEE feasibility for Caravan-style forcing extraction (one basin)",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-99.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-99",
+      "workspace": "workspace/Rekin226-aquascope/issue-99",
+      "conversation_id": "20260929T005114-e61463aa",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-99",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-29T00:53:18"
     }
   }
 }
