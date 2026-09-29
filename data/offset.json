@@ -1,9 +1,9 @@
 {
-  "poll_lease": 1790671774.0603247,
+  "poll_lease": 1790671878.4426982,
   "offset": 0,
   "control_card": {
     "chat_id": "7128424097",
-    "message_id": null
+    "message_id": 281
   },
   "confirmed_offset": 0,
   "master_seen": 0
