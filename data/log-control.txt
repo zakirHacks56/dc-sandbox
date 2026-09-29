@@ -20129,3 +20129,227 @@ Switched to a new branch 'fix-issue-1187'
 2026-09-29T10:41:39+00:00  poll lease taken for 45s
 2026-09-29T10:41:39+00:00  gate poller done: 0 callback(s), new offset=746150317
 2026-09-29T10:41:39+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T10:52:59+00:00  gate poller start (offset=746150317)
+2026-09-29T10:53:07+00:00  poll lease taken for 45s
+2026-09-29T10:53:07+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T10:53:07+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T10:53:45+00:00  gate poller start (offset=746150317)
+2026-09-29T10:53:45+00:00  poll lease held by a concurrent poller -- skipping getUpdates
+2026-09-29T10:53:45+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T10:53:45+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T11:04:30+00:00  gate poller start (offset=746150317)
+2026-09-29T11:04:39+00:00  poll lease taken for 45s
+2026-09-29T11:04:39+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T11:04:39+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T11:06:12+00:00  gate poller start (offset=746150317)
+2026-09-29T11:06:20+00:00  poll lease taken for 45s
+2026-09-29T11:06:20+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T11:06:20+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T11:21:24+00:00  gate poller start (offset=746150317)
+2026-09-29T11:21:33+00:00  poll lease taken for 45s
+2026-09-29T11:21:33+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T11:21:33+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T11:22:07+00:00  gate poller start (offset=746150317)
+2026-09-29T11:22:07+00:00  poll lease held by a concurrent poller -- skipping getUpdates
+2026-09-29T11:22:07+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T11:22:08+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T11:33:56+00:00  gate poller start (offset=746150317)
+2026-09-29T11:34:05+00:00  poll lease taken for 45s
+2026-09-29T11:34:05+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T11:34:05+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T11:37:33+00:00  gate poller start (offset=746150317)
+2026-09-29T11:37:41+00:00  poll lease taken for 45s
+2026-09-29T11:37:41+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T11:37:41+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T11:49:52+00:00  gate poller start (offset=746150317)
+2026-09-29T11:50:01+00:00  poll lease taken for 45s
+2026-09-29T11:50:01+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T11:50:01+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T11:50:40+00:00  gate poller start (offset=746150317)
+2026-09-29T11:50:40+00:00  poll lease held by a concurrent poller -- skipping getUpdates
+2026-09-29T11:50:40+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T11:50:40+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T11:59:22+00:00  gate poller start (offset=746150317)
+2026-09-29T11:59:27+00:00  poll lease taken for 45s
+2026-09-29T11:59:27+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T11:59:27+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T12:05:29+00:00  gate poller start (offset=746150317)
+2026-09-29T12:05:37+00:00  poll lease taken for 45s
+2026-09-29T12:05:37+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T12:05:37+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T12:13:00+00:00  gate poller start (offset=746150317)
+2026-09-29T12:13:09+00:00  poll lease taken for 45s
+2026-09-29T12:13:09+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T12:13:09+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T12:27:57+00:00  gate poller start (offset=746150317)
+2026-09-29T12:28:06+00:00  poll lease taken for 45s
+2026-09-29T12:28:06+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T12:28:06+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T12:38:22+00:00  gate poller start (offset=746150317)
+2026-09-29T12:38:31+00:00  poll lease taken for 45s
+2026-09-29T12:38:31+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T12:38:31+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T12:46:42+00:00  gate poller start (offset=746150317)
+2026-09-29T12:46:50+00:00  poll lease taken for 45s
+2026-09-29T12:46:50+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T12:46:51+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T12:55:25+00:00  gate poller start (offset=746150317)
+2026-09-29T12:55:33+00:00  poll lease taken for 45s
+2026-09-29T12:55:33+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T12:55:33+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T13:01:46+00:00  gate poller start (offset=746150317)
+2026-09-29T13:01:54+00:00  poll lease taken for 45s
+2026-09-29T13:01:54+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T13:01:54+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T13:09:18+00:00  gate poller start (offset=746150317)
+2026-09-29T13:09:26+00:00  poll lease taken for 45s
+2026-09-29T13:09:26+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T13:09:26+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T13:25:37+00:00  gate poller start (offset=746150317)
+2026-09-29T13:25:46+00:00  poll lease taken for 45s
+2026-09-29T13:25:46+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T13:25:46+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T13:28:03+00:00  gate poller start (offset=746150317)
+2026-09-29T13:28:12+00:00  poll lease taken for 45s
+2026-09-29T13:28:12+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T13:28:12+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T13:41:05+00:00  gate poller start (offset=746150317)
+2026-09-29T13:41:14+00:00  poll lease taken for 45s
+2026-09-29T13:41:14+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T13:41:14+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T13:42:24+00:00  gate poller start (offset=746150317)
+2026-09-29T13:42:32+00:00  poll lease taken for 45s
+2026-09-29T13:42:32+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T13:42:32+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T13:55:12+00:00  gate poller start (offset=746150317)
+2026-09-29T13:55:21+00:00  poll lease taken for 45s
+2026-09-29T13:55:21+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T13:55:21+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T13:59:44+00:00  gate poller start (offset=746150317)
+2026-09-29T13:59:53+00:00  poll lease taken for 45s
+2026-09-29T13:59:53+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T13:59:53+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T14:08:25+00:00  gate poller start (offset=746150317)
+2026-09-29T14:08:33+00:00  poll lease taken for 45s
+2026-09-29T14:08:33+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T14:08:33+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T14:13:10+00:00  gate poller start (offset=746150317)
+2026-09-29T14:13:18+00:00  poll lease taken for 45s
+2026-09-29T14:13:18+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T14:13:18+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T14:24:51+00:00  gate poller start (offset=746150317)
+2026-09-29T14:24:59+00:00  poll lease taken for 45s
+2026-09-29T14:24:59+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T14:24:59+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T14:32:21+00:00  gate poller start (offset=746150317)
+2026-09-29T14:32:30+00:00  poll lease taken for 45s
+2026-09-29T14:32:30+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T14:32:30+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T14:41:05+00:00  gate poller start (offset=746150317)
+2026-09-29T14:41:14+00:00  poll lease taken for 45s
+2026-09-29T14:41:14+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T14:41:14+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T14:50:49+00:00  gate poller start (offset=746150317)
+2026-09-29T14:50:57+00:00  poll lease taken for 45s
+2026-09-29T14:50:57+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T14:50:58+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T14:54:21+00:00  gate poller start (offset=746150317)
+2026-09-29T14:54:29+00:00  poll lease taken for 45s
+2026-09-29T14:54:29+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T14:54:29+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T15:07:42+00:00  gate poller start (offset=746150317)
+2026-09-29T15:07:50+00:00  poll lease taken for 45s
+2026-09-29T15:07:50+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T15:07:50+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T15:09:23+00:00  gate poller start (offset=746150317)
+2026-09-29T15:09:31+00:00  poll lease taken for 45s
+2026-09-29T15:09:31+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T15:09:31+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T15:26:28+00:00  gate poller start (offset=746150317)
+2026-09-29T15:26:36+00:00  poll lease taken for 45s
+2026-09-29T15:26:36+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T15:26:36+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T15:40:25+00:00  gate poller start (offset=746150317)
+2026-09-29T15:40:33+00:00  poll lease taken for 45s
+2026-09-29T15:40:33+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T15:40:33+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T15:41:13+00:00  gate poller start (offset=746150317)
+2026-09-29T15:41:13+00:00  poll lease held by a concurrent poller -- skipping getUpdates
+2026-09-29T15:41:13+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T15:41:13+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T15:54:50+00:00  gate poller start (offset=746150317)
+2026-09-29T15:54:58+00:00  poll lease taken for 45s
+2026-09-29T15:54:58+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T15:54:58+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T16:06:05+00:00  gate poller start (offset=746150317)
+2026-09-29T16:06:13+00:00  poll lease taken for 45s
+2026-09-29T16:06:13+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T16:06:14+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T16:07:54+00:00  gate poller start (offset=746150317)
+2026-09-29T16:08:03+00:00  poll lease taken for 45s
+2026-09-29T16:08:03+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T16:08:03+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T16:26:11+00:00  gate poller start (offset=746150317)
+2026-09-29T16:26:19+00:00  poll lease taken for 45s
+2026-09-29T16:26:19+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T16:26:19+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T16:40:09+00:00  gate poller start (offset=746150317)
+2026-09-29T16:40:17+00:00  poll lease taken for 45s
+2026-09-29T16:40:17+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T16:40:17+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T16:41:00+00:00  gate poller start (offset=746150317)
+2026-09-29T16:41:00+00:00  poll lease held by a concurrent poller -- skipping getUpdates
+2026-09-29T16:41:00+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T16:41:00+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T16:55:17+00:00  gate poller start (offset=746150317)
+2026-09-29T16:55:26+00:00  poll lease taken for 45s
+2026-09-29T16:55:26+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T16:55:26+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T17:04:50+00:00  gate poller start (offset=746150317)
+2026-09-29T17:04:58+00:00  poll lease taken for 45s
+2026-09-29T17:04:58+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T17:04:59+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T17:06:26+00:00  gate poller start (offset=746150317)
+2026-09-29T17:06:35+00:00  poll lease taken for 45s
+2026-09-29T17:06:35+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T17:06:35+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T17:15:35+00:00  gate poller start (offset=746150317)
+2026-09-29T17:15:43+00:00  poll lease taken for 45s
+2026-09-29T17:15:43+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T17:15:43+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T17:21:19+00:00  gate poller start (offset=746150317)
+2026-09-29T17:21:28+00:00  poll lease taken for 45s
+2026-09-29T17:21:28+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T17:21:28+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T17:21:58+00:00  gate poller start (offset=746150317)
+2026-09-29T17:21:58+00:00  poll lease held by a concurrent poller -- skipping getUpdates
+2026-09-29T17:21:58+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T17:21:58+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T17:34:43+00:00  gate poller start (offset=746150317)
+2026-09-29T17:34:51+00:00  poll lease taken for 45s
+2026-09-29T17:34:51+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T17:34:51+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T17:38:42+00:00  gate poller start (offset=746150317)
+2026-09-29T17:38:50+00:00  poll lease taken for 45s
+2026-09-29T17:38:50+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T17:38:50+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T17:49:14+00:00  gate poller start (offset=746150317)
+2026-09-29T17:49:14+00:00  poll lease held by a concurrent poller -- skipping getUpdates
+2026-09-29T17:49:14+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T17:49:14+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T17:51:04+00:00  gate poller start (offset=746150317)
+2026-09-29T17:51:13+00:00  poll lease taken for 45s
+2026-09-29T17:51:13+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T17:51:13+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T17:59:43+00:00  gate poller start (offset=746150317)
+2026-09-29T17:59:43+00:00  poll lease held by a concurrent poller -- skipping getUpdates
+2026-09-29T17:59:43+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T17:59:43+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T18:06:13+00:00  gate poller start (offset=746150317)
+2026-09-29T18:06:21+00:00  poll lease taken for 45s
+2026-09-29T18:06:21+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T18:06:21+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-29T18:14:00+00:00  gate poller start (offset=746150317)
+2026-09-29T18:14:08+00:00  poll lease taken for 45s
+2026-09-29T18:14:08+00:00  gate poller done: 0 callback(s), new offset=746150317
+2026-09-29T18:14:08+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
