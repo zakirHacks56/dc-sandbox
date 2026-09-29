@@ -6,7 +6,7 @@
     "message_id": 282,
     "text": "OSS controller: 🟢 RUNNING\n\nTap Start to let it hunt again, Stop to freeze it (no more fixer runs / tokens spent while paused)."
   },
-  "confirmed_offset": 746150321,
+  "confirmed_offset": 746150322,
   "master_seen": 746150320,
   "master_switch": {
     "enabled": true,
