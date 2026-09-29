@@ -113,6 +113,45 @@ def test_gate_poller_posts_control_card_once(monkeypatch, tmp_path):
     assert "master:on" in json.dumps(sends[0])
     card = util.load_control_card()
     assert card.get("message_id") == 12345
+    # A second, unchanged poll must NOT touch Telegram again (no edit, no post).
+    before = len(calls["tg"])
+    gate_poller._ensure_control_card()
+    assert len(calls["tg"]) == before, "idle poll must skip the no-op card edit"
+    assert util.load_control_card().get("message_id") == 12345
+
+
+def test_control_card_not_modified_keeps_same_card(monkeypatch, tmp_path):
+    """Telegram's 'message is not modified' (state changed, text raced) must not
+    be mistaken for a purged card: same message id is kept, no repost."""
+    import beacon_util as util
+    import gate_poller
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    calls = []
+
+    def _stub(method, payload, timeout=30):
+        calls.append((method, payload))
+        if method == "sendMessage":
+            return {"ok": True, "result": {"message_id": 12345}}
+        if method == "editMessageText":
+            return {"ok": False, "description": "Bad Request: message is not modified"}
+        return {"ok": True}
+
+    monkeypatch.setattr(gate_poller, "_tg_call", _stub)
+    monkeypatch.setenv("TELEGRAM_CHAT_ID", "-100123")
+    gate_poller._ensure_control_card()  # posts the fresh card (RUNNING)
+    assert util.load_control_card().get("message_id") == 12345
+    util.set_master_switch(False, by="test")  # rendered text becomes PAUSED
+    gate_poller._ensure_control_card()
+    posts = [m for m, _ in calls if m == "sendMessage"]
+    edits = [m for m, _ in calls if m == "editMessageText"]
+    assert len(posts) == 1, "must not repost a card that still exists"
+    assert len(edits) == 1, "edit attempted for the changed text"
+    card = util.load_control_card()
+    assert card.get("message_id") == 12345, "same card kept on not-modified"
+    assert "PAUSED" in card.get("text", ""), "adopted the synced text"
+    n = len(calls)
+    gate_poller._ensure_control_card()
+    assert len(calls) == n, "idle once the adopted text matches"
 
 
 def test_tick_paused_runs_no_work(monkeypatch, tmp_path):
