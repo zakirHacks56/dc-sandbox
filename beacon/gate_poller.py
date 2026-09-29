@@ -56,7 +56,9 @@ def _tg_call(method: str, payload: dict, timeout: int = 30):
     for host, header in [(host, False), *( (ip, True) for ip in util.TG_API_IPS )]:
         try:
             data = _post(host, header)
-            if data is not None and data.get("ok") is not False:
+            if data is not None:
+                # Keep the raw response (even ok:false) so callers can tell
+                # "message is not modified" apart from a genuinely dead card.
                 return data
         except Exception:
             continue
@@ -66,7 +68,7 @@ def _tg_call(method: str, payload: dict, timeout: int = 30):
 def _get_updates(offset: int):
     payload = {"timeout": 8, "offset": offset, "limit": 20}
     data = _tg_call("getUpdates", payload, timeout=20)
-    if not data:
+    if not data or data.get("ok") is False:
         return []
     return data.get("result") or []
 
@@ -104,30 +106,51 @@ def _control_text() -> str:
 def _ensure_control_card() -> None:
     """Post (or re-post) the master-switch card in the chat and keep it
     reflecting the current state. Best-effort: a dead/purged message is
-    forgotten so the next poll reposts a fresh card."""
+    forgotten so the next poll reposts a fresh card.
+
+    Telegram refuses an edit whose text is unchanged ("message is not
+    modified") -- that must not be mistaken for a purged card, or every idle
+    poll would repost a brand-new card. So idle runs skip the edit entirely."""
     chat = os.getenv("TELEGRAM_CHAT_ID", "")
     if not chat:
         return
+    text = _control_text()
     card = util.load_control_card()
     if chat == card.get("chat_id") and card.get("message_id"):
+        if card.get("text") == text:
+            return  # nothing changed -- do not touch Telegram
         payload = {
             "chat_id": chat,
             "message_id": card["message_id"],
-            "text": _control_text(),
+            "text": text,
             "reply_markup": _control_markup(),
         }
-        if _tg_call("editMessageText", payload) is None:
-            util.log("control card purged -- forgetting it (will repost next poll)")
-            util.save_control_card(**{"chat_id": chat, "message_id": None})
+        data = _tg_call("editMessageText", payload)
+        if data and data.get("ok") is True:
+            util.save_control_card(**{"chat_id": chat, "message_id": card["message_id"],
+                                      "text": text})
+            return
+        desc = (data or {}).get("description", "") if data else ""
+        if "message is not modified" in desc:
+            # A concurrent poller already synced the card -- the message exists
+            # and matches; adopt the text so we stop trying, keep the same id.
+            util.save_control_card(**{"chat_id": chat, "message_id": card["message_id"],
+                                      "text": text})
+            return
+        if not data:
+            util.log("control card edit network error -- keeping card")
+            return
+        util.log(f"control card unreachable ({desc.strip()}) -- will repost next poll")
+        util.save_control_card(**{"chat_id": chat, "message_id": None})
         return
     data = _tg_call("sendMessage", {
         "chat_id": chat,
-        "text": _control_text(),
+        "text": text,
         "reply_markup": _control_markup(),
     })
     if data and data.get("ok"):
         msg_id = (data.get("result") or {}).get("message_id")
-        util.save_control_card(**{"chat_id": chat, "message_id": msg_id})
+        util.save_control_card(**{"chat_id": chat, "message_id": msg_id, "text": text})
         util.log(f"control card posted (message_id={msg_id})")
 
 
