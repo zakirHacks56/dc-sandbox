@@ -17968,3 +17968,21 @@
 2026-09-29T09:02:14+00:00  gate poller start (offset=0)
 2026-09-29T09:02:22+00:00  poll lease taken for 45s
 2026-09-29T09:02:22+00:00  gate poller done: 0 callback(s), new offset=0
+2026-09-29T09:10:56+00:00  gate poller start (offset=0)
+2026-09-29T09:10:56+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:10:58+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:10:59+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:11:31+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:11:32+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:11:34+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:11:36+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:11:37+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:11:39+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:11:40+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:11:42+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:11:43+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:12:15+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:12:16+00:00  master switch -> PAUSED (via Telegram)
+2026-09-29T09:12:18+00:00  status requested via Telegram
+2026-09-29T09:12:19+00:00  poll lease taken for 45s
+2026-09-29T09:12:19+00:00  gate poller done: 15 callback(s), new offset=746150317

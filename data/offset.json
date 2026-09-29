@@ -1,11 +1,16 @@
 {
-  "poll_lease": 1790672756.8289487,
-  "offset": 0,
+  "poll_lease": 1790673139.5632246,
+  "offset": 746150317,
   "control_card": {
     "chat_id": "7128424097",
     "message_id": 282,
-    "text": "OSS controller: 🟢 RUNNING\n\nTap Start to let it hunt again, Stop to freeze it (no more fixer runs / tokens spent while paused)."
+    "text": "OSS controller: 🔴 PAUSED\n\nTap Start to let it hunt again, Stop to freeze it (no more fixer runs / tokens spent while paused)."
   },
-  "confirmed_offset": 0,
-  "master_seen": 0
+  "confirmed_offset": 746150317,
+  "master_seen": 746150316,
+  "master_switch": {
+    "enabled": false,
+    "by": "telegram",
+    "at": "2026-09-29T09:12:16+00:00"
+  }
 }
