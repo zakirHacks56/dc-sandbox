@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-29T00:53:18",
+  "updated_at": "2026-09-29T01:07:42",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -2071,6 +2071,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-29T00:53:18"
+    },
+    "Rekin226/aquascope#440": {
+      "repo": "Rekin226/aquascope",
+      "issue": 440,
+      "issue_title": "The benchmark's name is taken: rename before the task suite gets a DOI",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-440.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-440",
+      "workspace": "workspace/Rekin226-aquascope/issue-440",
+      "conversation_id": "20260929T010546-92821896",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-440",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-29T01:07:42"
     }
   }
 }

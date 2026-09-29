@@ -174,3 +174,5 @@
 {"event": "tick", "ts": "2026-09-29T00:34:30+00:00", "outcome": "hunted", "reaped": 0, "acted": true, "prs_today": 0, "pending": 0}
 {"ts": "2026-09-29T00:53:18.007726+00:00", "repo": "Rekin226/aquascope", "issue": 99, "language": "", "outcome": "abandoned_error", "tokens_spent": 101116, "iterations": 0, "notes": ""}
 {"event": "tick", "ts": "2026-09-29T00:53:18+00:00", "outcome": "hunted", "reaped": 0, "acted": true, "prs_today": 0, "pending": 0}
+{"ts": "2026-09-29T01:07:42.762406+00:00", "repo": "Rekin226/aquascope", "issue": 440, "language": "", "outcome": "abandoned_failed", "tokens_spent": 256495, "iterations": 0, "notes": ""}
+{"event": "tick", "ts": "2026-09-29T01:07:43+00:00", "outcome": "hunted", "reaped": 0, "acted": true, "prs_today": 0, "pending": 0}
