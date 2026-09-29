@@ -19829,3 +19829,43 @@ Switched to a new branch 'fix-issue-1187'
 2026-09-29T07:08:30+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
 2026-09-29T07:08:30+00:00  no candidate found this tick
 2026-09-29T07:08:30+00:00  tick done (outcome=no_candidate)
+2026-09-29T07:25:07+00:00  gate poller start (offset=746150288)
+2026-09-29T07:25:16+00:00  control card posted (message_id=271)
+2026-09-29T07:25:16+00:00  gate poller done: 0 callback(s), new offset=746150288
+2026-09-29T07:25:18+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-29T07:25:19+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-29T07:25:21+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-29T07:25:21+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-29T07:25:22+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-29T07:25:22+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-29T07:25:22+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-29T07:25:22+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-29T07:25:24+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-29T07:25:24+00:00  no candidate found this tick
+2026-09-29T07:25:24+00:00  tick done (outcome=no_candidate)
+2026-09-29T07:38:44+00:00  gate poller start (offset=746150288)
+2026-09-29T07:38:54+00:00  control card purged -- forgetting it (will repost next poll)
+2026-09-29T07:38:54+00:00  gate poller done: 0 callback(s), new offset=746150288
+2026-09-29T07:38:55+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-29T07:38:56+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-29T07:38:58+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-29T07:38:58+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-29T07:38:58+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-29T07:38:58+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-29T07:38:58+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-29T07:38:58+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-29T07:39:00+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-29T07:39:00+00:00  no candidate found this tick
+2026-09-29T07:39:00+00:00  tick done (outcome=no_candidate)
+2026-09-29T07:39:45+00:00  gate poller start (offset=746150288)
+2026-09-29T07:39:54+00:00  control card posted (message_id=272)
+2026-09-29T07:39:54+00:00  gate poller done: 0 callback(s), new offset=746150288
+2026-09-29T07:39:55+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-29T07:39:56+00:00  Rekin226/aquascope: skipping (hit 4-lane/day budget)
+2026-09-29T07:39:57+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-29T07:39:57+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-29T07:39:58+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-29T07:39:58+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-29T07:39:58+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-29T07:39:58+00:00  no candidate found this tick
+2026-09-29T07:39:58+00:00  tick done (outcome=no_candidate)
