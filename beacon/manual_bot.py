@@ -356,9 +356,120 @@ def _stop_thread() -> None:
         _send(chat, f"stopped {label or 'active run'}")
 
 
+# ------------------------------------------------------------ master control
+def _master_text() -> str:
+    running = util.master_switch()
+    dot = "🟢" if running else "🔴"
+    state = "RUNNING" if running else "PAUSED"
+    return (f"OSS controller: {dot} {state}\n\n"
+            "Tap Start to let it hunt again, Stop to freeze it "
+            "(no more fixer runs / tokens spent while paused).")
+
+
+def _master_markup() -> dict:
+    return {
+        "inline_keyboard": [[
+            {"text": "Start", "callback_data": "master:on"},
+            {"text": "Stop", "callback_data": "master:off"},
+            {"text": "Status", "callback_data": "master:status"},
+        ]]
+    }
+
+
+def _update_master_card() -> None:
+    """Keep the Start/Stop/Status card pinned on the MANUAL bot. Uses its own
+    state key (manual_card.json) so it never clobbers the cloud poller's
+    control_card in offset.json."""
+    chat = _sentinel_chat()
+    if not chat:
+        return
+    card = util.load_json(util.DATA / "manual_card.json", {})
+    text = _master_text()
+    if card.get("message_id") and card.get("text") == text:
+        return  # nothing changed -- do not touch Telegram
+    if card.get("message_id"):
+        data = _tg_raw("editMessageText", {
+            "chat_id": chat, "message_id": card["message_id"],
+            "text": text, "reply_markup": _master_markup(),
+        })
+        desc = (data or {}).get("description", "") if data else ""
+        if data and data.get("ok") is True:
+            util.save_json(util.DATA / "manual_card.json", {**card, "text": text})
+            return
+        if "message is not modified" in desc:
+            util.save_json(util.DATA / "manual_card.json", {**card, "text": text})
+            return
+        util.save_json(util.DATA / "manual_card.json", {})  # stale -- repost
+    data = _tg_raw("sendMessage", {
+        "chat_id": chat, "text": text, "reply_markup": _master_markup(),
+    })
+    if data and data.get("ok"):
+        msg_id = (data.get("result") or {}).get("message_id")
+        util.save_json(util.DATA / "manual_card.json",
+                       {"chat_id": chat, "message_id": msg_id, "text": text})
+        util.log(f"control card posted (message_id={msg_id})")
+
+
+def _push_state() -> None:
+    """Commit + push data/offset.json (and any gates) so the CLOUD controller
+    sees a manual Stop/Start on its next tick. Best-effort, never raises."""
+    try:
+        tok = os.getenv("GITHUB_TOKEN") or os.getenv("GH_TOKEN", "")
+        if not tok:
+            return
+        env = dict(os.environ)
+        env["GITHUB_TOKEN"] = tok
+        env["GH_TOKEN"] = tok
+        root = util.ROOT
+        git = ["git", "-C", str(root)]
+        msg = "manual-bot: state " + util.now_utc()
+        subprocess.run(git + ["add", "data/offset.json", "data/gates"],
+                       env=env, capture_output=True)
+        subprocess.run(git + ["commit", "-m", msg, "--allow-empty"],
+                       env=env, capture_output=True)
+        for _ in range(3):
+            subprocess.run(git + ["pull", "--no-rebase", "--no-edit", "-X", "ours",
+                                  "origin", "master"], env=env, capture_output=True)
+            subprocess.run(git + ["add", "data/offset.json", "data/gates"],
+                           env=env, capture_output=True)
+            subprocess.run(git + ["commit", "-m", msg, "--allow-empty"],
+                           env=env, capture_output=True)
+            result = subprocess.run(git + ["push", "origin", "master"],
+                                    env=env, capture_output=True)
+            if result.returncode == 0:
+                break
+    except Exception as exc:  # noqa: BLE001
+        util.log(f"push_state failed: {exc}")
+
+
+def _handle_master(query: dict) -> bool:
+    data = query.get("data") or ""
+    if data == "master:status":
+        _answer(query.get("id", ""), "Here's the status")
+        _send(_sentinel_chat(), _cmd_status())
+        return True
+    if data not in ("master:on", "master:off"):
+        return False
+    enabled = data == "master:on"
+    util.set_master_switch(enabled, by="telegram-manual")
+    label = "RUNNING" if enabled else "PAUSED"
+    _answer(query.get("id", ""), f"Controller {label}")
+    _update_master_card()
+    _send(_sentinel_chat(),
+          f"OSS controller {label}.\n"
+          + ("Resuming work -- I'll hunt again on the next tick. "
+             "(This also syncs the cloud controller.)"
+             if enabled else
+             "Frozen -- no fixer runs / tokens while stopped. Tap Start to resume."))
+    _push_state()
+    return True
+
+
 # ------------------------------------------------------------ decrees
 def _handle_callback(query: dict) -> bool:
     data = query.get("data") or ""
+    if data.startswith("master:"):
+        return _handle_master(query)
     match = re.match(r"^decree:(.+):([01])$", data)
     if not match:
         return False
@@ -495,6 +606,7 @@ def main() -> int:
     chat = _sentinel_chat()
     if chat:
         _send(chat, "manual bot online. /help for commands.")
+        _update_master_card()
     offset = util.load_json(OFFSET_FILE, {}).get("offset", 0)
     while True:
         try:

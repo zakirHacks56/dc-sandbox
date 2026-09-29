@@ -512,6 +512,79 @@ def test_stress_stale_persist_never_regresses_offset(monkeypatch, tmp_path):
     assert doc["confirmed_offset"] == 999
 
 
+def test_manual_bot_master_stop_flips_switch_and_pushes(monkeypatch, tmp_path):
+    """The LOCAL manual bot must answer Start/Stop/Status taps instantly AND
+    propagate the switch to the cloud repo so the controller honors it."""
+    import manual_bot
+    import beacon_util as util
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    monkeypatch.setattr(manual_bot.util, "DATA", tmp_path)
+    monkeypatch.setenv("TELEGRAM_ALLOWED_IDS", "7128424097")
+    monkeypatch.setenv("GITHUB_TOKEN", "ghp_test")
+    answers, sends, pushes = [], [], []
+    monkeypatch.setattr(manual_bot, "_answer", lambda cid, text: answers.append((cid, text)))
+    monkeypatch.setattr(manual_bot, "_send", lambda chat, text: sends.append(text))
+    monkeypatch.setattr(manual_bot, "_update_master_card", lambda: None)
+    monkeypatch.setattr(manual_bot, "_push_state", lambda: pushes.append(True))
+    # Stop tap on the MANUAL bot -> switch off + persist for the cloud.
+    assert manual_bot._handle_callback({"id": "q", "data": "master:off"}) is True
+    assert util.master_switch() is False
+    assert ("q", "Controller PAUSED") in answers
+    assert any("Frozen" in t for t in sends)
+    assert pushes, "Stop must be pushed so the cloud controller pauses"
+    # Start tap flips it back.
+    assert manual_bot._handle_callback({"id": "q2", "data": "master:on"}) is True
+    assert util.master_switch() is True
+    # Status tap answers immediately.
+    assert manual_bot._handle_callback({"id": "q3", "data": "master:status"}) is True
+    assert any("Here's the status" == t for _, t in answers)
+
+
+def test_manual_bot_master_card_uses_own_state_key(monkeypatch, tmp_path):
+    """The manual bot's Start/Stop/Status card must live under manual_card.json,
+    never under offset.json's control_card (which the CLOUD poller owns and
+    edits with its own token)."""
+    import manual_bot
+    import beacon_util as util
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    monkeypatch.setattr(manual_bot.util, "DATA", tmp_path)
+    (tmp_path / "offset.json").write_text(json.dumps({
+        "offset": 5, "control_card": {"chat_id": "100", "message_id": 271},
+    }), encoding="utf-8")
+    monkeypatch.setenv("TELEGRAM_ALLOWED_IDS", "7128424097")
+    posted = []
+    monkeypatch.setattr(manual_bot, "_tg_raw",
+                        lambda method, payload, timeout=30: \
+                            posted.append((method, payload)) or {
+                                "ok": True, "result": {"message_id": 777}})
+    manual_bot._update_master_card()
+    card = util.load_json(tmp_path / "manual_card.json", {})
+    assert card.get("message_id") == 777
+    # The CLOUD control_card in offset.json is untouched.
+    doc = util.load_json(tmp_path / "offset.json", {})
+    assert doc["control_card"]["message_id"] == 271, \
+        "manual card must not clobber the cloud card state"
+
+
+def test_manual_bot_callback_still_handles_decrees(monkeypatch, tmp_path):
+    """master:* routing must not break the existing decree flow."""
+    import manual_bot
+    import beacon_util as util
+    monkeypatch.setattr(util, "DATA", tmp_path)
+    monkeypatch.setattr(util, "GATES", tmp_path / "gates")
+    monkeypatch.setattr(manual_bot.util, "DATA", tmp_path)
+    monkeypatch.setattr(manual_bot.util, "GATES", tmp_path / "gates")
+    (tmp_path / "gates").mkdir(parents=True, exist_ok=True)
+    monkeypatch.setattr(manual_bot, "_tg_raw", lambda method, payload, timeout=30: {"ok": True})
+    monkeypatch.setattr(manual_bot, "_answer", lambda cid, text: None)
+    monkeypatch.setattr(manual_bot, "_send", lambda chat, text: None)
+    monkeypatch.setattr(manual_bot, "_push_state", lambda: None)
+    monkeypatch.setattr(manual_bot, "_run_thread", lambda args, chat: None)
+    # Ends a .decree file just like before, via the SAME gate key flow.
+    assert manual_bot._handle_callback({"id": "q", "data": "decree:a-b_issue1_human:0"}) is True
+    assert (tmp_path / "gates" / "a-b_issue1_human.decree").exists()
+
+
 def test_stress_concurrent_pollers_keep_offset_monotonic(monkeypatch, tmp_path):
     """N pollers hammering offset.json at once (the two workflows + overlapping
     controller runs): the file must stay valid JSON and the offset must never
