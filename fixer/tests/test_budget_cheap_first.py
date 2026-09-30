@@ -58,6 +58,29 @@ def test_generate_fix_tight_budget_shrinks_and_uses_fast_first(monkeypatch, _cle
     assert captured["max_tokens"] == o._MIN_FIX_OUTPUT_TOKENS
 
 
+def test_generate_fix_subfloor_headroom_uses_real_slack(monkeypatch, _clear_ceiling):
+    # The regression that killed Aggrete/aggrete#5 twice: remaining budget had
+    # ~1409 tokens of headroom, but the 1500 floor was still > headroom, so the
+    # pre-flight guard refused the shrunk call. The solver must request the real
+    # headroom (909), not the floor.
+    captured = {}
+
+    def fake_call_model(prompt, max_tokens=4000, retry_variant=False,
+                        fast=False, cheap_first=False):
+        captured.update(max_tokens=max_tokens, cheap_first=cheap_first)
+        return "# full-file rewrite\n"
+
+    monkeypatch.setattr(o, "call_model", fake_call_model)
+    monkeypatch.setattr(o, "find_similar_experiences", lambda *a, **k: [])
+    monkeypatch.setattr(router, "estimate_input_tokens", lambda msgs: 21462)
+    issue = SimpleNamespace(title="Fix a traceback", body="short repro")
+    router.set_preflight_ceiling(22871)
+    o.generate_fix(issue, [("a.py", "def a():\n    pass\n")], language="python")
+    assert captured["cheap_first"] is True
+    assert captured["max_tokens"] == 22871 - 21462 - 500
+    assert captured["max_tokens"] < o._MIN_FIX_OUTPUT_TOKENS
+
+
 def test_generate_fix_roomy_budget_keeps_full_output(monkeypatch, _clear_ceiling):
     captured = {}
 

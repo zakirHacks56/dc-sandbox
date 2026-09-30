@@ -3244,7 +3244,9 @@ directory even if similar files exist there):
         if slack < token_budget:
             cheap_first = True
             headroom = max(slack - 500, 0)
-            shrunk = max(_MIN_FIX_OUTPUT_TOKENS, headroom)
+            shrunk = (max(1, min(flat_budget if difficulty != "hard"
+                                 else HARD_MAX_TOKENS, headroom))
+                      if headroom > 0 else _MIN_FIX_OUTPUT_TOKENS)
             _log_turn(
                 "system",
                 f"issue budget tight: {est_input} input tokens leave ~{slack} "
