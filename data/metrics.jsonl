@@ -367,7 +367,8 @@
 {"event": "tick", "ts": "2026-09-29T23:45:45+00:00", "outcome": "no_candidate", "reaped": 0, "acted": false, "prs_today": 0, "pending": 0}
 {"event": "tick", "ts": "2026-09-29T23:47:39+00:00", "outcome": "no_candidate", "reaped": 0, "acted": false, "prs_today": 0, "pending": 0}
 {"event": "tick", "ts": "2026-09-29T23:55:15+00:00", "outcome": "no_candidate", "reaped": 0, "acted": false, "prs_today": 0, "pending": 0}
-{"ts": "2026-09-30T00:08:00.992007+00:00", "repo": "Rekin226/aquascope", "issue": 273, "language": "", "outcome": "abandoned_error", "tokens_spent": 276511, "iterations": 0, "notes": ""}
-{"ts": "2026-09-30T00:10:35.036801+00:00", "repo": "izzywdev/FuzeFront", "issue": 1137, "language": "", "outcome": "abandoned_error", "tokens_spent": 7748, "iterations": 0, "notes": ""}
-{"ts": "2026-09-30T00:10:53.826746+00:00", "repo": "izzywdev/FuzeFront", "issue": 1135, "language": "", "outcome": "abandoned_failed", "tokens_spent": 2160, "iterations": 0, "notes": ""}
-{"event": "tick", "ts": "2026-09-30T00:10:54+00:00", "outcome": "hunted", "reaped": 0, "acted": true, "prs_today": 0, "pending": 0}
+{"ts": "2026-09-30T00:13:54.186312+00:00", "repo": "Rekin226/aquascope", "issue": 273, "language": "", "outcome": "abandoned", "tokens_spent": 283722, "iterations": 8, "notes": "max_iterations_reached"}
+{"ts": "2026-09-30T00:13:54.197348+00:00", "repo": "Rekin226/aquascope", "issue": 273, "language": "", "outcome": "abandoned_failed", "tokens_spent": 289275, "iterations": 0, "notes": ""}
+{"ts": "2026-09-30T00:16:24.070121+00:00", "repo": "izzywdev/FuzeFront", "issue": 1137, "language": "", "outcome": "abandoned_error", "tokens_spent": 7895, "iterations": 0, "notes": ""}
+{"ts": "2026-09-30T00:16:37.407512+00:00", "repo": "izzywdev/FuzeFront", "issue": 1135, "language": "", "outcome": "abandoned_failed", "tokens_spent": 2160, "iterations": 0, "notes": ""}
+{"event": "tick", "ts": "2026-09-30T00:16:37+00:00", "outcome": "hunted", "reaped": 0, "acted": true, "prs_today": 0, "pending": 0}

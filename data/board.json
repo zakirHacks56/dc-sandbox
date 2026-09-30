@@ -303,8 +303,8 @@
     "izzywdev/FuzeFront#1137": {
       "state": "ABANDONED",
       "pr": null,
-      "spent": 7748,
-      "updated": "2026-09-30T00:10:35+00:00"
+      "spent": 7895,
+      "updated": "2026-09-30T00:16:24+00:00"
     },
     "yunaremaia/sandbox-ffi-layers#21": {
       "state": "ABANDONED",
@@ -1006,8 +1006,8 @@
     "Rekin226/aquascope#273": {
       "state": "ABANDONED",
       "pr": null,
-      "spent": 276511,
-      "updated": "2026-09-30T00:08:01+00:00"
+      "spent": 572997,
+      "updated": "2026-09-30T00:13:54+00:00"
     }
   },
   "repo_activity": {
@@ -1019,5 +1019,5 @@
     },
     "date": "2026-09-30"
   },
-  "last_tick": "2026-09-30T00:10:54+00:00"
+  "last_tick": "2026-09-30T00:16:37+00:00"
 }
