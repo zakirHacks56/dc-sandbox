@@ -1,10 +1,10 @@
 {
-  "poll_lease": 1790760918.3230305,
+  "poll_lease": 1790761078.539281,
   "offset": 746150322,
   "control_card": {
     "chat_id": "7128424097",
     "message_id": 282,
-    "text": "OSS controller: 🟢 RUNNING\n\nTap Start to let it hunt again, Stop to freeze it (no more fixer runs / tokens spent while paused)."
+    "text": "OSS controller: 🔴 PAUSED\n\nTap Start to let it hunt again, Stop to freeze it (no more fixer runs / tokens spent while paused)."
   },
   "confirmed_offset": 746150322,
   "master_seen": 746150320,
