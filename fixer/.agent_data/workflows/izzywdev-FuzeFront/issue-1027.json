@@ -1,0 +1,59 @@
+{
+  "schema": 2,
+  "repo": "izzywdev/FuzeFront",
+  "issue": 1027,
+  "issue_title": "[Help wanted] Build a reference app onboarding walkthrough from zero to registered runtime",
+  "issue_url": "https://github.com/izzywdev/FuzeFront/issues/1027",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-1027",
+  "base_branch": "master",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-30T00:34:01",
+  "updated_at": "2026-09-30T00:35:29",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-30T00:34:01",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-30T00:34:51",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260930T003401-9b1e7546",
+  "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1027",
+  "workspace": "workspace/izzywdev-FuzeFront/issue-1027",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "attempt_status": "budget_exhausted",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "help wanted"
+  ],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "We need to classify this GitHub issue. Let's parse the description.\n\nTitle: \"[Help wanted] Build a reference app onboarding walkthrough from zero to registered runtime\"\nBody: They want an external con"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_failed"
+}

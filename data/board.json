@@ -89,9 +89,6 @@
       273
     ],
     "izzywdev/FuzeFront": [
-      1028,
-      1027,
-      1026,
       1025,
       1024,
       1194,
@@ -138,7 +135,10 @@
       1165,
       1187,
       1137,
-      1135
+      1135,
+      1029,
+      1028,
+      1027
     ],
     "yunaremaia/sandbox-ffi-layers": [
       39,
@@ -338,13 +338,15 @@
     },
     "izzywdev/FuzeFront#1029": {
       "state": "ABANDONED",
-      "decision": false,
-      "updated": "2026-09-25T13:42:33"
+      "pr": null,
+      "spent": 4415,
+      "updated": "2026-09-30T00:32:32+00:00"
     },
     "izzywdev/FuzeFront#1028": {
       "state": "ABANDONED",
-      "decision": false,
-      "updated": "2026-09-25T13:47:06"
+      "pr": null,
+      "spent": 4247,
+      "updated": "2026-09-30T00:33:47+00:00"
     },
     "Rekin226/aquascope#473": {
       "state": "ANALYZING",
@@ -387,9 +389,10 @@
       "updated": "2026-09-26T09:46:02+00:00"
     },
     "izzywdev/FuzeFront#1027": {
-      "state": "ANALYZING",
+      "state": "ABANDONED",
       "pr": null,
-      "updated": "2026-09-26T09:50:18+00:00"
+      "spent": 151427,
+      "updated": "2026-09-30T00:35:30+00:00"
     },
     "izzywdev/FuzeFront#1026": {
       "state": "ANALYZING",
@@ -1019,5 +1022,5 @@
     },
     "date": "2026-09-30"
   },
-  "last_tick": "2026-09-30T00:16:37+00:00"
+  "last_tick": "2026-09-30T00:35:30+00:00"
 }
