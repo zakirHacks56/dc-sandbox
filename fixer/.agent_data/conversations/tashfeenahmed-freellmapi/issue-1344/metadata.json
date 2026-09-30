@@ -1,0 +1,14 @@
+{
+  "conversation_id": "20260930T010832-6d84b62d",
+  "repo": "tashfeenahmed/freellmapi",
+  "issue": 1344,
+  "created_at": "2026-09-30T01:08:32",
+  "updated_at": "2026-09-30T01:11:40",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "message_count": 12,
+  "rounds": 0,
+  "archived_conversation_ids": [],
+  "transcript": "conversations/tashfeenahmed-freellmapi/issue-1344/transcript.log",
+  "messages": "conversations/tashfeenahmed-freellmapi/issue-1344/messages.jsonl"
+}

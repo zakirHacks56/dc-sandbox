@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-30T00:40:56",
+  "updated_at": "2026-09-30T01:15:55",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -2191,6 +2191,51 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-30T00:13:54"
+    },
+    "tashfeenahmed/freellmapi#1347": {
+      "repo": "tashfeenahmed/freellmapi",
+      "issue": 1347,
+      "issue_title": "feat(routing): cross-key and cross-provider concurrency + rate-limit-aware failure attribution",
+      "workflow_path": "workflows/tashfeenahmed-freellmapi/issue-1347.json",
+      "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1347",
+      "workspace": "workspace/tashfeenahmed-freellmapi/issue-1347",
+      "conversation_id": "20260930T010317-46e65e6c",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-1347",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-30T01:08:14"
+    },
+    "tashfeenahmed/freellmapi#1344": {
+      "repo": "tashfeenahmed/freellmapi",
+      "issue": 1344,
+      "issue_title": "would premium key be supported in ios freellmapi software?",
+      "workflow_path": "workflows/tashfeenahmed-freellmapi/issue-1344.json",
+      "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1344",
+      "workspace": "workspace/tashfeenahmed-freellmapi/issue-1344",
+      "conversation_id": "20260930T010832-6d84b62d",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-1344",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-30T01:11:40"
+    },
+    "tashfeenahmed/freellmapi#1339": {
+      "repo": "tashfeenahmed/freellmapi",
+      "issue": 1339,
+      "issue_title": "Completely usable this weeked",
+      "workflow_path": "workflows/tashfeenahmed-freellmapi/issue-1339.json",
+      "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1339",
+      "workspace": "workspace/tashfeenahmed-freellmapi/issue-1339",
+      "conversation_id": "20260930T011154-f2215266",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-1339",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-30T01:15:55"
     }
   }
 }
