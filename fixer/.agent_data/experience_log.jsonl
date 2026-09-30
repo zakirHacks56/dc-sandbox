@@ -44,3 +44,4 @@
 {"repo": "tashfeenahmed/freellmapi", "issue_title": "Unable to add API key for Kilo provider", "language": "javascript", "outcome": "failed", "error_category": "D", "notes": "max_iterations_reached", "timestamp": "2026-09-29"}
 {"repo": "tashfeenahmed/freellmapi", "issue_title": "JEV-Based Intelligent Model Selection & Routing", "language": "javascript", "outcome": "failed", "error_category": "D", "notes": "max_iterations_reached", "timestamp": "2026-09-29"}
 {"repo": "tashfeenahmed/freellmapi", "issue_title": "Gemini error iin claude code", "language": "javascript", "outcome": "failed", "error_category": "D", "notes": "max_iterations_reached", "timestamp": "2026-09-29"}
+{"repo": "izzywdev/FuzeFront", "issue_title": "chat JWT: verify MendysRobotics CHAT_JWT_SECRET matches chat-service JWT_SECRET (byte-for-byte)", "language": "unknown", "outcome": "skipped", "error_category": null, "notes": "Already claimed by someone else.", "timestamp": "2026-09-30"}
