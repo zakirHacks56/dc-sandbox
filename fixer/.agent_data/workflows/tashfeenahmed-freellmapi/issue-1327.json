@@ -1,0 +1,57 @@
+{
+  "schema": 2,
+  "repo": "tashfeenahmed/freellmapi",
+  "issue": 1327,
+  "issue_title": "Speechify key problem",
+  "issue_url": "https://github.com/tashfeenahmed/freellmapi/issues/1327",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-1327",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-30T01:17:02",
+  "updated_at": "2026-09-30T01:20:09",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-30T01:17:02",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-30T01:19:27",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260930T011702-909732a8",
+  "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1327",
+  "workspace": "workspace/tashfeenahmed-freellmapi/issue-1327",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "attempt_status": "budget_exhausted",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [],
+  "difficulty": "medium",
+  "vague": false,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "... The format: Answer with EXACTLY four lines, then the REASON line? Actually it says answer with EXACTLY four lines: KIND, SCOPE, DIFFICULTY, TASK, then a single sentence starting with REASON: justifying the choices. So likely five lines total: four classification lines, then a REASON line. However instruction says \"Answer with EXACTLY four lines: KIND: ... SCOPE: ... DIFFICULTY:"
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_failed"
+}

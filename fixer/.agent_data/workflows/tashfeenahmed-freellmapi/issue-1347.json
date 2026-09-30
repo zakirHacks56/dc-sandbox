@@ -1,0 +1,57 @@
+{
+  "schema": 2,
+  "repo": "tashfeenahmed/freellmapi",
+  "issue": 1347,
+  "issue_title": "feat(routing): cross-key and cross-provider concurrency + rate-limit-aware failure attribution",
+  "issue_url": "https://github.com/tashfeenahmed/freellmapi/issues/1347",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-1347",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-30T01:03:16",
+  "updated_at": "2026-09-30T01:08:14",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-30T01:03:17",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-30T01:05:51",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260930T010317-46e65e6c",
+  "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1347",
+  "workspace": "workspace/tashfeenahmed-freellmapi/issue-1347",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "attempt_status": "budget_exhausted",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "SCOPED",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "DOCS",
+    "reason": "justifying the choices."
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_failed"
+}
