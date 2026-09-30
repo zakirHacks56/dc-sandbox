@@ -280,17 +280,26 @@ def _build_db(path, rows):
 
 
 class _DbGH:
-    def __init__(self, meta=None):
+    def __init__(self, meta=None, issues=None):
         self.meta = meta or {
             "stargazers_count": 5, "archived": False, "disabled": False,
             "pushed_at": "2026-09-01T00:00:00Z",
             "owner": {"suspended_at": None},
         }
+        # {("repo/name", number): state-like dict}; absent means open+clean
+        self.issues = issues or {}
 
     def api(self, method, path, payload=None):
         if path == "/user":
             return {"login": "me"}
         if path.startswith("/repos/"):
+            parts = path.lstrip("/").split("/")
+            if len(parts) == 5 and parts[3] == "issues":
+                state = self.issues.get((parts[1] + "/" + parts[2], int(parts[4])))
+                if state is None:
+                    return {"state": "open", "pull_request": None,
+                            "locked": False, "assignees": None}
+                return state
             return self.meta
         return None
 
@@ -341,6 +350,24 @@ def test_db_source_skips_enrich_skip(tmp_path, monkeypatch):
     _build_db(db, [_db_row("a/r", 1, verdict="skip"),
                    _db_row("b/r", 2)])
     _patch_db(monkeypatch, tmp_path, db)
+    assert hunter.find_candidate(_db_conf(), {}) == ("b/r", 2)
+
+
+def test_db_source_skips_closed_live_issue(tmp_path, monkeypatch):
+    db = tmp_path / "ih.db"
+    _build_db(db, [_db_row("a/r", 1), _db_row("b/r", 2)])
+    gh = _DbGH(issues={("a/r", 1): {"state": "closed", "pull_request": None,
+                                    "locked": False, "assignees": None}})
+    _patch_db(monkeypatch, tmp_path, db, gh)
+    assert hunter.find_candidate(_db_conf(), {}) == ("b/r", 2)
+
+
+def test_db_source_skips_assigned_live_issue(tmp_path, monkeypatch):
+    db = tmp_path / "ih.db"
+    _build_db(db, [_db_row("a/r", 1), _db_row("b/r", 2)])
+    gh = _DbGH(issues={("a/r", 1): {"state": "open", "pull_request": None,
+                                    "locked": False, "assignees": [{"login": "x"}]}})
+    _patch_db(monkeypatch, tmp_path, db, gh)
     assert hunter.find_candidate(_db_conf(), {}) == ("b/r", 2)
 
 

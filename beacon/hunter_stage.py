@@ -394,6 +394,12 @@ def _find_from_db(conf: dict, board: dict, login: str) -> tuple | None:
                 break
             live += 1
             try:
+                live_issue = util.gh_api("GET", f"/repos/{repo_full}/issues/{num}")
+                if live_issue is None or str(live_issue.get("state")) != "open":
+                    continue
+                if live_issue.get("pull_request") or live_issue.get("locked") \
+                        or live_issue.get("assignees"):
+                    continue
                 if not _repo_active(repo_full, board):
                     util.log(f"{repo_full}: issue-db skip (inactive repo)")
                     continue
