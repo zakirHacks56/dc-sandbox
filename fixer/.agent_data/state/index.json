@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-30T01:02:19",
+  "updated_at": "2026-09-30T01:20:09",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -2236,6 +2236,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-30T01:02:19"
+    },
+    "tashfeenahmed/freellmapi#1327": {
+      "repo": "tashfeenahmed/freellmapi",
+      "issue": 1327,
+      "issue_title": "Speechify key problem",
+      "workflow_path": "workflows/tashfeenahmed-freellmapi/issue-1327.json",
+      "conversation_dir": "conversations/tashfeenahmed-freellmapi/issue-1327",
+      "workspace": "workspace/tashfeenahmed-freellmapi/issue-1327",
+      "conversation_id": "20260930T011702-909732a8",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-1327",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-30T01:20:09"
     }
   }
 }

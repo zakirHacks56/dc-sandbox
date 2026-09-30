@@ -21502,3 +21502,55 @@ nly saw a partial copy. This file is too large for the current full-file-replace
 
 Switched to a new branch 'fix-issue-1339'
 2026-09-30T01:02:19+00:00  tick done (outcome=hunted)
+2026-09-30T01:16:35+00:00  gate poller start (offset=746150322)
+2026-09-30T01:16:43+00:00  poll lease taken for 45s
+2026-09-30T01:16:43+00:00  gate poller done: 0 callback(s), new offset=746150322
+2026-09-30T01:16:45+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-30T01:16:46+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-30T01:16:47+00:00  Rekin226/aquascope: no eligible issue under label 'help wanted'
+2026-09-30T01:16:47+00:00  Rekin226/aquascope: no eligible issue under label 'bug'
+2026-09-30T01:16:47+00:00  Rekin226/aquascope: no eligible issue under label 'testing'
+2026-09-30T01:16:48+00:00  Rekin226/aquascope: no eligible issue under label 'enhancement'
+2026-09-30T01:16:49+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-30T01:16:49+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-30T01:16:50+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-30T01:16:50+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-30T01:16:50+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-30T01:16:50+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-30T01:16:51+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-30T01:16:53+00:00  HUNTING: trying tashfeenahmed/freellmapi#1327
+2026-09-30T01:16:53+00:00  human gate required for tashfeenahmed/freellmapi -- GATE_AUTO=0 so the diff is offered to Telegram
+2026-09-30T01:16:53+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo tashfeenahmed/freellmapi --issue 1327 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-30T01:20:10+00:00  fixer exit=0
+--tail--
+d, but no {platform} models are in your current catalog yet. Newer providers are published to the premium catalog first and appear for free-tier installs once they age into the monthly catalog. Add a Premium license key to use them now, or add {platform} as a custom OpenAI-compatible provider with its base URL.",
+-    "noCatalogModelsWarningSpeechify": "Key saved, but no speechify models are in your current catalog yet. Newer providers are published to the premium catalog first and appear for free-tier installs once they age into the monthly catalog. Add a Premium license key to use them now, or add speechify as a custom OpenAI-compatible provider with its base URL."
++    "noCatalogModelsWarningSpeechify": "Key saved, but no speechify models are in your current catalog yet. Newer providers are published to the premium catalog first and appear for free-tier installs once they age into the monthly catalog. Add a Premium license key to use them now, or add speechify as a custom OpenAI-compatible provider with its base URL.",
++    "speechifyKeyFixNote": "Speechify keys are fully supported with FreeLLMAPI licenses."
+   }
+ }
+```
+⚠️  Could not parse a diff or any FILE blocks from the model's response. You MUST wrap your answer starting with either 'FILE: <path>' or a ```diff code block -- do not add any other text before it.
+
+--- Attempt 5/5 ---
+🧮 Issue budget exceeded (max_iterations_reached) -- abandoning this issue.
+
+🛑 Run ended (abandoned_failed) -- record terminal, lane freed.
+
+Switched to a new branch 'fix-issue-1327'
+2026-09-30T01:20:10+00:00  tashfeenahmed/freellmapi#1327: attempt budget_exhausted -- moving to next candidate in the same run
+2026-09-30T01:20:11+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-30T01:20:13+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-30T01:20:13+00:00  Rekin226/aquascope: no eligible issue under label 'help wanted'
+2026-09-30T01:20:13+00:00  Rekin226/aquascope: no eligible issue under label 'bug'
+2026-09-30T01:20:14+00:00  Rekin226/aquascope: no eligible issue under label 'testing'
+2026-09-30T01:20:14+00:00  Rekin226/aquascope: no eligible issue under label 'enhancement'
+2026-09-30T01:20:16+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-30T01:20:16+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-30T01:20:16+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-30T01:20:17+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-30T01:20:17+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-30T01:20:17+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-30T01:20:18+00:00  izzywdev/FuzeFront: skipping (hit 4-lane/day budget)
+2026-09-30T01:20:19+00:00  tashfeenahmed/freellmapi: skipping (hit 4-lane/day budget)
+2026-09-30T01:20:19+00:00  tick done (outcome=hunted)
