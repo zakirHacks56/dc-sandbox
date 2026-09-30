@@ -130,6 +130,14 @@ def set_preflight_ceiling(tokens: Optional[int]) -> None:
     _PREFLIGHT_CEILING = (int(tokens) if tokens is not None and int(tokens) > 0 else None)
 
 
+def get_preflight_ceiling() -> Optional[int]:
+    """Remaining per-issue budget currently enforced by the pre-flight guard,
+    or None when no ceiling is active. Lets the fixer shrink a call's requested
+    output / pick a cheaper combo while the budget is tight instead of waiting
+    for the pre-flight guard to refuse the whole call."""
+    return _PREFLIGHT_CEILING
+
+
 # Preferred failover order within the PRIMARY tier. gemini proved healthy
 # today (102k real tokens, no shared quota with OpenRouter); groq is a
 # separate free tier that shares nothing with the exhausted openrouter-free

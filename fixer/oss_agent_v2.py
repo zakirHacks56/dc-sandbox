@@ -285,6 +285,10 @@ HARD_TOTAL_FILE_CHARS = int(os.getenv("HARD_TOTAL_FILE_CHARS", "90000"))
 # the 4000-token default cap and truncate, which then fails the format parser
 # and costs a full retry. 8000 tokens covers most cross-cutting patch shapes.
 HARD_MAX_TOKENS = int(os.getenv("HARD_MAX_TOKENS", "8000"))
+# Floor for a budget-tight fix call: even when the remaining issue budget is
+# nearly spent, still ask for at least enough output for a small scoped patch
+# instead of letting the pre-flight guard refuse the whole retry.
+_MIN_FIX_OUTPUT_TOKENS = int(os.getenv("MIN_FIX_OUTPUT_TOKENS", "1500"))
 # Hard issues also get a whole-issue TOKEN ceiling much larger than the flat
 # routine budget: the classification pass already verified the task is hard,
 # so the budget exists to cap runaway spend (the 99k-input kill), not to
@@ -2764,8 +2768,21 @@ def _model_chain(fast: bool = False, escalate: bool = False) -> list:
     return chain or ["auto"]
 
 
+def _cheapest_first(chain: list) -> list:
+    """Reorder so cheap/fast combos lead when the issue budget is too tight
+    for the expensive reasoning/coding combos. Fast-hint tokens cover both
+    OmniRoute's virtual combos (`auto/best-fast`) and concrete hosted models
+    (`gemini-3.6-flash`, `qwen-small`, ...). Token-boundary matching so plain
+    "gemini" never trips the "mini" hint. Preserves relative order."""
+    import re
+    hints = {"fast", "flash", "mini", "lite", "turbo", "small"}
+    fasts = [m for m in chain if hints & set(re.split(r"\W+", m.lower()))]
+    rest = [m for m in chain if m not in fasts]
+    return (fasts + rest) or chain
+
+
 def call_model(prompt: str, max_tokens: int = 4000, retry_variant: bool = False,
-               fast: bool = False) -> str:
+               fast: bool = False, cheap_first: bool = False) -> str:
     # Documented OmniRoute auto-combo names (verified against their docs):
     # "auto/coding" = best for coding, "auto/fast" = fastest available.
     # On a retry after a malformed response, switch variants so we're not
@@ -2791,6 +2808,8 @@ def call_model(prompt: str, max_tokens: int = 4000, retry_variant: bool = False,
     #      auth, etc.) means retrying the same combo is futile; move to the
     #      next combo in the chain.
     chain = _model_chain(fast=fast, escalate=bool(retry_variant) and not fast)
+    if cheap_first:
+        chain = _cheapest_first(chain)
     attempts = 2
     last_error = None
     for combo_index, model in enumerate(chain):
@@ -3213,7 +3232,29 @@ directory even if similar files exist there):
 
     flat_budget = int(os.getenv("SOLVE_MAX_OUTPUT_TOKENS", "12000"))
     token_budget = HARD_MAX_TOKENS if difficulty == "hard" else flat_budget
-    return call_model(prompt, max_tokens=token_budget, retry_variant=retry_variant)
+    cheap_first = False
+    remaining = llm_router.get_preflight_ceiling()
+    if remaining is not None:
+        est_input = llm_router.estimate_input_tokens([
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "system", "content": SDE2_SYSTEM_PROMPT},
+            {"role": "user", "content": prompt},
+        ])
+        slack = remaining - est_input
+        if slack < token_budget:
+            cheap_first = True
+            headroom = max(slack - 500, 0)
+            shrunk = max(_MIN_FIX_OUTPUT_TOKENS, headroom)
+            _log_turn(
+                "system",
+                f"issue budget tight: {est_input} input tokens leave ~{slack} "
+                f"for output vs requested {token_budget} -- shrinking to "
+                f"{shrunk} and leading with the fast combo",
+                kind="warn",
+            )
+            token_budget = shrunk
+    return call_model(prompt, max_tokens=token_budget, retry_variant=retry_variant,
+                      cheap_first=cheap_first)
 
 
 def _parse_diff_hunks(diff_text: str):
