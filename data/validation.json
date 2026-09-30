@@ -9,7 +9,7 @@
           "name": "off-by-one",
           "status": "pass",
           "map_files": 2,
-          "test_output": ".                                                                        [100%]\n1 passed in 0.01s\n"
+          "test_output": ".                                                                        [100%]\n1 passed in 0.02s\n"
         },
         {
           "name": "missing-key-default",
