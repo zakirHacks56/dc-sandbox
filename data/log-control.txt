@@ -22672,3 +22672,10 @@ Switched to a new branch 'fix-issue-1327'
 2026-09-30T10:40:35+00:00  poll lease taken for 45s
 2026-09-30T10:40:35+00:00  gate poller done: 0 callback(s), new offset=746150322
 2026-09-30T10:40:35+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-09-30T10:53:54+00:00  gate poller start (offset=746150322)
+2026-09-30T10:54:02+00:00  poll lease taken for 45s
+2026-09-30T10:54:33+00:00  control card edit network error -- keeping card
+2026-09-30T10:54:33+00:00  gate poller done: 0 callback(s), new offset=746150322
+2026-09-30T10:54:33+00:00  issue db: D:\issue-hunter\data\issue_hunter.db missing
+2026-09-30T10:54:33+00:00  no candidate found this tick
+2026-09-30T10:54:33+00:00  tick done (outcome=no_candidate)
