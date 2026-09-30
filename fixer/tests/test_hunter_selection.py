@@ -1,8 +1,11 @@
 """Unit tests for beacon/hunter_stage.py selection logic: issue-number
-preference + newest-created scoring, once-daily repo-activity gating, and the
-run-once attempt_status skip. No network -- util.gh_api / util.gh_paged are
-patched per-case."""
+preference + newest-created scoring, once-daily repo-activity gating, the
+run-once attempt_status skip, and the SQLite-backed (issue_hunter.db)
+candidate source. No network -- util.gh_api / util.gh_paged are patched
+per-case; the SQLite store is a tmp fixture."""
+
 import json
+import sqlite3
 import sys
 from pathlib import Path
 
@@ -247,3 +250,141 @@ def test_find_candidate_unexpected_error_returns_none(tmp_path, monkeypatch):
     monkeypatch.setattr(util, "gh_api", _boom)
     monkeypatch.setattr(util, "FIXER", tmp_path / "fixer")
     assert hunter.find_candidate(_conf(), {}) is None
+
+
+# --- SQLite-backed source (hunt_source='db') --------------------------------
+
+def _db_conf(**kw):
+    conf = {"hunt_source": "db", "difficulty_cap": 2, "max_stars": 1000000,
+            "max_file_bytes": 0, "max_attempts_per_repo_day": 0, "targets": []}
+    conf.update(kw)
+    return conf
+
+
+def _db_row(repo, number, level="Easy", body="small repro bug",
+            labels=None, verdict=None):
+    labels = labels or '["bug", "good first issue"]'
+    return (repo, number, f"title {number}", body, labels, level,
+            "active", verdict, None)
+
+
+def _build_db(path, rows):
+    con = sqlite3.connect(path)
+    con.execute(
+        "create table issues (repo text, number int, title text, body text, "
+        "labels_json text, difficulty_level text, status text, "
+        "enrich_verdict text, tombstone_reason text)")
+    con.executemany("insert into issues values (?,?,?,?,?,?,?,?,?)", rows)
+    con.commit()
+    con.close()
+
+
+class _DbGH:
+    def __init__(self, meta=None):
+        self.meta = meta or {
+            "stargazers_count": 5, "archived": False, "disabled": False,
+            "pushed_at": "2026-09-01T00:00:00Z",
+            "owner": {"suspended_at": None},
+        }
+
+    def api(self, method, path, payload=None):
+        if path == "/user":
+            return {"login": "me"}
+        if path.startswith("/repos/"):
+            return self.meta
+        return None
+
+    def paged(self, path):
+        return [] if "pulls" in path else None
+
+
+def _patch_db(monkeypatch, tmp_path, db_path, gh=None):
+    monkeypatch.setattr(hunter, "HUNT_DB", str(db_path))
+    monkeypatch.setattr(util, "FIXER", tmp_path / "fixer")
+    _patch(monkeypatch, gh or _DbGH())
+
+
+def test_db_source_picks_easiest_first(tmp_path, monkeypatch):
+    db = tmp_path / "ih.db"
+    _build_db(db, [_db_row("a/r", 1, "Medium"),
+                   _db_row("b/r", 2, "Easy"),
+                   _db_row("c/r", 3, "Trivial")])
+    _patch_db(monkeypatch, tmp_path, db)
+    assert hunter.find_candidate(_db_conf(), {}) == ("c/r", 3)
+
+
+def test_db_source_skips_attempted(tmp_path, monkeypatch):
+    db = tmp_path / "ih.db"
+    _build_db(db, [_db_row("a/r", 1), _db_row("b/r", 2)])
+    _patch_db(monkeypatch, tmp_path, db)
+    board = {"attempted": {"a/r": [1]}}
+    assert hunter.find_candidate(_db_conf(), board) == ("b/r", 2)
+
+
+def test_db_source_screens_big_body(tmp_path, monkeypatch):
+    db = tmp_path / "ih.db"
+    _build_db(db, [_db_row("a/r", 1, body="x" * 20000),
+                   _db_row("b/r", 2)])
+    _patch_db(monkeypatch, tmp_path, db)
+    assert hunter.find_candidate(_db_conf(), {}) == ("b/r", 2)
+
+
+def test_db_source_difficulty_cap_excludes_higher(tmp_path, monkeypatch):
+    db = tmp_path / "ih.db"
+    _build_db(db, [_db_row("a/r", 1, "Medium"), _db_row("b/r", 2, "Easy")])
+    _patch_db(monkeypatch, tmp_path, db)
+    assert hunter.find_candidate(_db_conf(difficulty_cap=1), {}) == ("b/r", 2)
+
+
+def test_db_source_skips_enrich_skip(tmp_path, monkeypatch):
+    db = tmp_path / "ih.db"
+    _build_db(db, [_db_row("a/r", 1, verdict="skip"),
+                   _db_row("b/r", 2)])
+    _patch_db(monkeypatch, tmp_path, db)
+    assert hunter.find_candidate(_db_conf(), {}) == ("b/r", 2)
+
+
+def test_db_source_readonly_never_writes(tmp_path, monkeypatch):
+    db = tmp_path / "ih.db"
+    _build_db(db, [_db_row("a/r", 1)])
+    _patch_db(monkeypatch, tmp_path, db)
+    hunter.find_candidate(_db_conf(), {})
+    conn = hunter._db_connect()
+    try:
+        conn.execute("insert into issues values ('x/y',9,'t','b','[]','Easy','active',null,null)")
+        raised = False
+    except sqlite3.OperationalError:
+        raised = True
+    conn.close()
+    assert raised
+
+
+def test_db_source_missing_returns_none(tmp_path, monkeypatch):
+    monkeypatch.setattr(hunter, "HUNT_DB", str(tmp_path / "nope.db"))
+    monkeypatch.setattr(util, "FIXER", tmp_path / "fixer")
+    _patch(monkeypatch, _DbGH())
+    assert hunter.find_candidate(_db_conf(), {}) is None
+
+
+def test_db_source_skips_repo_with_live_pr(tmp_path, monkeypatch):
+    db = tmp_path / "ih.db"
+    _build_db(db, [_db_row("a/r", 1)])
+    gh = _DbGH()
+    pulls = [{"user": {"login": "me"}, "number": 77}]
+    def _paged(path):
+        return pulls if "pulls" in path else None
+    monkeypatch.setattr(hunter, "HUNT_DB", str(db))
+    monkeypatch.setattr(util, "FIXER", tmp_path / "fixer")
+    monkeypatch.setattr(util, "gh_api", gh.api)
+    monkeypatch.setattr(util, "gh_paged", _paged)
+    assert hunter.find_candidate(_db_conf(), {}) is None
+
+
+def test_both_source_falls_back_to_targets(tmp_path, monkeypatch):
+    db = tmp_path / "ih.db"
+    _build_db(db, [_db_row("a/r", 1, "Hard")])  # above default cap 2? no -- hard rank 3
+    _patch_db(monkeypatch, tmp_path, db, _FakeGH(
+        issues=[_issue(9, "2026-09-01T00:00:00Z")]))
+    conf = _db_conf(hunt_source="both")
+    conf["targets"] = [{"repo": "o/r", "enabled": True}]
+    assert hunter.find_candidate(conf, {}) == ("o/r", 9)

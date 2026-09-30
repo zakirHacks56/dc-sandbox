@@ -1,4 +1,5 @@
 {
+  "hunt_source": "db",
   "max_prs_per_day": 4,
   "max_pending_gates": 3,
   "default_labels": ["good first issue", "help wanted", "bug"],
