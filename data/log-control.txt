@@ -21237,3 +21237,138 @@ Step 1-2: checking #1135 - chat JWT: verify MendysRobotics CHAT_JWT_SECRET match
 
 🛑 Run ended (abandoned_failed) -- record terminal, lane freed.
 2026-09-30T00:16:37+00:00  tick done (outcome=hunted)
+2026-09-30T00:35:59+00:00  gate poller start (offset=746150322)
+2026-09-30T00:36:07+00:00  poll lease taken for 45s
+2026-09-30T00:36:07+00:00  gate poller done: 0 callback(s), new offset=746150322
+2026-09-30T00:36:09+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-30T00:36:11+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-30T00:36:11+00:00  Rekin226/aquascope: no eligible issue under label 'help wanted'
+2026-09-30T00:36:12+00:00  Rekin226/aquascope: no eligible issue under label 'bug'
+2026-09-30T00:36:12+00:00  Rekin226/aquascope: no eligible issue under label 'testing'
+2026-09-30T00:36:12+00:00  Rekin226/aquascope: no eligible issue under label 'enhancement'
+2026-09-30T00:36:14+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-30T00:36:14+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-30T00:36:15+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-30T00:36:15+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-30T00:36:15+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-30T00:36:15+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-30T00:36:18+00:00  HUNTING: trying izzywdev/FuzeFront#1029
+2026-09-30T00:36:18+00:00  human gate required for izzywdev/FuzeFront -- GATE_AUTO=0 so the diff is offered to Telegram
+2026-09-30T00:36:18+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1029 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-30T00:38:01+00:00  fixer exit=0
+--tail--
+nal adopters
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+   ↳ ⚠️  Issue looks vague/underspecified -- treating as HARD: plan-first + wider context so it is grounded in real code, not guessed.
+✅ Forked, cloned, branched: fix-issue-1029
+   ↳ Detected language/build system: javascript
+   ↳ Detected javascript: npm install
+   ↳ Overriding default test command with detected one: npm test
+   ↳ 🚀 Difficulty escalation: hard task -> 8 attempts, 10 context files.
+   ↳  context budget 90000 chars spent -- keeping 4 file(s), dropping rest
+✅ Found 4 relevant files (0 via AI selection, 10 via keyword match)
+Step 8a: running baseline tests (before any changes)...
+❌ Tests failed
+🗺️  Hard task -- drafting an implementation plan before writing code.
+[!] provider nvidia_nim failed: NotFoundError: 404 page not found
+[!] provider llm7 failed: BadRequestError: Error code: 400 - {'error': {'message': "Model 'nvidia/nemotron-3-super-120b-a12b:free' is currently unavailable.", 'type': 'invalid_request_error', 'param': None, 'code': 'model_unavailable'}}
+[!] provider aion_lab failed: APIConnectionError: Connection error.
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (AllProvidersExhaustedError): all providers for tier 'escalation' failed or were over budget (last: Connection error.)
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+[!] provider nvidia_nim failed: NotFoundError: 404 page not found
+
+🛑 Run ended (abandoned_error) -- record terminal, lane freed.
+
+Switched to a new branch 'fix-issue-1029'
+2026-09-30T00:38:01+00:00  izzywdev/FuzeFront#1029: attempt attempted_failed -- moving to next candidate in the same run
+2026-09-30T00:38:03+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-30T00:38:05+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-30T00:38:05+00:00  Rekin226/aquascope: no eligible issue under label 'help wanted'
+2026-09-30T00:38:06+00:00  Rekin226/aquascope: no eligible issue under label 'bug'
+2026-09-30T00:38:06+00:00  Rekin226/aquascope: no eligible issue under label 'testing'
+2026-09-30T00:38:07+00:00  Rekin226/aquascope: no eligible issue under label 'enhancement'
+2026-09-30T00:38:08+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-30T00:38:09+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-30T00:38:09+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-30T00:38:10+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-30T00:38:10+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-30T00:38:10+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-30T00:38:12+00:00  HUNTING: trying izzywdev/FuzeFront#1028
+2026-09-30T00:38:12+00:00  human gate required for izzywdev/FuzeFront -- GATE_AUTO=0 so the diff is offered to Telegram
+2026-09-30T00:38:12+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1028 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-30T00:39:02+00:00  fixer exit=0
+--tail--
+ware Factory
+   ↳ verification verdict: GENERIC/MODERATE difficulty=medium
+   ↳ ⚠️  Issue looks vague/underspecified -- treating as HARD: plan-first + wider context so it is grounded in real code, not guessed.
+✅ Forked, cloned, branched: fix-issue-1028
+   ↳ Detected language/build system: javascript
+   ↳ Detected javascript: npm install
+   ↳ Overriding default test command with detected one: npm test
+   ↳ 🚀 Difficulty escalation: hard task -> 8 attempts, 10 context files.
+   ↳  context budget 90000 chars spent -- keeping 4 file(s), dropping rest
+✅ Found 4 relevant files (0 via AI selection, 10 via keyword match)
+Step 8a: running baseline tests (before any changes)...
+❌ Tests failed
+🗺️  Hard task -- drafting an implementation plan before writing code.
+[!] provider nvidia_nim failed: NotFoundError: 404 page not found
+[!] provider llm7 failed: BadRequestError: Error code: 400 - {'error': {'message': "Model 'nvidia/nemotron-3-super-120b-a12b:free' is currently unavailable.", 'type': 'invalid_request_error', 'param': None, 'code': 'model_unavailable'}}
+[!] provider aion_lab failed: APIConnectionError: Connection error.
+⚠️ Combo 'nvidia/nemotron-3-super-120b-a12b:free' failed hard (AllProvidersExhaustedError): all providers for tier 'escalation' failed or were over budget (last: Connection error.)
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+[!] provider nvidia_nim failed: NotFoundError: 404 page not found
+
+🛑 Run ended (abandoned_error) -- record terminal, lane freed.
+
+Switched to a new branch 'fix-issue-1028'
+2026-09-30T00:39:02+00:00  izzywdev/FuzeFront#1028: attempt attempted_failed -- moving to next candidate in the same run
+2026-09-30T00:39:03+00:00  yunaremaia/sandbox-ffi-layers: skipping (we already have an open PR there)
+2026-09-30T00:39:05+00:00  Rekin226/aquascope: no eligible issue under label 'good first issue'
+2026-09-30T00:39:06+00:00  Rekin226/aquascope: no eligible issue under label 'help wanted'
+2026-09-30T00:39:06+00:00  Rekin226/aquascope: no eligible issue under label 'bug'
+2026-09-30T00:39:06+00:00  Rekin226/aquascope: no eligible issue under label 'testing'
+2026-09-30T00:39:07+00:00  Rekin226/aquascope: no eligible issue under label 'enhancement'
+2026-09-30T00:39:09+00:00  taranis-ai/taranis-ai: no eligible issue under label 'good first issue'
+2026-09-30T00:39:09+00:00  taranis-ai/taranis-ai: no eligible issue under label 'help wanted'
+2026-09-30T00:39:09+00:00  taranis-ai/taranis-ai: no eligible issue under label 'bug'
+2026-09-30T00:39:10+00:00  #1048: skipping (body 16567 chars > 12000 -- feature-request sized)
+2026-09-30T00:39:10+00:00     ↳ title: Replace Report completed flag with lifecycle status and archive workflow
+2026-09-30T00:39:10+00:00  taranis-ai/taranis-ai: no eligible issue under label 'enhancement'
+2026-09-30T00:39:12+00:00  HUNTING: trying izzywdev/FuzeFront#1027
+2026-09-30T00:39:12+00:00  human gate required for izzywdev/FuzeFront -- GATE_AUTO=0 so the diff is offered to Telegram
+2026-09-30T00:39:12+00:00  fixer: /opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/dc-sandbox/dc-sandbox/fixer/oss_agent_v2.py --repo izzywdev/FuzeFront --issue 1027 --gate-sync  (cwd=/home/runner/work/dc-sandbox/dc-sandbox/fixer)
+2026-09-30T00:40:56+00:00  fixer exit=0
+--tail--
+does not exist or you do not have access to it.', 'type': 'i
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️  Rejected out-of-scope file writes (not in allowed paths): ['docs/guides/reference-app-onboarding.md']
+✅ Applied changes to: ['docs/ADOPTION_QUICKSTART.md', 'FuzeQuality/apps/api/src/reference-app-onboarding.test.ts']
+❌ Tests failed
+   ↳ Failure detail: npm error Missing script: "test"
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-09-30T00_40_28_131Z-debug-0.log
+
+
+--- Attempt 3/5 ---
+⚠️ Combo 'auto/best-reasoning' failed hard (AllProvidersExhaustedError): all providers for tier 'primary' failed or were over budget
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+⚠️  Rejected out-of-scope file writes (not in allowed paths): ['docs/guides/reference-app-onboarding.md']
+✅ Applied changes to: ['docs/ADOPTION_QUICKSTART.md']
+❌ Tests failed
+   ↳ Failure detail: npm error Missing script: "test"
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-09-30T00_40_41_679Z-debug-0.log
+
+
+--- Attempt 4/5 ---
+⚠️ Combo 'auto/best-reasoning' failed hard (AllProvidersExhaustedError): all providers for tier 'primary' failed or were over budget
+   Trying fallback combo 'gemini-3.5-flash-lite' in 5s...
+
+🛑 Run ended (abandoned_error) -- record terminal, lane freed.
+
+Switched to a new branch 'fix-issue-1027'
+2026-09-30T00:40:56+00:00  tick done (outcome=hunted)

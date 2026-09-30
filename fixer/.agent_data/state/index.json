@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-30T00:14:10",
+  "updated_at": "2026-09-30T00:40:56",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -400,12 +400,12 @@
       "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1029",
       "workspace": "workspace/izzywdev-FuzeFront/issue-1029",
       "conversation_id": "20260925T134007-97c82029",
-      "state": "PAUSED",
-      "status": "paused",
+      "state": "ABANDONED",
+      "status": "abandoned",
       "branch": "fix-issue-1029",
       "pr_number": null,
       "pr_url": null,
-      "updated_at": "2026-09-25T13:42:33"
+      "updated_at": "2026-09-30T00:36:27"
     },
     "izzywdev/FuzeFront#1028": {
       "repo": "izzywdev/FuzeFront",
@@ -415,12 +415,12 @@
       "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1028",
       "workspace": "workspace/izzywdev-FuzeFront/issue-1028",
       "conversation_id": "20260925T134438-29177e8b",
-      "state": "PAUSED",
-      "status": "paused",
+      "state": "ABANDONED",
+      "status": "abandoned",
       "branch": "fix-issue-1028",
       "pr_number": null,
       "pr_url": null,
-      "updated_at": "2026-09-25T13:47:06"
+      "updated_at": "2026-09-30T00:38:21"
     },
     "yunaremaia/sandbox-ffi-layers#25": {
       "repo": "yunaremaia/sandbox-ffi-layers",
@@ -594,13 +594,13 @@
       "workflow_path": "workflows/izzywdev-FuzeFront/issue-1027.json",
       "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1027",
       "workspace": "workspace/izzywdev-FuzeFront/issue-1027",
-      "conversation_id": "20260927T095013-9312dae3",
-      "state": "ANALYZING",
-      "status": "analyzing",
+      "conversation_id": "20260930T003919-02487b43",
+      "state": "ABANDONED",
+      "status": "abandoned",
       "branch": "fix-issue-1027",
       "pr_number": null,
       "pr_url": null,
-      "updated_at": "2026-09-27T09:50:17"
+      "updated_at": "2026-09-30T00:40:56"
     },
     "izzywdev/FuzeFront#1026": {
       "repo": "izzywdev/FuzeFront",
