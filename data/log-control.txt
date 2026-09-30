@@ -22829,3 +22829,9 @@ Switched to a new branch 'fix-issue-1327'
 2026-09-30T14:35:17+00:00  issue db: D:\issue-hunter\data\issue_hunter.db missing
 2026-09-30T14:35:17+00:00  no candidate found this tick
 2026-09-30T14:35:17+00:00  tick done (outcome=no_candidate)
+2026-09-30T14:37:03+00:00  gate poller start (offset=746150322)
+2026-09-30T14:37:12+00:00  poll lease taken for 45s
+2026-09-30T14:37:12+00:00  gate poller done: 0 callback(s), new offset=746150322
+2026-09-30T14:37:12+00:00  issue db: D:\issue-hunter\data\issue_hunter.db missing
+2026-09-30T14:37:12+00:00  no candidate found this tick
+2026-09-30T14:37:12+00:00  tick done (outcome=no_candidate)
