@@ -1,0 +1,60 @@
+{
+  "schema": 2,
+  "repo": "Rekin226/aquascope",
+  "issue": 273,
+  "issue_title": "GR4J runs on a 101,033 km\u00b2 catchment and returns NSE -19.6",
+  "issue_url": "https://github.com/Rekin226/aquascope/issues/273",
+  "issue_state": "open",
+  "state": "ABANDONED",
+  "status": "abandoned",
+  "branch": "fix-issue-273",
+  "base_branch": "main",
+  "pr_number": null,
+  "pr_url": null,
+  "created_at": "2026-09-30T00:11:43",
+  "updated_at": "2026-09-30T00:13:54",
+  "processed_comment_ids": [],
+  "iterations": [],
+  "unresolved_feedback": [],
+  "transitions": [
+    {
+      "from": "TASK_RECEIVED",
+      "to": "ANALYZING",
+      "at": "2026-09-30T00:11:43",
+      "note": "issue verified + unclaimed"
+    },
+    {
+      "from": "ANALYZING",
+      "to": "IMPLEMENTING",
+      "at": "2026-09-30T00:12:15",
+      "note": "generating fix"
+    }
+  ],
+  "conversation_id": "20260930T001143-6026fc86",
+  "conversation_dir": "conversations/Rekin226-aquascope/issue-273",
+  "workspace": "workspace/Rekin226-aquascope/issue-273",
+  "provider": "omniroute",
+  "model": "nvidia/nemotron-3-super-120b-a12b:free",
+  "attempt_status": "budget_exhausted",
+  "last_test_status": "",
+  "pause_count": 0,
+  "resume_count": 0,
+  "pause_history": [],
+  "labels": [
+    "enhancement",
+    "good second issue"
+  ],
+  "difficulty": "hard",
+  "vague": true,
+  "domain": "",
+  "classification": {
+    "kind": "GENERIC",
+    "scope": "MODERATE",
+    "difficulty": "medium",
+    "domain": "",
+    "task_type": "BUG_FIX",
+    "reason": "We need to classify this GitHub issue based on the provided definitions. The issue description asks to add a gate based on catchment area, modify progress messages, rewrite description, etc. It is an "
+  },
+  "bot_login": "zakirHacks56",
+  "outcome": "abandoned_failed"
+}

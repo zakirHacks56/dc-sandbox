@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-29",
+  "date": "2026-09-30",
   "prs_today": 0,
   "prs": [],
   "attempted": {
@@ -85,11 +85,10 @@
       176,
       126,
       99,
-      440
+      440,
+      273
     ],
     "izzywdev/FuzeFront": [
-      1135,
-      1029,
       1028,
       1027,
       1026,
@@ -137,7 +136,9 @@
       963,
       1181,
       1165,
-      1187
+      1187,
+      1137,
+      1135
     ],
     "yunaremaia/sandbox-ffi-layers": [
       39,
@@ -301,8 +302,9 @@
     },
     "izzywdev/FuzeFront#1137": {
       "state": "ABANDONED",
-      "decision": false,
-      "updated": "2026-09-25T11:18:57"
+      "pr": null,
+      "spent": 7895,
+      "updated": "2026-09-30T00:16:24+00:00"
     },
     "yunaremaia/sandbox-ffi-layers#21": {
       "state": "ABANDONED",
@@ -1000,17 +1002,22 @@
       "pr": null,
       "spent": 182272,
       "updated": "2026-09-29T19:37:22+00:00"
+    },
+    "Rekin226/aquascope#273": {
+      "state": "ABANDONED",
+      "pr": null,
+      "spent": 572997,
+      "updated": "2026-09-30T00:13:54+00:00"
     }
   },
-  "last_tick": "2026-09-29T23:55:15+00:00",
   "repo_activity": {
     "results": {
       "yunaremaia/sandbox-ffi-layers": true,
       "Rekin226/aquascope": true,
       "taranis-ai/taranis-ai": true,
-      "izzywdev/FuzeFront": true,
-      "tashfeenahmed/freellmapi": true
+      "izzywdev/FuzeFront": true
     },
-    "date": "2026-09-29"
-  }
+    "date": "2026-09-30"
+  },
+  "last_tick": "2026-09-30T00:16:37+00:00"
 }

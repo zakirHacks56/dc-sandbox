@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "updated_at": "2026-09-29T19:37:21",
+  "updated_at": "2026-09-30T00:14:10",
   "workflows": {
     "Posnic/POS#436": {
       "repo": "Posnic/POS",
@@ -325,12 +325,12 @@
       "conversation_dir": "conversations/izzywdev-FuzeFront/issue-1137",
       "workspace": "workspace/izzywdev-FuzeFront/issue-1137",
       "conversation_id": "20260925T110701-a1eec5dc",
-      "state": "PAUSED",
-      "status": "paused",
+      "state": "ABANDONED",
+      "status": "abandoned",
       "branch": "fix-issue-1137",
       "pr_number": null,
       "pr_url": null,
-      "updated_at": "2026-09-25T11:18:57"
+      "updated_at": "2026-09-30T00:14:10"
     },
     "Rekin226/aquascope#438": {
       "repo": "Rekin226/aquascope",
@@ -2176,6 +2176,21 @@
       "pr_number": null,
       "pr_url": null,
       "updated_at": "2026-09-29T19:37:21"
+    },
+    "Rekin226/aquascope#273": {
+      "repo": "Rekin226/aquascope",
+      "issue": 273,
+      "issue_title": "GR4J runs on a 101,033 km\u00b2 catchment and returns NSE -19.6",
+      "workflow_path": "workflows/Rekin226-aquascope/issue-273.json",
+      "conversation_dir": "conversations/Rekin226-aquascope/issue-273",
+      "workspace": "workspace/Rekin226-aquascope/issue-273",
+      "conversation_id": "20260930T001143-6026fc86",
+      "state": "ABANDONED",
+      "status": "abandoned",
+      "branch": "fix-issue-273",
+      "pr_number": null,
+      "pr_url": null,
+      "updated_at": "2026-09-30T00:13:54"
     }
   }
 }
