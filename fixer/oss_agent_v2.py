@@ -4009,6 +4009,35 @@ def suite_result_is_trustworthy(output: str) -> bool:
     return "no tests ran" in low
 
 
+_DOC_SUFFIXES = (".md", ".rst", ".adoc", ".mdown", ".markdown")
+_DOC_NAMES = {
+    "readme", "readme.md", "license", "changelog", "contributing",
+    "authors", "notice", "agents", "code_of_conduct", "security",
+    "copying", "thanks", "acknowledgements",
+}
+
+
+def _docs_only_changes(changed_paths) -> bool:
+    """True when every changed path is a documentation file. Doc detection is
+    deliberately conservative: markdown-family extensions, README/LICENSE/
+    CHANGELOG-style plain names, or a path segment literally named docs/doc/
+    documentation. A touched .py/.js/Config/etc. fails the check, so a docs
+    task that also edits source keeps the normal test gate."""
+    if not changed_paths:
+        return False
+    for p in changed_paths:
+        name = Path(str(p).replace("\\", "/")).name.lower()
+        parts = {seg.lower() for seg in Path(str(p).replace("\\", "/")).parts}
+        if str(p).lower().endswith(_DOC_SUFFIXES):
+            continue
+        if name in _DOC_NAMES:
+            continue
+        if parts & {"docs", "doc", "documentation"}:
+            continue
+        return False
+    return True
+
+
 def blame_changed_files(
     changed_paths: list, failing_nodeids: set, output: str
 ) -> set:
@@ -5814,6 +5843,14 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
                 # run the suite -- a timeout/missing-runner is NOT "fine") --
                 # the fix itself is fine.
                 print("   ↳ Remaining failures are all pre-existing, not caused by this fix.")
+                passed = True
+            elif not new_failures and _docs_only_changes(changed_paths):
+                # Docs-only exemption: every change is documentation and the
+                # suite failed the SAME way at baseline (untrustworthy output
+                # -- collection error / missing runner / build env break), so
+                # the docs edit cannot be the cause and no retry will help.
+                print("   ↳ Docs-only change; suite is env-broken (untrustworthy) and "
+                      "failed identically at baseline -- accepting.")
                 passed = True
 
         if passed:

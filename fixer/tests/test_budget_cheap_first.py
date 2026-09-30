@@ -97,3 +97,24 @@ def test_generate_fix_roomy_budget_keeps_full_output(monkeypatch, _clear_ceiling
     assert captured["cheap_first"] is False
     assert captured["max_tokens"] == int(__import__("os").getenv(
         "SOLVE_MAX_OUTPUT_TOKENS", "12000"))
+
+
+def test_docs_only_changes_true_for_doc_paths():
+    ok = ["README.md", "docs/API.rst", "CHANGELOG.md", "docs/guide/index.md",
+          "License", "sub/docs/notes.txt"]
+    for p in ok:
+        assert o._docs_only_changes([p]), p
+    assert o._docs_only_changes(["README.md", "docs/API.rst"]) is True
+
+
+def test_docs_only_changes_false_for_code_paths():
+    bad = ["src/app.py", "scripts/package_blender_extension.py",
+           "requirements.txt", "config/settings.yaml", "docker-compose.yml",
+           "src/app.js"]
+    for p in bad:
+        assert o._docs_only_changes([p]) is False, p
+    assert o._docs_only_changes([]) is False
+
+
+def test_docs_only_changes_mixed_is_false():
+    assert o._docs_only_changes(["README.md", "src/app.py"]) is False
