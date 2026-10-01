@@ -131,7 +131,16 @@ OMNIROUTE_REASONING_MODEL = os.getenv("OMNIROUTE_REASONING_MODEL", "").strip() o
 # of burning the full budget, and the next fallback combo gets the same quick
 # probe. Only when every combo has stalled does the LAST combo stretch to the
 # full budget (so a slow-but-healthy reasoning model is not starved).
-OMNIROUTE_STALL_SECONDS = float(os.getenv("OMNIROUTE_STALL_SECONDS", "90"))
+# Kept SHORT on purpose: a tunnel/home-network stall is indistinguishable from
+# a dead provider for the first ~40s, and every second here is time the run's
+# total time-budget is NOT spending on retries of healthy combos.
+OMNIROUTE_STALL_SECONDS = float(os.getenv("OMNIROUTE_STALL_SECONDS", "40"))
+# Hard cap on consecutive silent stalls BEFORE the run stops trying. When the
+# first N combos all fail their quick probe, the whole chain is unreliable
+# (tunnel/gateway outage) and retrying the rest wastes time budget -- abandon
+# cleanly with a terminal record instead of chaining every fallback combo.
+# Env-overridable (OMNIROUTE_STALL_CAP).
+OMNIROUTE_STALL_CAP = int(os.getenv("OMNIROUTE_STALL_CAP", "2"))
 
 # ============================================================
 # Fallback endpoint (opt-in hosted OpenAI-compatible LLM)
@@ -1046,6 +1055,7 @@ class AttemptOutcome:
     CANCELLED = "cancelled"                   # human declined at review gate
     ANALYSIS = "analysis"                     # report-only task, nothing changed on GH
     ABANDONED_PREFLIGHT = "abandoned_preflight"  # every provider refused before spend
+    ABANDONED_STALL = "abandoned_stall"          # N consecutive combos stale -> infra unreliable
     ABANDONED_ERROR = "abandoned_error"       # unhandled exception aborted the run
     ABANDONED_FAILED = "abandoned_failed"     # legal exit paths that produced no PR
     NOOP = "noop"                             # declined/refused before any work
@@ -1068,6 +1078,7 @@ _ATTEMPT_STATUS = {
     AttemptOutcome.CANCELLED: "attempted_failed",
     AttemptOutcome.ANALYSIS: "attempted_failed",
     AttemptOutcome.ABANDONED_PREFLIGHT: "budget_exhausted",
+    AttemptOutcome.ABANDONED_STALL: "attempted_failed",
     AttemptOutcome.ABANDONED_ERROR: "attempted_failed",
     AttemptOutcome.ABANDONED_FAILED: "attempted_failed",
     AttemptOutcome.NOOP: "not_attempted",
@@ -2054,6 +2065,10 @@ _VAGUE_PHRASES = (
     "whatever fits",
 )
 
+# Classifier domains that are pure documentation touch: a vague issue in one
+# of these keeps the routine (non-HARD) budget -- see escalated_difficulty.
+_DOC_DOMAINS = {"docs", "documentation", "doc"}
+
 
 def is_vague_issue(issue) -> bool:
     """Cheap heuristic (no model call) for reports that force hallucination:
@@ -2069,10 +2084,28 @@ def is_vague_issue(issue) -> bool:
         or (body and len(body) < 40)                            # bare title-level body
         or any(phrase in body.lower() for phrase in _VAGUE_PHRASES)
     )
-    if vague:
-        print("   ↳ ⚠️  Issue looks vague/underspecified -- treating as HARD: "
-              "plan-first + wider context so it is grounded in real code, not guessed.")
     return vague
+
+
+def escalated_difficulty(classification: dict, issue) -> tuple:
+    """Combine the classifier + vague heuristics into the effective difficulty.
+
+    A vague issue normally gets FORCED to HARD (plan-first, more attempts,
+    wider context) because guessing which symbols/routes a report means is
+    the classic hallucination trigger. EXCEPTION: a vague issue whose
+    classifier `domain` is docs stays on the ROUTINE budget -- guessing
+    which heading/paragraph to edit inside a README is low-stakes, and the
+    HARD plan-first path would only multiply model calls and watchdog
+    exposure for a one-line docs edit. Returns (effective_difficulty, vague,
+    docs_vague)."""
+    vague = is_vague_issue(issue)
+    domain = (classification.get("domain") or "").strip().lower()
+    docs_vague = vague and domain in _DOC_DOMAINS
+    effective = (
+        "hard" if classification.get("difficulty") == "hard" or (vague and not docs_vague)
+        else classification.get("difficulty", "medium")
+    )
+    return effective, vague, docs_vague
 
 
 def _module_source_file(repo_dir: Path, dotted: str):
@@ -2781,6 +2814,13 @@ def _cheapest_first(chain: list) -> list:
     return (fasts + rest) or chain
 
 
+class OmniRouteStallExceeded(RuntimeError):
+    """Raised by call_model when OMNIROUTE_STALL_CAP consecutive combos all
+    fail their quick stall probe. The chain is too slow/stalled to trust;
+    retrying the remaining fallbacks would only eat time budget on the same
+    broken path. Mapped to a terminal ABANDONED_STALL record by the wrapper."""
+
+
 def call_model(prompt: str, max_tokens: int = 4000, retry_variant: bool = False,
                fast: bool = False, cheap_first: bool = False) -> str:
     # Documented OmniRoute auto-combo names (verified against their docs):
@@ -2812,13 +2852,20 @@ def call_model(prompt: str, max_tokens: int = 4000, retry_variant: bool = False,
         chain = _cheapest_first(chain)
     attempts = 2
     last_error = None
+    # Consecutive silent-stall counter across combos. Two probes in a row with
+    # no answer means the gateway/tunnel itself is unreliable; stop chaining
+    # fallbacks and abandon cleanly (OmniRouteStallExceeded -> ABANDONED_STALL)
+    # instead of eating the remaining time budget probe after probe.
+    stall_streak = 0
     for combo_index, model in enumerate(chain):
         for attempt in range(attempts):
             # First attempt of a combo: quick stall probe. Later attempts on
-            # the same combo get the full growing budget.
+            # the same combo get the full, exponentially-growing budget, but
+            # capped at OMNIROUTE_TIMEOUT so an unhealthy provider can never
+            # hold a lane for minutes.
             timeout = (
                 OMNIROUTE_STALL_SECONDS if attempt == 0
-                else OMNIROUTE_TIMEOUT * (2 ** (attempt - 1))
+                else min(OMNIROUTE_TIMEOUT, OMNIROUTE_STALL_SECONDS * (2 ** attempt))
             )
             try:
                 response = ai_client.chat.completions.create(
@@ -2857,16 +2904,24 @@ def call_model(prompt: str, max_tokens: int = 4000, retry_variant: bool = False,
                     kind="error", model=model,
                 )
                 timed_out = _is_timeout_error(e)
-                stall_like = timed_out and attempt == 0
-                if stall_like and combo_index < len(chain) - 1:
-                    wait = 5 * (combo_index + 1)
-                    nxt = chain[combo_index + 1]
-                    print(
-                        f"⚠️ Combo '{model}' gave no answer within {int(timeout)}s "
-                        f"(stall probe). Trying fallback combo '{nxt}' in {wait}s..."
-                    )
-                    time.sleep(wait)
-                    break  # out of attempt loop -> next combo
+                stall_like = attempt == 0 and _is_stall_error(e)
+                if stall_like:
+                    stall_streak += 1
+                    if stall_streak >= OMNIROUTE_STALL_CAP:
+                        raise OmniRouteStallExceeded(
+                            f"{stall_streak} consecutive combos gave no answer within "
+                            f"{int(OMNIROUTE_STALL_SECONDS)}s each"
+                        )
+                    if combo_index < len(chain) - 1:
+                        wait = 3 * (combo_index + 1)
+                        nxt = chain[combo_index + 1]
+                        print(
+                            f"⚠️ Combo '{model}' gave no answer within {int(timeout)}s "
+                            f"(stall probe {stall_streak}/{OMNIROUTE_STALL_CAP}). "
+                            f"Trying fallback combo '{nxt}' in {wait}s..."
+                        )
+                        time.sleep(wait)
+                        break  # out of attempt loop -> next combo
                 if timed_out and attempt < attempts - 1:
                     wait = 5 * (2 ** attempt)
                     print(
@@ -2906,6 +2961,20 @@ def call_model(prompt: str, max_tokens: int = 4000, retry_variant: bool = False,
             if OMNIROUTE_FALLBACK_BASE_URL else ""
         )
     )
+
+
+def _is_stall_error(e: Exception) -> bool:
+    """True when a failure is really 'the provider/gateway never answered'.
+
+    Besides plain timeouts, the router reports the same condition as
+    AllProvidersExhaustedError whose last error is a watchdog kill
+    ('provider call exceeded watchdog window of Ns') -- a tunnel/gateway
+    stall. A pre-flight budget REFUSAL ('over budget', 0 tokens spent) is
+    NOT a stall and must not burn the stall cap."""
+    if _is_timeout_error(e):
+        return True
+    low = str(e).lower()
+    return "watchdog window" in low or "watchdogtimeout" in low
 
 
 def _is_timeout_error(e: Exception) -> bool:
@@ -4038,6 +4107,43 @@ def _docs_only_changes(changed_paths) -> bool:
     return True
 
 
+def _promote_failing_suite(new_failures, output_trustworthy: bool,
+                           changed_paths, baseline_output: str):
+    """Decide whether a FAILING suite may still be promoted to 'accepted'.
+
+    Promotion is legal in exactly two mutually-exclusive cases:
+      A. The runner genuinely executed tests (trustworthy after-output) AND the
+         patch added no NEW failures -- the remainder is pre-existing.
+      B. Every changed path is file-scoped documentation AND the baseline suite
+         itself was untestable (untrustworthy baseline -- collection error /
+         missing runner / timeout): a docs edit cannot cause a build/collection
+         break and no retry could fix it.
+
+    The guard in case A is the point: when the baseline never ran (env-broken),
+    'no FAILED nodes' is trivially true for ANY patch, code included, so the
+    trust branch would silently ship a code edit in a repo whose suite is
+    broken. Case A is therefore disabled for untrustworthy baselines: only the
+    docs-only case B may pass there. Returns (accepted, reason)."""
+    if new_failures:
+        return False, ""
+    baseline_env_broken = not suite_result_is_trustworthy(baseline_output)
+    if baseline_env_broken:
+        if _docs_only_changes(changed_paths):
+            return (True, "docs-only change; baseline suite env-broken/untrustworthy, "
+                          "failed identically at baseline -- accepting (code was not touched).")
+        return (
+            False,
+            "baseline suite is env-broken (untrustworthy) but the patch edits "
+            "non-doc files -- not promoting without a real test run.",
+        )
+    if output_trustworthy:
+        return (True, "Remaining failures are all pre-existing, not caused by this fix.")
+    if _docs_only_changes(changed_paths):
+        return (True, "docs-only change; suite untrustworthy and failed identically "
+                      "at baseline -- accepting.")
+    return False, ""
+
+
 def blame_changed_files(
     changed_paths: list, failing_nodeids: set, output: str
 ) -> set:
@@ -4284,6 +4390,61 @@ def added_lines_of_diff(repo_dir: Path) -> str:
     return "\n".join(
         l for l in (result.stdout or "").splitlines() if l.startswith("+") and not l.startswith("+++")
     )
+
+
+_TEST_PATH_PARTS = {"test", "tests", "testing", "spec", "specs", "__tests__"}
+# New test DEFINITIONS a model sneaks into an application module.
+_TEST_DEF_RES = (
+    re.compile(r"^\+\s*(async\s+)?def\s+test_\w+"),
+    re.compile(r"^\+\s*class\s+Test[A-Z_]"),
+    re.compile(r"^\+\s*(it|test|describe)\s*\("),
+    re.compile(r"^\+\s*@(Test|pytest\.mark\.test)"),
+)
+
+
+def _is_test_file(rel_path: str) -> bool:
+    p = Path(str(rel_path).replace("\\", "/"))
+    name = p.name.lower()
+    if {seg.lower() for seg in p.parts} & _TEST_PATH_PARTS:
+        return True
+    if name.startswith("test_") or name.endswith(("_test.py", ".test.js",
+                                                    ".test.ts", ".spec.js",
+                                                    ".spec.ts", "_test.go")):
+        return True
+    return name == "conftest.py"
+
+
+def scan_for_tests_in_production(repo_dir, changed_paths: list) -> list:
+    """Newly added test definitions inside NON-test files, as
+    'rel/path.py: def test_x' strings. Only '+' lines of the diff are
+    inspected, so a production file that legitimately mentions a test helper
+    in a comment or pre-existing line is never flagged -- only definitions the
+    patch itself introduces. Documentation files are skipped. Never raises."""
+    out = []
+    for rel in changed_paths or []:
+        rel_s = str(rel).replace("\\", "/")
+        if _is_test_file(rel_s) or rel_s.lower().endswith(_DOC_SUFFIXES):
+            continue
+        try:
+            subprocess.run(["git", "add", "-A", "-N"], cwd=repo_dir,
+                           capture_output=True)
+            res = subprocess.run(
+                ["git", "diff", "--unified=0", "--", rel_s],
+                cwd=repo_dir, capture_output=True, text=True,
+                encoding="utf-8", errors="replace",
+            )
+        except Exception:  # noqa: BLE001 - a guard must never crash a run
+            continue
+        for line in (res.stdout or "").splitlines():
+            if not line.startswith("+") or line.startswith("+++"):
+                continue
+            for rx in _TEST_DEF_RES:
+                m = rx.match(line)
+                if m:
+                    snippet = line[1:].strip()[:70]
+                    out.append(f"{rel_s}: {snippet}")
+                    break
+    return out
 
 
 def regression_test_gate(
@@ -5482,11 +5643,16 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
     # Detect them cheaply and treat them as HARD -- plan-first + wider context
     # grounded in the real repo, instead of hoping the flat budget survives
     # attempts full of invented files.
-    vague = is_vague_issue(issue)
-    effective_difficulty = (
-        "hard" if classification["difficulty"] == "hard" or vague
-        else classification["difficulty"]
-    )
+    # EXCEPTION: a vague issue that is clearly docs-only (classifier domain is
+    # docs) gets the ROUTINE budget. Guessing "which file/heading" inside a
+    # README is low-stakes and flat-budget suffices; the HARD plan-first path
+    # only multiplies calls + watchdog exposure for a one-line docs edit.
+    effective_difficulty, vague, docs_vague = escalated_difficulty(classification, issue)
+    if docs_vague:
+        print(
+            "   ↳ Vague but docs-domain -- keeping the routine budget "
+            "(no HARD plan-first escalation for a README/docs edit)."
+        )
 
     # Anti-collision guard only -- we do NOT claim yet. We defer the claim
     # until we actually have a validated, optimal fix in hand (below), so we
@@ -5765,6 +5931,37 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
                 subprocess.run(["git", "reset", "--hard"], cwd=repo_dir, capture_output=True)
                 subprocess.run(["git", "clean", "-fd"], cwd=repo_dir, capture_output=True)
                 continue
+
+            # Test-in-production guard (static, no LLM): a patch that defines
+            # test functions inside an application module is rejected outright.
+            # Models keep "helpfully" appending def test_* to a source file;
+            # the supervisor catches it too, but only AFTER a full generate +
+            # test + review round-trip, and asking nicely does not stop the
+            # repeat. Caught here it costs zero extra model calls.
+            stray_tests = scan_for_tests_in_production(repo_dir, changed_paths)
+            if stray_tests:
+                print(f"🚫 Test code added to production file(s) ({len(stray_tests)}):")
+                for h in stray_tests:
+                    print(f"   - {h}")
+                error = (
+                    "Your previous patch defined test functions inside "
+                    "application source files:\n"
+                    f"{' '.join(stray_tests)}\n"
+                    "Tests MUST live in a dedicated test file (tests/test_*.py "
+                    "or a *_test.py / *.spec.js next to the suite), never inside "
+                    "a production module. Move the test to its own file -- or, "
+                    "if this repo has no test suite at all, ship the fix WITHOUT "
+                    "any test -- and resubmit."
+                )
+                failure_history.append({
+                    "attempt": attempt,
+                    "changed": changed_paths,
+                    "signal": error[-300:],
+                    "error": error,
+                })
+                subprocess.run(["git", "reset", "--hard"], cwd=repo_dir, capture_output=True)
+                subprocess.run(["git", "clean", "-fd"], cwd=repo_dir, capture_output=True)
+                continue
         except ValueError as e:
             # Model responded but didn't follow the required format, or every
             # proposed file was out-of-scope -- treat as a retryable failure
@@ -5838,19 +6035,12 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
             previous_error_signature = error_signature
 
             new_failures = extract_failing_tests(output) - baseline_failures
-            if not new_failures and suite_result_is_trustworthy(output):
-                # Only pre-existing failures remain (and the runner really did
-                # run the suite -- a timeout/missing-runner is NOT "fine") --
-                # the fix itself is fine.
-                print("   ↳ Remaining failures are all pre-existing, not caused by this fix.")
-                passed = True
-            elif not new_failures and _docs_only_changes(changed_paths):
-                # Docs-only exemption: every change is documentation and the
-                # suite failed the SAME way at baseline (untrustworthy output
-                # -- collection error / missing runner / build env break), so
-                # the docs edit cannot be the cause and no retry will help.
-                print("   ↳ Docs-only change; suite is env-broken (untrustworthy) and "
-                      "failed identically at baseline -- accepting.")
+            accepted, accept_why = _promote_failing_suite(
+                new_failures, suite_result_is_trustworthy(output),
+                changed_paths, baseline_output,
+            )
+            if accepted:
+                print(f"   ↳ {accept_why}")
                 passed = True
 
         if passed:
@@ -5912,6 +6102,15 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
                     "signal": error[-300:],
                     "error": error,
                 })
+                # Revert the rejected patch: the next attempt must start from
+                # the clean baseline, not from the diff the reviewer just
+                # refused. Without this the offending change STAYS in the tree
+                # and is re-flagged on every later attempt, so the model can
+                # never escape its own rejected patch (seen live on
+                # w1nsh/eljur-to-obsidian#8: a bad src/config/writer.py test
+                # function from attempt 1 poisoned attempts 2-5).
+                subprocess.run(["git", "reset", "--hard"], cwd=repo_dir, capture_output=True)
+                subprocess.run(["git", "clean", "-fd"], cwd=repo_dir, capture_output=True)
                 continue
             # SDE-2 review gate before the PR exists. When the self-review says
             # NOT READY and attempts remain, the concern is fed back as a
@@ -5932,6 +6131,11 @@ def main(repo_name: str, issue_number: int, test_command: str, force_workspace: 
                     "signal": error[-300:],
                     "error": error,
                 })
+                # Same rule as the supervisor-flag path: a NOT READY verdict
+                # rejects the APPLIED patch, so revert it before retrying or
+                # the rejected diff haunts every later attempt.
+                subprocess.run(["git", "reset", "--hard"], cwd=repo_dir, capture_output=True)
+                subprocess.run(["git", "clean", "-fd"], cwd=repo_dir, capture_output=True)
                 continue
             if sde2_status == "NOT READY":
                 print("🚫 SDE-2 self-review is NOT READY on the final attempt -- no PR opened.")
@@ -6105,7 +6309,7 @@ def sync_pr_branch(repo, branch_name: str, issue_number=None,
 def _iteration_solve_loop(
     issue, repo_dir, relevant_files, allowed_paths, test_command, baseline_failures,
     language, guidance, memory_context=None, attempts=None, labels=None,
-    difficulty=None, domain=None, grounding=None,
+    difficulty=None, domain=None, grounding=None, baseline_output="",
 ):
     """Compact Analyze->Fix->Test->(supervisor) loop for an iteration, with the
     same safeguards as the initial solve: retry limit + repeated-identical-
@@ -6189,7 +6393,12 @@ def _iteration_solve_loop(
                 return False, output, "Repeated identical failure -- stopped early."
             prev_sig = sig
             new_fail = extract_failing_tests(output) - baseline_failures
-            if not new_fail and suite_result_is_trustworthy(output):
+            accepted, accept_why = _promote_failing_suite(
+                new_fail, suite_result_is_trustworthy(output),
+                _paths(), baseline_output,
+            )
+            if accepted:
+                print(f"   ↳ {accept_why}")
                 passed = True
             else:
                 # Per-file staging for hard tasks during a review round too:
@@ -6210,6 +6419,10 @@ def _iteration_solve_loop(
                     "attempt": attempt, "changed": _paths(),
                     "signal": error[-300:], "error": error,
                 })
+                # Revert the rejected patch before the next attempt (see the
+                # main loop): a rejected diff left applied poisons every retry.
+                subprocess.run(["git", "reset", "--hard"], cwd=repo_dir, capture_output=True)
+                subprocess.run(["git", "clean", "-fd"], cwd=repo_dir, capture_output=True)
                 continue
             return True, output, reason
         error = output
@@ -6419,7 +6632,7 @@ def run_conversation(
             memory_context=memory_context,
             attempts=MAX_HARD_ATTEMPTS if rec_difficulty == "hard" else MAX_ATTEMPTS,
             labels=rec_labels, difficulty=rec_difficulty, domain=rec_domain,
-            grounding=grounding,
+            grounding=grounding, baseline_output=baseline_output,
         )
         if success:
             wf_advance(record, WF.TESTING, "fix validated")
@@ -7937,6 +8150,17 @@ def _run_attempt(repo_name: str, issue_number: int, test_command: str,
         reason = f"all providers exhausted: {exc}"
         print(f"⛔ {reason}")
         guards.log_failure(f"providers:{repo_name}", exc,
+                           issue={"repo": repo_name, "issue": issue_number})
+        _abandon_after_failure(repo_name, issue_number, outcome, reason)
+        return outcome
+    except OmniRouteStallExceeded as exc:
+        # OMNIROUTE_STALL_CAP consecutive combos all silenced -- the local
+        # gateway / tunnel path itself is unreliable. Clean terminal abandon:
+        # do NOT chase a broken path with more retries or a bigger budget.
+        outcome = AttemptOutcome.ABANDONED_STALL
+        reason = f"gateway stalled repeatedly: {exc}"
+        print(f"⛔ {reason}")
+        guards.log_failure(f"stall:{repo_name}", exc,
                            issue={"repo": repo_name, "issue": issue_number})
         _abandon_after_failure(repo_name, issue_number, outcome, reason)
         return outcome
