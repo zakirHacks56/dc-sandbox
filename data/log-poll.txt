@@ -20605,3 +20605,6 @@
 2026-10-05T11:31:38+00:00  gate poller start (offset=746150324)
 2026-10-05T11:31:46+00:00  poll lease taken for 45s
 2026-10-05T11:31:46+00:00  gate poller done: 0 callback(s), new offset=746150324
+2026-10-05T11:46:50+00:00  gate poller start (offset=746150324)
+2026-10-05T11:46:58+00:00  poll lease taken for 45s
+2026-10-05T11:46:58+00:00  gate poller done: 0 callback(s), new offset=746150324
