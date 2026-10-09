@@ -27971,3 +27971,7 @@ Switched to a new branch 'fix-issue-1327'
 2026-10-09T17:00:14+00:00  poll lease taken for 45s
 2026-10-09T17:00:14+00:00  gate poller done: 0 callback(s), new offset=746150324
 2026-10-09T17:00:14+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
+2026-10-09T17:07:42+00:00  gate poller start (offset=746150324)
+2026-10-09T17:07:50+00:00  poll lease taken for 45s
+2026-10-09T17:07:50+00:00  gate poller done: 0 callback(s), new offset=746150324
+2026-10-09T17:07:50+00:00  tick done (outcome=paused, master switch STOPPED -- no work, no tokens spent)
